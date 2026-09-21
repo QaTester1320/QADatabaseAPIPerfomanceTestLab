@@ -1,0 +1,5755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QA Sandbox - E-Commerce Testing Lab</title>
+
+<style>
+:root{
+    --primary:#6d28d9;
+    --primary-dark:#4c1d95;
+    --primary-light:#ede9fe;
+    --secondary:#8b5cf6;
+    --bg:#f6f4fa;
+    --white:#ffffff;
+    --text:#21182b;
+    --muted:#746b7d;
+    --border:#e4ddea;
+    --success:#15803d;
+    --success-bg:#dcfce7;
+    --danger:#dc2626;
+    --danger-bg:#fee2e2;
+    --warning:#b45309;
+    --warning-bg:#fef3c7;
+    --info:#2563eb;
+    --info-bg:#dbeafe;
+    --shadow:0 8px 30px rgba(61,35,91,.08);
+    --radius:12px;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+button,
+input,
+select,
+textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* =========================
+   GLOBAL
+========================= */
+
+.app-header{
+    height:66px;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    padding:0 22px;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:800;
+    color:var(--primary);
+    white-space:nowrap;
+}
+
+.logo span{
+    color:var(--text);
+}
+
+.main-nav{
+    display:flex;
+    gap:4px;
+    margin-left:25px;
+    flex-wrap:wrap;
+}
+
+.nav-btn{
+    background:transparent;
+    border:0;
+    color:#574d61;
+    padding:9px 11px;
+    border-radius:8px;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+    background:var(--primary-light);
+    color:var(--primary);
+    font-weight:700;
+}
+
+.header-right{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.user-name{
+    font-size:13px;
+    color:var(--muted);
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.container{
+    max-width:1450px;
+    margin:auto;
+    padding:25px;
+}
+
+.card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+}
+
+.btn{
+    border:0;
+    border-radius:8px;
+    padding:9px 14px;
+    font-weight:600;
+    transition:.15s;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+}
+
+.btn-primary{
+    background:var(--primary);
+    color:#fff;
+}
+
+.btn-primary:hover{
+    background:var(--primary-dark);
+}
+
+.btn-secondary{
+    background:#eee9f5;
+    color:#443a50;
+}
+
+.btn-danger{
+    background:var(--danger);
+    color:#fff;
+}
+
+.btn-success{
+    background:var(--success);
+    color:#fff;
+}
+
+.btn-warning{
+    background:#f59e0b;
+    color:#fff;
+}
+
+.btn-small{
+    padding:6px 9px;
+    font-size:12px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid var(--border);
+    background:#fff;
+    border-radius:8px;
+    padding:10px 12px;
+    outline:none;
+    color:var(--text);
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:var(--secondary);
+    box-shadow:0 0 0 3px rgba(139,92,246,.12);
+}
+
+textarea{
+    resize:vertical;
+    min-height:110px;
+}
+
+label{
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.grid-2{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+}
+
+.grid-3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+}
+
+.grid-4{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+}
+
+.section-title{
+    margin:0 0 5px;
+    font-size:24px;
+}
+
+.section-subtitle{
+    color:var(--muted);
+    margin:0 0 22px;
+}
+
+.badge{
+    display:inline-flex;
+    padding:4px 8px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:700;
+}
+
+.badge-success{
+    background:var(--success-bg);
+    color:var(--success);
+}
+
+.badge-danger{
+    background:var(--danger-bg);
+    color:var(--danger);
+}
+
+.badge-warning{
+    background:var(--warning-bg);
+    color:var(--warning);
+}
+
+.badge-info{
+    background:var(--info-bg);
+    color:var(--info);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    background:linear-gradient(135deg,#4c1d95,#6d28d9 50%,#8b5cf6);
+    color:white;
+    border-radius:20px;
+    padding:50px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:30px;
+    overflow:hidden;
+}
+
+.hero-content{
+    max-width:700px;
+}
+
+.hero h1{
+    font-size:42px;
+    line-height:1.1;
+    margin:0 0 15px;
+}
+
+.hero p{
+    font-size:16px;
+    line-height:1.7;
+    opacity:.9;
+}
+
+.hero-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:22px;
+}
+
+.hero .btn-primary{
+    background:#fff;
+    color:var(--primary);
+}
+
+.hero-box{
+    min-width:260px;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.2);
+    padding:25px;
+    border-radius:18px;
+    backdrop-filter:blur(8px);
+}
+
+.hero-box strong{
+    font-size:35px;
+}
+
+/* =========================
+   PRODUCT
+========================= */
+
+.product-card{
+    overflow:hidden;
+}
+
+.product-image{
+    height:220px;
+    background:#f1edf7;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:70px;
+}
+
+.product-body{
+    padding:15px;
+}
+
+.product-body h3{
+    margin:0 0 7px;
+    font-size:16px;
+}
+
+.product-description{
+    color:var(--muted);
+    font-size:13px;
+    min-height:38px;
+}
+
+.price{
+    color:var(--primary);
+    font-size:19px;
+    font-weight:800;
+}
+
+.old-price{
+    text-decoration:line-through;
+    color:#999;
+    font-size:12px;
+    margin-left:5px;
+}
+
+.product-actions{
+    display:flex;
+    gap:7px;
+    margin-top:12px;
+}
+
+/* =========================
+   CATEGORY
+========================= */
+
+.category-card{
+    padding:22px;
+    text-align:center;
+    transition:.2s;
+}
+
+.category-card:hover{
+    transform:translateY(-3px);
+    border-color:#c4b5fd;
+}
+
+.category-icon{
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper{
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:700px;
+}
+
+th,
+td{
+    border-bottom:1px solid var(--border);
+    padding:11px;
+    text-align:left;
+    font-size:13px;
+    vertical-align:top;
+}
+
+th{
+    background:#faf8fc;
+    font-size:12px;
+    color:#594e63;
+    position:sticky;
+    top:0;
+}
+
+tr:hover td{
+    background:#fcfaff;
+}
+
+/* =========================
+   AUTH
+========================= */
+
+.auth-container{
+    max-width:480px;
+    margin:50px auto;
+}
+
+.auth-card{
+    padding:28px;
+}
+
+.auth-tabs{
+    display:flex;
+    gap:5px;
+    margin-bottom:25px;
+}
+
+.auth-tab{
+    flex:1;
+    padding:10px;
+    border:0;
+    background:#f0ebf6;
+    border-radius:8px;
+}
+
+.auth-tab.active{
+    background:var(--primary);
+    color:white;
+}
+
+/* =========================
+   ACCOUNT
+========================= */
+
+.account-layout{
+    display:grid;
+    grid-template-columns:240px 1fr;
+    gap:20px;
+}
+
+.account-sidebar{
+    padding:12px;
+    height:max-content;
+}
+
+.account-menu{
+    display:block;
+    width:100%;
+    text-align:left;
+    border:0;
+    background:transparent;
+    padding:12px;
+    border-radius:8px;
+}
+
+.account-menu:hover,
+.account-menu.active{
+    background:var(--primary-light);
+    color:var(--primary);
+}
+
+/* =========================
+   CART
+========================= */
+
+.cart-item{
+    display:grid;
+    grid-template-columns:80px 1fr 120px 100px 100px;
+    gap:15px;
+    align-items:center;
+    padding:15px;
+    border-bottom:1px solid var(--border);
+}
+
+.cart-thumb{
+    width:70px;
+    height:70px;
+    border-radius:8px;
+    background:#f2edf8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.admin-layout{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:20px;
+}
+
+.admin-sidebar{
+    padding:12px;
+    height:max-content;
+    position:sticky;
+    top:85px;
+}
+
+.admin-menu{
+    width:100%;
+    text-align:left;
+    background:transparent;
+    border:0;
+    padding:11px;
+    border-radius:8px;
+}
+
+.admin-menu:hover,
+.admin-menu.active{
+    background:var(--primary-light);
+    color:var(--primary);
+}
+
+.admin-content{
+    min-width:0;
+}
+
+.admin-toolbar{
+    display:flex;
+    gap:10px;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+    flex-wrap:wrap;
+}
+
+.search-box{
+    max-width:300px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(20,10,30,.55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+    padding:20px;
+}
+
+.modal{
+    width:min(600px,100%);
+    background:white;
+    border-radius:14px;
+    box-shadow:0 30px 80px rgba(0,0,0,.25);
+}
+
+.modal-header,
+.modal-footer{
+    padding:15px 20px;
+    border-bottom:1px solid var(--border);
+}
+
+.modal-footer{
+    border-top:1px solid var(--border);
+    border-bottom:0;
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+}
+
+.modal-body{
+    padding:20px;
+}
+
+/* =========================
+   DATABASE
+========================= */
+
+.tool-layout{
+    display:grid;
+    grid-template-columns:240px 1fr;
+    gap:15px;
+    min-height:700px;
+}
+
+.tool-sidebar{
+    background:#201b25;
+    color:#eee;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.tool-sidebar-header{
+    padding:15px;
+    background:#17131b;
+    font-weight:800;
+}
+
+.db-item{
+    padding:10px 15px;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.db-item:hover,
+.db-item.active{
+    background:#382b47;
+    color:#c4b5fd;
+}
+
+.tool-main{
+    min-width:0;
+}
+
+.tool-tabs{
+    display:flex;
+    gap:5px;
+    background:white;
+    padding:8px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    margin-bottom:12px;
+}
+
+.tool-tab{
+    padding:8px 12px;
+    background:#f3eff7;
+    border:0;
+    border-radius:6px;
+}
+
+.tool-tab.active{
+    background:var(--primary);
+    color:white;
+}
+
+.code-editor{
+    background:#17131b;
+    color:#eee;
+    border-radius:9px;
+    overflow:hidden;
+}
+
+.code-editor textarea{
+    min-height:180px;
+    border:0;
+    border-radius:0;
+    background:#17131b;
+    color:#f3f4f6;
+    font-family:Consolas,monospace;
+    font-size:13px;
+    resize:vertical;
+}
+
+.editor-toolbar{
+    display:flex;
+    justify-content:space-between;
+    padding:8px;
+    background:#201b25;
+}
+
+.result-status{
+    margin:12px 0;
+    font-size:13px;
+}
+
+/* =========================
+   POSTMAN
+========================= */
+
+.postman-header{
+    background:#242126;
+    color:#fff;
+    padding:12px 15px;
+    border-radius:10px 10px 0 0;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.postman-title{
+    font-weight:800;
+    color:#ff6c37;
+}
+
+.request-line{
+    display:grid;
+    grid-template-columns:100px 1fr 90px;
+    gap:7px;
+    padding:12px;
+    background:#2d2930;
+}
+
+.method-select{
+    background:#3a343e;
+    color:white;
+    border-color:#514858;
+}
+
+.url-input{
+    background:#3a343e;
+    color:white;
+    border-color:#514858;
+}
+
+.pm-tabs{
+    display:flex;
+    background:#2d2930;
+    padding:0 12px;
+    gap:5px;
+}
+
+.pm-tab{
+    background:transparent;
+    color:#cfc7d5;
+    border:0;
+    padding:10px;
+}
+
+.pm-tab.active{
+    color:white;
+    border-bottom:2px solid #ff6c37;
+}
+
+.pm-body{
+    background:#1d1a1f;
+    color:#eee;
+    padding:12px;
+}
+
+.pm-body textarea{
+    background:#17151a;
+    color:#e5e7eb;
+    border-color:#39333d;
+    font-family:Consolas,monospace;
+    min-height:180px;
+}
+
+.response-panel{
+    margin-top:15px;
+}
+
+.response-header{
+    background:#29252d;
+    color:white;
+    padding:10px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.response-body{
+    background:#17151a;
+    color:#d1d5db;
+    padding:15px;
+    min-height:260px;
+    overflow:auto;
+    font-family:Consolas,monospace;
+    font-size:13px;
+    white-space:pre-wrap;
+}
+
+/* =========================
+   PERFORMANCE
+========================= */
+
+.metric{
+    padding:20px;
+}
+
+.metric-label{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.metric-value{
+    font-size:28px;
+    font-weight:800;
+    margin-top:4px;
+}
+
+.progress{
+    height:12px;
+    background:#eee9f5;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    background:linear-gradient(90deg,var(--primary),var(--secondary));
+    width:0%;
+    transition:width .3s;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast-container{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:2000;
+}
+
+.toast{
+    background:#241d2a;
+    color:#fff;
+    padding:12px 15px;
+    border-radius:8px;
+    margin-top:8px;
+    box-shadow:var(--shadow);
+    font-size:13px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:1000px){
+    .main-nav{
+        display:none;
+    }
+
+    .grid-4{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid-3{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .account-layout,
+    .admin-layout,
+    .tool-layout{
+        grid-template-columns:1fr;
+    }
+
+    .admin-sidebar{
+        position:static;
+    }
+
+    .hero{
+        padding:30px;
+    }
+
+    .hero-box{
+        display:none;
+    }
+}
+
+@media(max-width:650px){
+    .container{
+        padding:15px;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .grid-4,
+    .grid-3,
+    .grid-2{
+        grid-template-columns:1fr;
+    }
+
+    .cart-item{
+        grid-template-columns:60px 1fr;
+    }
+
+    .cart-item>*:nth-child(n+3){
+        grid-column:2;
+    }
+
+    .request-line{
+        grid-template-columns:1fr;
+    }
+
+    .top{
+        padding:0 12px;
+    }
+
+    .user-name{
+        display:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="app-header">
+    <div class="logo">QA <span>Sandbox</span></div>
+
+    <nav class="main-nav">
+        <button class="nav-btn active" onclick="showPage('home')">Store</button>
+        <button class="nav-btn" onclick="showPage('api')">API Testing</button>
+        <button class="nav-btn" onclick="showPage('database')">Database</button>
+        <button class="nav-btn" onclick="showPage('performance')">Performance</button>
+        <button class="nav-btn" onclick="showPage('admin')">Admin</button>
+    </nav>
+
+    <div class="header-right">
+        <span id="headerUser" class="user-name">Guest</span>
+        <button class="btn btn-secondary btn-small" onclick="showPage('cart')">
+            Cart (<span id="cartCount">0</span>)
+        </button>
+        <button id="loginHeaderBtn" class="btn btn-primary btn-small" onclick="showPage('auth')">
+            Login
+        </button>
+    </div>
+</header>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section id="page-home" class="page active">
+<div class="container">
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>E-Commerce & QA Testing Sandbox</h1>
+            <p>
+                A browser-based practice environment for manual testers
+                who want hands-on experience with API testing, database
+                testing and performance testing.
+            </p>
+
+            <div class="hero-actions">
+                <button class="btn btn-primary" onclick="showPage('api')">
+                    Practice API Testing
+                </button>
+
+                <button class="btn btn-secondary" onclick="showPage('database')">
+                    Practice SQL
+                </button>
+
+                <button class="btn btn-secondary" onclick="showPage('performance')">
+                    Run Performance Test
+                </button>
+            </div>
+        </div>
+
+        <div class="hero-box">
+            <div>Testing Modules</div>
+            <strong>3+</strong>
+            <div>API • Database • Performance</div>
+        </div>
+    </div>
+
+    <div style="margin-top:30px">
+        <h2 class="section-title">Practice Areas</h2>
+        <p class="section-subtitle">
+            Use the same application data across different testing modules.
+        </p>
+
+        <div class="grid-4">
+
+            <div class="card category-card" onclick="showPage('api')">
+                <div class="category-icon">🔌</div>
+                <h3>API Testing</h3>
+                <p>GET, POST, PUT, DELETE, headers, JSON and responses.</p>
+            </div>
+
+            <div class="card category-card" onclick="showPage('database')">
+                <div class="category-icon">🗄️</div>
+                <h3>Database Testing</h3>
+                <p>SQL queries, CRUD operations, joins and validation.</p>
+            </div>
+
+            <div class="card category-card" onclick="showPage('performance')">
+                <div class="category-icon">⚡</div>
+                <h3>Performance Testing</h3>
+                <p>Virtual users, load, response time and throughput.</p>
+            </div>
+
+            <div class="card category-card" onclick="showPage('admin')">
+                <div class="category-icon">⚙️</div>
+                <h3>Admin Testing</h3>
+                <p>Practice CRUD, validation, permissions and workflows.</p>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div style="margin-top:35px">
+        <h2 class="section-title">Featured Products</h2>
+        <p class="section-subtitle">
+            These products are also available through the simulated API and database.
+        </p>
+
+        <div id="productGrid" class="grid-4"></div>
+    </div>
+
+</div>
+</section>
+
+
+<!-- =====================================================
+     PRODUCT DETAILS
+===================================================== -->
+
+<section id="page-pdp" class="page">
+<div class="container">
+    <div id="pdpContent"></div>
+</div>
+</section>
+
+
+<!-- =====================================================
+     CART
+===================================================== -->
+
+<section id="page-cart" class="page">
+<div class="container">
+
+    <h1 class="section-title">Shopping Cart</h1>
+    <p class="section-subtitle">Validate cart calculations and checkout flow.</p>
+
+    <div class="grid-2">
+
+        <div class="card">
+            <div id="cartItems"></div>
+        </div>
+
+        <div class="card" style="padding:20px;height:max-content">
+            <h2>Order Summary</h2>
+
+            <div style="display:flex;justify-content:space-between;margin:12px 0">
+                <span>Subtotal</span>
+                <strong id="cartSubtotal">$0.00</strong>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;margin:12px 0">
+                <span>Tax</span>
+                <strong id="cartTax">$0.00</strong>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;margin:12px 0">
+                <span>Shipping</span>
+                <strong id="cartShipping">$0.00</strong>
+            </div>
+
+            <hr>
+
+            <div style="display:flex;justify-content:space-between;font-size:20px">
+                <strong>Total</strong>
+                <strong id="cartTotal">$0.00</strong>
+            </div>
+
+            <button class="btn btn-primary" style="width:100%;margin-top:20px"
+                    onclick="startCheckout()">
+                Proceed to Checkout
+            </button>
+        </div>
+
+    </div>
+</div>
+</section>
+
+
+<!-- =====================================================
+     CHECKOUT
+===================================================== -->
+
+<section id="page-checkout" class="page">
+<div class="container">
+
+    <h1 class="section-title">Checkout</h1>
+
+    <div class="grid-2">
+
+        <div class="card" style="padding:22px">
+
+            <h2>1. Shipping Address</h2>
+
+            <div class="grid-2">
+
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input id="checkoutFirst">
+                </div>
+
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input id="checkoutLast">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input id="checkoutEmail" type="email">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input id="checkoutPhone">
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label>Address</label>
+                <input id="checkoutAddress">
+            </div>
+
+            <div class="grid-3">
+
+                <div class="form-group">
+                    <label>City</label>
+                    <input id="checkoutCity">
+                </div>
+
+                <div class="form-group">
+                    <label>State</label>
+                    <input id="checkoutState">
+                </div>
+
+                <div class="form-group">
+                    <label>Postal Code</label>
+                    <input id="checkoutZip">
+                </div>
+
+            </div>
+
+
+            <h2 style="margin-top:25px">2. Payment Method</h2>
+
+            <label style="border:1px solid var(--border);padding:14px;border-radius:8px">
+                <input type="radio" name="paymentMethod" value="card" checked>
+                Credit / Debit Card
+            </label>
+
+            <label style="border:1px solid var(--border);padding:14px;border-radius:8px;margin-top:8px">
+                <input type="radio" name="paymentMethod" value="cod">
+                Cash on Delivery
+            </label>
+
+            <div id="cardFields" style="margin-top:15px">
+
+                <div class="form-group">
+                    <label>Card Number</label>
+                    <input id="cardNumber" placeholder="4111 1111 1111 1111">
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Expiry</label>
+                        <input id="cardExpiry" placeholder="MM/YY">
+                    </div>
+
+                    <div class="form-group">
+                        <label>CVV</label>
+                        <input id="cardCvv" type="password">
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="btn btn-primary" onclick="placeOrder()">
+                Place Order
+            </button>
+
+        </div>
+
+
+        <div class="card" style="padding:22px;height:max-content">
+            <h2>Order Summary</h2>
+            <div id="checkoutSummary"></div>
+        </div>
+
+    </div>
+</div>
+</section>
+
+
+<!-- =====================================================
+     AUTH
+===================================================== -->
+
+<section id="page-auth" class="page">
+<div class="container">
+
+<div class="auth-container">
+
+<div class="card auth-card">
+
+<div class="auth-tabs">
+    <button id="loginTab" class="auth-tab active" onclick="switchAuth('login')">
+        Login
+    </button>
+
+    <button id="registerTab" class="auth-tab" onclick="switchAuth('register')">
+        Register
+    </button>
+</div>
+
+
+<div id="loginForm">
+
+    <h2>Login</h2>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input id="loginEmail" type="email" value="demo@example.com">
+    </div>
+
+    <div class="form-group">
+        <label>Password</label>
+        <input id="loginPassword" type="password" value="password">
+    </div>
+
+    <button class="btn btn-primary" style="width:100%" onclick="loginUser()">
+        Login
+    </button>
+
+    <p style="font-size:12px;color:var(--muted);margin-top:12px">
+        Demo credentials: demo@example.com / password
+    </p>
+
+</div>
+
+
+<div id="registerForm" class="hidden">
+
+    <h2>Create Account</h2>
+
+    <div class="form-group">
+        <label>Name</label>
+        <input id="registerName">
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input id="registerEmail">
+    </div>
+
+    <div class="form-group">
+        <label>Password</label>
+        <input id="registerPassword" type="password">
+    </div>
+
+    <button class="btn btn-primary" style="width:100%" onclick="registerUser()">
+        Create Account
+    </button>
+
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+
+<!-- =====================================================
+     ACCOUNT
+===================================================== -->
+
+<section id="page-account" class="page">
+<div class="container">
+
+<div class="account-layout">
+
+<div class="card account-sidebar">
+
+    <button class="account-menu active" onclick="accountSection('orders',this)">
+        My Orders
+    </button>
+
+    <button class="account-menu" onclick="accountSection('wishlist',this)">
+        Wishlist
+    </button>
+
+    <button class="account-menu" onclick="accountSection('compare',this)">
+        Compare List
+    </button>
+
+    <button class="account-menu" onclick="accountSection('info',this)">
+        Account Information
+    </button>
+
+    <button class="account-menu" onclick="logoutUser()">
+        Logout
+    </button>
+
+    <button class="account-menu" style="color:#dc2626" onclick="deleteAccount()">
+        Delete Account
+    </button>
+
+</div>
+
+
+<div class="card" style="padding:22px">
+
+    <div id="accountContent"></div>
+
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- =====================================================
+     ADMIN
+===================================================== -->
+
+<section id="page-admin" class="page">
+<div class="container">
+
+<div class="admin-layout">
+
+<aside class="card admin-sidebar">
+
+    <h3 style="padding:0 10px">Admin Panel</h3>
+
+    <button class="admin-menu active" onclick="adminModule('products',this)">
+        Products
+    </button>
+
+    <button class="admin-menu" onclick="adminModule('categories',this)">
+        Categories
+    </button>
+
+    <button class="admin-menu" onclick="adminModule('customers',this)">
+        Customers
+    </button>
+
+    <button class="admin-menu" onclick="adminModule('reviews',this)">
+        Reviews
+    </button>
+
+    <button class="admin-menu" onclick="adminModule('cms',this)">
+        CMS Pages
+    </button>
+
+</aside>
+
+
+<main class="admin-content">
+
+<div id="adminContent"></div>
+
+</main>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- =====================================================
+     DATABASE
+===================================================== -->
+
+<section id="page-database" class="page">
+<div class="container">
+
+<h1 class="section-title">Database Testing Lab</h1>
+<p class="section-subtitle">
+    MySQL / phpMyAdmin / Workbench-style database simulator.
+</p>
+
+<div class="tool-layout">
+
+<aside class="tool-sidebar">
+
+    <div class="tool-sidebar-header">
+        qa_sandbox_db
+    </div>
+
+    <div class="db-item active" onclick="selectDbTable('products',this)">
+        📋 products
+    </div>
+
+    <div class="db-item" onclick="selectDbTable('categories',this)">
+        📋 categories
+    </div>
+
+    <div class="db-item" onclick="selectDbTable('customers',this)">
+        📋 customers
+    </div>
+
+    <div class="db-item" onclick="selectDbTable('orders',this)">
+        📋 orders
+    </div>
+
+    <div class="db-item" onclick="selectDbTable('order_items',this)">
+        📋 order_items
+    </div>
+
+    <div class="db-item" onclick="selectDbTable('reviews',this)">
+        📋 reviews
+    </div>
+
+</aside>
+
+
+<main class="tool-main">
+
+<div class="card" style="padding:12px">
+
+    <div class="tool-tabs">
+        <button class="tool-tab active">SQL Editor</button>
+        <button class="tool-tab" onclick="loadTableData()">Browse</button>
+        <button class="tool-tab" onclick="showDatabaseSchema()">Structure</button>
+    </div>
+
+    <div class="code-editor">
+
+        <div class="editor-toolbar">
+
+            <span>SQL Console</span>
+
+            <div>
+                <button class="btn btn-secondary btn-small"
+                        onclick="clearSql()">
+                    Clear
+                </button>
+
+                <button class="btn btn-primary btn-small"
+                        onclick="executeSQL()">
+                    Execute
+                </button>
+            </div>
+
+        </div>
+
+        <textarea id="sqlEditor">SELECT * FROM products;</textarea>
+
+    </div>
+
+    <div id="sqlStatus" class="result-status"></div>
+
+    <div id="databaseResult"></div>
+
+</div>
+
+</main>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- =====================================================
+     API
+===================================================== -->
+
+<section id="page-api" class="page">
+<div class="container">
+
+<h1 class="section-title">API Testing Lab</h1>
+<p class="section-subtitle">
+    Postman-style API testing environment using the sandbox's own data.
+</p>
+
+<div class="tool-layout">
+
+<aside class="tool-sidebar">
+
+    <div class="tool-sidebar-header">
+        Collections
+    </div>
+
+    <div class="db-item active" onclick="loadApiRequest('GET','/api/products')">
+        GET Products
+    </div>
+
+    <div class="db-item" onclick="loadApiRequest('GET','/api/products/1')">
+        GET Product
+    </div>
+
+    <div class="db-item" onclick="loadApiRequest('POST','/api/products')">
+        POST Product
+    </div>
+
+    <div class="db-item" onclick="loadApiRequest('PUT','/api/products/1')">
+        PUT Product
+    </div>
+
+    <div class="db-item" onclick="loadApiRequest('DELETE','/api/products/1')">
+        DELETE Product
+    </div>
+
+    <div class="db-item" onclick="loadApiRequest('GET','/api/customers')">
+        GET Customers
+    </div>
+
+    <div class="db-item" onclick="loadApiRequest('POST','/api/orders')">
+        POST Order
+    </div>
+
+    <div class="db-item" onclick="loadApiRequest('GET','/api/orders')">
+        GET Orders
+    </div>
+
+</aside>
+
+
+<main class="tool-main">
+
+<div class="card" style="overflow:hidden;background:#1d1a1f">
+
+    <div class="postman-header">
+
+        <span class="postman-title">Postman</span>
+
+        <span style="font-size:12px;color:#aaa">
+            QA Sandbox Collection
+        </span>
+
+    </div>
+
+
+    <div class="request-line">
+
+        <select id="apiMethod" class="method-select">
+            <option>GET</option>
+            <option>POST</option>
+            <option>PUT</option>
+            <option>PATCH</option>
+            <option>DELETE</option>
+        </select>
+
+        <input id="apiUrl"
+               class="url-input"
+               value="/api/products">
+
+        <button class="btn btn-primary" onclick="sendApiRequest()">
+            Send
+        </button>
+
+    </div>
+
+
+    <div class="pm-tabs">
+
+        <button class="pm-tab active" onclick="apiTab('params',this)">
+            Params
+        </button>
+
+        <button class="pm-tab" onclick="apiTab('headers',this)">
+            Headers
+        </button>
+
+        <button class="pm-tab" onclick="apiTab('body',this)">
+            Body
+        </button>
+
+        <button class="pm-tab" onclick="apiTab('auth',this)">
+            Authorization
+        </button>
+
+    </div>
+
+
+    <div class="pm-body">
+
+        <div id="apiParamsTab">
+
+            <h4>Query Parameters</h4>
+
+            <div class="grid-2">
+
+                <input id="paramKey" placeholder="key">
+
+                <input id="paramValue" placeholder="value">
+
+            </div>
+
+        </div>
+
+
+        <div id="apiHeadersTab" class="hidden">
+
+            <h4>Headers</h4>
+
+            <textarea id="apiHeaders">{
+  "Content-Type": "application/json",
+  "Accept": "application/json"
+}</textarea>
+
+        </div>
+
+
+        <div id="apiBodyTab" class="hidden">
+
+            <h4>JSON Body</h4>
+
+            <textarea id="apiBody">{
+  "name": "QA Demo Product",
+  "price": 99.99,
+  "category": "Electronics",
+  "stock": 10
+}</textarea>
+
+        </div>
+
+
+        <div id="apiAuthTab" class="hidden">
+
+            <h4>Authorization</h4>
+
+            <select id="authType">
+                <option>No Auth</option>
+                <option>Bearer Token</option>
+                <option>Basic Auth</option>
+                <option>API Key</option>
+            </select>
+
+            <input id="authToken"
+                   style="margin-top:10px"
+                   placeholder="Token / API key">
+
+        </div>
+
+    </div>
+
+
+    <div class="response-panel">
+
+        <div class="response-header">
+
+            <span>Response</span>
+
+            <span id="apiStatusBadge" class="badge badge-success">
+                Ready
+            </span>
+
+        </div>
+
+        <div id="apiResponseHeaders"
+             style="padding:10px;background:#242126;color:#aaa;font-size:12px">
+        </div>
+
+        <div id="apiResponse"
+             class="response-body">
+Send a request to see the response.
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card" style="margin-top:15px;padding:15px">
+
+    <h3>Request History</h3>
+
+    <div id="apiHistory"></div>
+
+</div>
+
+</main>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- =====================================================
+     PERFORMANCE
+===================================================== -->
+
+<section id="page-performance" class="page">
+<div class="container">
+
+<h1 class="section-title">Performance Testing Lab</h1>
+
+<p class="section-subtitle">
+    Simulate load, stress, spike and endurance testing without installing JMeter.
+</p>
+
+
+<div class="grid-2">
+
+<div class="card" style="padding:22px">
+
+<h2>Test Configuration</h2>
+
+<div class="form-group">
+    <label>Test Type</label>
+
+    <select id="perfType">
+        <option>Load Test</option>
+        <option>Stress Test</option>
+        <option>Spike Test</option>
+        <option>Endurance Test</option>
+        <option>Smoke Performance Test</option>
+    </select>
+</div>
+
+
+<div class="form-group">
+    <label>Virtual Users</label>
+    <input id="virtualUsers" type="number" value="20" min="1">
+</div>
+
+
+<div class="form-group">
+    <label>Duration (seconds)</label>
+    <input id="perfDuration" type="number" value="10" min="1">
+</div>
+
+
+<div class="form-group">
+    <label>Ramp-up (seconds)</label>
+    <input id="rampUp" type="number" value="3" min="0">
+</div>
+
+
+<div class="form-group">
+    <label>Endpoint</label>
+
+    <select id="perfEndpoint">
+        <option>/api/products</option>
+        <option>/api/products/1</option>
+        <option>/api/customers</option>
+        <option>/api/orders</option>
+    </select>
+</div>
+
+
+<button class="btn btn-primary"
+        onclick="startPerformanceTest()">
+    Start Performance Test
+</button>
+
+
+<button class="btn btn-secondary"
+        onclick="resetPerformance()">
+    Reset
+</button>
+
+</div>
+
+
+<div class="card" style="padding:22px">
+
+<h2>Live Test Status</h2>
+
+<div class="progress">
+    <div id="perfProgress" class="progress-bar"></div>
+</div>
+
+<p id="perfStatus">
+    Ready to start.
+</p>
+
+<div class="grid-2">
+
+<div class="metric">
+    <div class="metric-label">Requests</div>
+    <div id="perfRequests" class="metric-value">0</div>
+</div>
+
+<div class="metric">
+    <div class="metric-label">Errors</div>
+    <div id="perfErrors" class="metric-value">0</div>
+</div>
+
+<div class="metric">
+    <div class="metric-label">Avg Response</div>
+    <div id="perfAvg" class="metric-value">0 ms</div>
+</div>
+
+<div class="metric">
+    <div class="metric-label">Throughput</div>
+    <div id="perfThroughput" class="metric-value">0 req/s</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card" style="margin-top:20px;padding:22px">
+
+<h2>Performance Test Results</h2>
+
+<div id="perfResults">
+    No test executed yet.
+</div>
+
+</div>
+
+
+<div class="card" style="margin-top:20px;padding:22px">
+
+<h2>What to Practice</h2>
+
+<div class="grid-3">
+
+<div>
+<strong>Load Testing</strong>
+<p style="color:var(--muted)">
+Check system behavior under expected concurrent users.
+</p>
+</div>
+
+<div>
+<strong>Stress Testing</strong>
+<p style="color:var(--muted)">
+Gradually increase load beyond normal capacity.
+</p>
+</div>
+
+<div>
+<strong>Spike Testing</strong>
+<p style="color:var(--muted)">
+Suddenly increase or decrease traffic.
+</p>
+</div>
+
+<div>
+<strong>Endurance Testing</strong>
+<p style="color:var(--muted)">
+Run a sustained workload and monitor degradation.
+</p>
+</div>
+
+<div>
+<strong>Response Time</strong>
+<p style="color:var(--muted)">
+Measure average, minimum and maximum response time.
+</p>
+</div>
+
+<div>
+<strong>Error Rate</strong>
+<p style="color:var(--muted)">
+Check failed requests against total requests.
+</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- =====================================================
+     DELETE MODAL
+===================================================== -->
+
+<div id="deleteModal" class="modal-overlay hidden">
+
+<div class="modal">
+
+<div class="modal-header">
+    <h3>Confirm Delete</h3>
+</div>
+
+<div class="modal-body">
+
+    <p id="deleteMessage">
+        Are you sure you want to delete this record?
+    </p>
+
+</div>
+
+<div class="modal-footer">
+
+    <button class="btn btn-secondary"
+            onclick="closeDeleteModal()">
+        Cancel
+    </button>
+
+    <button class="btn btn-danger"
+            onclick="confirmDelete()">
+        Delete
+    </button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div id="toastContainer" class="toast-container"></div>
+
+
+<script>
+
+/* =========================================================
+   DATA
+========================================================= */
+
+const defaultData = {
+
+products:[
+    {
+        id:1,
+        name:"Aurora X Pro Smartphone",
+        price:799.99,
+        category:"Electronics",
+        stock:25,
+        sku:"AUR-X-PRO",
+        description:"Premium smartphone with high-resolution display and advanced camera.",
+        emoji:"📱",
+        tags:"smartphone,mobile,electronics"
+    },
+    {
+        id:2,
+        name:"NovaBook 15 Laptop",
+        price:1099.99,
+        category:"Computers",
+        stock:18,
+        sku:"NOVA-15",
+        description:"Professional laptop designed for productivity and development.",
+        emoji:"💻",
+        tags:"laptop,computer,work"
+    },
+    {
+        id:3,
+        name:"SoundMax Wireless Headphones",
+        price:149.99,
+        category:"Audio",
+        stock:40,
+        sku:"SM-WH-01",
+        description:"Wireless noise-isolating headphones with long battery life.",
+        emoji:"🎧",
+        tags:"headphones,audio,wireless"
+    },
+    {
+        id:4,
+        name:"FitTrack Smart Watch",
+        price:229.99,
+        category:"Wearables",
+        stock:31,
+        sku:"FT-SW-01",
+        description:"Smart watch with fitness tracking and notifications.",
+        emoji:"⌚",
+        tags:"watch,fitness,wearable"
+    },
+    {
+        id:5,
+        name:"Vision 4K Monitor",
+        price:399.99,
+        category:"Computers",
+        stock:12,
+        sku:"VIS-4K-27",
+        description:"27-inch 4K monitor for design, testing and development.",
+        emoji:"🖥️",
+        tags:"monitor,4k,computer"
+    },
+    {
+        id:6,
+        name:"KeyPro Mechanical Keyboard",
+        price:89.99,
+        category:"Accessories",
+        stock:55,
+        sku:"KEY-MECH",
+        description:"Mechanical keyboard suitable for long working sessions.",
+        emoji:"⌨️",
+        tags:"keyboard,mechanical,accessory"
+    }
+],
+
+categories:[
+    {id:1,name:"Electronics",description:"Electronic devices"},
+    {id:2,name:"Computers",description:"Computers and accessories"},
+    {id:3,name:"Audio",description:"Audio equipment"},
+    {id:4,name:"Wearables",description:"Smart wearable devices"},
+    {id:5,name:"Accessories",description:"Computer accessories"}
+],
+
+customers:[
+    {
+        id:1,
+        name:"Demo Customer",
+        email:"demo@example.com",
+        password:"password",
+        phone:"9876543210",
+        status:"Active"
+    },
+    {
+        id:2,
+        name:"QA Tester",
+        email:"tester@example.com",
+        password:"password",
+        phone:"9876500000",
+        status:"Active"
+    }
+],
+
+reviews:[
+    {
+        id:1,
+        productId:1,
+        customer:"Demo Customer",
+        rating:5,
+        comment:"Very good product."
+    },
+    {
+        id:2,
+        productId:2,
+        customer:"QA Tester",
+        rating:4,
+        comment:"Good performance."
+    }
+],
+
+orders:[],
+
+order_items:[],
+
+cms:[
+    {
+        id:1,
+        title:"About Us",
+        slug:"about-us",
+        status:"Published",
+        content:"Welcome to the QA Sandbox store."
+    },
+    {
+        id:2,
+        title:"Privacy Policy",
+        slug:"privacy-policy",
+        status:"Published",
+        content:"This is a demo privacy policy."
+    }
+]
+
+};
+
+
+let db = loadData();
+
+let currentUser = null;
+
+let cart = [];
+
+let wishlist = [];
+
+let compareList = [];
+
+let apiHistory = [];
+
+let deleteContext = null;
+
+let currentAdminModule = "products";
+
+let currentDbTable = "products";
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+function loadData(){
+
+    const saved = localStorage.getItem("qaSandboxDB");
+
+    if(saved){
+
+        try{
+            return JSON.parse(saved);
+        }
+        catch(e){}
+    }
+
+    const copy = JSON.parse(JSON.stringify(defaultData));
+
+    localStorage.setItem(
+        "qaSandboxDB",
+        JSON.stringify(copy)
+    );
+
+    return copy;
+}
+
+
+function saveData(){
+
+    localStorage.setItem(
+        "qaSandboxDB",
+        JSON.stringify(db)
+    );
+}
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+document.addEventListener("DOMContentLoaded",function(){
+
+    renderProducts();
+
+    renderCart();
+
+    updateHeader();
+
+    renderAdmin();
+
+    renderAccount();
+
+    loadTableData();
+
+    renderApiHistory();
+
+    document.querySelectorAll(
+        'input[name="paymentMethod"]'
+    ).forEach(radio=>{
+
+        radio.addEventListener("change",function(){
+
+            document.getElementById("cardFields")
+                .classList.toggle(
+                    "hidden",
+                    this.value !== "card"
+                );
+
+        });
+
+    });
+
+});
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showPage(page){
+
+    document.querySelectorAll(".page")
+        .forEach(p=>p.classList.remove("active"));
+
+    const target =
+        document.getElementById("page-"+page);
+
+    if(target){
+        target.classList.add("active");
+    }
+
+    document.querySelectorAll(".nav-btn")
+        .forEach(btn=>btn.classList.remove("active"));
+
+    const navMap={
+        home:"Store",
+        api:"API Testing",
+        database:"Database",
+        performance:"Performance",
+        admin:"Admin"
+    };
+
+    document.querySelectorAll(".nav-btn")
+        .forEach(btn=>{
+
+            if(btn.textContent.trim()===navMap[page]){
+                btn.classList.add("active");
+            }
+
+        });
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    if(page==="cart"){
+        renderCart();
+    }
+
+    if(page==="checkout"){
+        renderCheckoutSummary();
+    }
+
+    if(page==="account"){
+
+        if(!currentUser){
+            showPage("auth");
+            return;
+        }
+
+        renderAccount();
+    }
+
+    if(page==="admin"){
+        renderAdmin();
+    }
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message){
+
+    const container =
+        document.getElementById("toastContainer");
+
+    const div=document.createElement("div");
+
+    div.className="toast";
+
+    div.textContent=message;
+
+    container.appendChild(div);
+
+    setTimeout(()=>{
+        div.remove();
+    },3000);
+
+}
+
+
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
+function renderProducts(){
+
+    const grid =
+        document.getElementById("productGrid");
+
+    if(!grid) return;
+
+    grid.innerHTML =
+        db.products.map(product=>`
+
+        <div class="card product-card">
+
+            <div class="product-image">
+                ${product.emoji || "📦"}
+            </div>
+
+            <div class="product-body">
+
+                <span class="badge badge-info">
+                    ${escapeHtml(product.category)}
+                </span>
+
+                <h3 style="margin-top:8px">
+                    ${escapeHtml(product.name)}
+                </h3>
+
+                <div class="product-description">
+                    ${escapeHtml(product.description)}
+                </div>
+
+                <div style="margin-top:10px">
+                    <span class="price">
+                        $${Number(product.price).toFixed(2)}
+                    </span>
+                </div>
+
+                <div class="product-actions">
+
+                    <button class="btn btn-primary btn-small"
+                            onclick="viewProduct(${product.id})">
+                        View
+                    </button>
+
+                    <button class="btn btn-secondary btn-small"
+                            onclick="addToCart(${product.id})">
+                        Add to Cart
+                    </button>
+
+                    <button class="btn btn-secondary btn-small"
+                            onclick="addWishlist(${product.id})">
+                        ♡
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+function viewProduct(id){
+
+    const product =
+        db.products.find(p=>p.id===id);
+
+    if(!product) return;
+
+    const reviews =
+        db.reviews.filter(r=>r.productId===id);
+
+    document.getElementById("pdpContent").innerHTML=`
+
+        <div class="card" style="padding:25px">
+
+            <div class="grid-2">
+
+                <div class="product-image"
+                     style="height:400px;font-size:130px">
+                    ${product.emoji}
+                </div>
+
+                <div>
+
+                    <span class="badge badge-info">
+                        ${escapeHtml(product.category)}
+                    </span>
+
+                    <h1>
+                        ${escapeHtml(product.name)}
+                    </h1>
+
+                    <div class="price">
+                        $${Number(product.price).toFixed(2)}
+                    </div>
+
+                    <p style="color:var(--muted);line-height:1.7">
+                        ${escapeHtml(product.description)}
+                    </p>
+
+                    <p>
+                        <strong>SKU:</strong>
+                        ${escapeHtml(product.sku)}
+                    </p>
+
+                    <p>
+                        <strong>Stock:</strong>
+                        ${product.stock}
+                    </p>
+
+                    <p>
+                        <strong>Tags:</strong>
+                        ${escapeHtml(product.tags)}
+                    </p>
+
+                    <button class="btn btn-primary"
+                            onclick="addToCart(${product.id})">
+                        Add to Cart
+                    </button>
+
+                    <button class="btn btn-secondary"
+                            onclick="addCompare(${product.id})">
+                        Add to Compare
+                    </button>
+
+                </div>
+
+            </div>
+
+            <hr style="margin:30px 0">
+
+            <h2>Customer Reviews</h2>
+
+            ${
+                reviews.length
+                ?
+                reviews.map(r=>`
+
+                    <div style="padding:15px 0;border-bottom:1px solid var(--border)">
+
+                        <strong>${escapeHtml(r.customer)}</strong>
+
+                        <span>
+                            ${"★".repeat(r.rating)}
+                            ${"☆".repeat(5-r.rating)}
+                        </span>
+
+                        <p>${escapeHtml(r.comment)}</p>
+
+                    </div>
+
+                `).join("")
+                :
+                "<p>No reviews yet.</p>"
+            }
+
+        </div>
+
+    `;
+
+    showPage("pdp");
+
+}
+
+
+function addToCart(id){
+
+    const product =
+        db.products.find(p=>p.id===id);
+
+    if(!product) return;
+
+    const existing =
+        cart.find(item=>item.productId===id);
+
+    if(existing){
+        existing.qty++;
+    }
+    else{
+        cart.push({
+            productId:id,
+            qty:1
+        });
+    }
+
+    saveCart();
+
+    toast("Product added to cart");
+
+    updateCartCount();
+
+}
+
+
+function saveCart(){
+
+    localStorage.setItem(
+        "qaSandboxCart",
+        JSON.stringify(cart)
+    );
+
+}
+
+
+function loadCart(){
+
+    try{
+        cart =
+            JSON.parse(
+                localStorage.getItem("qaSandboxCart") || "[]"
+            );
+    }
+    catch(e){
+        cart=[];
+    }
+
+}
+
+
+loadCart();
+
+
+function updateCartCount(){
+
+    const count =
+        cart.reduce((sum,item)=>sum+item.qty,0);
+
+    document.getElementById("cartCount")
+        .textContent=count;
+
+}
+
+
+updateCartCount();
+
+
+/* =========================================================
+   CART
+========================================================= */
+
+function renderCart(){
+
+    const container =
+        document.getElementById("cartItems");
+
+    if(!container) return;
+
+    if(cart.length===0){
+
+        container.innerHTML=`
+            <div style="padding:30px;text-align:center">
+                <h3>Your cart is empty</h3>
+                <button class="btn btn-primary"
+                        onclick="showPage('home')">
+                    Continue Shopping
+                </button>
+            </div>
+        `;
+
+    }
+    else{
+
+        container.innerHTML =
+            cart.map(item=>{
+
+                const p =
+                    db.products.find(
+                        product=>product.id===item.productId
+                    );
+
+                if(!p) return "";
+
+                return `
+
+                <div class="cart-item">
+
+                    <div class="cart-thumb">
+                        ${p.emoji}
+                    </div>
+
+                    <div>
+                        <strong>${escapeHtml(p.name)}</strong>
+                        <div class="price">
+                            $${Number(p.price).toFixed(2)}
+                        </div>
+                    </div>
+
+                    <div>
+                        <input
+                            type="number"
+                            min="1"
+                            value="${item.qty}"
+                            onchange="updateCartQty(${p.id},this.value)">
+                    </div>
+
+                    <strong>
+                        $${(p.price*item.qty).toFixed(2)}
+                    </strong>
+
+                    <button class="btn btn-danger btn-small"
+                            onclick="removeCart(${p.id})">
+                        Remove
+                    </button>
+
+                </div>
+
+                `;
+
+            }).join("");
+
+    }
+
+
+    const subtotal =
+        getCartSubtotal();
+
+    const tax =
+        subtotal*.10;
+
+    const shipping =
+        subtotal>0 ? 10 : 0;
+
+    const total =
+        subtotal+tax+shipping;
+
+
+    document.getElementById("cartSubtotal")
+        .textContent="$"+subtotal.toFixed(2);
+
+    document.getElementById("cartTax")
+        .textContent="$"+tax.toFixed(2);
+
+    document.getElementById("cartShipping")
+        .textContent="$"+shipping.toFixed(2);
+
+    document.getElementById("cartTotal")
+        .textContent="$"+total.toFixed(2);
+
+    updateCartCount();
+
+}
+
+
+function getCartSubtotal(){
+
+    return cart.reduce((sum,item)=>{
+
+        const p =
+            db.products.find(
+                product=>product.id===item.productId
+            );
+
+        return sum+(p ? p.price*item.qty : 0);
+
+    },0);
+
+}
+
+
+function updateCartQty(id,qty){
+
+    qty=parseInt(qty);
+
+    if(isNaN(qty)||qty<1){
+        qty=1;
+    }
+
+    const item =
+        cart.find(i=>i.productId===id);
+
+    if(item){
+        item.qty=qty;
+    }
+
+    saveCart();
+
+    renderCart();
+
+}
+
+
+function removeCart(id){
+
+    cart =
+        cart.filter(
+            item=>item.productId!==id
+        );
+
+    saveCart();
+
+    renderCart();
+
+}
+
+
+/* =========================================================
+   CHECKOUT
+========================================================= */
+
+function startCheckout(){
+
+    if(!currentUser){
+
+        toast("Please login before checkout");
+
+        showPage("auth");
+
+        return;
+    }
+
+    if(cart.length===0){
+
+        toast("Your cart is empty");
+
+        return;
+    }
+
+    document.getElementById("checkoutEmail")
+        .value=currentUser.email;
+
+    const names =
+        currentUser.name.split(" ");
+
+    document.getElementById("checkoutFirst")
+        .value=names[0] || "";
+
+    document.getElementById("checkoutLast")
+        .value=names.slice(1).join(" ");
+
+    renderCheckoutSummary();
+
+    showPage("checkout");
+
+}
+
+
+function renderCheckoutSummary(){
+
+    const container =
+        document.getElementById("checkoutSummary");
+
+    if(!container) return;
+
+    const subtotal =
+        getCartSubtotal();
+
+    const tax=subtotal*.10;
+
+    const shipping=subtotal>0 ? 10 : 0;
+
+    const total=subtotal+tax+shipping;
+
+    container.innerHTML=`
+
+        ${cart.map(item=>{
+
+            const p=db.products.find(
+                x=>x.id===item.productId
+            );
+
+            return `
+
+            <div style="display:flex;justify-content:space-between;margin:10px 0">
+
+                <span>
+                    ${escapeHtml(p.name)}
+                    × ${item.qty}
+                </span>
+
+                <strong>
+                    $${(p.price*item.qty).toFixed(2)}
+                </strong>
+
+            </div>
+
+            `;
+
+        }).join("")}
+
+        <hr>
+
+        <div style="display:flex;justify-content:space-between">
+            <span>Subtotal</span>
+            <strong>$${subtotal.toFixed(2)}</strong>
+        </div>
+
+        <div style="display:flex;justify-content:space-between">
+            <span>Tax</span>
+            <strong>$${tax.toFixed(2)}</strong>
+        </div>
+
+        <div style="display:flex;justify-content:space-between">
+            <span>Shipping</span>
+            <strong>$${shipping.toFixed(2)}</strong>
+        </div>
+
+        <hr>
+
+        <div style="display:flex;justify-content:space-between;font-size:20px">
+            <strong>Total</strong>
+            <strong>$${total.toFixed(2)}</strong>
+        </div>
+
+    `;
+
+}
+
+
+function placeOrder(){
+
+    if(!currentUser){
+
+        toast("Please login");
+
+        return;
+    }
+
+    if(cart.length===0){
+
+        toast("Cart is empty");
+
+        return;
+    }
+
+    const address =
+        document.getElementById("checkoutAddress").value.trim();
+
+    const city =
+        document.getElementById("checkoutCity").value.trim();
+
+    const zip =
+        document.getElementById("checkoutZip").value.trim();
+
+    if(!address||!city||!zip){
+
+        toast("Please complete shipping address");
+
+        return;
+    }
+
+    const payment =
+        document.querySelector(
+            'input[name="paymentMethod"]:checked'
+        ).value;
+
+    if(payment==="card"){
+
+        const card =
+            document.getElementById("cardNumber").value.trim();
+
+        const cvv =
+            document.getElementById("cardCvv").value.trim();
+
+        if(!card||!cvv){
+
+            toast("Please enter card details");
+
+            return;
+        }
+
+    }
+
+    const subtotal=getCartSubtotal();
+
+    const total=subtotal+(subtotal*.10)+10;
+
+    const order={
+
+        id:db.orders.length+1001,
+
+        customerId:currentUser.id,
+
+        customerName:currentUser.name,
+
+        email:currentUser.email,
+
+        paymentMethod:payment,
+
+        subtotal:subtotal,
+
+        tax:subtotal*.10,
+
+        shipping:10,
+
+        total:total,
+
+        status:"Processing",
+
+        createdAt:new Date().toISOString(),
+
+        address,
+        city,
+        zip
+
+    };
+
+    db.orders.push(order);
+
+
+    cart.forEach(item=>{
+
+        db.order_items.push({
+
+            id:db.order_items.length+1,
+
+            orderId:order.id,
+
+            productId:item.productId,
+
+            qty:item.qty,
+
+            price:
+                db.products.find(
+                    p=>p.id===item.productId
+                ).price
+
+        });
+
+    });
+
+
+    saveData();
+
+    cart=[];
+
+    saveCart();
+
+    renderCart();
+
+    updateCartCount();
+
+    toast("Order #"+order.id+" created successfully");
+
+    showPage("account");
+
+    accountSection("orders");
+
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+function switchAuth(type){
+
+    document.getElementById("loginForm")
+        .classList.toggle(
+            "hidden",
+            type!=="login"
+        );
+
+    document.getElementById("registerForm")
+        .classList.toggle(
+            "hidden",
+            type!=="register"
+        );
+
+    document.getElementById("loginTab")
+        .classList.toggle(
+            "active",
+            type==="login"
+        );
+
+    document.getElementById("registerTab")
+        .classList.toggle(
+            "active",
+            type==="register"
+        );
+
+}
+
+
+function loginUser(){
+
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const user =
+        db.customers.find(
+            c=>c.email.toLowerCase()===email.toLowerCase()
+            && c.password===password
+        );
+
+    if(!user){
+
+        toast("Invalid email or password");
+
+        return;
+    }
+
+    currentUser={
+        id:user.id,
+        name:user.name,
+        email:user.email
+    };
+
+    localStorage.setItem(
+        "qaSandboxUser",
+        JSON.stringify(currentUser)
+    );
+
+    updateHeader();
+
+    toast("Login successful");
+
+    showPage("home");
+
+}
+
+
+function registerUser(){
+
+    const name =
+        document.getElementById("registerName").value.trim();
+
+    const email =
+        document.getElementById("registerEmail").value.trim();
+
+    const password =
+        document.getElementById("registerPassword").value;
+
+    if(!name||!email||!password){
+
+        toast("All fields are required");
+
+        return;
+    }
+
+    if(
+        db.customers.some(
+            c=>c.email.toLowerCase()===email.toLowerCase()
+        )
+    ){
+
+        toast("Email already exists");
+
+        return;
+    }
+
+    const user={
+
+        id:db.customers.length+1,
+
+        name,
+        email,
+        password,
+
+        phone:"",
+
+        status:"Active"
+
+    };
+
+    db.customers.push(user);
+
+    saveData();
+
+    toast("Registration successful");
+
+    document.getElementById("loginEmail")
+        .value=email;
+
+    document.getElementById("loginPassword")
+        .value=password;
+
+    switchAuth("login");
+
+}
+
+
+function logoutUser(){
+
+    currentUser=null;
+
+    localStorage.removeItem("qaSandboxUser");
+
+    updateHeader();
+
+    toast("Logged out");
+
+    showPage("home");
+
+}
+
+
+function updateHeader(){
+
+    const saved =
+        localStorage.getItem("qaSandboxUser");
+
+    if(saved && !currentUser){
+
+        try{
+            currentUser=JSON.parse(saved);
+        }
+        catch(e){}
+    }
+
+    document.getElementById("headerUser")
+        .textContent=
+            currentUser
+            ? "Hi, "+currentUser.name
+            : "Guest";
+
+    document.getElementById("loginHeaderBtn")
+        .textContent=
+            currentUser
+            ? "My Account"
+            : "Login";
+
+    document.getElementById("loginHeaderBtn")
+        .onclick=
+            currentUser
+            ? ()=>showPage("account")
+            : ()=>showPage("auth");
+
+}
+
+
+/* =========================================================
+   ACCOUNT
+========================================================= */
+
+function renderAccount(){
+
+    const container =
+        document.getElementById("accountContent");
+
+    if(!container) return;
+
+    if(!currentUser){
+
+        container.innerHTML=`
+            <h2>Please login</h2>
+            <button class="btn btn-primary"
+                    onclick="showPage('auth')">
+                Login
+            </button>
+        `;
+
+        return;
+    }
+
+    accountSection("orders");
+
+}
+
+
+function accountSection(section,button){
+
+    if(button){
+
+        document.querySelectorAll(".account-menu")
+            .forEach(b=>b.classList.remove("active"));
+
+        button.classList.add("active");
+
+    }
+
+    const container =
+        document.getElementById("accountContent");
+
+    if(!container||!currentUser) return;
+
+
+    if(section==="orders"){
+
+        const orders =
+            db.orders.filter(
+                o=>o.customerId===currentUser.id
+            );
+
+        container.innerHTML=`
+
+            <h2>My Orders</h2>
+
+            ${
+                orders.length
+                ?
+                `<div class="table-wrapper">
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Date</th>
+                            <th>Payment</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    ${orders.map(o=>`
+
+                        <tr>
+
+                            <td>#${o.id}</td>
+
+                            <td>
+                                ${new Date(o.createdAt).toLocaleString()}
+                            </td>
+
+                            <td>
+                                ${escapeHtml(o.paymentMethod)}
+                            </td>
+
+                            <td>
+                                $${o.total.toFixed(2)}
+                            </td>
+
+                            <td>
+                                <span class="badge badge-info">
+                                    ${escapeHtml(o.status)}
+                                </span>
+                            </td>
+
+                        </tr>
+
+                    `).join("")}
+
+                    </tbody>
+
+                </table>
+                </div>`
+                :
+                "<p>No orders found.</p>"
+            }
+
+        `;
+
+    }
+
+
+    if(section==="wishlist"){
+
+        container.innerHTML=`
+
+            <h2>Wishlist</h2>
+
+            <div class="grid-3">
+
+            ${
+                wishlist.length
+                ?
+                wishlist.map(id=>{
+
+                    const p=db.products.find(x=>x.id===id);
+
+                    return `
+
+                    <div class="card" style="padding:15px">
+
+                        <div style="font-size:45px">
+                            ${p.emoji}
+                        </div>
+
+                        <strong>${escapeHtml(p.name)}</strong>
+
+                        <p class="price">
+                            $${p.price.toFixed(2)}
+                        </p>
+
+                    </div>
+
+                    `;
+
+                }).join("")
+                :
+                "<p>Your wishlist is empty.</p>"
+            }
+
+            </div>
+
+        `;
+
+    }
+
+
+    if(section==="compare"){
+
+        container.innerHTML=`
+
+            <h2>Compare List</h2>
+
+            <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Stock</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                ${
+                    compareList.map(id=>{
+
+                        const p=db.products.find(x=>x.id===id);
+
+                        return `
+
+                        <tr>
+                            <td>${escapeHtml(p.name)}</td>
+                            <td>$${p.price.toFixed(2)}</td>
+                            <td>${escapeHtml(p.category)}</td>
+                            <td>${p.stock}</td>
+                        </tr>
+
+                        `;
+
+                    }).join("")
+                }
+
+                </tbody>
+
+            </table>
+
+            </div>
+
+        `;
+
+    }
+
+
+    if(section==="info"){
+
+        container.innerHTML=`
+
+            <h2>Account Information</h2>
+
+            <div class="form-group">
+                <label>Name</label>
+                <input id="accountName"
+                       value="${escapeAttr(currentUser.name)}">
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input value="${escapeAttr(currentUser.email)}"
+                       disabled>
+            </div>
+
+            <button class="btn btn-primary"
+                    onclick="updateAccount()">
+                Save Changes
+            </button>
+
+        `;
+
+    }
+
+}
+
+
+function updateAccount(){
+
+    const name =
+        document.getElementById("accountName").value.trim();
+
+    if(!name){
+
+        toast("Name cannot be empty");
+
+        return;
+    }
+
+    const customer =
+        db.customers.find(
+            c=>c.id===currentUser.id
+        );
+
+    customer.name=name;
+
+    currentUser.name=name;
+
+    localStorage.setItem(
+        "qaSandboxUser",
+        JSON.stringify(currentUser)
+    );
+
+    saveData();
+
+    updateHeader();
+
+    toast("Account updated");
+
+}
+
+
+function addWishlist(id){
+
+    if(!wishlist.includes(id)){
+        wishlist.push(id);
+    }
+
+    toast("Added to wishlist");
+
+}
+
+
+function addCompare(id){
+
+    if(!compareList.includes(id)){
+
+        if(compareList.length>=4){
+
+            toast("Maximum 4 products can be compared");
+
+            return;
+        }
+
+        compareList.push(id);
+
+    }
+
+    toast("Added to compare");
+
+}
+
+
+function deleteAccount(){
+
+    if(!currentUser) return;
+
+    openDeleteModal(
+        "account",
+        currentUser.id,
+        "Delete your account permanently?"
+    );
+
+}
+
+
+/* =========================================================
+   ADMIN
+========================================================= */
+
+function adminModule(module,button){
+
+    currentAdminModule=module;
+
+    if(button){
+
+        document.querySelectorAll(".admin-menu")
+            .forEach(b=>b.classList.remove("active"));
+
+        button.classList.add("active");
+
+    }
+
+    renderAdmin();
+
+}
+
+
+function renderAdmin(){
+
+    const container =
+        document.getElementById("adminContent");
+
+    if(!container) return;
+
+    const data=db[currentAdminModule];
+
+    let title =
+        currentAdminModule.charAt(0).toUpperCase()
+        +currentAdminModule.slice(1);
+
+    container.innerHTML=`
+
+        <div class="admin-toolbar">
+
+            <div>
+                <h1 class="section-title">${title}</h1>
+                <p class="section-subtitle">
+                    Manage ${title.toLowerCase()} records.
+                </p>
+            </div>
+
+            <button class="btn btn-primary"
+                    onclick="openAdminForm()">
+                + Add ${title.slice(0,-1)}
+            </button>
+
+        </div>
+
+        <div class="card">
+
+            <div class="table-wrapper">
+
+                ${adminTable(data)}
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+function adminTable(data){
+
+    if(!data.length){
+        return "<p style='padding:20px'>No records.</p>";
+    }
+
+    const columns =
+        Object.keys(data[0]);
+
+    return `
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                ${columns.map(c=>`
+                    <th>${escapeHtml(c)}</th>
+                `).join("")}
+
+                <th>Actions</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            ${data.map(row=>`
+
+                <tr>
+
+                    ${columns.map(c=>`
+                        <td>
+                            ${escapeHtml(
+                                String(row[c] ?? "")
+                            )}
+                        </td>
+                    `).join("")}
+
+                    <td style="white-space:nowrap">
+
+                        <button
+                            class="btn btn-secondary btn-small"
+                            onclick="editAdminRecord(${row.id})">
+                            Edit
+                        </button>
+
+                        <button
+                            class="btn btn-danger btn-small"
+                            onclick="openDeleteModal('${currentAdminModule}',${row.id},'Delete this record?')">
+                            Delete
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `).join("")}
+
+        </tbody>
+
+    </table>
+
+    `;
+
+}
+
+
+function openAdminForm(id=null){
+
+    const data =
+        id
+        ? db[currentAdminModule].find(x=>x.id===id)
+        : null;
+
+    let fields="";
+
+    if(currentAdminModule==="products"){
+
+        fields=`
+
+        <div class="form-group">
+            <label>Name</label>
+            <input id="admin_name" value="${escapeAttr(data?.name||"")}">
+        </div>
+
+        <div class="grid-2">
+
+            <div class="form-group">
+                <label>Price</label>
+                <input id="admin_price" type="number"
+                       value="${data?.price||""}">
+            </div>
+
+            <div class="form-group">
+                <label>Stock</label>
+                <input id="admin_stock" type="number"
+                       value="${data?.stock||""}">
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label>Category</label>
+            <input id="admin_category"
+                   value="${escapeAttr(data?.category||"")}">
+        </div>
+
+        <div class="form-group">
+            <label>SKU</label>
+            <input id="admin_sku"
+                   value="${escapeAttr(data?.sku||"")}">
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea id="admin_description">${escapeHtml(data?.description||"")}</textarea>
+        </div>
+
+        `;
+
+    }
+    else if(currentAdminModule==="categories"){
+
+        fields=`
+
+        <div class="form-group">
+            <label>Name</label>
+            <input id="admin_name"
+                   value="${escapeAttr(data?.name||"")}">
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea id="admin_description">${escapeHtml(data?.description||"")}</textarea>
+        </div>
+
+        `;
+
+    }
+    else if(currentAdminModule==="customers"){
+
+        fields=`
+
+        <div class="form-group">
+            <label>Name</label>
+            <input id="admin_name"
+                   value="${escapeAttr(data?.name||"")}">
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input id="admin_email"
+                   value="${escapeAttr(data?.email||"")}">
+        </div>
+
+        <div class="form-group">
+            <label>Phone</label>
+            <input id="admin_phone"
+                   value="${escapeAttr(data?.phone||"")}">
+        </div>
+
+        <div class="form-group">
+            <label>Status</label>
+            <select id="admin_status">
+
+                <option ${data?.status==="Active"?"selected":""}>
+                    Active
+                </option>
+
+                <option ${data?.status==="Inactive"?"selected":""}>
+                    Inactive
+                </option>
+
+            </select>
+        </div>
+
+        `;
+
+    }
+    else if(currentAdminModule==="reviews"){
+
+        fields=`
+
+        <div class="form-group">
+            <label>Product ID</label>
+            <input id="admin_productId"
+                   type="number"
+                   value="${data?.productId||""}">
+        </div>
+
+        <div class="form-group">
+            <label>Customer</label>
+            <input id="admin_customer"
+                   value="${escapeAttr(data?.customer||"")}">
+        </div>
+
+        <div class="form-group">
+            <label>Rating</label>
+
+            <select id="admin_rating">
+
+                ${[1,2,3,4,5].map(n=>`
+                    <option
+                        value="${n}"
+                        ${data?.rating===n?"selected":""}>
+                        ${n}
+                    </option>
+                `).join("")}
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+            <label>Comment</label>
+            <textarea id="admin_comment">${escapeHtml(data?.comment||"")}</textarea>
+        </div>
+
+        `;
+
+    }
+    else if(currentAdminModule==="cms"){
+
+        fields=`
+
+        <div class="form-group">
+            <label>Title</label>
+            <input id="admin_title"
+                   value="${escapeAttr(data?.title||"")}">
+        </div>
+
+        <div class="form-group">
+            <label>Slug</label>
+            <input id="admin_slug"
+                   value="${escapeAttr(data?.slug||"")}">
+        </div>
+
+        <div class="form-group">
+            <label>Status</label>
+            <select id="admin_status">
+
+                <option ${data?.status==="Published"?"selected":""}>
+                    Published
+                </option>
+
+                <option ${data?.status==="Draft"?"selected":""}>
+                    Draft
+                </option>
+
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Content</label>
+            <textarea id="admin_content">${escapeHtml(data?.content||"")}</textarea>
+        </div>
+
+        `;
+
+    }
+
+
+    document.getElementById("adminContent")
+        .insertAdjacentHTML(
+            "beforeend",
+
+            `
+
+            <div id="adminFormModal"
+                 class="modal-overlay">
+
+                <div class="modal">
+
+                    <div class="modal-header">
+
+                        <h3>
+                            ${id?"Edit":"Add"} ${currentAdminModule}
+                        </h3>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        ${fields}
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button
+                            class="btn btn-secondary"
+                            onclick="closeAdminForm()">
+                            Cancel
+                        </button>
+
+                        <button
+                            class="btn btn-primary"
+                            onclick="saveAdminRecord(${id||"null"})">
+                            Save
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            `
+        );
+
+}
+
+
+function closeAdminForm(){
+
+    const modal =
+        document.getElementById("adminFormModal");
+
+    if(modal) modal.remove();
+
+}
+
+
+function editAdminRecord(id){
+
+    openAdminForm(id);
+
+}
+
+
+function saveAdminRecord(id){
+
+    let record;
+
+    if(currentAdminModule==="products"){
+
+        record={
+            id:id || getNextId(db.products),
+            name:document.getElementById("admin_name").value.trim(),
+            price:Number(document.getElementById("admin_price").value),
+            category:document.getElementById("admin_category").value.trim(),
+            stock:Number(document.getElementById("admin_stock").value),
+            sku:document.getElementById("admin_sku").value.trim(),
+            description:document.getElementById("admin_description").value.trim(),
+            emoji:"📦",
+            tags:"demo"
+        };
+
+    }
+
+    else if(currentAdminModule==="categories"){
+
+        record={
+            id:id || getNextId(db.categories),
+            name:document.getElementById("admin_name").value.trim(),
+            description:document.getElementById("admin_description").value.trim()
+        };
+
+    }
+
+    else if(currentAdminModule==="customers"){
+
+        record={
+            id:id || getNextId(db.customers),
+            name:document.getElementById("admin_name").value.trim(),
+            email:document.getElementById("admin_email").value.trim(),
+            password:"password",
+            phone:document.getElementById("admin_phone").value.trim(),
+            status:document.getElementById("admin_status").value
+        };
+
+    }
+
+    else if(currentAdminModule==="reviews"){
+
+        record={
+            id:id || getNextId(db.reviews),
+            productId:Number(document.getElementById("admin_productId").value),
+            customer:document.getElementById("admin_customer").value.trim(),
+            rating:Number(document.getElementById("admin_rating").value),
+            comment:document.getElementById("admin_comment").value.trim()
+        };
+
+    }
+
+    else if(currentAdminModule==="cms"){
+
+        record={
+            id:id || getNextId(db.cms),
+            title:document.getElementById("admin_title").value.trim(),
+            slug:document.getElementById("admin_slug").value.trim(),
+            status:document.getElementById("admin_status").value,
+            content:document.getElementById("admin_content").value.trim()
+        };
+
+    }
+
+
+    if(!record) return;
+
+    const array=db[currentAdminModule];
+
+    const index =
+        id
+        ? array.findIndex(x=>x.id===id)
+        : -1;
+
+    if(index>=0){
+        array[index]=record;
+    }
+    else{
+        array.push(record);
+    }
+
+    saveData();
+
+    closeAdminForm();
+
+    renderAdmin();
+
+    renderProducts();
+
+    toast(id ? "Record updated" : "Record created");
+
+}
+
+
+function getNextId(array){
+
+    return array.length
+        ? Math.max(...array.map(x=>Number(x.id)||0))+1
+        : 1;
+
+}
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+function openDeleteModal(type,id,message){
+
+    deleteContext={
+        type,
+        id
+    };
+
+    document.getElementById("deleteMessage")
+        .textContent=message;
+
+    document.getElementById("deleteModal")
+        .classList.remove("hidden");
+
+}
+
+
+function closeDeleteModal(){
+
+    deleteContext=null;
+
+    document.getElementById("deleteModal")
+        .classList.add("hidden");
+
+}
+
+
+function confirmDelete(){
+
+    if(!deleteContext) return;
+
+    const {type,id}=deleteContext;
+
+
+    if(type==="account"){
+
+        db.customers=
+            db.customers.filter(
+                c=>c.id!==id
+            );
+
+        db.orders=
+            db.orders.filter(
+                o=>o.customerId!==id
+            );
+
+        saveData();
+
+        currentUser=null;
+
+        localStorage.removeItem(
+            "qaSandboxUser"
+        );
+
+        closeDeleteModal();
+
+        updateHeader();
+
+        toast("Account deleted");
+
+        showPage("home");
+
+        return;
+
+    }
+
+
+    if(db[type]){
+
+        db[type]=
+            db[type].filter(
+                record=>record.id!==id
+            );
+
+        saveData();
+
+        closeDeleteModal();
+
+        renderAdmin();
+
+        renderProducts();
+
+        toast("Record deleted");
+
+    }
+
+}
+
+
+/* =========================================================
+   DATABASE
+========================================================= */
+
+function selectDbTable(table,element){
+
+    currentDbTable=table;
+
+    document.querySelectorAll(".db-item")
+        .forEach(x=>x.classList.remove("active"));
+
+    if(element){
+        element.classList.add("active");
+    }
+
+    document.getElementById("sqlEditor")
+        .value=
+        `SELECT * FROM ${table};`;
+
+    loadTableData();
+
+}
+
+
+function loadTableData(){
+
+    const data=db[currentDbTable] || [];
+
+    renderDatabaseResult(data);
+
+    document.getElementById("sqlStatus")
+        .innerHTML=
+        `<span class="badge badge-success">
+            ${data.length} rows
+        </span>`;
+
+}
+
+
+function renderDatabaseResult(data){
+
+    const container =
+        document.getElementById("databaseResult");
+
+    if(!container) return;
+
+    if(!Array.isArray(data)){
+        container.innerHTML="<p>No tabular result.</p>";
+        return;
+    }
+
+    if(!data.length){
+
+        container.innerHTML=
+            "<p style='padding:15px'>0 rows.</p>";
+
+        return;
+    }
+
+    const columns=
+        Object.keys(data[0]);
+
+    container.innerHTML=`
+
+        <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    ${columns.map(c=>`
+                        <th>${escapeHtml(c)}</th>
+                    `).join("")}
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${data.map(row=>`
+
+                    <tr>
+
+                        ${columns.map(c=>`
+                            <td>
+                                ${escapeHtml(
+                                    String(row[c] ?? "")
+                                )}
+                            </td>
+                        `).join("")}
+
+                    </tr>
+
+                `).join("")}
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+    `;
+
+}
+
+
+function executeSQL(){
+
+    const sql =
+        document.getElementById("sqlEditor")
+        .value.trim();
+
+    if(!sql){
+
+        toast("Enter SQL query");
+
+        return;
+    }
+
+    try{
+
+        const normalized =
+            sql
+                .replace(/\s+/g," ")
+                .trim()
+                .replace(/;$/,"");
+
+        const upper=normalized.toUpperCase();
+
+
+        /* SELECT */
+
+        if(upper.startsWith("SELECT")){
+
+            executeSelect(normalized);
+
+            return;
+        }
+
+
+        /* INSERT */
+
+        if(upper.startsWith("INSERT")){
+
+            executeInsert(normalized);
+
+            return;
+        }
+
+
+        /* UPDATE */
+
+        if(upper.startsWith("UPDATE")){
+
+            executeUpdate(normalized);
+
+            return;
+        }
+
+
+        /* DELETE */
+
+        if(upper.startsWith("DELETE")){
+
+            executeSqlDelete(normalized);
+
+            return;
+        }
+
+
+        /* CREATE TABLE */
+
+        if(upper.startsWith("CREATE TABLE")){
+
+            document.getElementById("sqlStatus")
+                .innerHTML=
+                `<span class="badge badge-success">
+                    Query OK
+                </span>`;
+
+            toast("CREATE TABLE simulated successfully");
+
+            return;
+        }
+
+
+        throw new Error(
+            "Supported: SELECT, INSERT, UPDATE, DELETE, CREATE TABLE"
+        );
+
+    }
+    catch(error){
+
+        document.getElementById("sqlStatus")
+            .innerHTML=
+            `<span class="badge badge-danger">
+                SQL Error: ${escapeHtml(error.message)}
+            </span>`;
+
+    }
+
+}
+
+
+function executeSelect(sql){
+
+    const match =
+        sql.match(
+            /^SELECT\s+(.+?)\s+FROM\s+([a-zA-Z_][\w]*)(.*)$/i
+        );
+
+    if(!match){
+
+        throw new Error("Invalid SELECT syntax");
+
+    }
+
+    const columnsText=match[1];
+
+    const tableName=match[2];
+
+    let remainder=match[3]||"";
+
+    if(!db[tableName]){
+
+        throw new Error(
+            "Table '"+tableName+"' does not exist"
+        );
+
+    }
+
+    let rows=
+        JSON.parse(
+            JSON.stringify(db[tableName])
+        );
+
+
+    /* WHERE */
+
+    const whereMatch=
+        remainder.match(
+            /WHERE\s+([a-zA-Z_][\w]*)\s*=\s*(['"]?)([^'"\s;]+)\2/i
+        );
+
+    if(whereMatch){
+
+        const column=whereMatch[1];
+
+        const value=whereMatch[3];
+
+        rows=rows.filter(
+            row=>String(row[column])===value
+        );
+
+    }
+
+
+    /* ORDER BY */
+
+    const orderMatch=
+        remainder.match(
+            /ORDER\s+BY\s+([a-zA-Z_][\w]*)(?:\s+(ASC|DESC))?/i
+        );
+
+    if(orderMatch){
+
+        const column=orderMatch[1];
+
+        const direction=
+            (orderMatch[2]||"ASC").toUpperCase();
+
+        rows.sort((a,b)=>{
+
+            if(a[column]===b[column]) return 0;
+
+            return direction==="ASC"
+                ? (a[column]>b[column]?1:-1)
+                : (a[column]<b[column]?1:-1);
+
+        });
+
+    }
+
+
+    /* LIMIT */
+
+    const limitMatch=
+        remainder.match(
+            /LIMIT\s+(\d+)/i
+        );
+
+    if(limitMatch){
+
+        rows=
+            rows.slice(
+                0,
+                Number(limitMatch[1])
+            );
+
+    }
+
+
+    /* Column selection */
+
+    if(columnsText.trim()!=="*"){
+
+        const selected=
+            columnsText
+                .split(",")
+                .map(x=>x.trim());
+
+        rows=
+            rows.map(row=>{
+
+                const result={};
+
+                selected.forEach(column=>{
+
+                    if(
+                        Object.prototype.hasOwnProperty.call(
+                            row,
+                            column
+                        )
+                    ){
+
+                        result[column]=row[column];
+
+                    }
+
+                });
+
+                return result;
+
+            });
+
+    }
+
+
+    renderDatabaseResult(rows);
+
+    document.getElementById("sqlStatus")
+        .innerHTML=
+        `<span class="badge badge-success">
+            Query OK — ${rows.length} row(s)
+        </span>`;
+
+}
+
+
+function executeInsert(sql){
+
+    const match=
+        sql.match(
+            /^INSERT\s+INTO\s+([a-zA-Z_][\w]*)\s*\(([^)]+)\)\s*VALUES\s*\(([^)]+)\)$/i
+        );
+
+    if(!match){
+
+        throw new Error("Invalid INSERT syntax");
+
+    }
+
+    const table=match[1];
+
+    const columns=
+        match[2]
+            .split(",")
+            .map(x=>x.trim());
+
+    const values=
+        splitSqlValues(match[3]);
+
+    if(!db[table]){
+
+        throw new Error(
+            "Table '"+table+"' does not exist"
+        );
+
+    }
+
+    const row={};
+
+    columns.forEach((column,index)=>{
+
+        row[column]=parseSqlValue(values[index]);
+
+    });
+
+    if(
+        db[table].some(
+            x=>Object.prototype.hasOwnProperty.call(x,"id")
+        )
+        &&
+        !row.id
+    ){
+
+        row.id=getNextId(db[table]);
+
+    }
+
+    db[table].push(row);
+
+    saveData();
+
+    renderDatabaseResult(db[table]);
+
+    renderProducts();
+
+    document.getElementById("sqlStatus")
+        .innerHTML=
+        `<span class="badge badge-success">
+            Query OK — 1 row inserted
+        </span>`;
+
+}
+
+
+function executeUpdate(sql){
+
+    const match=
+        sql.match(
+            /^UPDATE\s+([a-zA-Z_][\w]*)\s+SET\s+(.+?)\s+WHERE\s+([a-zA-Z_][\w]*)\s*=\s*(['"]?)([^'"\s;]+)\4$/i
+        );
+
+    if(!match){
+
+        throw new Error(
+            "UPDATE requires WHERE clause"
+        );
+
+    }
+
+    const table=match[1];
+
+    const assignments=match[2];
+
+    const whereColumn=match[3];
+
+    const whereValue=match[5];
+
+    if(!db[table]){
+
+        throw new Error("Table does not exist");
+
+    }
+
+    const set={};
+
+    assignments
+        .split(",")
+        .forEach(part=>{
+
+            const pieces=part.split("=");
+
+            if(pieces.length<2) return;
+
+            set[pieces[0].trim()]=
+                parseSqlValue(
+                    pieces.slice(1).join("=").trim()
+                );
+
+        });
+
+
+    let count=0;
+
+    db[table].forEach(row=>{
+
+        if(String(row[whereColumn])===whereValue){
+
+            Object.assign(row,set);
+
+            count++;
+
+        }
+
+    });
+
+    saveData();
+
+    renderDatabaseResult(db[table]);
+
+    renderProducts();
+
+    document.getElementById("sqlStatus")
+        .innerHTML=
+        `<span class="badge badge-success">
+            Query OK — ${count} row(s) updated
+        </span>`;
+
+}
+
+
+function executeSqlDelete(sql){
+
+    const match=
+        sql.match(
+            /^DELETE\s+FROM\s+([a-zA-Z_][\w]*)\s+WHERE\s+([a-zA-Z_][\w]*)\s*=\s*(['"]?)([^'"\s;]+)\3$/i
+        );
+
+    if(!match){
+
+        throw new Error(
+            "DELETE requires WHERE clause"
+        );
+
+    }
+
+    const table=match[1];
+
+    const column=match[2];
+
+    const value=match[4];
+
+    if(!db[table]){
+
+        throw new Error("Table does not exist");
+
+    }
+
+    const before=db[table].length;
+
+    db[table]=
+        db[table].filter(
+            row=>String(row[column])!==value
+        );
+
+    const count=
+        before-db[table].length;
+
+    saveData();
+
+    renderDatabaseResult(db[table]);
+
+    renderProducts();
+
+    document.getElementById("sqlStatus")
+        .innerHTML=
+        `<span class="badge badge-success">
+            Query OK — ${count} row(s) deleted
+        </span>`;
+
+}
+
+
+function splitSqlValues(text){
+
+    const result=[];
+
+    let current="";
+
+    let quote=null;
+
+    for(let char of text){
+
+        if((char==="'"||char==='"')){
+
+            if(quote===char){
+                quote=null;
+            }
+            else if(!quote){
+                quote=char;
+            }
+
+        }
+
+        if(char===","&&!quote){
+
+            result.push(current.trim());
+
+            current="";
+
+        }
+        else{
+
+            current+=char;
+
+        }
+
+    }
+
+    if(current.trim()){
+        result.push(current.trim());
+    }
+
+    return result;
+
+}
+
+
+function parseSqlValue(value){
+
+    value=value.trim();
+
+    if(
+        (value.startsWith("'")&&value.endsWith("'"))
+        ||
+        (value.startsWith('"')&&value.endsWith('"'))
+    ){
+
+        return value.slice(1,-1);
+
+    }
+
+    if(value.toLowerCase()==="null"){
+        return null;
+    }
+
+    if(value.toLowerCase()==="true"){
+        return true;
+    }
+
+    if(value.toLowerCase()==="false"){
+        return false;
+    }
+
+    if(!isNaN(Number(value))){
+        return Number(value);
+    }
+
+    return value;
+
+}
+
+
+function clearSql(){
+
+    document.getElementById("sqlEditor")
+        .value="";
+
+}
+
+
+function showDatabaseSchema(){
+
+    const data=db[currentDbTable]||[];
+
+    if(!data.length){
+
+        renderDatabaseResult([]);
+
+        return;
+    }
+
+    const schema=
+        Object.keys(data[0]).map(
+            (column,index)=>({
+
+                Field:column,
+
+                Type:
+                    typeof data[0][column],
+
+                Null:"YES",
+
+                Key:
+                    column==="id"
+                    ?"PRIMARY"
+                    :"",
+
+                Default:"",
+
+                Extra:
+                    column==="id"
+                    ?"auto_increment"
+                    :""
+
+            })
+        );
+
+    renderDatabaseResult(schema);
+
+    document.getElementById("sqlStatus")
+        .innerHTML=
+        `<span class="badge badge-info">
+            Structure: ${currentDbTable}
+        </span>`;
+
+}
+
+
+/* =========================================================
+   API TESTING
+========================================================= */
+
+function loadApiRequest(method,url){
+
+    document.getElementById("apiMethod")
+        .value=method;
+
+    document.getElementById("apiUrl")
+        .value=url;
+
+    if(method==="POST"){
+
+        document.getElementById("apiBody")
+            .value=
+`{
+  "name": "API Test Product",
+  "price": 199.99,
+  "category": "Electronics",
+  "stock": 10,
+  "sku": "API-TEST-001",
+  "description": "Product created through API testing"
+}`;
+
+    }
+
+    if(method==="PUT"){
+
+        document.getElementById("apiBody")
+            .value=
+`{
+  "price": 899.99,
+  "stock": 20
+}`;
+
+    }
+
+    toast("API request loaded");
+
+}
+
+
+function apiTab(tab,button){
+
+    [
+        "apiParamsTab",
+        "apiHeadersTab",
+        "apiBodyTab",
+        "apiAuthTab"
+    ].forEach(id=>{
+
+        document.getElementById(id)
+            .classList.add("hidden");
+
+    });
+
+    document.getElementById(
+        "api"+
+        tab.charAt(0).toUpperCase()+
+        tab.slice(1)+
+        "Tab"
+    ).classList.remove("hidden");
+
+
+    document.querySelectorAll(".pm-tab")
+        .forEach(b=>b.classList.remove("active"));
+
+    button.classList.add("active");
+
+}
+
+
+function sendApiRequest(){
+
+    const method =
+        document.getElementById("apiMethod").value;
+
+    let url =
+        document.getElementById("apiUrl").value.trim();
+
+    const start=performance.now();
+
+    try{
+
+        const response =
+            simulateApi(
+                method,
+                url
+            );
+
+        const elapsed =
+            Math.round(
+                performance.now()-start
+            );
+
+
+        document.getElementById("apiStatusBadge")
+            .textContent=
+                response.status+
+                " "+
+                response.statusText;
+
+        document.getElementById("apiStatusBadge")
+            .className=
+                response.status>=400
+                ?"badge badge-danger"
+                :"badge badge-success";
+
+
+        document.getElementById("apiResponseHeaders")
+            .textContent=
+                Object.entries(response.headers)
+                    .map(([k,v])=>k+": "+v)
+                    .join("\n");
+
+
+        document.getElementById("apiResponse")
+            .textContent=
+                JSON.stringify(
+                    response.body,
+                    null,
+                    2
+                );
+
+
+        apiHistory.unshift({
+
+            method,
+            url,
+            status:response.status,
+            time:elapsed,
+            timestamp:new Date().toLocaleTimeString()
+
+        });
+
+        apiHistory=
+            apiHistory.slice(0,20);
+
+        renderApiHistory();
+
+    }
+    catch(error){
+
+        document.getElementById("apiStatusBadge")
+            .textContent="500 ERROR";
+
+        document.getElementById("apiStatusBadge")
+            .className="badge badge-danger";
+
+        document.getElementById("apiResponse")
+            .textContent=
+                JSON.stringify({
+                    error:error.message
+                },null,2);
+
+    }
+
+}
+
+
+function simulateApi(method,url){
+
+    const normalized =
+        url.replace(/^https?:\/\/[^/]+/,"")
+           .replace(/\?.*$/,"");
+
+
+    const headers={
+
+        "Content-Type":"application/json",
+
+        "X-Request-ID":
+            "REQ-"+Math.random()
+                .toString(36)
+                .substring(2,10)
+
+    };
+
+
+    /* PRODUCTS */
+
+    if(normalized==="/api/products"){
+
+        if(method==="GET"){
+
+            return ok(
+                db.products,
+                headers
+            );
+
+        }
+
+
+        if(method==="POST"){
+
+            const body=
+                getJsonBody();
+
+            if(
+                !body.name ||
+                body.price===undefined
+            ){
+
+                return error(
+                    400,
+                    "name and price are required",
+                    headers
+                );
+
+            }
+
+            const product={
+
+                id:getNextId(db.products),
+
+                name:body.name,
+
+                price:Number(body.price),
+
+                category:body.category||"General",
+
+                stock:Number(body.stock||0),
+
+                sku:body.sku||
+                    "API-"+Date.now(),
+
+                description:
+                    body.description||
+                    "",
+
+                emoji:"📦",
+
+                tags:body.tags||"api"
+
+            };
+
+            db.products.push(product);
+
+            saveData();
+
+            renderProducts();
+
+            return response(
+                201,
+                "Created",
+                product,
+                headers
+            );
+
+        }
+
+
+        if(method==="DELETE"){
+
+            return error(
+                405,
+                "Use /api/products/{id} for DELETE",
+                headers
+            );
+
+        }
+
+    }
+
+
+    /* PRODUCT ID */
+
+    const productMatch =
+        normalized.match(
+            /^\/api\/products\/(\d+)$/
+        );
+
+    if(productMatch){
+
+        const id=
+            Number(productMatch[1]);
+
+        const product=
+            db.products.find(
+                p=>p.id===id
+            );
+
+        if(method==="GET"){
+
+            if(!product){
+
+                return error(
+                    404,
+                    "Product not found",
+                    headers
+                );
+
+            }
+
+            return ok(product,headers);
+
+        }
+
+
+        if(method==="PUT"||method==="PATCH"){
+
+            if(!product){
+
+                return error(
+                    404,
+                    "Product not found",
+                    headers
+                );
+
+            }
+
+            const body=getJsonBody();
+
+            Object.assign(
+                product,
+                body
+            );
+
+            saveData();
+
+            renderProducts();
+
+            return ok(
+                product,
+                headers
+            );
+
+        }
+
+
+        if(method==="DELETE"){
+
+            if(!product){
+
+                return error(
+                    404,
+                    "Product not found",
+                    headers
+                );
+
+            }
+
+            db.products=
+                db.products.filter(
+                    p=>p.id!==id
+                );
+
+            saveData();
+
+            renderProducts();
+
+            return response(
+                200,
+                "OK",
+                {
+                    message:"Product deleted",
+                    id
+                },
+                headers
+            );
+
+        }
+
+    }
+
+
+    /* CUSTOMERS */
+
+    if(normalized==="/api/customers"){
+
+        if(method==="GET"){
+
+            return ok(
+                db.customers.map(
+                    c=>{
+
+                        const copy={...c};
+
+                        delete copy.password;
+
+                        return copy;
+
+                    }
+                ),
+                headers
+            );
+
+        }
+
+        if(method==="POST"){
+
+            const body=getJsonBody();
+
+            if(!body.email){
+
+                return error(
+                    400,
+                    "email is required",
+                    headers
+                );
+
+            }
+
+            const customer={
+
+                id:getNextId(db.customers),
+
+                name:body.name||"API Customer",
+
+                email:body.email,
+
+                password:body.password||"password",
+
+                phone:body.phone||"",
+
+                status:"Active"
+
+            };
+
+            db.customers.push(customer);
+
+            saveData();
+
+            return response(
+                201,
+                "Created",
+                {
+                    ...customer,
+                    password:undefined
+                },
+                headers
+            );
+
+        }
+
+    }
+
+
+    /* ORDERS */
+
+    if(normalized==="/api/orders"){
+
+        if(method==="GET"){
+
+            return ok(
+                db.orders,
+                headers
+            );
+
+        }
+
+
+        if(method==="POST"){
+
+            const body=getJsonBody();
+
+            if(!body.customerId){
+
+                return error(
+                    400,
+                    "customerId is required",
+                    headers
+                );
+
+            }
+
+            const order={
+
+                id:getNextId(db.orders)+1000,
+
+                customerId:Number(body.customerId),
+
+                customerName:
+                    body.customerName||
+                    "API Customer",
+
+                email:
+                    body.email||
+                    "",
+
+                paymentMethod:
+                    body.paymentMethod||
+                    "card",
+
+                subtotal:
+                    Number(body.subtotal||0),
+
+                tax:
+                    Number(body.tax||0),
+
+                shipping:
+                    Number(body.shipping||0),
+
+                total:
+                    Number(body.total||0),
+
+                status:"Processing",
+
+                createdAt:
+                    new Date().toISOString()
+
+            };
+
+            db.orders.push(order);
+
+            saveData();
+
+            return response(
+                201,
+                "Created",
+                order,
+                headers
+            );
+
+        }
+
+    }
+
+
+    return error(
+        404,
+        "Endpoint not found",
+        headers
+    );
+
+}
+
+
+function getJsonBody(){
+
+    const text =
+        document.getElementById("apiBody")
+            .value.trim();
+
+    if(!text) return {};
+
+    try{
+
+        return JSON.parse(text);
+
+    }
+    catch(e){
+
+        throw new Error(
+            "Invalid JSON body"
+        );
+
+    }
+
+}
+
+
+function response(status,statusText,body,headers){
+
+    return {
+        status,
+        statusText,
+        body,
+        headers
+    };
+
+}
+
+
+function ok(body,headers){
+
+    return response(
+        200,
+        "OK",
+        body,
+        headers
+    );
+
+}
+
+
+function error(status,message,headers){
+
+    return response(
+        status,
+        status>=500
+        ?"ERROR"
+        :"Bad Request",
+        {
+            success:false,
+            error:message
+        },
+        headers
+    );
+
+}
+
+
+function renderApiHistory(){
+
+    const container=
+        document.getElementById("apiHistory");
+
+    if(!container) return;
+
+    if(!apiHistory.length){
+
+        container.innerHTML=
+            "<p style='color:var(--muted)'>No requests yet.</p>";
+
+        return;
+
+    }
+
+    container.innerHTML=`
+
+        <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Method</th>
+                    <th>URL</th>
+                    <th>Status</th>
+                    <th>Response Time</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            ${apiHistory.map(item=>`
+
+                <tr>
+
+                    <td>${item.timestamp}</td>
+
+                    <td>
+                        <strong>${item.method}</strong>
+                    </td>
+
+                    <td>${escapeHtml(item.url)}</td>
+
+                    <td>
+                        <span class="badge ${
+                            item.status>=400
+                            ?"badge-danger"
+                            :"badge-success"
+                        }">
+                            ${item.status}
+                        </span>
+                    </td>
+
+                    <td>${item.time} ms</td>
+
+                </tr>
+
+            `).join("")}
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   PERFORMANCE TESTING
+========================================================= */
+
+let perfTimer=null;
+
+function startPerformanceTest(){
+
+    if(perfTimer){
+
+        toast("Performance test already running");
+
+        return;
+    }
+
+    const users=
+        Math.max(
+            1,
+            Number(
+                document.getElementById("virtualUsers").value
+            )
+        );
+
+    const duration=
+        Math.max(
+            1,
+            Number(
+                document.getElementById("perfDuration").value
+            )
+        );
+
+    const type=
+        document.getElementById("perfType").value;
+
+    const endpoint=
+        document.getElementById("perfEndpoint").value;
+
+
+    let elapsed=0;
+
+    let requests=0;
+
+    let errors=0;
+
+    let responseTimes=[];
+
+    document.getElementById("perfStatus")
+        .textContent=
+            "Running "+type+" against "+endpoint;
+
+
+    document.getElementById("perfResults")
+        .innerHTML=
+            "Test running...";
+
+
+    perfTimer=setInterval(()=>{
+
+        elapsed++;
+
+        const progress=
+            Math.min(
+                100,
+                (elapsed/duration)*100
+            );
+
+        document.getElementById("perfProgress")
+            .style.width=
+                progress+"%";
+
+
+        let requestsThisSecond=
+            Math.max(
+                1,
+                Math.round(
+                    users *
+                    (
+                        type==="Spike Test"
+                        ? (elapsed===1 ? 2 : .7)
+                        : type==="Stress Test"
+                        ? 1.4
+                        : type==="Endurance Test"
+                        ? .9
+                        : 1
+                    )
+                )
+            );
+
+
+        for(
+            let i=0;
+            i<requestsThisSecond;
+            i++
+        ){
+
+            const base=
+                70+
+                Math.random()*100;
+
+            const loadFactor=
+                Math.max(
+                    1,
+                    users/50
+                );
+
+            const typeFactor=
+                type==="Stress Test"
+                ?1.5
+                :type==="Spike Test"
+                ?1.8
+                :type==="Endurance Test"
+                ?1.2
+                :1;
+
+            const responseTime=
+                Math.round(
+                    base*
+                    loadFactor*
+                    typeFactor
+                );
+
+            responseTimes.push(responseTime);
+
+            requests++;
+
+            const errorProbability=
+                type==="Stress Test"
+                ?Math.min(.25,users/300)
+                :type==="Spike Test"
+                ?Math.min(.18,users/400)
+                :Math.min(.04,users/1000);
+
+            if(Math.random()<errorProbability){
+
+                errors++;
+
+            }
+
+        }
+
+
+        const avg=
+            responseTimes.length
+            ?
+            responseTimes.reduce(
+                (a,b)=>a+b,
+                0
+            )/responseTimes.length
+            :
+            0;
+
+
+        const throughput=
+            requests/elapsed;
+
+
+        document.getElementById("perfRequests")
+            .textContent=requests;
+
+        document.getElementById("perfErrors")
+            .textContent=errors;
+
+        document.getElementById("perfAvg")
+            .textContent=
+                Math.round(avg)+" ms";
+
+        document.getElementById("perfThroughput")
+            .textContent=
+                throughput.toFixed(2)+" req/s";
+
+
+        if(elapsed>=duration){
+
+            clearInterval(perfTimer);
+
+            perfTimer=null;
+
+            finishPerformanceTest(
+                requests,
+                errors,
+                responseTimes,
+                elapsed,
+                users,
+                type,
+                endpoint
+            );
+
+        }
+
+    },1000);
+
+}
+
+
+function finishPerformanceTest(
+    requests,
+    errors,
+    responseTimes,
+    elapsed,
+    users,
+    type,
+    endpoint
+){
+
+    const avg=
+        responseTimes.reduce(
+            (a,b)=>a+b,
+            0
+        )/Math.max(
+            1,
+            responseTimes.length
+        );
+
+    const min=
+        Math.min(...responseTimes);
+
+    const max=
+        Math.max(...responseTimes);
+
+    const throughput=
+        requests/elapsed;
+
+    const errorRate=
+        requests
+        ?
+        (errors/requests)*100
+        :
+        0;
+
+
+    document.getElementById("perfStatus")
+        .textContent=
+            "Test completed successfully.";
+
+
+    document.getElementById("perfResults")
+        .innerHTML=`
+
+        <div class="grid-4">
+
+            <div class="card metric">
+                <div class="metric-label">Test Type</div>
+                <div class="metric-value"
+                     style="font-size:18px">
+                    ${escapeHtml(type)}
+                </div>
+            </div>
+
+            <div class="card metric">
+                <div class="metric-label">Virtual Users</div>
+                <div class="metric-value">
+                    ${users}
+                </div>
+            </div>
+
+            <div class="card metric">
+                <div class="metric-label">Average Response</div>
+                <div class="metric-value">
+                    ${Math.round(avg)} ms
+                </div>
+            </div>
+
+            <div class="card metric">
+                <div class="metric-label">Max Response</div>
+                <div class="metric-value">
+                    ${max} ms
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="table-wrapper" style="margin-top:20px">
+
+        <table>
+
+            <tr>
+                <th>Endpoint</th>
+                <td>${escapeHtml(endpoint)}</td>
+            </tr>
+
+            <tr>
+                <th>Duration</th>
+                <td>${elapsed} sec</td>
+            </tr>
+
+            <tr>
+                <th>Total Requests</th>
+                <td>${requests}</td>
+            </tr>
+
+            <tr>
+                <th>Successful Requests</th>
+                <td>${requests-errors}</td>
+            </tr>
+
+            <tr>
+                <th>Failed Requests</th>
+                <td>${errors}</td>
+            </tr>
+
+            <tr>
+                <th>Error Rate</th>
+                <td>${errorRate.toFixed(2)}%</td>
+            </tr>
+
+            <tr>
+                <th>Throughput</th>
+                <td>${throughput.toFixed(2)} requests/sec</td>
+            </tr>
+
+            <tr>
+                <th>Minimum Response</th>
+                <td>${min} ms</td>
+            </tr>
+
+            <tr>
+                <th>Maximum Response</th>
+                <td>${max} ms</td>
+            </tr>
+
+        </table>
+
+        </div>
+
+        `;
+
+}
+
+
+function resetPerformance(){
+
+    if(perfTimer){
+
+        clearInterval(perfTimer);
+
+        perfTimer=null;
+
+    }
+
+    document.getElementById("perfProgress")
+        .style.width="0%";
+
+    document.getElementById("perfStatus")
+        .textContent="Ready to start.";
+
+    document.getElementById("perfRequests")
+        .textContent="0";
+
+    document.getElementById("perfErrors")
+        .textContent="0";
+
+    document.getElementById("perfAvg")
+        .textContent="0 ms";
+
+    document.getElementById("perfThroughput")
+        .textContent="0 req/s";
+
+    document.getElementById("perfResults")
+        .textContent=
+            "No test executed yet.";
+
+}
+
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+function escapeHtml(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttr(value){
+
+    return escapeHtml(value);
+
+}
+
+</script>
+
+</body>
+</html>
