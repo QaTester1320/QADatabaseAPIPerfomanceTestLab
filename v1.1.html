@@ -1,0 +1,2258 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purple Cart — E-Commerce & QA Sandbox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple-950:#1c1033;
+  --purple-900:#2c1a57;
+  --purple-800:#3d2277;
+  --purple-700:#4f2aa0;
+  --purple-600:#6531c9;
+  --purple-500:#7c3ee6;
+  --purple-400:#9a63ef;
+  --purple-300:#bb96f4;
+  --purple-200:#dcc9fa;
+  --purple-100:#ede2fc;
+  --purple-50:#f6f1fe;
+  --white:#ffffff;
+  --off-white:#fbfaff;
+  --ink:#1c1033;
+  --ink-soft:#4a3d68;
+  --ink-faint:#8579a1;
+  --line:#e6def8;
+  --success:#1fa971;
+  --success-bg:#e5f7ef;
+  --error:#e0473c;
+  --error-bg:#fdeae8;
+  --warning:#c97e1a;
+  --warning-bg:#fbf0dd;
+  --info:#2a6fe0;
+  --info-bg:#e7f0fd;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:18px;
+  --shadow-card: 0 1px 2px rgba(28,16,51,0.06), 0 8px 24px -12px rgba(44,26,87,0.18);
+  --shadow-pop: 0 20px 60px -20px rgba(28,16,51,0.45);
+  --font-display:'Space Grotesk', sans-serif;
+  --font-body:'Inter', sans-serif;
+  --font-mono:'JetBrains Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;font-family:var(--font-body);color:var(--ink);background:var(--off-white);-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,h5{font-family:var(--font-display);margin:0;color:var(--purple-950);letter-spacing:-0.01em;}
+p{margin:0;line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+ul{margin:0;padding:0;list-style:none;}
+button{font-family:inherit;cursor:pointer;}
+img{max-width:100%;display:block;}
+input,select,textarea{font-family:inherit;font-size:0.95rem;}
+:focus-visible{outline:2.5px solid var(--purple-500);outline-offset:2px;}
+.container{max-width:1240px;margin:0 auto;padding:0 24px;}
+.hidden{display:none !important;}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:999px;border:1.5px solid transparent;font-weight:600;font-size:0.94rem;transition:transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;white-space:nowrap;}
+.btn:active{transform:scale(0.97);}
+.btn-primary{background:var(--purple-600);color:#fff;box-shadow:0 10px 24px -10px rgba(101,49,201,0.55);}
+.btn-primary:hover{background:var(--purple-700);}
+.btn-secondary{background:var(--white);color:var(--purple-700);border-color:var(--purple-200);}
+.btn-secondary:hover{border-color:var(--purple-500);background:var(--purple-50);}
+.btn-ghost{background:transparent;color:var(--ink-soft);border-color:transparent;}
+.btn-ghost:hover{background:var(--purple-50);color:var(--purple-700);}
+.btn-danger{background:var(--error);color:#fff;}
+.btn-danger:hover{background:#c33a30;}
+.btn-block{width:100%;}
+.btn-sm{padding:7px 14px;font-size:0.82rem;border-radius:8px;}
+.btn:disabled{opacity:0.5;cursor:not-allowed;}
+.icon-btn{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--purple-200);background:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:1rem;color:var(--purple-700);transition:.15s;}
+.icon-btn:hover{background:var(--purple-50);border-color:var(--purple-500);}
+
+/* ---------- Header / Nav ---------- */
+.site-header{position:sticky;top:0;z-index:500;background:rgba(251,250,255,0.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.topbar{background:var(--purple-950);color:var(--purple-200);font-size:0.78rem;padding:7px 0;}
+.topbar .container{display:flex;justify-content:space-between;align-items:center;}
+.nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;gap:20px;}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:1.3rem;color:var(--purple-950);}
+.brand .mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(155deg,var(--purple-500),var(--purple-800));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.05rem;}
+.main-nav{display:flex;gap:2px;align-items:center;}
+.main-nav a{padding:9px 14px;border-radius:999px;font-weight:600;font-size:0.9rem;color:var(--ink-soft);transition:.15s;white-space:nowrap;}
+.main-nav a:hover{background:var(--purple-50);color:var(--purple-700);}
+.main-nav a.active{background:var(--purple-100);color:var(--purple-800);}
+.nav-tools{display:flex;align-items:center;gap:10px;}
+.cart-badge{position:relative;}
+.cart-badge .count{position:absolute;top:-4px;right:-4px;background:var(--purple-600);color:#fff;font-size:0.65rem;font-weight:700;min-width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--off-white);}
+.mobile-toggle{display:none;background:none;border:none;font-size:1.4rem;color:var(--purple-800);}
+@media(max-width:960px){
+  .main-nav{position:fixed;top:0;right:-100%;height:100vh;width:min(320px,85vw);background:#fff;flex-direction:column;align-items:stretch;padding:90px 22px 22px;box-shadow:var(--shadow-pop);transition:right .25s ease;overflow-y:auto;}
+  .main-nav.open{right:0;}
+  .main-nav a{padding:13px 14px;}
+  .mobile-toggle{display:block;}
+  .nav-scrim{display:none;position:fixed;inset:0;background:rgba(28,16,51,0.4);z-index:499;}
+  .nav-scrim.open{display:block;}
+}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;overflow:hidden;background:radial-gradient(120% 140% at 85% 0%, var(--purple-800) 0%, var(--purple-950) 55%, #150b28 100%);color:#fff;padding:76px 0 90px;}
+.hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:40px;align-items:center;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);padding:6px 14px;border-radius:999px;font-size:0.82rem;color:var(--purple-200);margin-bottom:18px;}
+.hero h1{font-size:clamp(2.1rem,4.3vw,3.4rem);color:#fff;line-height:1.08;font-weight:700;max-width:15ch;}
+.hero h1 em{font-style:normal;color:var(--purple-300);}
+.hero p{color:var(--purple-100);font-size:1.08rem;max-width:46ch;margin-top:18px;}
+.hero-cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;}
+.hero-stats{display:flex;gap:30px;margin-top:44px;flex-wrap:wrap;}
+.hero-stats div b{display:block;font-family:var(--font-display);font-size:1.5rem;color:#fff;}
+.hero-stats div span{font-size:0.8rem;color:var(--purple-300);}
+.hero-visual{position:relative;height:400px;}
+.float-card{position:absolute;background:#fff;border-radius:var(--radius-l);padding:16px 18px;box-shadow:var(--shadow-pop);color:var(--ink);width:190px;}
+.float-card b{display:block;font-family:var(--font-display);font-size:1.1rem;}
+.float-card span{font-size:0.78rem;color:var(--ink-faint);}
+.fc1{top:6%;left:8%;}
+.fc2{bottom:10%;left:20%;}
+.fc3{top:38%;right:2%;}
+.hero-blob{position:absolute;inset:0;background:conic-gradient(from 180deg at 60% 40%, var(--purple-600), var(--purple-400), var(--purple-700), var(--purple-600));border-radius:38% 62% 60% 40%/45% 40% 60% 55%;opacity:0.5;filter:blur(4px);}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;}.hero-visual{height:280px;margin-top:10px;}}
+
+/* ---------- Sections ---------- */
+.section{padding:64px 0;}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;gap:20px;flex-wrap:wrap;}
+.section-head h2{font-size:clamp(1.5rem,2.6vw,2.1rem);}
+.section-head p{color:var(--ink-faint);margin-top:8px;max-width:50ch;}
+.tag-label{font-size:0.78rem;font-weight:600;color:var(--purple-600);}
+
+/* Categories */
+.cat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;}
+.cat-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);padding:22px 16px;text-align:center;transition:.18s;cursor:pointer;}
+.cat-card:hover{border-color:var(--purple-400);transform:translateY(-3px);box-shadow:var(--shadow-card);}
+.cat-card .emoji{font-size:2rem;margin-bottom:10px;}
+.cat-card b{display:block;font-size:0.92rem;}
+.cat-card span{font-size:0.76rem;color:var(--ink-faint);}
+@media(max-width:900px){.cat-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:560px){.cat-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* Product grid */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px;}
+.chip{padding:8px 16px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-size:0.85rem;font-weight:600;color:var(--ink-soft);}
+.chip.active{background:var(--purple-600);border-color:var(--purple-600);color:#fff;}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.product-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);overflow:hidden;transition:.2s;display:flex;flex-direction:column;}
+.product-card:hover{box-shadow:var(--shadow-card);transform:translateY(-4px);border-color:var(--purple-300);}
+.product-thumb{aspect-ratio:1/0.9;background:linear-gradient(155deg,var(--purple-100),var(--purple-50));display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;cursor:pointer;}
+.product-thumb .badge{position:absolute;top:10px;left:10px;background:var(--purple-700);color:#fff;font-size:0.68rem;font-weight:700;padding:4px 9px;border-radius:6px;}
+.wish-toggle{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;background:#fff;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(28,16,51,0.15);}
+.wish-toggle.active{color:var(--error);}
+.product-body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:6px;flex:1;}
+.product-cat{font-size:0.72rem;color:var(--purple-600);font-weight:700;}
+.product-title{font-size:0.98rem;font-weight:600;cursor:pointer;}
+.product-rating{font-size:0.78rem;color:var(--warning);}
+.product-rating span{color:var(--ink-faint);}
+.product-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;}
+.product-price{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--purple-800);}
+.product-price s{font-size:0.8rem;color:var(--ink-faint);font-weight:400;margin-left:6px;}
+.add-cart-btn{width:38px;height:38px;border-radius:50%;background:var(--purple-950);color:#fff;border:none;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:.15s;}
+.add-cart-btn:hover{background:var(--purple-600);}
+.compare-line{padding:0 16px 14px;}
+.compare-line label{font-size:0.76rem;color:var(--ink-faint);display:flex;gap:6px;align-items:center;}
+@media(max-width:1080px){.product-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:760px){.product-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:460px){.product-grid{grid-template-columns:1fr 1fr;gap:12px;}}
+
+/* Trust badges */
+.trust-strip{background:var(--purple-950);padding:40px 0;}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.trust-item{display:flex;gap:14px;align-items:center;color:#fff;}
+.trust-item .ic{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.trust-item b{display:block;font-size:0.92rem;}
+.trust-item span{font-size:0.78rem;color:var(--purple-300);}
+@media(max-width:900px){.trust-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* Reviews */
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.review-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);padding:22px;}
+.review-stars{color:var(--warning);font-size:0.9rem;margin-bottom:10px;}
+.review-card p{font-size:0.9rem;color:var(--ink-soft);}
+.review-who{display:flex;align-items:center;gap:10px;margin-top:16px;}
+.review-avatar{width:36px;height:36px;border-radius:50%;background:var(--purple-200);color:var(--purple-800);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;}
+.review-who b{display:block;font-size:0.85rem;}
+.review-who span{font-size:0.74rem;color:var(--ink-faint);}
+@media(max-width:900px){.review-grid{grid-template-columns:1fr;}}
+
+/* Footer */
+.site-footer{background:var(--purple-950);color:var(--purple-300);padding:56px 0 26px;margin-top:40px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:34px;}
+.footer-grid h4{color:#fff;font-size:0.88rem;margin-bottom:14px;}
+.footer-grid li{margin-bottom:9px;font-size:0.84rem;}
+.footer-grid a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.12);margin-top:36px;padding-top:20px;display:flex;justify-content:space-between;font-size:0.78rem;flex-wrap:wrap;gap:10px;}
+@media(max-width:800px){.footer-grid{grid-template-columns:1fr 1fr;}}
+
+/* ---------- Generic page/inner layout ---------- */
+.page-hero{background:var(--purple-50);border-bottom:1px solid var(--line);padding:34px 0;}
+.breadcrumb{font-size:0.82rem;color:var(--ink-faint);}
+.breadcrumb b{color:var(--purple-700);}
+.page-title{margin-top:8px;font-size:1.8rem;}
+.narrow{max-width:520px;margin:0 auto;}
+
+/* ---------- Forms ---------- */
+.form-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);padding:34px;box-shadow:var(--shadow-card);}
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:0.83rem;font-weight:600;color:var(--ink-soft);margin-bottom:7px;}
+.field .req{color:var(--error);}
+.field input,.field select,.field textarea{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:var(--radius-m);background:var(--off-white);color:var(--ink);transition:.15s;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--purple-500);background:#fff;}
+.field textarea{resize:vertical;min-height:90px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.field-hint{font-size:0.76rem;color:var(--ink-faint);margin-top:5px;}
+.field-error{font-size:0.76rem;color:var(--error);margin-top:5px;display:none;}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--error);background:var(--error-bg);}
+.field.invalid .field-error{display:block;}
+.checkbox-row{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--ink-soft);}
+.checkbox-row input{width:auto;}
+.form-foot{margin-top:22px;display:flex;flex-direction:column;gap:14px;}
+.form-switch{text-align:center;font-size:0.86rem;color:var(--ink-faint);}
+.form-switch a{color:var(--purple-600);font-weight:600;}
+.alert{padding:12px 16px;border-radius:var(--radius-m);font-size:0.85rem;margin-bottom:18px;display:flex;gap:10px;align-items:flex-start;}
+.alert-error{background:var(--error-bg);color:#a5312a;}
+.alert-success{background:var(--success-bg);color:#137a4f;}
+.alert-info{background:var(--info-bg);color:#1e4fa0;}
+
+/* ---------- Cart ---------- */
+.cart-layout{display:grid;grid-template-columns:1.7fr 1fr;gap:28px;align-items:start;}
+.cart-list{background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);overflow:hidden;}
+.cart-row{display:grid;grid-template-columns:64px 1.6fr 0.8fr 0.8fr 32px;gap:16px;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line);}
+.cart-row:last-child{border-bottom:none;}
+.cart-thumb{width:60px;height:60px;border-radius:10px;background:var(--purple-50);display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
+.cart-name{font-weight:600;font-size:0.92rem;}
+.cart-meta{font-size:0.76rem;color:var(--ink-faint);}
+.qty-control{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:999px;width:fit-content;}
+.qty-control button{width:28px;height:28px;border:none;background:none;font-size:1rem;color:var(--purple-700);}
+.qty-control span{min-width:24px;text-align:center;font-size:0.85rem;font-weight:600;}
+.cart-remove{background:none;border:none;color:var(--ink-faint);font-size:1.1rem;}
+.cart-remove:hover{color:var(--error);}
+.summary-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);padding:24px;position:sticky;top:90px;}
+.summary-row{display:flex;justify-content:space-between;font-size:0.88rem;color:var(--ink-soft);margin-bottom:12px;}
+.summary-row.total{font-size:1.1rem;font-weight:700;color:var(--purple-950);border-top:1px solid var(--line);padding-top:14px;margin-top:6px;}
+.empty-state{text-align:center;padding:70px 20px;color:var(--ink-faint);}
+.empty-state .emoji{font-size:3rem;margin-bottom:14px;}
+@media(max-width:900px){.cart-layout{grid-template-columns:1fr;}.cart-row{grid-template-columns:48px 1fr;grid-template-areas:"t n" "t m" "t a";}}
+
+/* ---------- Checkout steps ---------- */
+.step-track{display:flex;justify-content:center;gap:0;margin-bottom:36px;}
+.step-item{display:flex;align-items:center;gap:10px;}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--purple-100);color:var(--purple-500);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;border:2px solid var(--purple-200);}
+.step-item.active .step-num{background:var(--purple-600);border-color:var(--purple-600);color:#fff;}
+.step-item.done .step-num{background:var(--success);border-color:var(--success);color:#fff;}
+.step-item span{font-size:0.85rem;font-weight:600;color:var(--ink-faint);margin-right:20px;}
+.step-item.active span{color:var(--purple-800);}
+.step-line{width:50px;height:2px;background:var(--line);margin-right:20px;}
+.checkout-layout{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;align-items:start;}
+.pay-option{display:flex;gap:14px;align-items:flex-start;border:1.5px solid var(--line);border-radius:var(--radius-m);padding:16px;margin-bottom:12px;cursor:pointer;transition:.15s;}
+.pay-option.selected{border-color:var(--purple-500);background:var(--purple-50);}
+.pay-option input{margin-top:3px;}
+.pay-option b{display:block;font-size:0.92rem;}
+.pay-option span{font-size:0.78rem;color:var(--ink-faint);}
+.card-fields{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);}
+.order-item-mini{display:flex;justify-content:space-between;font-size:0.83rem;color:var(--ink-soft);margin-bottom:10px;}
+.confirm-box{text-align:center;padding:60px 20px;}
+.confirm-box .tick{width:74px;height:74px;border-radius:50%;background:var(--success-bg);color:var(--success);font-size:2.2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+@media(max-width:900px){.checkout-layout{grid-template-columns:1fr;}.step-item span{display:none;}}
+
+/* ---------- Account ---------- */
+.account-layout{display:grid;grid-template-columns:250px 1fr;gap:28px;align-items:start;}
+.account-side{background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);padding:14px;position:sticky;top:90px;}
+.account-side button{width:100%;text-align:left;padding:11px 14px;border-radius:var(--radius-m);border:none;background:none;font-weight:600;font-size:0.88rem;color:var(--ink-soft);display:flex;gap:10px;align-items:center;margin-bottom:2px;}
+.account-side button.active{background:var(--purple-100);color:var(--purple-800);}
+.account-side button:hover{background:var(--purple-50);}
+.account-panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);padding:28px;min-height:300px;}
+.mini-table{width:100%;border-collapse:collapse;}
+.mini-table th{text-align:left;font-size:0.72rem;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-faint);padding:10px 12px;border-bottom:1.5px solid var(--line);}
+.mini-table td{padding:13px 12px;border-bottom:1px solid var(--line);font-size:0.87rem;}
+.status-pill{padding:4px 11px;border-radius:999px;font-size:0.72rem;font-weight:700;}
+.status-pending{background:var(--warning-bg);color:var(--warning);}
+.status-processing{background:var(--info-bg);color:var(--info);}
+.status-delivered{background:var(--success-bg);color:var(--success);}
+.status-cancelled{background:var(--error-bg);color:var(--error);}
+.wishlist-grid,.compare-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.compare-table{width:100%;border-collapse:collapse;}
+.compare-table th,.compare-table td{border:1px solid var(--line);padding:12px;font-size:0.85rem;vertical-align:top;}
+.compare-table th{background:var(--purple-50);width:150px;}
+.danger-zone{border:1.5px dashed var(--error);background:var(--error-bg);border-radius:var(--radius-m);padding:20px;margin-top:20px;}
+@media(max-width:900px){.account-layout{grid-template-columns:1fr;}.wishlist-grid,.compare-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* ---------- Modal ---------- */
+.modal-overlay{position:fixed;inset:0;background:rgba(28,16,51,0.55);display:none;align-items:center;justify-content:center;z-index:900;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#fff;border-radius:var(--radius-l);width:100%;max-width:520px;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-pop);}
+.modal-box.modal-wide{max-width:760px;}
+.modal-head{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--line);}
+.modal-head h3{font-size:1.1rem;}
+.modal-close{background:none;border:none;font-size:1.3rem;color:var(--ink-faint);width:32px;height:32px;border-radius:50%;}
+.modal-close:hover{background:var(--purple-50);color:var(--purple-700);}
+.modal-body{padding:24px;}
+.modal-foot{padding:18px 24px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px;}
+.confirm-icon{width:60px;height:60px;border-radius:50%;background:var(--error-bg);color:var(--error);font-size:1.6rem;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+.confirm-modal-body{text-align:center;}
+.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:1000;display:flex;flex-direction:column;gap:10px;}
+.toast{background:var(--purple-950);color:#fff;padding:13px 18px;border-radius:var(--radius-m);font-size:0.86rem;box-shadow:var(--shadow-pop);display:flex;align-items:center;gap:10px;min-width:220px;animation:toastIn .25s ease;}
+.toast.success{background:var(--success);}
+.toast.error{background:var(--error);}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ---------- Tool shell (Admin / Database / API share this look) ---------- */
+.tool-shell{background:var(--purple-950);min-height:calc(100vh - 64px);}
+.tool-topbar{background:var(--purple-900);border-bottom:1px solid rgba(255,255,255,0.08);padding:0 20px;display:flex;align-items:center;gap:4px;overflow-x:auto;}
+.tool-tab{padding:16px 18px;font-size:0.86rem;font-weight:600;color:var(--purple-300);border-bottom:2.5px solid transparent;white-space:nowrap;}
+.tool-tab.active{color:#fff;border-color:var(--purple-400);}
+.tool-tab:hover{color:#fff;}
+.tool-body{padding:26px 20px 60px;}
+.tool-panel-title{color:#fff;font-family:var(--font-display);font-size:1.3rem;margin-bottom:4px;}
+.tool-panel-sub{color:var(--purple-300);font-size:0.86rem;margin-bottom:22px;}
+
+/* Admin */
+.admin-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+.admin-search{display:flex;align-items:center;background:var(--purple-900);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-m);padding:8px 14px;gap:8px;min-width:240px;}
+.admin-search input{background:none;border:none;color:#fff;width:100%;}
+.admin-search input::placeholder{color:var(--purple-300);}
+.data-table-wrap{background:#fff;border-radius:var(--radius-l);overflow:hidden;box-shadow:var(--shadow-card);}
+.data-table{width:100%;border-collapse:collapse;}
+.data-table th{background:var(--purple-50);text-align:left;padding:13px 16px;font-size:0.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--purple-700);border-bottom:1.5px solid var(--line);white-space:nowrap;}
+.data-table td{padding:13px 16px;font-size:0.86rem;border-bottom:1px solid var(--line);vertical-align:middle;}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr:hover td{background:var(--purple-50);}
+.row-thumb{width:36px;height:36px;border-radius:8px;background:var(--purple-100);display:inline-flex;align-items:center;justify-content:center;font-size:1.1rem;margin-right:10px;vertical-align:middle;}
+.row-actions{display:flex;gap:6px;}
+.row-actions button{width:30px;height:30px;border-radius:7px;border:1px solid var(--line);background:#fff;font-size:0.82rem;}
+.row-actions button:hover{background:var(--purple-50);border-color:var(--purple-400);}
+.row-actions .del:hover{background:var(--error-bg);border-color:var(--error);color:var(--error);}
+.table-empty{padding:50px;text-align:center;color:var(--ink-faint);}
+.count-badge{background:var(--purple-100);color:var(--purple-700);font-size:0.72rem;font-weight:700;padding:3px 9px;border-radius:999px;margin-left:8px;}
+
+/* Database console */
+.db-layout{display:grid;grid-template-columns:230px 1fr;gap:0;background:#251246;border-radius:var(--radius-l);overflow:hidden;min-height:560px;box-shadow:var(--shadow-pop);}
+.db-sidebar{background:#1c0f38;padding:16px 0;border-right:1px solid rgba(255,255,255,0.08);}
+.db-sidebar h5{color:var(--purple-300);font-size:0.7rem;text-transform:uppercase;letter-spacing:.06em;padding:0 18px 10px;}
+.db-table-item{padding:10px 18px;font-size:0.86rem;color:var(--purple-100);display:flex;align-items:center;gap:9px;border-left:3px solid transparent;font-family:var(--font-mono);}
+.db-table-item:hover{background:rgba(255,255,255,0.05);}
+.db-table-item.active{background:rgba(124,62,230,0.2);border-color:var(--purple-400);color:#fff;}
+.db-table-item .n{margin-left:auto;font-size:0.7rem;color:var(--purple-400);}
+.db-main{padding:20px;display:flex;flex-direction:column;gap:16px;}
+.sql-toolbar{display:flex;justify-content:space-between;align-items:center;}
+.sql-toolbar h4{color:#fff;font-family:var(--font-mono);font-size:0.95rem;}
+.sql-editor{width:100%;background:#150b28;color:#d9c9fc;border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-m);padding:16px;font-family:var(--font-mono);font-size:0.88rem;min-height:110px;resize:vertical;line-height:1.6;}
+.sql-editor:focus{border-color:var(--purple-500);}
+.sql-actions{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.sql-hint{font-size:0.76rem;color:var(--purple-300);font-family:var(--font-mono);}
+.db-result-box{background:#fff;border-radius:var(--radius-m);overflow:hidden;min-height:200px;display:flex;flex-direction:column;}
+.db-result-meta{padding:10px 16px;background:var(--purple-50);font-size:0.78rem;color:var(--purple-700);font-family:var(--font-mono);border-bottom:1px solid var(--line);}
+.db-result-scroll{overflow:auto;max-height:340px;}
+.db-error-box{background:#3a1414;color:#ff9d92;padding:14px 16px;border-radius:var(--radius-m);font-family:var(--font-mono);font-size:0.85rem;border:1px solid #5c1f1f;}
+@media(max-width:900px){.db-layout{grid-template-columns:1fr;}.db-sidebar{display:flex;overflow-x:auto;padding:10px;}.db-sidebar h5{display:none;}.db-table-item{border-left:none;border-bottom:3px solid transparent;flex-shrink:0;}}
+
+/* Postman */
+.pm-request-bar{display:flex;gap:10px;margin-bottom:16px;}
+.pm-method{background:#150b28;color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-m);padding:0 12px;font-weight:700;font-family:var(--font-mono);font-size:0.85rem;width:130px;}
+.pm-url{flex:1;background:#150b28;color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-m);padding:12px 14px;font-family:var(--font-mono);font-size:0.88rem;}
+.pm-url:focus,.pm-method:focus{border-color:var(--purple-500);}
+.pm-tabs{display:flex;gap:4px;margin-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.pm-tab{padding:9px 16px;font-size:0.82rem;font-weight:600;color:var(--purple-300);border-bottom:2px solid transparent;}
+.pm-tab.active{color:#fff;border-color:var(--purple-400);}
+.pm-panel{display:none;}
+.pm-panel.active{display:block;}
+.kv-row{display:grid;grid-template-columns:1fr 1fr 34px;gap:8px;margin-bottom:8px;}
+.kv-row input{background:#150b28;color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-s);padding:9px 11px;font-family:var(--font-mono);font-size:0.82rem;}
+.kv-remove{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-s);color:var(--purple-300);}
+.pm-body-editor{width:100%;min-height:180px;background:#150b28;color:#d9c9fc;border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-m);padding:14px;font-family:var(--font-mono);font-size:0.85rem;line-height:1.6;}
+.pm-response-wrap{background:#150b28;border-radius:var(--radius-l);border:1px solid rgba(255,255,255,0.1);margin-top:20px;}
+.pm-response-head{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.1);flex-wrap:wrap;}
+.status-badge{padding:5px 12px;border-radius:6px;font-weight:700;font-size:0.82rem;font-family:var(--font-mono);}
+.status-2xx{background:var(--success-bg);color:var(--success);}
+.status-4xx{background:var(--error-bg);color:var(--error);}
+.status-5xx{background:#3a1414;color:#ff9d92;}
+.pm-meta-chip{font-size:0.78rem;color:var(--purple-300);font-family:var(--font-mono);}
+.pm-response-body{padding:18px;font-family:var(--font-mono);font-size:0.85rem;color:#d9c9fc;overflow:auto;max-height:420px;white-space:pre;line-height:1.65;}
+.json-key{color:#9a63ef;}
+.json-str{color:#7fd9b9;}
+.json-num{color:#f0a95e;}
+.json-bool{color:#ff9d92;}
+.json-null{color:#8579a1;}
+.pm-empty-response{padding:60px 20px;text-align:center;color:var(--purple-300);}
+.collection-list{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.collection-item{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);color:var(--purple-100);font-family:var(--font-mono);font-size:0.76rem;padding:7px 12px;border-radius:999px;}
+.collection-item b{color:var(--purple-300);margin-right:5px;}
+.collection-item:hover{background:rgba(124,62,230,0.25);border-color:var(--purple-400);}
+@media(max-width:700px){.pm-request-bar{flex-wrap:wrap;}.pm-method{width:100%;}}
+
+/* Performance testing */
+.perf-layout{display:grid;grid-template-columns:300px 1fr;gap:20px;align-items:start;}
+.perf-config{background:#1c0f38;border-radius:var(--radius-l);padding:22px;position:sticky;top:90px;}
+.perf-config h4{color:#fff;font-size:0.95rem;margin-bottom:16px;}
+.perf-config .field label{color:var(--purple-200);font-size:0.8rem;}
+.perf-config .field input,.perf-config .field select{background:#150b28;color:#fff;border-color:rgba(255,255,255,0.15);}
+.perf-config .field-hint{color:var(--purple-400);}
+.perf-run-row{display:flex;gap:10px;margin-top:6px;}
+.perf-status-line{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:0.8rem;color:var(--purple-300);}
+.perf-dot{width:9px;height:9px;border-radius:50%;background:var(--ink-faint);}
+.perf-dot.live{background:var(--success);box-shadow:0 0 0 3px rgba(31,169,113,0.25);animation:perfPulse 1s infinite;}
+@keyframes perfPulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.perf-progress-bar{height:7px;background:rgba(255,255,255,0.1);border-radius:999px;overflow:hidden;margin-top:12px;}
+.perf-progress-fill{height:100%;background:linear-gradient(90deg,var(--purple-400),var(--purple-600));width:0%;transition:width .25s linear;}
+.perf-metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;}
+.perf-metric-card{background:#fff;border-radius:var(--radius-m);padding:16px;text-align:center;box-shadow:var(--shadow-card);}
+.perf-metric-card b{display:block;font-family:var(--font-display);font-size:1.55rem;color:var(--purple-800);}
+.perf-metric-card span{font-size:0.72rem;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.03em;}
+.perf-metric-card.err b{color:var(--error);}
+.perf-chart-box{background:#fff;border-radius:var(--radius-m);padding:18px;margin-bottom:18px;box-shadow:var(--shadow-card);}
+.perf-chart-box h5{font-size:0.85rem;color:var(--ink-soft);margin-bottom:10px;}
+.perf-legend{display:flex;gap:16px;margin-top:10px;font-size:0.76rem;color:var(--ink-faint);}
+.perf-legend span{display:inline-flex;align-items:center;gap:6px;}
+.perf-legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
+.perf-log-box{background:#fff;border-radius:var(--radius-m);overflow:hidden;box-shadow:var(--shadow-card);}
+.perf-log-scroll{max-height:280px;overflow-y:auto;}
+.perf-empty{padding:60px 20px;text-align:center;color:var(--ink-faint);}
+@media(max-width:900px){.perf-layout{grid-template-columns:1fr;}.perf-config{position:static;}.perf-metric-row{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="site-header">
+  <div class="topbar">
+    <div class="container">
+      <span>🎓 Practice sandbox — every action here is safe to test, break, and reset.</span>
+      <span id="topbarUser">Not signed in</span>
+    </div>
+  </div>
+  <div class="nav-wrap">
+    <a href="#/home" class="brand"><span class="mark">PC</span> Purple Cart</a>
+    <div class="nav-scrim" id="navScrim"></div>
+    <nav class="main-nav" id="mainNav">
+      <a href="#/home" data-route="/home">Home</a>
+      <a href="#/shop" data-route="/shop">Shop</a>
+      <a href="#/account" data-route="/account">My Account</a>
+      <a href="#/admin" data-route="/admin">Admin Panel</a>
+      <a href="#/database" data-route="/database">Database</a>
+      <a href="#/api" data-route="/api">API Client</a>
+      <a href="#/performance" data-route="/performance">Performance</a>
+      <a href="#/login" data-route="/login" id="navAuthLink">Login</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="icon-btn cart-badge" onclick="location.hash='#/cart'" title="Cart">🛒<span class="count" id="cartCount">0</span></button>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="color:#fff;margin-bottom:12px;"><span class="mark">PC</span> Purple Cart</div>
+        <p style="font-size:0.85rem;max-width:32ch;">A self-contained demo storefront, admin panel, database console, and API client — built for QA practice with no real backend required.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul><li><a href="#/shop">All products</a></li><li><a href="#/cart">Cart</a></li><li><a href="#/account">My account</a></li></ul>
+      </div>
+      <div>
+        <h4>QA Tools</h4>
+        <ul><li><a href="#/admin">Admin panel</a></li><li><a href="#/database">Database console</a></li><li><a href="#/api">API client</a></li><li><a href="#/performance">Performance testing</a></li></ul>
+      </div>
+      <div>
+        <h4>Sandbox</h4>
+        <ul><li><a href="#" onclick="resetDemoData();return false;">Reset demo data</a></li><li><a href="#/register">Create account</a></li><li><a href="#/login">Sign in</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Purple Cart Sandbox — a fictional store for practicing manual QA.</span>
+      <span>All data is stored locally in your browser.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== TOAST ========== -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- ========== DELETE CONFIRM MODAL ========== -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal-box" style="max-width:400px;">
+    <div class="modal-body confirm-modal-body">
+      <div class="confirm-icon">⚠️</div>
+      <h3 id="confirmTitle">Delete this record?</h3>
+      <p style="color:var(--ink-faint);font-size:0.88rem;margin-top:8px;" id="confirmMsg">This action cannot be undone.</p>
+    </div>
+    <div class="modal-foot" style="justify-content:center;">
+      <button class="btn btn-secondary" onclick="closeModal('confirmModal')">Cancel</button>
+      <button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== ADMIN FORM MODAL ========== -->
+<div class="modal-overlay" id="adminFormModal">
+  <div class="modal-box modal-wide">
+    <div class="modal-head">
+      <h3 id="adminFormTitle">Add record</h3>
+      <button class="modal-close" onclick="closeModal('adminFormModal')">✕</button>
+    </div>
+    <div class="modal-body" id="adminFormBody"></div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" onclick="closeModal('adminFormModal')">Cancel</button>
+      <button class="btn btn-primary" id="adminFormSaveBtn">Save record</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PRODUCT QUICK VIEW MODAL ========== -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal-box modal-wide">
+    <div class="modal-head">
+      <h3>Product details</h3>
+      <button class="modal-close" onclick="closeModal('productModal')">✕</button>
+    </div>
+    <div class="modal-body" id="productModalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ======================================================================
+   PURPLE CART — QA SANDBOX
+   Single-file demo app: storefront + admin CRUD + SQL console + API client
+   All three tools share ONE in-memory dataset, persisted to localStorage,
+   so actions in one tool are visible in the others (like a real system).
+   ====================================================================== */
+
+/* ---------------------------- SEED DATA ---------------------------- */
+function seedData(){
+  return {
+    categories:[
+      {id:1,name:'Headphones',slug:'headphones',icon:'🎧',description:'Wireless & studio headphones'},
+      {id:2,name:'Smart Watches',slug:'smart-watches',icon:'⌚',description:'Fitness & lifestyle wearables'},
+      {id:3,name:'Cameras',slug:'cameras',icon:'📷',description:'Mirrorless & action cameras'},
+      {id:4,name:'Laptops',slug:'laptops',icon:'💻',description:'Ultrabooks & workstations'},
+      {id:5,name:'Speakers',slug:'speakers',icon:'🔊',description:'Bluetooth & home audio'},
+      {id:6,name:'Gaming',slug:'gaming',icon:'🎮',description:'Controllers & accessories'},
+    ],
+    products:[
+      {id:1,name:'AeroWave Pro Headphones',categoryId:1,price:129.99,compareAt:159.99,stock:42,image:'🎧',rating:4.6,reviewsCount:128,description:'Active noise-cancelling over-ear headphones with 40h battery life and plush memory-foam ear cups.'},
+      {id:2,name:'PulseFit Watch SE',categoryId:2,price:89.5,compareAt:0,stock:76,image:'⌚',rating:4.3,reviewsCount:64,description:'Track heart rate, sleep and workouts with a 10-day battery and always-on AMOLED display.'},
+      {id:3,name:'Nova X Mirrorless Camera',categoryId:3,price:749.0,compareAt:0,stock:12,image:'📷',rating:4.8,reviewsCount:41,description:'24MP APS-C sensor, in-body stabilization, and 4K60 video for creators on the move.'},
+      {id:4,name:'Slate 14 Ultrabook',categoryId:4,price:1099.0,compareAt:1249.0,stock:19,image:'💻',rating:4.5,reviewsCount:97,description:'14-inch ultrabook with 16GB RAM, 512GB SSD and a 18-hour battery in a 1.2kg magnesium shell.'},
+      {id:5,name:'Orbit Mini Speaker',categoryId:5,price:39.99,compareAt:49.99,stock:150,image:'🔊',rating:4.1,reviewsCount:212,description:'Pocket-sized Bluetooth speaker with 12-hour playback and IPX7 waterproofing.'},
+      {id:6,name:'Titan Grip Controller',categoryId:6,price:64.0,compareAt:0,stock:58,image:'🎮',rating:4.4,reviewsCount:73,description:'Hall-effect sticks, programmable back paddles, and low-latency 2.4GHz wireless.'},
+      {id:7,name:'AeroWave Lite Earbuds',categoryId:1,price:59.0,compareAt:0,stock:0,image:'🎧',rating:4.0,reviewsCount:35,description:'True-wireless earbuds with ambient sound mode and a compact charging case.'},
+      {id:8,name:'PulseFit Band 3',categoryId:2,price:34.99,compareAt:0,stock:88,image:'⌚',rating:3.9,reviewsCount:29,description:'Lightweight fitness band with SpO2 tracking and 14-day battery life.'},
+      {id:9,name:'Nova Action Cam 2',categoryId:3,price:229.0,compareAt:259.0,stock:27,image:'📷',rating:4.2,reviewsCount:52,description:'Waterproof to 10m with electronic stabilization and voice control.'},
+      {id:10,name:'Slate Air Chromebook',categoryId:4,price:399.0,compareAt:0,stock:33,image:'💻',rating:4.0,reviewsCount:61,description:'A fast, quiet everyday laptop with an 11-hour battery and instant-on standby.'},
+      {id:11,name:'Orbit Home Soundbar',categoryId:5,price:189.0,compareAt:219.0,stock:14,image:'🔊',rating:4.5,reviewsCount:38,description:'3.1 channel soundbar with wireless subwoofer and Dolby Atmos support.'},
+      {id:12,name:'Titan Racing Wheel',categoryId:6,price:159.0,compareAt:0,stock:9,image:'🎮',rating:4.7,reviewsCount:22,description:'Force-feedback racing wheel with responsive pedals for sim racing.'},
+    ],
+    customers:[
+      {id:1,name:'Admin User',email:'admin@purplecart.test',password:'admin123',phone:'555-0100',address:'1 Sandbox Way, QA City',role:'admin',createdAt:'2026-01-04'},
+      {id:2,name:'Priya Sharma',email:'priya@example.com',password:'priya123',phone:'555-0142',address:'22 Willow St, Ahmedabad',role:'customer',createdAt:'2026-02-11'},
+      {id:3,name:'Daniel Kim',email:'daniel@example.com',password:'daniel123',phone:'555-0199',address:'88 Cedar Ave, Seoul',role:'customer',createdAt:'2026-03-22'},
+    ],
+    reviews:[
+      {id:1,productId:1,customerId:2,customerName:'Priya Sharma',rating:5,comment:'Battery life is incredible and the noise cancelling blocks out my whole office.',status:'approved',date:'2026-04-02'},
+      {id:2,productId:4,customerId:3,customerName:'Daniel Kim',rating:4,comment:'Fast and light, though it runs a little warm under heavy load.',status:'approved',date:'2026-05-14'},
+      {id:3,productId:5,customerId:2,customerName:'Priya Sharma',rating:5,comment:'Way louder than its size suggests. Survived a rainy hike with no issues.',status:'pending',date:'2026-06-01'},
+    ],
+    cms:[
+      {id:1,title:'About Us',slug:'about-us',content:'Purple Cart is a demo storefront built for QA practice.',status:'published'},
+      {id:2,title:'Shipping Policy',slug:'shipping-policy',content:'Orders ship within 2-4 business days in this sandbox.',status:'published'},
+      {id:3,title:'FAQ',slug:'faq',content:'Frequently asked questions go here.',status:'draft'},
+    ],
+    orders:[
+      {id:1001,customerId:2,items:[{productId:1,qty:1,price:129.99},{productId:5,qty:2,price:39.99}],shipping:{name:'Priya Sharma',address:'22 Willow St',city:'Ahmedabad',zip:'380001',country:'India'},payment:{method:'card',last4:'4242'},status:'delivered',total:209.97,date:'2026-04-01'},
+      {id:1002,customerId:3,items:[{productId:4,qty:1,price:1099.0}],shipping:{name:'Daniel Kim',address:'88 Cedar Ave',city:'Seoul',zip:'04524',country:'South Korea'},payment:{method:'cod'},status:'processing',total:1099.0,date:'2026-06-10'},
+    ],
+    nextIds:{product:13,category:7,customer:4,review:4,cms:4,order:1003}
+  };
+}
+
+const STORAGE_KEY='purpleCartSandbox_v1';
+let DB, SESSION;
+
+function loadState(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const parsed=JSON.parse(raw);
+      DB=parsed.DB; SESSION=parsed.SESSION;
+      return;
+    }
+  }catch(e){ console.warn('Could not load saved state, reseeding.',e); }
+  DB=seedData();
+  SESSION={currentUserId:null,cart:[],wishlist:[],compare:[]};
+}
+function saveState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({DB,SESSION})); }
+  catch(e){ console.warn('Could not persist state',e); }
+}
+function resetDemoData(){
+  if(!confirm('Reset all demo data (products, orders, customers, cart) back to defaults? This cannot be undone.')) return;
+  DB=seedData();
+  SESSION={currentUserId:null,cart:[],wishlist:[],compare:[]};
+  saveState();
+  showToast('Demo data has been reset.','success');
+  location.hash='#/home';
+  render();
+}
+
+/* ---------------------------- UTILITIES ---------------------------- */
+function $(sel,ctx){ return (ctx||document).querySelector(sel); }
+function $all(sel,ctx){ return Array.from((ctx||document).querySelectorAll(sel)); }
+function fmtMoney(n){ return '$'+Number(n).toFixed(2); }
+function esc(str){ return String(str==null?'':str).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function uid(prefix){ return prefix+'_'+Math.random().toString(36).slice(2,9); }
+function currentUser(){ return DB.customers.find(c=>c.id===SESSION.currentUserId) || null; }
+function isAdmin(){ const u=currentUser(); return !!u && u.role==='admin'; }
+function catName(id){ const c=DB.categories.find(c=>c.id===id); return c?c.name:'—'; }
+function catIcon(id){ const c=DB.categories.find(c=>c.id===id); return c?c.icon:'📦'; }
+function productById(id){ return DB.products.find(p=>p.id===Number(id)); }
+function stars(rating){
+  const full=Math.round(rating);
+  return '★'.repeat(full)+'☆'.repeat(5-full);
+}
+function showToast(msg,type){
+  const wrap=$('#toastWrap');
+  const t=document.createElement('div');
+  t.className='toast'+(type?(' '+type):'');
+  t.textContent=msg;
+  wrap.appendChild(t);
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(()=>t.remove(),300); },2600);
+}
+function openModal(id){ $('#'+id).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(id){ $('#'+id).classList.remove('open'); document.body.style.overflow=''; }
+document.addEventListener('click',e=>{
+  if(e.target.classList && e.target.classList.contains('modal-overlay')){
+    e.target.classList.remove('open'); document.body.style.overflow='';
+  }
+});
+function openConfirm(title,msg,onConfirm){
+  $('#confirmTitle').textContent=title;
+  $('#confirmMsg').textContent=msg;
+  const btn=$('#confirmDeleteBtn');
+  const clone=btn.cloneNode(true);
+  btn.parentNode.replaceChild(clone,btn);
+  clone.addEventListener('click',()=>{ onConfirm(); closeModal('confirmModal'); });
+  openModal('confirmModal');
+}
+</script>
+<script>
+/* ---------------------------- ROUTER ---------------------------- */
+/* Built lazily (inside a function, not at top-level) so it only runs
+   after ALL script blocks below have loaded and defined their render
+   functions on window. A top-level object literal here would throw
+   "ReferenceError" since renderShop/renderCart/etc. are declared in
+   <script> tags further down the file. */
+function getRoutes(){
+  return {
+    '/home':renderHome,
+    '/shop':renderShop,
+    '/login':renderLogin,
+    '/register':renderRegister,
+    '/cart':renderCart,
+    '/checkout':renderCheckout,
+    '/account':renderAccount,
+    '/admin':renderAdmin,
+    '/database':renderDatabase,
+    '/api':renderPostman,
+    '/performance':renderPerformance,
+  };
+}
+function currentPath(){
+  let h=location.hash.replace('#','');
+  if(!h) h='/home';
+  return h.split('?')[0];
+}
+function render(){
+  const path=currentPath();
+  const fn=getRoutes()[path] || renderHome;
+  $all('.main-nav a').forEach(a=>a.classList.toggle('active', a.dataset.route===path));
+  const user=currentUser();
+  $('#navAuthLink').textContent=user? 'Hi, '+user.name.split(' ')[0] : 'Login';
+  $('#navAuthLink').setAttribute('href', user? '#/account' : '#/login');
+  $('#navAuthLink').dataset.route = user? '/account' : '/login';
+  $('#topbarUser').textContent = user? ('Signed in as '+user.name+(user.role==='admin'?' (admin)':'')) : 'Not signed in';
+  $('#cartCount').textContent = SESSION.cart.reduce((s,i)=>s+i.qty,0);
+  $('#app').innerHTML='';
+  fn($('#app'));
+  window.scrollTo({top:0,behavior:'instant'});
+  $('#mainNav').classList.remove('open'); $('#navScrim').classList.remove('open');
+}
+window.addEventListener('hashchange',render);
+$('#mobileToggle').addEventListener('click',()=>{ $('#mainNav').classList.toggle('open'); $('#navScrim').classList.toggle('open'); });
+$('#navScrim').addEventListener('click',()=>{ $('#mainNav').classList.remove('open'); $('#navScrim').classList.remove('open'); });
+
+/* ---------------------------- HOME PAGE ---------------------------- */
+function renderHome(root){
+  const featured=DB.products.slice(0,8);
+  root.innerHTML=`
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="hero-eyebrow">✨ Practice-ready storefront</span>
+        <h1>Tech that keeps up, <em>a cart that never lags.</em></h1>
+        <p>Browse, order, and manage a full mock storefront — then jump into the Admin, Database, and API tools to practice real QA workflows on the exact same data.</p>
+        <div class="hero-cta">
+          <a href="#/shop" class="btn btn-primary">Shop the collection</a>
+          <a href="#/api" class="btn btn-secondary" style="background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.25);">Open API client →</a>
+        </div>
+        <div class="hero-stats">
+          <div><b>${DB.products.length}</b><span>Products seeded</span></div>
+          <div><b>${DB.categories.length}</b><span>Categories</span></div>
+          <div><b>${DB.orders.length}</b><span>Sample orders</span></div>
+          <div><b>3</b><span>QA tools built-in</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-blob"></div>
+        <div class="float-card fc1"><b>Order #1001</b><span>Delivered · $209.97</span></div>
+        <div class="float-card fc2"><b>${catIcon(1)} AeroWave Pro</b><span>4.6★ · In stock</span></div>
+        <div class="float-card fc3"><b>200 OK</b><span>GET /api/products</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head">
+      <div><span class="tag-label">Browse</span><h2>Featured categories</h2></div>
+    </div>
+    <div class="cat-grid">
+      ${DB.categories.map(c=>`
+        <div class="cat-card" onclick="location.hash='#/shop?cat=${c.id}'">
+          <div class="emoji">${c.icon}</div>
+          <b>${esc(c.name)}</b>
+          <span>${DB.products.filter(p=>p.categoryId===c.id).length} items</span>
+        </div>`).join('')}
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head">
+      <div><span class="tag-label">New arrivals</span><h2>Product showcase</h2></div>
+      <a href="#/shop" class="btn btn-secondary">View all products</a>
+    </div>
+    <div class="product-grid">${featured.map(productCardHTML).join('')}</div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="container trust-grid">
+      <div class="trust-item"><div class="ic">🚚</div><div><b>Free shipping</b><span>On orders over $50</span></div></div>
+      <div class="trust-item"><div class="ic">↩️</div><div><b>30-day returns</b><span>No questions asked</span></div></div>
+      <div class="trust-item"><div class="ic">🔒</div><div><b>Secure checkout</b><span>Simulated encryption</span></div></div>
+      <div class="trust-item"><div class="ic">🎧</div><div><b>24/7 support</b><span>Mock live chat</span></div></div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head">
+      <div><span class="tag-label">Testimonials</span><h2>What shoppers are saying</h2></div>
+    </div>
+    <div class="review-grid">
+      ${DB.reviews.filter(r=>r.status==='approved').slice(0,3).map(r=>`
+        <div class="review-card">
+          <div class="review-stars">${stars(r.rating)}</div>
+          <p>"${esc(r.comment)}"</p>
+          <div class="review-who">
+            <div class="review-avatar">${esc(r.customerName.charAt(0))}</div>
+            <div><b>${esc(r.customerName)}</b><span>Verified buyer · ${esc(productById(r.productId)?.name||'')}</span></div>
+          </div>
+        </div>`).join('') || '<p style="color:var(--ink-faint);">No approved reviews yet.</p>'}
+    </div>
+  </section>
+  `;
+}
+
+function productCardHTML(p){
+  const inWishlist=SESSION.wishlist.includes(p.id);
+  const inCompare=SESSION.compare.includes(p.id);
+  const outOfStock=p.stock<=0;
+  return `
+  <div class="product-card">
+    <div class="product-thumb" onclick="openProductModal(${p.id})">
+      ${p.compareAt>0?'<span class="badge">SALE</span>':''}
+      ${outOfStock?'<span class="badge" style="background:#6b6b6b;">OUT OF STOCK</span>':''}
+      ${p.image}
+      <button class="wish-toggle ${inWishlist?'active':''}" onclick="event.stopPropagation();toggleWishlist(${p.id})" title="Wishlist">${inWishlist?'♥':'♡'}</button>
+    </div>
+    <div class="product-body">
+      <span class="product-cat">${esc(catName(p.categoryId))}</span>
+      <span class="product-title" onclick="openProductModal(${p.id})">${esc(p.name)}</span>
+      <span class="product-rating">${stars(p.rating)} <span>(${p.reviewsCount})</span></span>
+      <div class="product-foot">
+        <span class="product-price">${fmtMoney(p.price)}${p.compareAt>0?`<s>${fmtMoney(p.compareAt)}</s>`:''}</span>
+        <button class="add-cart-btn" ${outOfStock?'disabled':''} onclick="addToCart(${p.id},1);event.stopPropagation();" title="Add to cart">+</button>
+      </div>
+    </div>
+    <div class="compare-line">
+      <label><input type="checkbox" ${inCompare?'checked':''} onchange="toggleCompare(${p.id})"> Compare</label>
+    </div>
+  </div>`;
+}
+</script>
+<script>
+/* ---------------------------- SHOP PAGE ---------------------------- */
+let shopFilter={cat:null,sort:'default',search:''};
+function renderShop(root){
+  const hashQuery=location.hash.split('?')[1];
+  if(hashQuery){
+    const params=new URLSearchParams(hashQuery);
+    if(params.get('cat')) shopFilter.cat=Number(params.get('cat'));
+  }
+  root.innerHTML=`
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><b>Home</b> / Shop</div>
+      <h1 class="page-title">Shop all products</h1>
+    </div>
+  </div>
+  <div class="section container">
+    <div class="filter-bar" id="catChips">
+      <button class="chip ${!shopFilter.cat?'active':''}" data-cat="">All</button>
+      ${DB.categories.map(c=>`<button class="chip ${shopFilter.cat===c.id?'active':''}" data-cat="${c.id}">${c.icon} ${esc(c.name)}</button>`).join('')}
+    </div>
+    <div class="admin-toolbar" style="margin-bottom:24px;">
+      <div class="admin-search" style="background:#fff;border-color:var(--line);">
+        <span>🔎</span><input id="shopSearch" placeholder="Search products..." style="color:var(--ink);" value="${esc(shopFilter.search)}">
+      </div>
+      <select class="field" id="shopSort" style="width:auto;padding:10px 14px;border:1.5px solid var(--line);border-radius:var(--radius-m);background:#fff;">
+        <option value="default" ${shopFilter.sort==='default'?'selected':''}>Sort: Featured</option>
+        <option value="priceLow" ${shopFilter.sort==='priceLow'?'selected':''}>Price: Low to High</option>
+        <option value="priceHigh" ${shopFilter.sort==='priceHigh'?'selected':''}>Price: High to Low</option>
+        <option value="rating" ${shopFilter.sort==='rating'?'selected':''}>Highest Rated</option>
+      </select>
+    </div>
+    <div class="product-grid" id="shopGrid"></div>
+  </div>
+  `;
+  $all('#catChips .chip').forEach(chip=>chip.addEventListener('click',()=>{
+    shopFilter.cat = chip.dataset.cat? Number(chip.dataset.cat) : null;
+    renderShop(root);
+  }));
+  $('#shopSearch').addEventListener('input',e=>{ shopFilter.search=e.target.value; renderShopGrid(); });
+  $('#shopSort').addEventListener('change',e=>{ shopFilter.sort=e.target.value; renderShopGrid(); });
+  renderShopGrid();
+}
+function renderShopGrid(){
+  let list=DB.products.slice();
+  if(shopFilter.cat) list=list.filter(p=>p.categoryId===shopFilter.cat);
+  if(shopFilter.search) list=list.filter(p=>p.name.toLowerCase().includes(shopFilter.search.toLowerCase()));
+  if(shopFilter.sort==='priceLow') list.sort((a,b)=>a.price-b.price);
+  if(shopFilter.sort==='priceHigh') list.sort((a,b)=>b.price-a.price);
+  if(shopFilter.sort==='rating') list.sort((a,b)=>b.rating-a.rating);
+  const grid=$('#shopGrid');
+  if(!grid) return;
+  grid.innerHTML = list.length? list.map(productCardHTML).join('') : '<div class="empty-state" style="grid-column:1/-1;"><div class="emoji">🔍</div><p>No products match your filters.</p></div>';
+}
+
+/* ---------------------------- PRODUCT MODAL ---------------------------- */
+function openProductModal(id){
+  const p=productById(id);
+  if(!p) return;
+  const reviews=DB.reviews.filter(r=>r.productId===id && r.status==='approved');
+  $('#productModalBody').innerHTML=`
+  <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:26px;">
+    <div class="product-thumb" style="aspect-ratio:1/1;border-radius:var(--radius-l);font-size:5rem;">${p.image}</div>
+    <div>
+      <span class="product-cat">${esc(catName(p.categoryId))}</span>
+      <h2 style="margin:6px 0 10px;font-size:1.4rem;">${esc(p.name)}</h2>
+      <div class="product-rating" style="font-size:0.9rem;">${stars(p.rating)} <span>${p.rating} · ${p.reviewsCount} reviews</span></div>
+      <div class="product-price" style="font-size:1.6rem;margin:14px 0;">${fmtMoney(p.price)}${p.compareAt>0?`<s>${fmtMoney(p.compareAt)}</s>`:''}</div>
+      <p style="color:var(--ink-soft);">${esc(p.description)}</p>
+      <p style="margin-top:12px;font-size:0.85rem;color:${p.stock>0?'var(--success)':'var(--error)'};font-weight:600;">${p.stock>0? p.stock+' in stock' : 'Out of stock'}</p>
+      <div style="display:flex;gap:12px;margin-top:20px;align-items:center;">
+        <div class="qty-control" id="modalQty" data-qty="1">
+          <button onclick="modalQtyChange(-1)">−</button><span>1</span><button onclick="modalQtyChange(1)">+</button>
+        </div>
+        <button class="btn btn-primary" ${p.stock<=0?'disabled':''} onclick="addToCart(${p.id}, Number($('#modalQty').dataset.qty)); closeModal('productModal');">Add to cart</button>
+        <button class="icon-btn" onclick="toggleWishlist(${p.id});openProductModal(${p.id});" title="Wishlist">${SESSION.wishlist.includes(p.id)?'♥':'♡'}</button>
+      </div>
+    </div>
+  </div>
+  <hr style="border:none;border-top:1px solid var(--line);margin:26px 0;">
+  <h4 style="margin-bottom:14px;">Customer reviews (${reviews.length})</h4>
+  ${reviews.length? reviews.map(r=>`
+    <div style="padding:14px 0;border-bottom:1px solid var(--line);">
+      <div class="review-stars">${stars(r.rating)}</div>
+      <p style="font-size:0.88rem;margin-top:6px;">${esc(r.comment)}</p>
+      <span style="font-size:0.76rem;color:var(--ink-faint);">${esc(r.customerName)} · ${esc(r.date)}</span>
+    </div>`).join('') : '<p style="color:var(--ink-faint);font-size:0.86rem;">No reviews yet for this product.</p>'}
+  `;
+  openModal('productModal');
+}
+function modalQtyChange(delta){
+  const el=$('#modalQty');
+  let q=Number(el.dataset.qty)+delta;
+  if(q<1) q=1;
+  el.dataset.qty=q;
+  el.querySelector('span').textContent=q;
+}
+
+/* ---------------------------- CART / WISHLIST / COMPARE ---------------------------- */
+function addToCart(productId,qty){
+  const p=productById(productId);
+  if(!p || p.stock<=0) return;
+  const existing=SESSION.cart.find(i=>i.productId===productId);
+  if(existing) existing.qty+=qty; else SESSION.cart.push({productId,qty});
+  saveState();
+  $('#cartCount').textContent=SESSION.cart.reduce((s,i)=>s+i.qty,0);
+  showToast(p.name+' added to cart','success');
+  if(currentPath()==='/cart') renderCart($('#app'));
+}
+function toggleWishlist(productId){
+  if(!currentUser()){ showToast('Please sign in to use your wishlist.'); location.hash='#/login'; return; }
+  const idx=SESSION.wishlist.indexOf(productId);
+  if(idx>-1){ SESSION.wishlist.splice(idx,1); showToast('Removed from wishlist'); }
+  else { SESSION.wishlist.push(productId); showToast('Added to wishlist','success'); }
+  saveState();
+  render();
+}
+function toggleCompare(productId){
+  const idx=SESSION.compare.indexOf(productId);
+  if(idx>-1){ SESSION.compare.splice(idx,1); }
+  else {
+    if(SESSION.compare.length>=4){ showToast('You can compare up to 4 products.'); return; }
+    SESSION.compare.push(productId);
+  }
+  saveState();
+}
+</script>
+<script>
+/* ---------------------------- LOGIN / REGISTER ---------------------------- */
+function renderLogin(root){
+  root.innerHTML=`
+  <div class="section container narrow">
+    <div class="form-card">
+      <h2 style="margin-bottom:6px;">Welcome back</h2>
+      <p style="color:var(--ink-faint);margin-bottom:22px;font-size:0.9rem;">Sign in to view your orders, wishlist and account.</p>
+      <div id="loginAlert"></div>
+      <div class="field" id="f-email"><label>Email address <span class="req">*</span></label><input type="email" id="loginEmail" placeholder="you@example.com" value="priya@example.com"><div class="field-error">Enter a valid email address.</div></div>
+      <div class="field" id="f-pass"><label>Password <span class="req">*</span></label><input type="password" id="loginPass" placeholder="••••••••" value="priya123"><div class="field-error">Password is required.</div></div>
+      <div class="form-foot">
+        <button class="btn btn-primary btn-block" onclick="doLogin()">Sign in</button>
+        <p class="field-hint" style="text-align:center;">Demo accounts — Admin: admin@purplecart.test / admin123 · Customer: priya@example.com / priya123</p>
+        <div class="form-switch">Don't have an account? <a href="#/register">Create one</a></div>
+      </div>
+    </div>
+  </div>`;
+}
+function doLogin(){
+  const email=$('#loginEmail').value.trim().toLowerCase();
+  const pass=$('#loginPass').value;
+  let valid=true;
+  $('#f-email').classList.toggle('invalid', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)); if($('#f-email').classList.contains('invalid')) valid=false;
+  $('#f-pass').classList.toggle('invalid', !pass); if(!pass) valid=false;
+  if(!valid) return;
+  const user=DB.customers.find(c=>c.email.toLowerCase()===email);
+  if(!user || user.password!==pass){
+    $('#loginAlert').innerHTML='<div class="alert alert-error">⚠️ Invalid email or password. Try the demo accounts shown below.</div>';
+    return;
+  }
+  SESSION.currentUserId=user.id;
+  saveState();
+  showToast('Signed in as '+user.name,'success');
+  location.hash= user.role==='admin' ? '#/admin' : '#/account';
+  render();
+}
+function renderRegister(root){
+  root.innerHTML=`
+  <div class="section container narrow">
+    <div class="form-card">
+      <h2 style="margin-bottom:6px;">Create your account</h2>
+      <p style="color:var(--ink-faint);margin-bottom:22px;font-size:0.9rem;">Join to track orders, save wishlists, and check out faster.</p>
+      <div id="regAlert"></div>
+      <div class="field" id="r-name"><label>Full name <span class="req">*</span></label><input id="regName" placeholder="Jordan Lee"><div class="field-error">Name is required.</div></div>
+      <div class="field" id="r-email"><label>Email address <span class="req">*</span></label><input type="email" id="regEmail" placeholder="you@example.com"><div class="field-error">Enter a valid, unused email address.</div></div>
+      <div class="field" id="r-phone"><label>Phone</label><input id="regPhone" placeholder="555-0123"></div>
+      <div class="field" id="r-pass"><label>Password <span class="req">*</span></label><input type="password" id="regPass" placeholder="At least 6 characters"><div class="field-error">Password must be at least 6 characters.</div></div>
+      <div class="checkbox-row" style="margin-bottom:18px;"><input type="checkbox" id="regTerms"><label for="regTerms">I agree to the Terms & Privacy Policy</label></div>
+      <div class="form-foot">
+        <button class="btn btn-primary btn-block" onclick="doRegister()">Create account</button>
+        <div class="form-switch">Already have an account? <a href="#/login">Sign in</a></div>
+      </div>
+    </div>
+  </div>`;
+}
+function doRegister(){
+  const name=$('#regName').value.trim();
+  const email=$('#regEmail').value.trim().toLowerCase();
+  const phone=$('#regPhone').value.trim();
+  const pass=$('#regPass').value;
+  let valid=true;
+  $('#r-name').classList.toggle('invalid', !name); if(!name) valid=false;
+  const emailTaken=DB.customers.some(c=>c.email.toLowerCase()===email);
+  $('#r-email').classList.toggle('invalid', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || emailTaken); if($('#r-email').classList.contains('invalid')) valid=false;
+  $('#r-pass').classList.toggle('invalid', pass.length<6); if(pass.length<6) valid=false;
+  if(!$('#regTerms').checked){ $('#regAlert').innerHTML='<div class="alert alert-error">⚠️ Please accept the Terms & Privacy Policy.</div>'; valid=false; }
+  if(!valid){
+    if(emailTaken) $('#regAlert').innerHTML='<div class="alert alert-error">⚠️ An account with that email already exists.</div>';
+    return;
+  }
+  const newUser={id:DB.nextIds.customer++,name,email,password:pass,phone,address:'',role:'customer',createdAt:new Date().toISOString().slice(0,10)};
+  DB.customers.push(newUser);
+  SESSION.currentUserId=newUser.id;
+  saveState();
+  showToast('Account created — welcome, '+name.split(' ')[0]+'!','success');
+  location.hash='#/account';
+  render();
+}
+function doLogout(){
+  SESSION.currentUserId=null;
+  saveState();
+  showToast('Signed out');
+  location.hash='#/home';
+  render();
+}
+
+/* ---------------------------- CART PAGE ---------------------------- */
+function renderCart(root){
+  if(!SESSION.cart.length){
+    root.innerHTML=`<div class="section container"><div class="empty-state"><div class="emoji">🛒</div><h3>Your cart is empty</h3><p style="margin-top:8px;">Looks like you haven't added anything yet.</p><a href="#/shop" class="btn btn-primary" style="margin-top:20px;">Start shopping</a></div></div>`;
+    return;
+  }
+  const items=SESSION.cart.map(i=>({...i,product:productById(i.productId)})).filter(i=>i.product);
+  const subtotal=items.reduce((s,i)=>s+i.product.price*i.qty,0);
+  const shipping=subtotal>50?0:6.99;
+  const tax=subtotal*0.08;
+  const total=subtotal+shipping+tax;
+  root.innerHTML=`
+  <div class="page-hero"><div class="container"><div class="breadcrumb"><b>Home</b> / Cart</div><h1 class="page-title">Your cart</h1></div></div>
+  <div class="section container">
+    <div class="cart-layout">
+      <div class="cart-list">
+        ${items.map(i=>`
+          <div class="cart-row">
+            <div class="cart-thumb">${i.product.image}</div>
+            <div><div class="cart-name">${esc(i.product.name)}</div><div class="cart-meta">${esc(catName(i.product.categoryId))} · ${fmtMoney(i.product.price)} each</div></div>
+            <div class="qty-control"><button onclick="changeCartQty(${i.productId},-1)">−</button><span>${i.qty}</span><button onclick="changeCartQty(${i.productId},1)">+</button></div>
+            <div style="font-weight:700;">${fmtMoney(i.product.price*i.qty)}</div>
+            <button class="cart-remove" onclick="removeFromCart(${i.productId})" title="Remove">✕</button>
+          </div>`).join('')}
+      </div>
+      <div class="summary-card">
+        <h3 style="margin-bottom:18px;">Order summary</h3>
+        <div class="summary-row"><span>Subtotal</span><span>${fmtMoney(subtotal)}</span></div>
+        <div class="summary-row"><span>Shipping</span><span>${shipping===0?'Free':fmtMoney(shipping)}</span></div>
+        <div class="summary-row"><span>Estimated tax</span><span>${fmtMoney(tax)}</span></div>
+        <div class="summary-row total"><span>Total</span><span>${fmtMoney(total)}</span></div>
+        <button class="btn btn-primary btn-block" style="margin-top:16px;" onclick="location.hash='#/checkout'">Proceed to checkout</button>
+        <a href="#/shop" class="btn btn-ghost btn-block" style="margin-top:8px;">Continue shopping</a>
+      </div>
+    </div>
+  </div>`;
+}
+function changeCartQty(productId,delta){
+  const item=SESSION.cart.find(i=>i.productId===productId);
+  if(!item) return;
+  item.qty+=delta;
+  if(item.qty<=0) SESSION.cart=SESSION.cart.filter(i=>i.productId!==productId);
+  saveState(); render();
+}
+function removeFromCart(productId){
+  SESSION.cart=SESSION.cart.filter(i=>i.productId!==productId);
+  saveState(); showToast('Item removed'); render();
+}
+</script>
+<script>
+/* ---------------------------- CHECKOUT FLOW ---------------------------- */
+let checkoutState={step:1,shipping:{},payment:{method:'card'}};
+function renderCheckout(root){
+  if(!SESSION.cart.length){ location.hash='#/cart'; return; }
+  checkoutState={step:1,shipping:checkoutState.shipping||{},payment:checkoutState.payment||{method:'card'}};
+  const user=currentUser();
+  if(user && !checkoutState.shipping.name){
+    checkoutState.shipping={name:user.name,address:user.address||'',city:'',zip:'',country:'',phone:user.phone||''};
+  }
+  renderCheckoutStep(root);
+}
+function stepTrackHTML(step){
+  const labels=['Shipping','Payment','Review'];
+  return `<div class="step-track">${labels.map((l,i)=>{
+    const n=i+1; const cls= n<step?'done': n===step?'active':'';
+    return `<div class="step-item ${cls}"><div class="step-num">${n<step?'✓':n}</div><span>${l}</span></div>${i<2?'<div class="step-line"></div>':''}`;
+  }).join('')}</div>`;
+}
+function orderSummaryHTML(){
+  const items=SESSION.cart.map(i=>({...i,product:productById(i.productId)})).filter(i=>i.product);
+  const subtotal=items.reduce((s,i)=>s+i.product.price*i.qty,0);
+  const shipping=subtotal>50?0:6.99;
+  const tax=subtotal*0.08;
+  const total=subtotal+shipping+tax;
+  return `<div class="summary-card">
+    <h3 style="margin-bottom:16px;">Order summary</h3>
+    ${items.map(i=>`<div class="order-item-mini"><span>${i.qty}× ${esc(i.product.name)}</span><span>${fmtMoney(i.product.price*i.qty)}</span></div>`).join('')}
+    <hr style="border:none;border-top:1px solid var(--line);margin:14px 0;">
+    <div class="summary-row"><span>Subtotal</span><span>${fmtMoney(subtotal)}</span></div>
+    <div class="summary-row"><span>Shipping</span><span>${shipping===0?'Free':fmtMoney(shipping)}</span></div>
+    <div class="summary-row"><span>Tax</span><span>${fmtMoney(tax)}</span></div>
+    <div class="summary-row total"><span>Total</span><span>${fmtMoney(total)}</span></div>
+  </div>`;
+}
+function renderCheckoutStep(root){
+  const s=checkoutState.step;
+  root.innerHTML=`
+  <div class="page-hero"><div class="container"><div class="breadcrumb"><b>Home</b> / Cart / Checkout</div><h1 class="page-title">Checkout</h1></div></div>
+  <div class="section container">
+    ${stepTrackHTML(s)}
+    <div class="checkout-layout">
+      <div id="checkoutMain"></div>
+      ${orderSummaryHTML()}
+    </div>
+  </div>`;
+  const main=$('#checkoutMain');
+  if(s===1) renderShippingStep(main);
+  if(s===2) renderPaymentStep(main);
+  if(s===3) renderReviewStep(main);
+}
+function renderShippingStep(main){
+  const sh=checkoutState.shipping;
+  main.innerHTML=`
+  <div class="form-card">
+    <h3 style="margin-bottom:18px;">Shipping address</h3>
+    <div class="field" id="sh-name"><label>Full name <span class="req">*</span></label><input id="shName" value="${esc(sh.name||'')}"><div class="field-error">Name is required.</div></div>
+    <div class="field" id="sh-address"><label>Street address <span class="req">*</span></label><input id="shAddress" value="${esc(sh.address||'')}"><div class="field-error">Address is required.</div></div>
+    <div class="field-row">
+      <div class="field" id="sh-city"><label>City <span class="req">*</span></label><input id="shCity" value="${esc(sh.city||'')}"><div class="field-error">City is required.</div></div>
+      <div class="field" id="sh-zip"><label>ZIP / Postal code <span class="req">*</span></label><input id="shZip" value="${esc(sh.zip||'')}"><div class="field-error">Enter a valid postal code.</div></div>
+    </div>
+    <div class="field-row">
+      <div class="field" id="sh-country"><label>Country <span class="req">*</span></label><input id="shCountry" value="${esc(sh.country||'')}"><div class="field-error">Country is required.</div></div>
+      <div class="field" id="sh-phone"><label>Phone <span class="req">*</span></label><input id="shPhone" value="${esc(sh.phone||'')}"><div class="field-error">Phone is required.</div></div>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="submitShipping()">Continue to payment</button>
+  </div>`;
+}
+function submitShipping(){
+  const vals={name:$('#shName').value.trim(),address:$('#shAddress').value.trim(),city:$('#shCity').value.trim(),zip:$('#shZip').value.trim(),country:$('#shCountry').value.trim(),phone:$('#shPhone').value.trim()};
+  let valid=true;
+  [['sh-name','name'],['sh-address','address'],['sh-city','city'],['sh-zip','zip'],['sh-country','country'],['sh-phone','phone']].forEach(([id,key])=>{
+    const bad=!vals[key];
+    $('#'+id).classList.toggle('invalid',bad);
+    if(bad) valid=false;
+  });
+  if(!valid) return;
+  checkoutState.shipping=vals;
+  checkoutState.step=2;
+  renderCheckoutStep($('#app'));
+}
+function renderPaymentStep(main){
+  const method=checkoutState.payment.method||'card';
+  main.innerHTML=`
+  <div class="form-card">
+    <h3 style="margin-bottom:18px;">Payment method</h3>
+    <label class="pay-option ${method==='card'?'selected':''}" id="payCardOpt">
+      <input type="radio" name="payMethod" value="card" ${method==='card'?'checked':''}>
+      <div><b>💳 Credit / Debit card</b><span>Simulated payment — no real card data is charged.</span></div>
+    </label>
+    <label class="pay-option ${method==='cod'?'selected':''}" id="payCodOpt">
+      <input type="radio" name="payMethod" value="cod" ${method==='cod'?'checked':''}>
+      <div><b>💵 Cash on delivery</b><span>Pay when your order arrives.</span></div>
+    </label>
+    <div class="card-fields ${method==='card'?'':'hidden'}" id="cardFields">
+      <div class="field" id="p-num"><label>Card number <span class="req">*</span></label><input id="cardNum" placeholder="4242 4242 4242 4242" maxlength="19"><div class="field-error">Enter a valid 16-digit card number.</div></div>
+      <div class="field-row">
+        <div class="field" id="p-exp"><label>Expiry (MM/YY) <span class="req">*</span></label><input id="cardExp" placeholder="12/28"><div class="field-error">Enter a valid expiry date.</div></div>
+        <div class="field" id="p-cvv"><label>CVV <span class="req">*</span></label><input id="cardCvv" placeholder="123" maxlength="4"><div class="field-error">Enter a valid CVV.</div></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:10px;">
+      <button class="btn btn-secondary" onclick="checkoutState.step=1;renderCheckoutStep($('#app'))">Back</button>
+      <button class="btn btn-primary btn-block" onclick="submitPayment()">Continue to review</button>
+    </div>
+  </div>`;
+  $all('input[name="payMethod"]').forEach(r=>r.addEventListener('change',e=>{
+    checkoutState.payment.method=e.target.value;
+    $('#payCardOpt').classList.toggle('selected',e.target.value==='card');
+    $('#payCodOpt').classList.toggle('selected',e.target.value==='cod');
+    $('#cardFields').classList.toggle('hidden',e.target.value!=='card');
+  }));
+}
+function submitPayment(){
+  const method=checkoutState.payment.method;
+  if(method==='card'){
+    const num=$('#cardNum').value.replace(/\s/g,'');
+    const exp=$('#cardExp').value.trim();
+    const cvv=$('#cardCvv').value.trim();
+    let valid=true;
+    const numOk=/^\d{16}$/.test(num); $('#p-num').classList.toggle('invalid',!numOk); if(!numOk) valid=false;
+    const expOk=/^(0[1-9]|1[0-2])\/\d{2}$/.test(exp); $('#p-exp').classList.toggle('invalid',!expOk); if(!expOk) valid=false;
+    const cvvOk=/^\d{3,4}$/.test(cvv); $('#p-cvv').classList.toggle('invalid',!cvvOk); if(!cvvOk) valid=false;
+    if(!valid) return;
+    checkoutState.payment={method:'card',last4:num.slice(-4)};
+  } else {
+    checkoutState.payment={method:'cod'};
+  }
+  checkoutState.step=3;
+  renderCheckoutStep($('#app'));
+}
+function renderReviewStep(main){
+  const sh=checkoutState.shipping, pay=checkoutState.payment;
+  main.innerHTML=`
+  <div class="form-card">
+    <h3 style="margin-bottom:18px;">Review your order</h3>
+    <div style="margin-bottom:20px;">
+      <b style="font-size:0.85rem;color:var(--purple-700);">SHIP TO</b>
+      <p style="margin-top:6px;">${esc(sh.name)}<br>${esc(sh.address)}, ${esc(sh.city)} ${esc(sh.zip)}<br>${esc(sh.country)} · ${esc(sh.phone)}</p>
+    </div>
+    <div style="margin-bottom:24px;">
+      <b style="font-size:0.85rem;color:var(--purple-700);">PAYMENT</b>
+      <p style="margin-top:6px;">${pay.method==='card' ? 'Card ending in '+pay.last4 : 'Cash on delivery'}</p>
+    </div>
+    <div style="display:flex;gap:12px;">
+      <button class="btn btn-secondary" onclick="checkoutState.step=2;renderCheckoutStep($('#app'))">Back</button>
+      <button class="btn btn-primary btn-block" onclick="placeOrder()">Place order</button>
+    </div>
+  </div>`;
+}
+function placeOrder(){
+  if(!currentUser()){ showToast('Please sign in to place an order.'); location.hash='#/login'; return; }
+  const items=SESSION.cart.map(i=>({productId:i.productId,qty:i.qty,price:productById(i.productId).price}));
+  const subtotal=items.reduce((s,i)=>s+i.price*i.qty,0);
+  const shipping=subtotal>50?0:6.99;
+  const tax=subtotal*0.08;
+  const order={
+    id:DB.nextIds.order++, customerId:currentUser().id, items,
+    shipping:checkoutState.shipping, payment:checkoutState.payment,
+    status:'pending', total:+(subtotal+shipping+tax).toFixed(2), date:new Date().toISOString().slice(0,10)
+  };
+  DB.orders.push(order);
+  items.forEach(it=>{ const p=productById(it.productId); if(p) p.stock=Math.max(0,p.stock-it.qty); });
+  SESSION.cart=[];
+  saveState();
+  $('#app').innerHTML=`
+  <div class="section container">
+    <div class="confirm-box">
+      <div class="tick">✓</div>
+      <h2>Order placed!</h2>
+      <p style="color:var(--ink-faint);margin-top:10px;">Order <b>#${order.id}</b> has been confirmed and saved to your account.</p>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:26px;">
+        <a href="#/account" class="btn btn-primary">View my orders</a>
+        <a href="#/shop" class="btn btn-secondary">Continue shopping</a>
+      </div>
+    </div>
+  </div>`;
+  $('#cartCount').textContent='0';
+}
+</script>
+<script>
+/* ---------------------------- MY ACCOUNT ---------------------------- */
+let accountTab='orders';
+function renderAccount(root){
+  const user=currentUser();
+  if(!user){
+    root.innerHTML=`
+    <div class="section container">
+      <div class="empty-state"><div class="emoji">🔒</div><h3>Please sign in</h3><p style="margin-top:8px;">Sign in to view your orders, wishlist and account details.</p>
+      <a href="#/login" class="btn btn-primary" style="margin-top:20px;">Sign in</a></div>
+    </div>`;
+    return;
+  }
+  root.innerHTML=`
+  <div class="page-hero"><div class="container"><div class="breadcrumb"><b>Home</b> / My Account</div><h1 class="page-title">My account</h1></div></div>
+  <div class="section container">
+    <div class="account-layout">
+      <div class="account-side">
+        <button data-tab="orders" class="${accountTab==='orders'?'active':''}">📦 My orders</button>
+        <button data-tab="wishlist" class="${accountTab==='wishlist'?'active':''}">♥ Wishlist</button>
+        <button data-tab="compare" class="${accountTab==='compare'?'active':''}">⇄ Compare list</button>
+        <button data-tab="info" class="${accountTab==='info'?'active':''}">👤 Account info</button>
+        <button data-tab="delete" class="${accountTab==='delete'?'active':''}" style="color:var(--error);">🗑 Delete account</button>
+        <hr style="border:none;border-top:1px solid var(--line);margin:8px 0;">
+        <button onclick="doLogout()">↩ Sign out</button>
+      </div>
+      <div class="account-panel" id="accountPanel"></div>
+    </div>
+  </div>`;
+  $all('.account-side button[data-tab]').forEach(b=>b.addEventListener('click',()=>{ accountTab=b.dataset.tab; renderAccount(root); }));
+  renderAccountPanel(user);
+}
+function renderAccountPanel(user){
+  const panel=$('#accountPanel');
+  if(accountTab==='orders'){
+    const orders=DB.orders.filter(o=>o.customerId===user.id).sort((a,b)=>b.id-a.id);
+    panel.innerHTML = orders.length ? `
+      <h3 style="margin-bottom:16px;">My orders <span class="count-badge">${orders.length}</span></h3>
+      <table class="mini-table"><thead><tr><th>Order</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
+      <tbody>${orders.map(o=>`<tr><td>#${o.id}</td><td>${o.date}</td><td>${o.items.reduce((s,i)=>s+i.qty,0)} items</td><td>${fmtMoney(o.total)}</td><td><span class="status-pill status-${o.status}">${o.status}</span></td></tr>`).join('')}</tbody></table>
+    ` : `<div class="empty-state"><div class="emoji">📦</div><h3>No orders yet</h3><a href="#/shop" class="btn btn-primary" style="margin-top:16px;">Start shopping</a></div>`;
+  }
+  if(accountTab==='wishlist'){
+    const items=SESSION.wishlist.map(productById).filter(Boolean);
+    panel.innerHTML = `<h3 style="margin-bottom:16px;">Wishlist <span class="count-badge">${items.length}</span></h3>` +
+      (items.length? `<div class="wishlist-grid">${items.map(productCardHTML).join('')}</div>` : `<div class="empty-state"><div class="emoji">♥</div><h3>Your wishlist is empty</h3><a href="#/shop" class="btn btn-primary" style="margin-top:16px;">Browse products</a></div>`);
+  }
+  if(accountTab==='compare'){
+    const items=SESSION.compare.map(productById).filter(Boolean);
+    if(!items.length){
+      panel.innerHTML=`<h3 style="margin-bottom:16px;">Compare list</h3><div class="empty-state"><div class="emoji">⇄</div><h3>No products selected</h3><p style="margin-top:6px;">Check "Compare" on up to 4 products in the shop.</p><a href="#/shop" class="btn btn-primary" style="margin-top:16px;">Browse products</a></div>`;
+    } else {
+      const rows=[['Price',p=>fmtMoney(p.price)],['Category',p=>catName(p.categoryId)],['Rating',p=>p.rating+'★ ('+p.reviewsCount+')'],['Stock',p=>p.stock>0?p.stock+' available':'Out of stock'],['Description',p=>p.description]];
+      panel.innerHTML=`<h3 style="margin-bottom:16px;">Compare list <span class="count-badge">${items.length}</span></h3>
+      <div style="overflow-x:auto;"><table class="compare-table">
+        <tr><th></th>${items.map(p=>`<td style="text-align:center;"><div style="font-size:2rem;">${p.image}</div><b>${esc(p.name)}</b><br><button class="btn btn-sm btn-ghost" onclick="toggleCompare(${p.id});renderAccountPanel(currentUser())">Remove</button></td>`).join('')}</tr>
+        ${rows.map(([label,fn])=>`<tr><th>${label}</th>${items.map(p=>`<td>${esc(String(fn(p)))}</td>`).join('')}</tr>`).join('')}
+      </table></div>`;
+    }
+  }
+  if(accountTab==='info'){
+    panel.innerHTML=`
+      <h3 style="margin-bottom:18px;">Account information</h3>
+      <div id="infoAlert"></div>
+      <div class="field-row">
+        <div class="field"><label>Full name</label><input id="infoName" value="${esc(user.name)}"></div>
+        <div class="field"><label>Email address</label><input id="infoEmail" value="${esc(user.email)}"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Phone</label><input id="infoPhone" value="${esc(user.phone||'')}"></div>
+        <div class="field"><label>Address</label><input id="infoAddress" value="${esc(user.address||'')}"></div>
+      </div>
+      <button class="btn btn-primary" onclick="saveAccountInfo()">Save changes</button>
+    `;
+  }
+  if(accountTab==='delete'){
+    panel.innerHTML=`
+      <h3 style="margin-bottom:12px;">Delete account</h3>
+      <p style="color:var(--ink-faint);font-size:0.9rem;">Deleting your account removes your profile, wishlist, and compare list from this sandbox. Order history is retained for records.</p>
+      <div class="danger-zone">
+        <b style="color:var(--error);">This action cannot be undone.</b>
+        <p style="font-size:0.86rem;margin-top:6px;color:var(--ink-soft);">Click below to permanently delete your account "${esc(user.name)}".</p>
+        <button class="btn btn-danger" style="margin-top:14px;" onclick="confirmDeleteAccount()">Delete my account</button>
+      </div>
+    `;
+  }
+}
+function saveAccountInfo(){
+  const user=currentUser();
+  const name=$('#infoName').value.trim(), email=$('#infoEmail').value.trim();
+  if(!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+    $('#infoAlert').innerHTML='<div class="alert alert-error">⚠️ Please enter a valid name and email.</div>'; return;
+  }
+  user.name=name; user.email=email; user.phone=$('#infoPhone').value.trim(); user.address=$('#infoAddress').value.trim();
+  saveState();
+  $('#infoAlert').innerHTML='<div class="alert alert-success">✓ Account information updated.</div>';
+  render();
+}
+function confirmDeleteAccount(){
+  openConfirm('Delete your account?','This will permanently remove your profile from this sandbox.',()=>{
+    const uid=currentUser().id;
+    DB.customers=DB.customers.filter(c=>c.id!==uid);
+    SESSION.currentUserId=null; SESSION.wishlist=[]; SESSION.compare=[];
+    saveState();
+    showToast('Account deleted','success');
+    location.hash='#/home'; render();
+  });
+}
+</script>
+<script>
+/* ======================================================================
+   ADMIN PANEL — generic CRUD engine driven by module config
+   ====================================================================== */
+const adminModules={
+  products:{
+    label:'Products', icon:'📦', table:'products', idKey:'id',
+    columns:[
+      {key:'image',label:'',render:v=>`<span class="row-thumb">${v}</span>`},
+      {key:'name',label:'Name'},
+      {key:'categoryId',label:'Category',render:v=>catName(v)},
+      {key:'price',label:'Price',render:v=>fmtMoney(v)},
+      {key:'stock',label:'Stock',render:v=>v>0?v:'<span style="color:var(--error);font-weight:700;">0</span>'},
+      {key:'rating',label:'Rating',render:v=>v+'★'},
+    ],
+    fields:[
+      {key:'name',label:'Product name',type:'text',required:true},
+      {key:'categoryId',label:'Category',type:'select',required:true,options:()=>DB.categories.map(c=>({value:c.id,label:c.name}))},
+      {key:'price',label:'Price (USD)',type:'number',required:true,step:'0.01'},
+      {key:'compareAt',label:'Compare-at price (0 = no sale)',type:'number',step:'0.01'},
+      {key:'stock',label:'Stock quantity',type:'number',required:true},
+      {key:'image',label:'Icon (emoji)',type:'text'},
+      {key:'rating',label:'Rating (0-5)',type:'number',step:'0.1'},
+      {key:'reviewsCount',label:'Reviews count',type:'number'},
+      {key:'description',label:'Description',type:'textarea'},
+    ],
+    searchKeys:['name','description'],
+    defaults:{name:'',categoryId:1,price:0,compareAt:0,stock:0,image:'🛒',rating:4.5,reviewsCount:0,description:''},
+  },
+  categories:{
+    label:'Categories', icon:'🗂', table:'categories', idKey:'id',
+    columns:[
+      {key:'icon',label:'',render:v=>`<span class="row-thumb">${v}</span>`},
+      {key:'name',label:'Name'},{key:'slug',label:'Slug'},
+      {key:'id',label:'Products',render:(v)=>DB.products.filter(p=>p.categoryId===v).length},
+      {key:'description',label:'Description'},
+    ],
+    fields:[
+      {key:'name',label:'Category name',type:'text',required:true},
+      {key:'slug',label:'Slug',type:'text',required:true},
+      {key:'icon',label:'Icon (emoji)',type:'text'},
+      {key:'description',label:'Description',type:'textarea'},
+    ],
+    searchKeys:['name','slug'],
+    defaults:{name:'',slug:'',icon:'🏷',description:''},
+    beforeDelete:(id)=>{
+      if(DB.products.some(p=>p.categoryId===id)) return 'This category has products assigned to it. Reassign or delete those products first.';
+      return null;
+    }
+  },
+  customers:{
+    label:'Customers', icon:'👥', table:'customers', idKey:'id',
+    columns:[
+      {key:'name',label:'Name'},{key:'email',label:'Email'},{key:'phone',label:'Phone'},
+      {key:'role',label:'Role',render:v=>`<span class="status-pill ${v==='admin'?'status-processing':'status-delivered'}">${v}</span>`},
+      {key:'createdAt',label:'Joined'},
+    ],
+    fields:[
+      {key:'name',label:'Full name',type:'text',required:true},
+      {key:'email',label:'Email',type:'text',required:true},
+      {key:'phone',label:'Phone',type:'text'},
+      {key:'address',label:'Address',type:'text'},
+      {key:'role',label:'Role',type:'select',options:()=>[{value:'customer',label:'Customer'},{value:'admin',label:'Admin'}]},
+      {key:'password',label:'Password',type:'text',required:true},
+    ],
+    searchKeys:['name','email'],
+    defaults:{name:'',email:'',phone:'',address:'',role:'customer',password:'changeme123',createdAt:()=>new Date().toISOString().slice(0,10)},
+  },
+  reviews:{
+    label:'Reviews', icon:'⭐', table:'reviews', idKey:'id',
+    columns:[
+      {key:'productId',label:'Product',render:v=>productById(v)?productById(v).name:'—'},
+      {key:'customerName',label:'Customer'},
+      {key:'rating',label:'Rating',render:v=>stars(v)},
+      {key:'comment',label:'Comment'},
+      {key:'status',label:'Status',render:v=>`<span class="status-pill ${v==='approved'?'status-delivered':v==='pending'?'status-pending':'status-cancelled'}">${v}</span>`},
+    ],
+    fields:[
+      {key:'productId',label:'Product',type:'select',required:true,options:()=>DB.products.map(p=>({value:p.id,label:p.name}))},
+      {key:'customerName',label:'Customer name',type:'text',required:true},
+      {key:'rating',label:'Rating (1-5)',type:'number',required:true},
+      {key:'comment',label:'Comment',type:'textarea',required:true},
+      {key:'status',label:'Status',type:'select',options:()=>[{value:'pending',label:'Pending'},{value:'approved',label:'Approved'},{value:'rejected',label:'Rejected'}]},
+    ],
+    searchKeys:['customerName','comment'],
+    defaults:{productId:1,customerName:'',rating:5,comment:'',status:'pending',date:()=>new Date().toISOString().slice(0,10),customerId:0},
+  },
+  cms:{
+    label:'CMS Pages', icon:'📄', table:'cms', idKey:'id',
+    columns:[
+      {key:'title',label:'Title'},{key:'slug',label:'Slug'},
+      {key:'status',label:'Status',render:v=>`<span class="status-pill ${v==='published'?'status-delivered':'status-pending'}">${v}</span>`},
+      {key:'content',label:'Content preview',render:v=>esc(v).slice(0,60)+(v.length>60?'…':'')},
+    ],
+    fields:[
+      {key:'title',label:'Page title',type:'text',required:true},
+      {key:'slug',label:'URL slug',type:'text',required:true},
+      {key:'status',label:'Status',type:'select',options:()=>[{value:'draft',label:'Draft'},{value:'published',label:'Published'}]},
+      {key:'content',label:'Content',type:'textarea',required:true},
+    ],
+    searchKeys:['title','slug'],
+    defaults:{title:'',slug:'',status:'draft',content:''},
+  },
+};
+let adminActiveTab='products';
+let adminSearch='';
+let adminEditing={module:null,id:null};
+
+function renderAdmin(root){
+  const user=currentUser();
+  if(!user || user.role!=='admin'){
+    root.innerHTML=`<div class="tool-shell"><div class="section container"><div class="empty-state" style="color:#fff;"><div class="emoji">🔐</div><h3 style="color:#fff;">Admin access required</h3><p style="color:var(--purple-300);margin-top:8px;">Sign in with the admin demo account to manage store data.</p><a href="#/login" class="btn btn-primary" style="margin-top:18px;">Sign in as admin</a></div></div></div>`;
+    return;
+  }
+  root.innerHTML=`
+  <div class="tool-shell">
+    <div class="tool-topbar" id="adminTabs">
+      ${Object.keys(adminModules).map(key=>`<button class="tool-tab ${adminActiveTab===key?'active':''}" data-mod="${key}">${adminModules[key].icon} ${adminModules[key].label}</button>`).join('')}
+    </div>
+    <div class="tool-body container">
+      <div class="tool-panel-title" id="adminModTitle"></div>
+      <div class="tool-panel-sub" id="adminModSub"></div>
+      <div class="admin-toolbar">
+        <div class="admin-search"><span>🔎</span><input id="adminSearchInput" placeholder="Search records..."></div>
+        <button class="btn btn-primary" id="adminAddBtn">+ Add new</button>
+      </div>
+      <div class="data-table-wrap"><div id="adminTableWrap"></div></div>
+    </div>
+  </div>`;
+  $all('#adminTabs .tool-tab').forEach(b=>b.addEventListener('click',()=>{ adminActiveTab=b.dataset.mod; adminSearch=''; renderAdmin(root); }));
+  $('#adminSearchInput').addEventListener('input',e=>{ adminSearch=e.target.value; renderAdminTable(); });
+  $('#adminAddBtn').addEventListener('click',()=>openAdminForm(adminActiveTab,null));
+  renderAdminTable();
+}
+function renderAdminTable(){
+  const mod=adminModules[adminActiveTab];
+  $('#adminModTitle').textContent=mod.label;
+  $('#adminModSub').textContent='Manage '+mod.label.toLowerCase()+' — add, view, edit and delete records.';
+  let rows=DB[mod.table];
+  if(adminSearch){
+    const q=adminSearch.toLowerCase();
+    rows=rows.filter(r=> mod.searchKeys.some(k=> String(r[k]||'').toLowerCase().includes(q)) || String(r[mod.idKey]).includes(q));
+  }
+  const wrap=$('#adminTableWrap');
+  if(!rows.length){ wrap.innerHTML=`<div class="table-empty">No ${mod.label.toLowerCase()} found.</div>`; return; }
+  wrap.innerHTML=`<table class="data-table"><thead><tr><th>ID</th>${mod.columns.map(c=>`<th>${c.label}</th>`).join('')}<th>Actions</th></tr></thead>
+  <tbody>${rows.map(r=>`<tr>
+    <td>#${r[mod.idKey]}</td>
+    ${mod.columns.map(c=>`<td>${c.render? c.render(r[c.key],r) : esc(String(r[c.key]!=null?r[c.key]:''))}</td>`).join('')}
+    <td class="row-actions">
+      <button title="View" onclick="viewAdminRecord('${adminActiveTab}',${r[mod.idKey]})">👁</button>
+      <button title="Edit" onclick="openAdminForm('${adminActiveTab}',${r[mod.idKey]})">✎</button>
+      <button title="Delete" class="del" onclick="deleteAdminRecord('${adminActiveTab}',${r[mod.idKey]})">🗑</button>
+    </td>
+  </tr>`).join('')}</tbody></table>`;
+}
+function viewAdminRecord(modKey,id){
+  const mod=adminModules[modKey];
+  const rec=DB[mod.table].find(r=>r[mod.idKey]===id);
+  if(!rec) return;
+  $('#adminFormTitle').textContent='View '+mod.label.slice(0,-1)+' #'+id;
+  $('#adminFormBody').innerHTML=`<div style="display:grid;gap:10px;">${Object.entries(rec).map(([k,v])=>`<div style="display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:8px;"><b style="color:var(--ink-faint);font-size:0.82rem;">${esc(k)}</b><span style="text-align:right;">${esc(String(v))}</span></div>`).join('')}</div>`;
+  $('#adminFormSaveBtn').classList.add('hidden');
+  openModal('adminFormModal');
+  $('#adminFormModal').addEventListener('transitionend',()=>{},{once:true});
+}
+</script>
+<script>
+/* ---------------------------- ADMIN ADD/EDIT FORM ---------------------------- */
+function openAdminForm(modKey,id){
+  const mod=adminModules[modKey];
+  adminEditing={module:modKey,id};
+  const rec = id!=null ? DB[mod.table].find(r=>r[mod.idKey]===id) : null;
+  $('#adminFormSaveBtn').classList.remove('hidden');
+  $('#adminFormTitle').textContent = rec ? ('Edit '+mod.label.slice(0,-1)+' #'+id) : ('Add new '+mod.label.slice(0,-1));
+  $('#adminFormBody').innerHTML = `<div id="adminFormAlert"></div>` + mod.fields.map(f=>{
+    const val = rec ? rec[f.key] : (typeof mod.defaults[f.key]==='function' ? mod.defaults[f.key]() : mod.defaults[f.key]);
+    const fid='af_'+f.key;
+    let control='';
+    if(f.type==='select'){
+      const opts=f.options();
+      control=`<select id="${fid}">${opts.map(o=>`<option value="${o.value}" ${String(val)===String(o.value)?'selected':''}>${esc(o.label)}</option>`).join('')}</select>`;
+    } else if(f.type==='textarea'){
+      control=`<textarea id="${fid}">${esc(val||'')}</textarea>`;
+    } else {
+      control=`<input id="${fid}" type="${f.type==='number'?'number':'text'}" ${f.step?`step="${f.step}"`:''} value="${esc(val!=null?val:'')}">`;
+    }
+    return `<div class="field" id="fw_${fid}"><label>${esc(f.label)} ${f.required?'<span class="req">*</span>':''}</label>${control}<div class="field-error">This field is required.</div></div>`;
+  }).join('');
+  openModal('adminFormModal');
+}
+$('#adminFormSaveBtn').addEventListener('click',()=>{
+  const {module:modKey,id}=adminEditing;
+  const mod=adminModules[modKey];
+  let valid=true;
+  const values={};
+  mod.fields.forEach(f=>{
+    const el=$('#af_'+f.key);
+    let val=el.value;
+    if(f.type==='number') val = val===''? 0 : Number(val);
+    if(f.required && (val==='' || val==null)){
+      $('#fw_af_'+f.key).classList.add('invalid'); valid=false;
+    } else {
+      $('#fw_af_'+f.key).classList.remove('invalid');
+    }
+    if(f.key==='categoryId'||f.key==='productId') val=Number(val);
+    values[f.key]=val;
+  });
+  if(!valid){ $('#adminFormAlert').innerHTML='<div class="alert alert-error">⚠️ Please fill in all required fields.</div>'; return; }
+  if(id!=null){
+    const rec=DB[mod.table].find(r=>r[mod.idKey]===id);
+    Object.assign(rec,values);
+    showToast(mod.label.slice(0,-1)+' updated','success');
+  } else {
+    const newId=DB.nextIds[modKey==='cms'?'cms':modKey.slice(0,-1)] || (Math.max(0,...DB[mod.table].map(r=>r[mod.idKey]))+1);
+    const nextKey = modKey==='categories'?'category': modKey==='products'?'product': modKey==='customers'?'customer': modKey==='reviews'?'review':'cms';
+    const idToUse = DB.nextIds[nextKey];
+    DB.nextIds[nextKey]=idToUse+1;
+    const newRec=Object.assign({[mod.idKey]:idToUse}, values);
+    if(modKey==='reviews'){ newRec.date=new Date().toISOString().slice(0,10); }
+    if(modKey==='customers'){ newRec.createdAt=new Date().toISOString().slice(0,10); }
+    DB[mod.table].push(newRec);
+    showToast(mod.label.slice(0,-1)+' added','success');
+  }
+  saveState();
+  closeModal('adminFormModal');
+  renderAdminTable();
+});
+function deleteAdminRecord(modKey,id){
+  const mod=adminModules[modKey];
+  if(mod.beforeDelete){
+    const err=mod.beforeDelete(id);
+    if(err){ showToast(err,'error'); return; }
+  }
+  openConfirm('Delete this '+mod.label.slice(0,-1).toLowerCase()+'?','Record #'+id+' will be permanently removed from '+mod.label.toLowerCase()+'.',()=>{
+    DB[mod.table]=DB[mod.table].filter(r=>r[mod.idKey]!==id);
+    saveState();
+    showToast(mod.label.slice(0,-1)+' deleted','success');
+    renderAdminTable();
+  });
+}
+</script>
+<script>
+/* ======================================================================
+   DATABASE CONSOLE — phpMyAdmin-style SQL sandbox over the in-memory DB
+   ====================================================================== */
+const dbTables={
+  products:{columns:['id','name','categoryId','price','compareAt','stock','image','rating','reviewsCount','description']},
+  categories:{columns:['id','name','slug','icon','description']},
+  customers:{columns:['id','name','email','phone','address','role','createdAt']},
+  orders:{columns:['id','customerId','total','status','date']},
+  reviews:{columns:['id','productId','customerId','customerName','rating','comment','status','date']},
+  cms:{columns:['id','title','slug','status','content']},
+};
+let activeDbTable='products';
+let sqlHistory=[];
+
+function renderDatabase(root){
+  root.innerHTML=`
+  <div class="tool-shell">
+    <div class="tool-body container">
+      <div class="tool-panel-title">🗄 Database Console</div>
+      <div class="tool-panel-sub">Run SQL against the sandbox database — practice SELECT, INSERT, UPDATE and DELETE queries.</div>
+      <div class="db-layout">
+        <div class="db-sidebar">
+          <h5>Tables</h5>
+          ${Object.keys(dbTables).map(t=>`<div class="db-table-item ${activeDbTable===t?'active':''}" data-tbl="${t}">🧱 ${t} <span class="n">${DB[t].length}</span></div>`).join('')}
+        </div>
+        <div class="db-main">
+          <div class="sql-toolbar">
+            <h4 id="dbActiveTableLabel"># ${activeDbTable}</h4>
+            <span class="sql-hint">Columns: ${dbTables[activeDbTable].columns.join(', ')}</span>
+          </div>
+          <textarea class="sql-editor" id="sqlEditor" spellcheck="false">SELECT * FROM ${activeDbTable} LIMIT 50;</textarea>
+          <div class="sql-actions">
+            <span class="sql-hint">Supports SELECT / INSERT / UPDATE / DELETE with WHERE, ORDER BY, LIMIT</span>
+            <div style="display:flex;gap:10px;">
+              <button class="btn btn-secondary btn-sm" onclick="clearSqlEditor()">Clear</button>
+              <button class="btn btn-primary" id="executeSqlBtn">▶ Execute</button>
+            </div>
+          </div>
+          <div id="sqlResultArea"></div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+  $all('.db-table-item').forEach(item=>item.addEventListener('click',()=>{
+    activeDbTable=item.dataset.tbl;
+    $('#sqlEditor').value=`SELECT * FROM ${activeDbTable} LIMIT 50;`;
+    renderDatabase(root);
+    runSqlQuery();
+  }));
+  $('#executeSqlBtn').addEventListener('click',runSqlQuery);
+  $('#sqlEditor').addEventListener('keydown',e=>{ if(e.key==='Enter' && (e.ctrlKey||e.metaKey)) runSqlQuery(); });
+  runSqlQuery();
+}
+function clearSqlEditor(){ $('#sqlEditor').value=''; $('#sqlEditor').focus(); }
+
+function renderSqlError(msg){
+  $('#sqlResultArea').innerHTML=`<div class="db-error-box">✖ SQL Error: ${esc(msg)}</div>`;
+}
+function renderSqlRows(rows,meta){
+  if(!rows || !rows.length){
+    $('#sqlResultArea').innerHTML=`<div class="db-result-box"><div class="db-result-meta">${esc(meta)}</div><div class="table-empty">Query returned 0 rows.</div></div>`;
+    return;
+  }
+  const cols=Object.keys(rows[0]);
+  $('#sqlResultArea').innerHTML=`<div class="db-result-box">
+    <div class="db-result-meta">${esc(meta)}</div>
+    <div class="db-result-scroll"><table class="data-table">
+      <thead><tr>${cols.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead>
+      <tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td>${esc(formatCell(r[c]))}</td>`).join('')}</tr>`).join('')}</tbody>
+    </table></div>
+  </div>`;
+}
+function formatCell(val){
+  if(val==null) return 'NULL';
+  if(typeof val==='object') return JSON.stringify(val);
+  return String(val);
+}
+
+/* ---- Lightweight SQL parser: SELECT / INSERT / UPDATE / DELETE ---- */
+function parseWhere(clause){
+  // supports: col = 'val' | col = 123 | col LIKE '%val%'  joined by AND
+  if(!clause) return ()=>true;
+  const parts=clause.split(/\s+AND\s+/i);
+  const preds=parts.map(p=>{
+    let m=p.match(/^\s*([a-zA-Z_]+)\s*(=|!=|>=|<=|>|<)\s*'([^']*)'\s*$/);
+    if(m) return row=>{
+      const [_,col,op,val]=m;
+      const rv=row[col]; const sv=val;
+      switch(op){case '=':return String(rv)===sv; case '!=':return String(rv)!==sv;
+        case '>':return Number(rv)>Number(sv); case '<':return Number(rv)<Number(sv);
+        case '>=':return Number(rv)>=Number(sv); case '<=':return Number(rv)<=Number(sv);}
+    };
+    m=p.match(/^\s*([a-zA-Z_]+)\s*(=|!=|>=|<=|>|<)\s*(-?\d+\.?\d*)\s*$/);
+    if(m) return row=>{
+      const [_,col,op,val]=m; const rv=Number(row[col]); const nv=Number(val);
+      switch(op){case '=':return rv===nv; case '!=':return rv!==nv; case '>':return rv>nv; case '<':return rv<nv; case '>=':return rv>=nv; case '<=':return rv<=nv;}
+    };
+    m=p.match(/^\s*([a-zA-Z_]+)\s+LIKE\s+'%?([^%']*)%?'\s*$/i);
+    if(m) return row=>String(row[m[1]]||'').toLowerCase().includes(m[2].toLowerCase());
+    throw new Error('Could not parse WHERE condition: "'+p.trim()+'"');
+  });
+  return row=>preds.every(fn=>fn(row));
+}
+function runSqlQuery(){
+  const raw=$('#sqlEditor').value.trim().replace(/;$/,'');
+  if(!raw){ renderSqlError('Query is empty.'); return; }
+  sqlHistory.push(raw);
+  try{
+    const selectM=raw.match(/^SELECT\s+(.+?)\s+FROM\s+([a-zA-Z_]+)\s*(?:WHERE\s+(.+?))?\s*(?:ORDER BY\s+([a-zA-Z_]+)\s*(ASC|DESC)?)?\s*(?:LIMIT\s+(\d+))?$/is);
+    const insertM=raw.match(/^INSERT\s+INTO\s+([a-zA-Z_]+)\s*\(([^)]+)\)\s*VALUES\s*\(([^)]+)\)$/is);
+    const updateM=raw.match(/^UPDATE\s+([a-zA-Z_]+)\s+SET\s+(.+?)\s*(?:WHERE\s+(.+))?$/is);
+    const deleteM=raw.match(/^DELETE\s+FROM\s+([a-zA-Z_]+)\s*(?:WHERE\s+(.+))?$/is);
+
+    if(selectM){
+      const [,cols,table,where,orderCol,orderDir,limit]=selectM;
+      if(!DB[table]) throw new Error("Table '"+table+"' doesn't exist.");
+      let rows=DB[table].slice();
+      if(where) rows=rows.filter(parseWhere(where.trim()));
+      if(orderCol){ rows.sort((a,b)=> a[orderCol]>b[orderCol]?1:a[orderCol]<b[orderCol]?-1:0); if(/desc/i.test(orderDir||'')) rows.reverse(); }
+      if(limit) rows=rows.slice(0,Number(limit));
+      if(cols.trim()!=='*'){
+        const wanted=cols.split(',').map(c=>c.trim());
+        rows=rows.map(r=>{ const o={}; wanted.forEach(c=>o[c]=r[c]); return o; });
+      }
+      renderSqlRows(rows, rows.length+' row(s) returned from `'+table+'`');
+      return;
+    }
+    if(insertM){
+      const [,table,colsRaw,valsRaw]=insertM;
+      if(!DB[table]) throw new Error("Table '"+table+"' doesn't exist.");
+      const cols=colsRaw.split(',').map(c=>c.trim());
+      const vals=valsRaw.split(',').map(v=>{
+        v=v.trim();
+        if(/^'.*'$/.test(v)) return v.slice(1,-1);
+        if(/^-?\d+\.?\d*$/.test(v)) return Number(v);
+        return v;
+      });
+      if(cols.length!==vals.length) throw new Error('Column count does not match value count.');
+      const newRow={}; cols.forEach((c,i)=>newRow[c]=vals[i]);
+      const idKey= table==='orders'?'id':'id';
+      if(newRow[idKey]==null) newRow[idKey]=Math.max(0,...DB[table].map(r=>r.id))+1;
+      DB[table].push(newRow);
+      saveState();
+      renderSqlRows([newRow], '1 row inserted into `'+table+'`');
+      return;
+    }
+    if(updateM){
+      const [,table,setRaw,where]=updateM;
+      if(!DB[table]) throw new Error("Table '"+table+"' doesn't exist.");
+      const sets=setRaw.split(',').map(s=>{
+        const m=s.match(/^\s*([a-zA-Z_]+)\s*=\s*(.+)\s*$/);
+        if(!m) throw new Error('Could not parse SET clause: "'+s+'"');
+        let val=m[2].trim();
+        if(/^'.*'$/.test(val)) val=val.slice(1,-1);
+        else if(/^-?\d+\.?\d*$/.test(val)) val=Number(val);
+        return [m[1],val];
+      });
+      const filterFn = where ? parseWhere(where.trim()) : ()=>true;
+      let count=0;
+      DB[table].forEach(row=>{ if(filterFn(row)){ sets.forEach(([k,v])=>row[k]=v); count++; } });
+      saveState();
+      renderSqlRows(DB[table].filter(filterFn), count+' row(s) updated in `'+table+'`');
+      return;
+    }
+    if(deleteM){
+      const [,table,where]=deleteM;
+      if(!DB[table]) throw new Error("Table '"+table+"' doesn't exist.");
+      const filterFn = where ? parseWhere(where.trim()) : ()=>true;
+      const before=DB[table].length;
+      DB[table]=DB[table].filter(r=>!filterFn(r));
+      const removed=before-DB[table].length;
+      saveState();
+      renderSqlRows([{result:removed+' row(s) deleted'}], removed+' row(s) deleted from `'+table+'`');
+      return;
+    }
+    throw new Error('Unrecognized statement. Try SELECT, INSERT INTO, UPDATE or DELETE FROM.');
+  }catch(err){
+    renderSqlError(err.message);
+  }
+}
+</script>
+<script>
+/* ======================================================================
+   API CLIENT (Postman-style) — mock REST server over the same DB
+   ====================================================================== */
+let pmState={method:'GET',url:'/api/products',headers:[{k:'Content-Type',v:'application/json'}],body:'{\n  \n}',activeReqTab:'params',params:[{k:'',v:''}],
+  testsScript:`// Write assertions using the pm.test() helper, just like Postman.
+// pm.response gives you status, responseTime (ms) and json() (parsed body).
+
+pm.test("Status code is 200", function () {
+  pm.expect(pm.response.status).to.equal(200);
+});
+
+pm.test("Response time is below 500ms", function () {
+  pm.expect(pm.response.responseTime).to.be.below(500);
+});
+
+pm.test("Body is not empty", function () {
+  pm.expect(pm.response.json()).to.not.equal(null);
+});`};
+let pmLastTestResults=null;
+const pmCollection=[
+  {method:'GET',url:'/api/products'},
+  {method:'GET',url:'/api/products/1'},
+  {method:'POST',url:'/api/products'},
+  {method:'PUT',url:'/api/products/1'},
+  {method:'DELETE',url:'/api/products/1'},
+  {method:'GET',url:'/api/categories'},
+  {method:'GET',url:'/api/customers'},
+  {method:'GET',url:'/api/orders'},
+  {method:'POST',url:'/api/login'},
+];
+function renderPostman(root){
+  root.innerHTML=`
+  <div class="tool-shell">
+    <div class="tool-body container">
+      <div class="tool-panel-title">📮 API Client</div>
+      <div class="tool-panel-sub">Send requests to the mock REST API and inspect real status codes and JSON responses.</div>
+      <div class="collection-list" id="pmCollection"></div>
+      <div class="pm-request-bar">
+        <select class="pm-method" id="pmMethod">
+          ${['GET','POST','PUT','DELETE'].map(m=>`<option ${pmState.method===m?'selected':''}>${m}</option>`).join('')}
+        </select>
+        <input class="pm-url" id="pmUrl" value="${esc(pmState.url)}" placeholder="/api/products">
+        <button class="btn btn-primary" id="pmSendBtn" style="padding:0 26px;">Send</button>
+      </div>
+      <div class="pm-tabs" id="pmReqTabs">
+        <div class="pm-tab ${pmState.activeReqTab==='params'?'active':''}" data-t="params">Params</div>
+        <div class="pm-tab ${pmState.activeReqTab==='headers'?'active':''}" data-t="headers">Headers</div>
+        <div class="pm-tab ${pmState.activeReqTab==='body'?'active':''}" data-t="body">Body (JSON)</div>
+        <div class="pm-tab ${pmState.activeReqTab==='tests'?'active':''}" data-t="tests">Tests</div>
+      </div>
+      <div class="pm-panel ${pmState.activeReqTab==='params'?'active':''}" id="pmPanelParams">
+        <div id="paramRows"></div>
+        <button class="btn btn-secondary btn-sm" onclick="pmAddRow('params')">+ Add param</button>
+      </div>
+      <div class="pm-panel ${pmState.activeReqTab==='headers'?'active':''}" id="pmPanelHeaders">
+        <div id="headerRows"></div>
+        <button class="btn btn-secondary btn-sm" onclick="pmAddRow('headers')">+ Add header</button>
+      </div>
+      <div class="pm-panel ${pmState.activeReqTab==='body'?'active':''}" id="pmPanelBody">
+        <textarea class="pm-body-editor" id="pmBody" spellcheck="false">${esc(pmState.body)}</textarea>
+        <p class="sql-hint" style="margin-top:8px;">Sent with POST / PUT requests. Must be valid JSON.</p>
+      </div>
+      <div class="pm-panel ${pmState.activeReqTab==='tests'?'active':''}" id="pmPanelTests">
+        <textarea class="pm-body-editor" id="pmTests" spellcheck="false">${esc(pmState.testsScript)}</textarea>
+        <p class="sql-hint" style="margin-top:8px;">Runs automatically after Send. Available: pm.test(name, fn), pm.response.status / .responseTime / .json(), pm.expect(x).to.equal/.not.equal/.include/.be.above/.be.below/.be.ok/.have.property(k).</p>
+      </div>
+      <div class="pm-response-wrap" id="pmResponseWrap">
+        <div class="pm-empty-response">Hit <b>Send</b> to see the response here.</div>
+      </div>
+    </div>
+  </div>`;
+  $('#pmCollection').innerHTML = pmCollection.map(c=>`<span class="collection-item" data-m="${c.method}" data-u="${c.url}"><b>${c.method}</b>${c.url}</span>`).join('');
+  $all('.collection-item').forEach(item=>item.addEventListener('click',()=>{
+    pmState.method=item.dataset.m; pmState.url=item.dataset.u;
+    if(item.dataset.m==='POST' && item.dataset.u==='/api/products') pmState.body=JSON.stringify({name:'New Product',categoryId:1,price:49.99,stock:10,image:'🆕',description:'A brand new product.'},null,2);
+    else if(item.dataset.m==='POST' && item.dataset.u==='/api/login') pmState.body=JSON.stringify({email:'priya@example.com',password:'priya123'},null,2);
+    else if(item.dataset.m==='PUT') pmState.body=JSON.stringify({price:99.99,stock:25},null,2);
+    renderPostman(root);
+  }));
+  $('#pmMethod').addEventListener('change',e=>pmState.method=e.target.value);
+  $('#pmUrl').addEventListener('input',e=>pmState.url=e.target.value);
+  $('#pmBody').addEventListener('input',e=>pmState.body=e.target.value);
+  $('#pmTests').addEventListener('input',e=>pmState.testsScript=e.target.value);
+  $all('#pmReqTabs .pm-tab').forEach(t=>t.addEventListener('click',()=>{ pmState.activeReqTab=t.dataset.t; renderPostman(root); }));
+  $('#pmSendBtn').addEventListener('click',sendPmRequest);
+  renderPmRows('params'); renderPmRows('headers');
+}
+function renderPmRows(kind){
+  const arr = kind==='params'? pmState.params : pmState.headers;
+  const wrap = kind==='params'? $('#paramRows') : $('#headerRows');
+  if(!wrap) return;
+  wrap.innerHTML = arr.map((row,i)=>`
+    <div class="kv-row">
+      <input placeholder="Key" value="${esc(row.k)}" onchange="pmUpdateRow('${kind}',${i},'k',this.value)">
+      <input placeholder="Value" value="${esc(row.v)}" onchange="pmUpdateRow('${kind}',${i},'v',this.value)">
+      <button class="kv-remove" onclick="pmRemoveRow('${kind}',${i})">✕</button>
+    </div>`).join('');
+}
+function pmAddRow(kind){ (kind==='params'?pmState.params:pmState.headers).push({k:'',v:''}); renderPmRows(kind); }
+function pmUpdateRow(kind,i,field,val){ (kind==='params'?pmState.params:pmState.headers)[i][field]=val; }
+function pmRemoveRow(kind,i){ (kind==='params'?pmState.params:pmState.headers).splice(i,1); renderPmRows(kind); }
+
+/* ---- JSON pretty-printer with syntax highlighting ---- */
+function syntaxHighlightJSON(obj){
+  const json=JSON.stringify(obj,null,2);
+  return esc(json).replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false)\b|null|-?\d+\.?\d*(?:[eE][+-]?\d+)?)/g, match=>{
+    let cls='json-num';
+    if(/^"/.test(match)) cls = /:$/.test(match) ? 'json-key' : 'json-str';
+    else if(/true|false/.test(match)) cls='json-bool';
+    else if(/null/.test(match)) cls='json-null';
+    return `<span class="${cls}">${match}</span>`;
+  });
+}
+
+/* ---- Mock REST API router, shares DB with the rest of the app ---- */
+function mockApiRequest(method,url,bodyStr){
+  const [pathOnly,queryStr]=url.split('?');
+  const segs=pathOnly.split('/').filter(Boolean); // ['api','products','1']
+  const query=new URLSearchParams(queryStr||'');
+  if(segs[0]!=='api') return {status:404,body:{error:'Not Found',message:'Unknown route: '+url}};
+  const resource=segs[1];
+  const id=segs[2]!=null?Number(segs[2]):null;
+
+  const resourceMap={products:'products',categories:'categories',customers:'customers',orders:'orders',reviews:'reviews',cms:'cms'};
+
+  if(resource==='login'){
+    if(method!=='POST') return {status:405,body:{error:'Method Not Allowed',message:'Use POST for /api/login'}};
+    let payload;
+    try{ payload=JSON.parse(bodyStr||'{}'); }catch(e){ return {status:400,body:{error:'Bad Request',message:'Body is not valid JSON.'}}; }
+    const user=DB.customers.find(c=>c.email.toLowerCase()===String(payload.email||'').toLowerCase());
+    if(!user || user.password!==payload.password) return {status:401,body:{error:'Unauthorized',message:'Invalid email or password.'}};
+    return {status:200,body:{token:'mock-jwt-'+uid('tok'),user:{id:user.id,name:user.name,email:user.email,role:user.role}}};
+  }
+
+  if(!resourceMap[resource]) return {status:404,body:{error:'Not Found',message:"Unknown resource '"+resource+"'. Try products, categories, customers, orders, reviews or cms."}};
+  const table=resourceMap[resource];
+
+  if(method==='GET'){
+    if(id!=null){
+      const rec=DB[table].find(r=>r.id===id);
+      if(!rec) return {status:404,body:{error:'Not Found',message:table.slice(0,-1)+' with id '+id+' does not exist.'}};
+      return {status:200,body:rec};
+    }
+    let rows=DB[table].slice();
+    for(const [key,val] of query.entries()){
+      rows=rows.filter(r=>String(r[key])===val);
+    }
+    return {status:200,body:{count:rows.length,results:rows}};
+  }
+  if(method==='POST'){
+    let payload;
+    try{ payload=JSON.parse(bodyStr||'{}'); }catch(e){ return {status:400,body:{error:'Bad Request',message:'Body is not valid JSON.'}}; }
+    const newId=Math.max(0,...DB[table].map(r=>r.id))+1;
+    const newRec=Object.assign({id:newId},payload);
+    DB[table].push(newRec);
+    saveState();
+    return {status:201,body:newRec};
+  }
+  if(method==='PUT'){
+    if(id==null) return {status:400,body:{error:'Bad Request',message:'PUT requires an /:id in the URL.'}};
+    const rec=DB[table].find(r=>r.id===id);
+    if(!rec) return {status:404,body:{error:'Not Found',message:table.slice(0,-1)+' with id '+id+' does not exist.'}};
+    let payload;
+    try{ payload=JSON.parse(bodyStr||'{}'); }catch(e){ return {status:400,body:{error:'Bad Request',message:'Body is not valid JSON.'}}; }
+    Object.assign(rec,payload);
+    saveState();
+    return {status:200,body:rec};
+  }
+  if(method==='DELETE'){
+    if(id==null) return {status:400,body:{error:'Bad Request',message:'DELETE requires an /:id in the URL.'}};
+    const exists=DB[table].some(r=>r.id===id);
+    if(!exists) return {status:404,body:{error:'Not Found',message:table.slice(0,-1)+' with id '+id+' does not exist.'}};
+    DB[table]=DB[table].filter(r=>r.id!==id);
+    saveState();
+    return {status:204,body:null};
+  }
+  return {status:405,body:{error:'Method Not Allowed'}};
+}
+function sendPmRequest(){
+  const method=pmState.method, rawUrl=pmState.url.trim();
+  let url=rawUrl;
+  const extraParams=pmState.params.filter(p=>p.k).map(p=>`${encodeURIComponent(p.k)}=${encodeURIComponent(p.v)}`).join('&');
+  if(extraParams) url += (url.includes('?')?'&':'?') + extraParams;
+  const startTime=performance.now();
+  let result;
+  if((method==='POST'||method==='PUT') && pmState.body.trim()){
+    try{ JSON.parse(pmState.body); }
+    catch(e){ result={status:400,body:{error:'Bad Request',message:'Request body is not valid JSON: '+e.message}}; }
+  }
+  if(!result) result=mockApiRequest(method,url,pmState.body);
+  const ms=Math.max(8,Math.round(performance.now()-startTime + Math.random()*40));
+  const statusClass = result.status>=500?'status-5xx': result.status>=400?'status-4xx':'status-2xx';
+  const statusText={200:'OK',201:'Created',204:'No Content',400:'Bad Request',401:'Unauthorized',404:'Not Found',405:'Method Not Allowed',500:'Internal Server Error'}[result.status]||'';
+  const bodySize=JSON.stringify(result.body||{}).length;
+  pmLastTestResults=runPmTests(pmState.testsScript,result,ms);
+  const passCount=pmLastTestResults.filter(t=>t.pass).length;
+  const failCount=pmLastTestResults.length-passCount;
+  $('#pmResponseWrap').innerHTML=`
+    <div class="pm-response-head">
+      <span class="status-badge ${statusClass}">${result.status} ${statusText}</span>
+      <span class="pm-meta-chip">⏱ ${ms} ms</span>
+      <span class="pm-meta-chip">📦 ${bodySize} B</span>
+      <span class="pm-meta-chip">${method} ${esc(url)}</span>
+      ${pmLastTestResults.length? `<span class="pm-meta-chip" style="margin-left:auto;color:${failCount?'#ff9d92':'#7fd9b9'};">${failCount? '✖ '+failCount+' failed' : '✓ '+passCount+' passed'}</span>` : ''}
+    </div>
+    <div class="pm-tabs" style="padding:0 18px;margin:0;" id="pmRespTabs">
+      <div class="pm-tab active" data-rt="body">Body</div>
+      <div class="pm-tab" data-rt="tests">Test Results ${pmLastTestResults.length? `(${passCount}/${pmLastTestResults.length})`:''}</div>
+    </div>
+    <div class="pm-panel active" id="pmRespBody"><div class="pm-response-body">${syntaxHighlightJSON(result.body===undefined?null:result.body)}</div></div>
+    <div class="pm-panel" id="pmRespTests"><div class="pm-response-body" style="white-space:normal;">${renderPmTestResultsHTML(pmLastTestResults)}</div></div>
+  `;
+  $all('#pmRespTabs .pm-tab').forEach(t=>t.addEventListener('click',()=>{
+    $all('#pmRespTabs .pm-tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    $('#pmRespBody').classList.toggle('active', t.dataset.rt==='body');
+    $('#pmRespTests').classList.toggle('active', t.dataset.rt==='tests');
+  }));
+}
+
+/* ---- Postman-style test runner: pm.test() / pm.expect() sandboxed against the response ---- */
+function runPmTests(script,result,ms){
+  if(!script || !script.trim()) return [];
+  const results=[];
+  function expect(actual){
+    const self={
+      to:{
+        equal(exp){ if(actual!==exp) throw new Error('expected '+JSON.stringify(actual)+' to equal '+JSON.stringify(exp)); return self; },
+        include(exp){
+          const ok = Array.isArray(actual)||typeof actual==='string' ? actual.includes(exp) : (actual && Object.prototype.hasOwnProperty.call(actual,exp));
+          if(!ok) throw new Error('expected '+JSON.stringify(actual)+' to include '+JSON.stringify(exp)); return self;
+        },
+        not:{
+          equal(exp){ if(actual===exp) throw new Error('expected '+JSON.stringify(actual)+' to not equal '+JSON.stringify(exp)); return self; },
+        },
+        be:{
+          above(n){ if(!(Number(actual)>n)) throw new Error('expected '+actual+' to be above '+n); return self; },
+          below(n){ if(!(Number(actual)<n)) throw new Error('expected '+actual+' to be below '+n); return self; },
+          ok(){ if(!actual) throw new Error('expected '+JSON.stringify(actual)+' to be truthy'); return self; },
+          a(type){ if(typeof actual!==type) throw new Error('expected '+JSON.stringify(actual)+' to be a '+type); return self; },
+          have:{ property(key){ if(!actual || !Object.prototype.hasOwnProperty.call(actual,key)) throw new Error('expected object to have property "'+key+'"'); return self; } },
+        },
+        have:{ property(key){ if(!actual || !Object.prototype.hasOwnProperty.call(actual,key)) throw new Error('expected object to have property "'+key+'"'); return self; } },
+      }
+    };
+    return self;
+  }
+  const pmSandbox={
+    response:{ status:result.status, responseTime:ms, json(){ return result.body; } },
+    test(name,fn){
+      try{ fn(); results.push({name:String(name),pass:true}); }
+      catch(e){ results.push({name:String(name),pass:false,error:e.message}); }
+    },
+    expect,
+  };
+  try{
+    const runner=new Function('pm','"use strict";\n'+script);
+    runner(pmSandbox);
+  }catch(e){
+    results.push({name:'Script error',pass:false,error:e.message});
+  }
+  return results;
+}
+function renderPmTestResultsHTML(results){
+  if(!results.length) return '<p style="color:var(--purple-300);">No tests were run. Add assertions in the "Tests" tab, then hit Send.</p>';
+  return results.map(t=>`
+    <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);">
+      <span style="color:${t.pass?'#7fd9b9':'#ff9d92'};font-weight:700;">${t.pass?'✓':'✖'}</span>
+      <div><div style="color:#fff;font-size:0.85rem;">${esc(t.name)}</div>${t.error?`<div style="color:#ff9d92;font-size:0.78rem;margin-top:3px;">${esc(t.error)}</div>`:''}</div>
+    </div>`).join('');
+}
+</script>
+<script>
+/* ======================================================================
+   PERFORMANCE TESTING — lightweight load-test simulator (k6/JMeter style)
+   Fires simulated concurrent "virtual users" against the same mock API
+   used by the API Client, so you can practice reading throughput,
+   latency percentiles, and error-rate metrics under load.
+   ====================================================================== */
+const perfEndpoints=[
+  {id:'products-list', label:'GET /api/products', method:'GET', url:'/api/products'},
+  {id:'products-one', label:'GET /api/products/:id', method:'GET', url:'/api/products/3'},
+  {id:'categories', label:'GET /api/categories', method:'GET', url:'/api/categories'},
+  {id:'customers', label:'GET /api/customers', method:'GET', url:'/api/customers'},
+  {id:'orders', label:'GET /api/orders', method:'GET', url:'/api/orders'},
+  {id:'reviews', label:'GET /api/reviews', method:'GET', url:'/api/reviews'},
+  {id:'login', label:'POST /api/login', method:'POST', url:'/api/login', body:JSON.stringify({email:'priya@example.com',password:'priya123'})},
+];
+let perfState={
+  running:false, endpointId:'products-list', vus:5, duration:10, errorRate:5,
+  results:[], startTs:0, uiTimer:null, vuTimers:[],
+};
+
+function renderPerformance(root){
+  const ep=perfEndpoints.find(e=>e.id===perfState.endpointId);
+  root.innerHTML=`
+  <div class="tool-shell">
+    <div class="tool-body container">
+      <div class="tool-panel-title">⚡ Performance Testing</div>
+      <div class="tool-panel-sub">Run a simulated load test against the mock API and practice reading throughput, latency and error-rate metrics.</div>
+      <div class="perf-layout">
+        <div class="perf-config">
+          <h4>Test configuration</h4>
+          <div class="field">
+            <label>Target endpoint</label>
+            <select id="perfEndpoint" ${perfState.running?'disabled':''}>
+              ${perfEndpoints.map(e=>`<option value="${e.id}" ${perfState.endpointId===e.id?'selected':''}>${esc(e.label)}</option>`).join('')}
+            </select>
+          </div>
+          <div class="field">
+            <label>Virtual users (concurrency)</label>
+            <input type="number" id="perfVus" min="1" max="30" value="${perfState.vus}" ${perfState.running?'disabled':''}>
+            <div class="field-hint">1–30 simulated users hitting the endpoint at once.</div>
+          </div>
+          <div class="field">
+            <label>Duration (seconds)</label>
+            <input type="number" id="perfDuration" min="3" max="30" value="${perfState.duration}" ${perfState.running?'disabled':''}>
+            <div class="field-hint">3–30 seconds for a quick sandbox run.</div>
+          </div>
+          <div class="field">
+            <label>Injected error rate (%)</label>
+            <input type="number" id="perfErrorRate" min="0" max="40" value="${perfState.errorRate}" ${perfState.running?'disabled':''}>
+            <div class="field-hint">Randomly simulates 500 / 503 / 429 responses so you can practice spotting failures.</div>
+          </div>
+          <div class="perf-run-row">
+            <button class="btn btn-primary btn-block" id="perfStartBtn" ${perfState.running?'disabled':''}>▶ Run load test</button>
+            <button class="btn btn-danger" id="perfStopBtn" ${perfState.running?'':'disabled'}>■ Stop</button>
+          </div>
+          <div class="perf-status-line"><span class="perf-dot ${perfState.running?'live':''}"></span><span id="perfStatusText">${perfState.running?'Running…':(perfState.results.length? 'Last run complete':'Idle')}</span></div>
+          <div class="perf-progress-bar"><div class="perf-progress-fill" id="perfProgressFill" style="width:${perfState.running?0:(perfState.results.length?100:0)}%;"></div></div>
+        </div>
+        <div>
+          <div class="perf-metric-row" id="perfMetrics"></div>
+          <div class="perf-chart-box">
+            <h5>Response time per request ${perfState.results.length?`(last ${Math.min(150,perfState.results.length)} of ${perfState.results.length})`:''}</h5>
+            <svg id="perfChart" viewBox="0 0 680 160" style="width:100%;height:160px;display:block;"></svg>
+            <div class="perf-legend"><span><i style="background:var(--success);"></i>Success</span><span><i style="background:var(--error);"></i>Failed</span></div>
+          </div>
+          <div class="perf-log-box">
+            <div class="db-result-meta">Request log — most recent first</div>
+            <div class="perf-log-scroll"><table class="data-table" id="perfLogTable"></table></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+  $('#perfEndpoint').addEventListener('change',e=>perfState.endpointId=e.target.value);
+  $('#perfVus').addEventListener('change',e=>perfState.vus=Math.max(1,Math.min(30,Number(e.target.value)||1)));
+  $('#perfDuration').addEventListener('change',e=>perfState.duration=Math.max(3,Math.min(30,Number(e.target.value)||3)));
+  $('#perfErrorRate').addEventListener('change',e=>perfState.errorRate=Math.max(0,Math.min(40,Number(e.target.value)||0)));
+  $('#perfStartBtn').addEventListener('click',startLoadTest);
+  $('#perfStopBtn').addEventListener('click',()=>stopLoadTest(false));
+  updatePerfUI();
+}
+
+function startLoadTest(){
+  if(perfState.running) return;
+  perfState.results=[];
+  perfState.running=true;
+  perfState.startTs=performance.now();
+  renderPerformance($('#app'));
+  const ep=perfEndpoints.find(e=>e.id===perfState.endpointId);
+  const durationMs=perfState.duration*1000;
+  for(let i=0;i<perfState.vus;i++){
+    runVirtualUser(ep,durationMs,i);
+  }
+  perfState.uiTimer=setInterval(updatePerfUI,150);
+  setTimeout(()=>{ if(perfState.running) stopLoadTest(true); }, durationMs+50);
+}
+function runVirtualUser(ep,durationMs,vuIndex){
+  const tick=()=>{
+    if(!perfState.running) return;
+    const elapsed=performance.now()-perfState.startTs;
+    if(elapsed>=durationMs){ return; }
+    const concurrency=perfState.vus;
+    let latency = (ep.method==='POST'?90:55) + Math.random()*130 + concurrency*(1+Math.random()*3);
+    let status, success;
+    const forceError = Math.random()*100 < perfState.errorRate;
+    if(forceError){
+      status = [429,500,503][Math.floor(Math.random()*3)];
+      latency += 250+Math.random()*500;
+      success=false;
+    } else {
+      const res=mockApiRequest(ep.method, ep.url, ep.body||null);
+      status=res.status; success=status<400;
+    }
+    const timerId=setTimeout(()=>{
+      perfState.results.push({ts:Date.now(),vu:vuIndex,method:ep.method,url:ep.url,status,responseTime:Math.round(latency),success});
+      const thinkTime=150+Math.random()*450;
+      const nextTimer=setTimeout(tick,thinkTime);
+      perfState.vuTimers.push(nextTimer);
+    },Math.min(latency,durationMs-elapsed>0?latency:0));
+    perfState.vuTimers.push(timerId);
+  };
+  tick();
+}
+function stopLoadTest(completedNaturally){
+  perfState.running=false;
+  perfState.vuTimers.forEach(t=>clearTimeout(t));
+  perfState.vuTimers=[];
+  if(perfState.uiTimer){ clearInterval(perfState.uiTimer); perfState.uiTimer=null; }
+  renderPerformance($('#app'));
+  showToast(completedNaturally? 'Load test complete' : 'Load test stopped', completedNaturally?'success':undefined);
+}
+function computePerfMetrics(){
+  const r=perfState.results;
+  if(!r.length) return null;
+  const times=r.map(x=>x.responseTime).sort((a,b)=>a-b);
+  const success=r.filter(x=>x.success).length;
+  const failed=r.length-success;
+  const avg=times.reduce((s,v)=>s+v,0)/times.length;
+  const p95=times[Math.min(times.length-1,Math.floor(times.length*0.95))];
+  const elapsedSec=Math.max(0.001,(performance.now()-perfState.startTs)/1000);
+  return {
+    total:r.length, success, failed,
+    errorRate: (failed/r.length*100),
+    avg:Math.round(avg), min:times[0], max:times[times.length-1], p95,
+    rps:(r.length/Math.min(elapsedSec,perfState.duration+0.5)).toFixed(1),
+  };
+}
+function updatePerfUI(){
+  if(!$('#perfMetrics')) return;
+  const m=computePerfMetrics();
+  $('#perfMetrics').innerHTML = m ? `
+    <div class="perf-metric-card"><b>${m.total}</b><span>Total requests</span></div>
+    <div class="perf-metric-card"><b>${m.rps}</b><span>Req / sec</span></div>
+    <div class="perf-metric-card"><b>${m.avg} ms</b><span>Avg response</span></div>
+    <div class="perf-metric-card"><b>${m.p95} ms</b><span>p95 latency</span></div>
+    <div class="perf-metric-card"><b>${m.min} ms</b><span>Min</span></div>
+    <div class="perf-metric-card"><b>${m.max} ms</b><span>Max</span></div>
+    <div class="perf-metric-card"><b>${m.success}</b><span>Successful</span></div>
+    <div class="perf-metric-card err"><b>${m.failed}</b><span>Failed (${m.errorRate.toFixed(1)}%)</span></div>
+  ` : `<div class="perf-empty" style="grid-column:1/-1;">Configure a run and hit <b>Run load test</b> to see live metrics.</div>`;
+
+  const progressPct = perfState.running ? Math.min(100,Math.round((performance.now()-perfState.startTs)/(perfState.duration*1000)*100)) : (perfState.results.length?100:0);
+  const fill=$('#perfProgressFill'); if(fill) fill.style.width=progressPct+'%';
+  const statusEl=$('#perfStatusText'); if(statusEl) statusEl.textContent = perfState.running? `Running… ${progressPct}%` : (perfState.results.length? 'Last run complete':'Idle');
+  const dotEl=$('.perf-dot'); if(dotEl) dotEl.classList.toggle('live',perfState.running);
+
+  renderPerfChart();
+  renderPerfLog();
+}
+function renderPerfChart(){
+  const svg=$('#perfChart');
+  if(!svg) return;
+  const points=perfState.results.slice(-150);
+  if(!points.length){ svg.innerHTML=`<text x="340" y="80" text-anchor="middle" fill="#c9bce8" font-size="12">No data yet</text>`; return; }
+  const w=680,h=160,pad=8;
+  const maxT=Math.max(50,...points.map(p=>p.responseTime));
+  const stepX=(w-pad*2)/Math.max(1,points.length-1);
+  const toY=v=>h-pad-((v/maxT)*(h-pad*2));
+  const linePts=points.map((p,i)=>`${(pad+i*stepX).toFixed(1)},${toY(p.responseTime).toFixed(1)}`).join(' ');
+  const dots=points.map((p,i)=>`<circle cx="${(pad+i*stepX).toFixed(1)}" cy="${toY(p.responseTime).toFixed(1)}" r="2.6" fill="${p.success?'#1fa971':'#e0473c'}"></circle>`).join('');
+  svg.innerHTML=`<polyline points="${linePts}" fill="none" stroke="#9a63ef" stroke-width="1.5" opacity="0.55"></polyline>${dots}`;
+}
+function renderPerfLog(){
+  const wrap=$('#perfLogTable');
+  if(!wrap) return;
+  const rows=perfState.results.slice(-50).reverse();
+  if(!rows.length){ wrap.innerHTML=`<tr><td class="table-empty">No requests logged yet.</td></tr>`; return; }
+  wrap.innerHTML=`<thead><tr><th>Time</th><th>VU</th><th>Request</th><th>Status</th><th>Response time</th></tr></thead>
+  <tbody>${rows.map(r=>`<tr>
+    <td>${new Date(r.ts).toLocaleTimeString()}</td>
+    <td>#${r.vu+1}</td>
+    <td>${r.method} ${esc(r.url)}</td>
+    <td><span class="status-pill ${r.success?'status-delivered':'status-cancelled'}">${r.status}</span></td>
+    <td>${r.responseTime} ms</td>
+  </tr>`).join('')}</tbody>`;
+}
+</script>
+<script>
+/* ---------------------------- INIT ---------------------------- */
+loadState();
+render();
+</script>
+</body>
+</html>
