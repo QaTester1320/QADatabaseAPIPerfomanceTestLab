@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -320,7 +319,7 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
 .admin-search{display:flex;align-items:center;background:var(--purple-900);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-m);padding:8px 14px;gap:8px;min-width:240px;}
 .admin-search input{background:none;border:none;color:#fff;width:100%;}
 .admin-search input::placeholder{color:var(--purple-300);}
-.data-table-wrap{background:#fff;border-radius:var(--radius-l);overflow:hidden;box-shadow:var(--shadow-card);}
+.data-table-wrap{background:#fff;border-radius:var(--radius-l);overflow-x:auto;box-shadow:var(--shadow-card);}
 .data-table{width:100%;border-collapse:collapse;}
 .data-table th{background:var(--purple-50);text-align:left;padding:13px 16px;font-size:0.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--purple-700);border-bottom:1.5px solid var(--line);white-space:nowrap;}
 .data-table td{padding:13px 16px;font-size:0.86rem;border-bottom:1px solid var(--line);vertical-align:middle;}
@@ -335,7 +334,7 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
 .count-badge{background:var(--purple-100);color:var(--purple-700);font-size:0.72rem;font-weight:700;padding:3px 9px;border-radius:999px;margin-left:8px;}
 
 /* Database console */
-.db-layout{display:grid;grid-template-columns:230px 1fr;gap:0;background:#251246;border-radius:var(--radius-l);overflow:hidden;min-height:560px;box-shadow:var(--shadow-pop);}
+.db-layout{grid-template-columns:230px 1fr;gap:0;background:#251246;border-radius:var(--radius-l);overflow:hidden;min-height:560px;box-shadow:var(--shadow-pop);}
 .db-sidebar{background:#1c0f38;padding:16px 0;border-right:1px solid rgba(255,255,255,0.08);}
 .db-sidebar h5{color:var(--purple-300);font-size:0.7rem;text-transform:uppercase;letter-spacing:.06em;padding:0 18px 10px;}
 .db-table-item{padding:10px 18px;font-size:0.86rem;color:var(--purple-100);display:flex;align-items:center;gap:9px;border-left:3px solid transparent;font-family:var(--font-mono);}
@@ -347,7 +346,7 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
 .sql-toolbar h4{color:#fff;font-family:var(--font-mono);font-size:0.95rem;}
 .sql-editor{width:100%;background:#150b28;color:#d9c9fc;border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-m);padding:16px;font-family:var(--font-mono);font-size:0.88rem;min-height:110px;resize:vertical;line-height:1.6;}
 .sql-editor:focus{border-color:var(--purple-500);}
-.sql-actions{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.sql-actions{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding: 10px;}
 .sql-hint{font-size:0.76rem;color:var(--purple-300);font-family:var(--font-mono);}
 .db-result-box{background:#fff;border-radius:var(--radius-m);overflow:hidden;min-height:200px;display:flex;flex-direction:column;}
 .db-result-meta{padding:10px 16px;background:var(--purple-50);font-size:0.78rem;color:var(--purple-700);font-family:var(--font-mono);border-bottom:1px solid var(--line);}
@@ -417,6 +416,92 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
 .perf-log-scroll{max-height:280px;overflow-y:auto;}
 .perf-empty{padding:60px 20px;text-align:center;color:var(--ink-faint);}
 @media(max-width:900px){.perf-layout{grid-template-columns:1fr;}.perf-config{position:static;}.perf-metric-row{grid-template-columns:repeat(2,1fr);}}
+.perf-metric-row{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));}
+.perf-toolbar-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px;}
+.perf-threshold-banner{padding:14px 18px;border-radius:var(--radius-m);margin-bottom:18px;font-size:0.85rem;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+.perf-threshold-banner.pass{background:var(--success-bg);color:var(--success);}
+.perf-threshold-banner.fail{background:var(--error-bg);color:var(--error);}
+.perf-status-breakdown{background:#fff;border-radius:var(--radius-m);padding:18px;margin-bottom:18px;box-shadow:var(--shadow-card);}
+.perf-status-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:0.82rem;}
+.perf-status-row .code{width:46px;font-family:var(--font-mono);font-weight:700;}
+.perf-status-bar-track{flex:1;height:8px;background:var(--purple-50);border-radius:999px;overflow:hidden;}
+.perf-status-bar-fill{height:100%;border-radius:999px;}
+.perf-status-row .cnt{width:110px;text-align:right;color:var(--ink-faint);}
+.perf-glossary{background:var(--purple-50);border:1px solid var(--purple-200);border-radius:var(--radius-m);padding:16px 18px;margin-top:18px;font-size:0.82rem;color:var(--ink-soft);}
+.perf-glossary summary{cursor:pointer;font-weight:700;color:var(--purple-700);}
+.perf-glossary dl{margin-top:12px;display:grid;grid-template-columns:110px 1fr;gap:8px 14px;}
+.perf-glossary dt{font-weight:700;color:var(--purple-800);font-family:var(--font-mono);font-size:0.76rem;}
+.perf-glossary dd{margin:0;}
+
+/* Cart drawer */
+.drawer-scrim{position:fixed;inset:0;background:rgba(28,16,51,0.5);z-index:800;display:none;}
+.drawer-scrim.open{display:block;}
+.cart-drawer{position:fixed;top:0;right:-420px;width:min(420px,92vw);height:100vh;background:#fff;z-index:801;box-shadow:var(--shadow-pop);display:flex;flex-direction:column;transition:right .28s cubic-bezier(.2,.8,.3,1);}
+.cart-drawer.open{right:0;}
+.cart-drawer-head{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;border-bottom:1px solid var(--line);}
+.cart-drawer-head h3{font-size:1.05rem;}
+.cart-drawer-body{flex:1;overflow-y:auto;padding:14px 22px;}
+.cart-drawer-item{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);}
+.cart-drawer-thumb{width:50px;height:50px;border-radius:9px;background:var(--purple-50);display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.cart-drawer-name{font-size:0.86rem;font-weight:600;}
+.cart-drawer-meta{font-size:0.74rem;color:var(--ink-faint);margin-top:3px;}
+.cart-drawer-qty{display:flex;align-items:center;gap:6px;margin-top:6px;}
+.cart-drawer-qty button{width:22px;height:22px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:0.8rem;}
+.cart-drawer-price{font-weight:700;font-size:0.86rem;text-align:right;}
+.cart-drawer-remove{font-size:0.72rem;color:var(--error);background:none;border:none;margin-top:6px;text-align:right;display:block;}
+.cart-drawer-foot{border-top:1px solid var(--line);padding:18px 22px 22px;}
+.cart-drawer-added{background:var(--success-bg);color:var(--success);font-size:0.82rem;padding:10px 14px;border-radius:var(--radius-m);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+@media(max-width:480px){.cart-drawer{width:100vw;right:-100vw;}}
+
+/* JMeter-style Performance Testing shell */
+.jm-shell{display:grid;grid-template-columns:270px 1fr;gap:0;background:#251246;border-radius:var(--radius-l);overflow:hidden;min-height:620px;box-shadow:var(--shadow-pop);}
+.jm-tree{background:#1c0f38;padding:14px 0;border-right:1px solid rgba(255,255,255,0.08);overflow-y:auto;}
+.jm-tree-node{padding:9px 16px;font-size:0.83rem;color:var(--purple-100);cursor:pointer;display:flex;align-items:center;gap:7px;border-left:3px solid transparent;white-space:nowrap;}
+.jm-tree-node:hover{background:rgba(255,255,255,0.05);}
+.jm-tree-node.active{background:rgba(124,62,230,0.22);border-color:var(--purple-400);color:#fff;font-weight:600;}
+.jm-tree-node.lvl0{padding-left:16px;font-weight:700;color:#fff;cursor:default;font-size:0.86rem;margin-top:2px;}
+.jm-tree-node.lvl1{padding-left:30px;cursor:default;color:#fff;font-weight:600;}
+.jm-tree-node.lvl1.clickable{cursor:pointer;color:var(--purple-100);font-weight:600;}
+.jm-tree-node.lvl2{padding-left:46px;font-size:0.8rem;}
+.jm-main{display:flex;flex-direction:column;min-height:620px;}
+.jm-toolbar{display:flex;align-items:center;gap:12px;padding:14px 20px;background:#1c0f38;border-bottom:1px solid rgba(255,255,255,0.08);flex-wrap:wrap;}
+.jm-run-btn,.jm-stop-btn{width:38px;height:38px;border-radius:8px;color:#fff;border:none;font-size:1rem;flex-shrink:0;}
+.jm-run-btn{background:var(--success);}
+.jm-stop-btn{background:var(--error);}
+.jm-run-btn:disabled,.jm-stop-btn:disabled{opacity:0.3;cursor:not-allowed;}
+.jm-toolbar-status{color:var(--purple-200);font-size:0.8rem;display:flex;align-items:center;gap:8px;}
+.jm-toolbar-export{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;}
+.jm-main-body{padding:22px;overflow-y:auto;flex:1;}
+.jm-panel-title{color:#fff;font-family:var(--font-display);font-size:1.05rem;margin-bottom:4px;}
+.jm-panel-sub{color:var(--purple-300);font-size:0.8rem;margin-bottom:18px;}
+.jm-field-row{display:grid;grid-template-columns:110px 100px 1fr;gap:10px;margin-bottom:16px;}
+.jm-field-row .field{margin-bottom:0;}
+.jm-field-row select,.jm-field-row input{background:#150b28;color:#fff;border:1px solid rgba(255,255,255,0.15);}
+.jm-report-table-wrap{background:#fff;border-radius:var(--radius-m);overflow-x:auto;}
+.jm-report-table{width:100%;border-collapse:collapse;}
+.jm-report-table th{background:var(--purple-50);padding:10px 12px;font-size:0.7rem;text-transform:uppercase;letter-spacing:.03em;color:var(--purple-700);border-bottom:1.5px solid var(--line);white-space:nowrap;}
+.jm-report-table td{padding:10px 12px;font-size:0.83rem;border-bottom:1px solid var(--line);white-space:nowrap;}
+.jm-tree-result{background:#fff;border-radius:var(--radius-m);overflow:hidden;max-height:480px;overflow-y:auto;}
+.jm-result-row{display:flex;align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid var(--line);cursor:pointer;font-size:0.82rem;}
+.jm-result-row:hover{background:var(--purple-50);}
+.jm-result-icon.pass{color:var(--success);font-weight:700;}
+.jm-result-icon.fail{color:var(--error);font-weight:700;}
+.jm-result-detail{background:#150b28;color:#d9c9fc;padding:16px 18px;border-bottom:1px solid var(--line);font-family:var(--font-mono);font-size:0.78rem;white-space:pre-wrap;line-height:1.6;}
+.jm-assertion-banner{padding:12px 18px;border-radius:var(--radius-m);margin:0 20px 0;font-size:0.82rem;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+.jm-assertion-banner.pass{background:var(--success-bg);color:var(--success);}
+.jm-assertion-banner.fail{background:var(--error-bg);color:var(--error);}
+.jm-assertion-banner.idle{background:rgba(255,255,255,0.06);color:var(--purple-300);}
+@media(max-width:900px){.jm-shell{grid-template-columns:1fr;}.jm-tree{display:flex;overflow-x:auto;padding:8px;}.jm-tree-node{border-left:none;border-bottom:3px solid transparent;flex-shrink:0;padding:8px 12px !important;}.jm-field-row{grid-template-columns:1fr;}}
+.jm-tree-node{position:relative;padding-right:34px;}
+.jm-tree-node.disabled{opacity:0.42;font-style:italic;}
+.jm-tree-remove{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--purple-400);font-size:0.85rem;width:20px;height:20px;border-radius:4px;line-height:1;}
+.jm-tree-remove:hover{background:rgba(224,71,60,0.25);color:#fff;}
+.jm-add-row{padding:7px 30px;font-size:0.76rem;color:var(--purple-400);cursor:pointer;border-left:3px solid transparent;}
+.jm-add-row:hover{color:#fff;background:rgba(255,255,255,0.05);}
+.jm-inline-select{background:#150b28;color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:4px 8px;font-size:0.76rem;margin-left:8px;}
+.jm-checkbox-row{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--purple-100);margin-bottom:14px;}
+.jm-checkbox-row input{width:auto;}
+.jm-sampler-picker{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
 </style>
 </head>
 <body>
@@ -443,7 +528,7 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
       <a href="#/login" data-route="/login" id="navAuthLink">Login</a>
     </nav>
     <div class="nav-tools">
-      <button class="icon-btn cart-badge" onclick="location.hash='#/cart'" title="Cart">🛒<span class="count" id="cartCount">0</span></button>
+      <button class="icon-btn cart-badge" onclick="openCartDrawer()" title="Cart">🛒<span class="count" id="cartCount">0</span></button>
       <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">☰</button>
     </div>
   </div>
@@ -482,6 +567,17 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
 <!-- ========== TOAST ========== -->
 <div class="toast-wrap" id="toastWrap"></div>
 
+<!-- ========== CART DRAWER ========== -->
+<div class="drawer-scrim" id="cartDrawerScrim" onclick="closeCartDrawer()"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-head">
+    <h3>🛒 Your cart</h3>
+    <button class="modal-close" onclick="closeCartDrawer()">✕</button>
+  </div>
+  <div class="cart-drawer-body" id="cartDrawerBody"></div>
+  <div class="cart-drawer-foot" id="cartDrawerFoot"></div>
+</aside>
+
 <!-- ========== DELETE CONFIRM MODAL ========== -->
 <div class="modal-overlay" id="confirmModal">
   <div class="modal-box" style="max-width:400px;">
@@ -512,14 +608,14 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
   </div>
 </div>
 
-<!-- ========== PRODUCT QUICK VIEW MODAL ========== -->
-<div class="modal-overlay" id="productModal">
+<!-- ========== JSON CELL VIEWER MODAL (used by Database Console) ========== -->
+<div class="modal-overlay" id="jsonViewModal">
   <div class="modal-box modal-wide">
     <div class="modal-head">
-      <h3>Product details</h3>
-      <button class="modal-close" onclick="closeModal('productModal')">✕</button>
+      <h3 id="jsonViewTitle">Cell value</h3>
+      <button class="modal-close" onclick="closeModal('jsonViewModal')">✕</button>
     </div>
-    <div class="modal-body" id="productModalBody"></div>
+    <div class="modal-body" id="jsonViewBody"></div>
   </div>
 </div>
 
@@ -599,13 +695,14 @@ function saveState(){
   catch(e){ console.warn('Could not persist state',e); }
 }
 function resetDemoData(){
-  if(!confirm('Reset all demo data (products, orders, customers, cart) back to defaults? This cannot be undone.')) return;
-  DB=seedData();
-  SESSION={currentUserId:null,cart:[],wishlist:[],compare:[]};
-  saveState();
-  showToast('Demo data has been reset.','success');
-  location.hash='#/home';
-  render();
+  openConfirm('Reset all demo data?','Products, orders, customers, and your cart will be restored to their original defaults. This cannot be undone.',()=>{
+    DB=seedData();
+    SESSION={currentUserId:null,cart:[],wishlist:[],compare:[]};
+    saveState();
+    showToast('Demo data has been reset.','success');
+    location.hash='#/home';
+    render();
+  });
 }
 
 /* ---------------------------- UTILITIES ---------------------------- */
@@ -659,6 +756,7 @@ function getRoutes(){
   return {
     '/home':renderHome,
     '/shop':renderShop,
+    '/product':renderProductDetail,
     '/login':renderLogin,
     '/register':renderRegister,
     '/cart':renderCart,
@@ -689,6 +787,7 @@ function render(){
   fn($('#app'));
   window.scrollTo({top:0,behavior:'instant'});
   $('#mainNav').classList.remove('open'); $('#navScrim').classList.remove('open');
+  closeCartDrawer();
 }
 window.addEventListener('hashchange',render);
 $('#mobileToggle').addEventListener('click',()=>{ $('#mainNav').classList.toggle('open'); $('#navScrim').classList.toggle('open'); });
@@ -780,7 +879,7 @@ function productCardHTML(p){
   const outOfStock=p.stock<=0;
   return `
   <div class="product-card">
-    <div class="product-thumb" onclick="openProductModal(${p.id})">
+    <div class="product-thumb" onclick="location.hash='#/product?id=${p.id}'">
       ${p.compareAt>0?'<span class="badge">SALE</span>':''}
       ${outOfStock?'<span class="badge" style="background:#6b6b6b;">OUT OF STOCK</span>':''}
       ${p.image}
@@ -788,7 +887,7 @@ function productCardHTML(p){
     </div>
     <div class="product-body">
       <span class="product-cat">${esc(catName(p.categoryId))}</span>
-      <span class="product-title" onclick="openProductModal(${p.id})">${esc(p.name)}</span>
+      <span class="product-title" onclick="location.hash='#/product?id=${p.id}'">${esc(p.name)}</span>
       <span class="product-rating">${stars(p.rating)} <span>(${p.reviewsCount})</span></span>
       <div class="product-foot">
         <span class="product-price">${fmtMoney(p.price)}${p.compareAt>0?`<s>${fmtMoney(p.compareAt)}</s>`:''}</span>
@@ -856,50 +955,103 @@ function renderShopGrid(){
   grid.innerHTML = list.length? list.map(productCardHTML).join('') : '<div class="empty-state" style="grid-column:1/-1;"><div class="emoji">🔍</div><p>No products match your filters.</p></div>';
 }
 
-/* ---------------------------- PRODUCT MODAL ---------------------------- */
-function openProductModal(id){
+/* ---------------------------- PRODUCT DETAIL PAGE ---------------------------- */
+function renderProductDetail(root){
+  const qs=new URLSearchParams((location.hash.split('?')[1])||'');
+  const id=Number(qs.get('id'));
   const p=productById(id);
-  if(!p) return;
+  if(!p){
+    root.innerHTML=`<div class="section container"><div class="empty-state"><div class="emoji">🔍</div><h3>Product not found</h3><p style="margin-top:8px;">It may have been removed or the link is out of date.</p><a href="#/shop" class="btn btn-primary" style="margin-top:20px;">Back to shop</a></div></div>`;
+    return;
+  }
   const reviews=DB.reviews.filter(r=>r.productId===id && r.status==='approved');
-  $('#productModalBody').innerHTML=`
-  <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:26px;">
-    <div class="product-thumb" style="aspect-ratio:1/1;border-radius:var(--radius-l);font-size:5rem;">${p.image}</div>
-    <div>
-      <span class="product-cat">${esc(catName(p.categoryId))}</span>
-      <h2 style="margin:6px 0 10px;font-size:1.4rem;">${esc(p.name)}</h2>
-      <div class="product-rating" style="font-size:0.9rem;">${stars(p.rating)} <span>${p.rating} · ${p.reviewsCount} reviews</span></div>
-      <div class="product-price" style="font-size:1.6rem;margin:14px 0;">${fmtMoney(p.price)}${p.compareAt>0?`<s>${fmtMoney(p.compareAt)}</s>`:''}</div>
-      <p style="color:var(--ink-soft);">${esc(p.description)}</p>
-      <p style="margin-top:12px;font-size:0.85rem;color:${p.stock>0?'var(--success)':'var(--error)'};font-weight:600;">${p.stock>0? p.stock+' in stock' : 'Out of stock'}</p>
-      <div style="display:flex;gap:12px;margin-top:20px;align-items:center;">
-        <div class="qty-control" id="modalQty" data-qty="1">
-          <button onclick="modalQtyChange(-1)">−</button><span>1</span><button onclick="modalQtyChange(1)">+</button>
+  const related=DB.products.filter(x=>x.categoryId===p.categoryId && x.id!==p.id).slice(0,4);
+  const inWishlist=SESSION.wishlist.includes(p.id);
+  const inCompare=SESSION.compare.includes(p.id);
+  root.innerHTML=`
+  <div class="page-hero"><div class="container"><div class="breadcrumb"><b><a href="#/home">Home</a></b> / <a href="#/shop">Shop</a> / <a href="#/shop?cat=${p.categoryId}">${esc(catName(p.categoryId))}</a> / ${esc(p.name)}</div></div></div>
+  <div class="section container">
+    <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:40px;align-items:start;">
+      <div class="product-thumb" style="aspect-ratio:1/1;border-radius:var(--radius-l);font-size:6rem;">
+        ${p.compareAt>0?'<span class="badge">SALE</span>':''}
+        ${p.stock<=0?'<span class="badge" style="background:#6b6b6b;">OUT OF STOCK</span>':''}
+        ${p.image}
+      </div>
+      <div>
+        <span class="product-cat">${esc(catName(p.categoryId))}</span>
+        <h1 style="margin:8px 0 12px;font-size:1.9rem;">${esc(p.name)}</h1>
+        <div class="product-rating" style="font-size:0.95rem;">${stars(p.rating)} <span>${p.rating} · ${p.reviewsCount} reviews</span></div>
+        <div class="product-price" style="font-size:2rem;margin:16px 0;">${fmtMoney(p.price)}${p.compareAt>0?`<s>${fmtMoney(p.compareAt)}</s>`:''}</div>
+        <p style="color:var(--ink-soft);line-height:1.7;">${esc(p.description)}</p>
+        <p style="margin-top:14px;font-size:0.88rem;color:${p.stock>0?'var(--success)':'var(--error)'};font-weight:600;">${p.stock>0? p.stock+' in stock' : 'Out of stock'}</p>
+        <div style="display:flex;gap:12px;margin-top:24px;align-items:center;flex-wrap:wrap;">
+          <div class="qty-control" id="pdpQty" data-qty="1">
+            <button onclick="pdpQtyChange(-1)">−</button><span>1</span><button onclick="pdpQtyChange(1)">+</button>
+          </div>
+          <button class="btn btn-primary" ${p.stock<=0?'disabled':''} onclick="addToCart(${p.id}, Number($('#pdpQty').dataset.qty));">Add to cart</button>
+          <button class="icon-btn" onclick="toggleWishlist(${p.id});renderProductDetail($('#app'));" title="Wishlist">${inWishlist?'♥':'♡'}</button>
         </div>
-        <button class="btn btn-primary" ${p.stock<=0?'disabled':''} onclick="addToCart(${p.id}, Number($('#modalQty').dataset.qty)); closeModal('productModal');">Add to cart</button>
-        <button class="icon-btn" onclick="toggleWishlist(${p.id});openProductModal(${p.id});" title="Wishlist">${SESSION.wishlist.includes(p.id)?'♥':'♡'}</button>
+        <label style="display:flex;align-items:center;gap:8px;margin-top:16px;font-size:0.84rem;color:var(--ink-faint);">
+          <input type="checkbox" ${inCompare?'checked':''} onchange="toggleCompare(${p.id})"> Add to compare list
+        </label>
       </div>
     </div>
-  </div>
-  <hr style="border:none;border-top:1px solid var(--line);margin:26px 0;">
-  <h4 style="margin-bottom:14px;">Customer reviews (${reviews.length})</h4>
-  ${reviews.length? reviews.map(r=>`
-    <div style="padding:14px 0;border-bottom:1px solid var(--line);">
-      <div class="review-stars">${stars(r.rating)}</div>
-      <p style="font-size:0.88rem;margin-top:6px;">${esc(r.comment)}</p>
-      <span style="font-size:0.76rem;color:var(--ink-faint);">${esc(r.customerName)} · ${esc(r.date)}</span>
-    </div>`).join('') : '<p style="color:var(--ink-faint);font-size:0.86rem;">No reviews yet for this product.</p>'}
-  `;
-  openModal('productModal');
+
+    <div style="margin-top:50px;max-width:760px;">
+      <h3 style="margin-bottom:18px;">Customer reviews (${reviews.length})</h3>
+      ${reviews.length? reviews.map(r=>`
+        <div style="padding:16px 0;border-bottom:1px solid var(--line);">
+          <div class="review-stars">${stars(r.rating)}</div>
+          <p style="font-size:0.9rem;margin-top:8px;">${esc(r.comment)}</p>
+          <span style="font-size:0.78rem;color:var(--ink-faint);">${esc(r.customerName)} · ${esc(r.date)}</span>
+        </div>`).join('') : '<p style="color:var(--ink-faint);font-size:0.88rem;">No reviews yet for this product — be the first to review it.</p>'}
+
+      <div class="form-card" style="margin-top:26px;max-width:520px;">
+        <h4 style="margin-bottom:14px;">Write a review</h4>
+        ${currentUser() ? `
+          <div id="pdpReviewAlert"></div>
+          <div class="field"><label>Rating</label>
+            <select id="pdpReviewRating">${[5,4,3,2,1].map(n=>`<option value="${n}">${n} star${n>1?'s':''}</option>`).join('')}</select>
+          </div>
+          <div class="field" id="pdpReviewCommentField"><label>Your review <span class="req">*</span></label><textarea id="pdpReviewComment" placeholder="What did you think of this product?"></textarea><div class="field-error">Please write a comment before submitting.</div></div>
+          <button class="btn btn-primary" onclick="submitProductReview(${p.id})">Submit review</button>
+          <p class="field-hint" style="margin-top:8px;">New reviews start as "pending" — approve your own in the Admin panel's Reviews tab to practice a moderation workflow.</p>
+        ` : `<p style="color:var(--ink-faint);font-size:0.88rem;">Please <a href="#/login" style="color:var(--purple-600);font-weight:600;">sign in</a> to write a review.</p>`}
+      </div>
+    </div>
+
+    ${related.length? `
+    <div style="margin-top:56px;">
+      <h3 style="margin-bottom:20px;">You might also like</h3>
+      <div class="product-grid">${related.map(productCardHTML).join('')}</div>
+    </div>` : ''}
+  </div>`;
 }
-function modalQtyChange(delta){
-  const el=$('#modalQty');
+function pdpQtyChange(delta){
+  const el=$('#pdpQty');
   let q=Number(el.dataset.qty)+delta;
   if(q<1) q=1;
   el.dataset.qty=q;
   el.querySelector('span').textContent=q;
 }
+function submitProductReview(productId){
+  const commentEl=$('#pdpReviewComment');
+  const comment=commentEl.value.trim();
+  if(!comment){ $('#pdpReviewCommentField').classList.add('invalid'); return; }
+  $('#pdpReviewCommentField').classList.remove('invalid');
+  const rating=Number($('#pdpReviewRating').value);
+  const user=currentUser();
+  DB.reviews.push({
+    id:DB.nextIds.review++, productId, customerId:user.id, customerName:user.name,
+    rating, comment, status:'pending', date:new Date().toISOString().slice(0,10)
+  });
+  saveState();
+  $('#pdpReviewAlert').innerHTML='<div class="alert alert-success">✓ Thanks! Your review was submitted and is awaiting approval.</div>';
+  commentEl.value='';
+}
 
 /* ---------------------------- CART / WISHLIST / COMPARE ---------------------------- */
+let lastAddedProductId=null;
 function addToCart(productId,qty){
   const p=productById(productId);
   if(!p || p.stock<=0) return;
@@ -907,8 +1059,9 @@ function addToCart(productId,qty){
   if(existing) existing.qty+=qty; else SESSION.cart.push({productId,qty});
   saveState();
   $('#cartCount').textContent=SESSION.cart.reduce((s,i)=>s+i.qty,0);
-  showToast(p.name+' added to cart','success');
+  lastAddedProductId=productId;
   if(currentPath()==='/cart') renderCart($('#app'));
+  openCartDrawer();
 }
 function toggleWishlist(productId){
   if(!currentUser()){ showToast('Please sign in to use your wishlist.'); location.hash='#/login'; return; }
@@ -919,15 +1072,67 @@ function toggleWishlist(productId){
   render();
 }
 function toggleCompare(productId){
+  const p=productById(productId);
   const idx=SESSION.compare.indexOf(productId);
-  if(idx>-1){ SESSION.compare.splice(idx,1); }
-  else {
-    if(SESSION.compare.length>=4){ showToast('You can compare up to 4 products.'); return; }
+  if(idx>-1){
+    SESSION.compare.splice(idx,1);
+    showToast((p?p.name:'Product')+' removed from compare');
+  } else {
+    if(SESSION.compare.length>=4){ showToast('You can compare up to 4 products at once.'); return; }
     SESSION.compare.push(productId);
+    showToast((p?p.name:'Product')+' added to compare','success');
   }
   saveState();
 }
+
+/* ---------------------------- CART DRAWER (mini-cart) ---------------------------- */
+function openCartDrawer(){
+  renderCartDrawer();
+  $('#cartDrawer').classList.add('open');
+  $('#cartDrawerScrim').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeCartDrawer(){
+  $('#cartDrawer').classList.remove('open');
+  $('#cartDrawerScrim').classList.remove('open');
+  document.body.style.overflow='';
+  lastAddedProductId=null;
+}
+function renderCartDrawer(){
+  const items=SESSION.cart.map(i=>({...i,product:productById(i.productId)})).filter(i=>i.product);
+  const body=$('#cartDrawerBody'), foot=$('#cartDrawerFoot');
+  const addedProduct = lastAddedProductId ? productById(lastAddedProductId) : null;
+  const addedBanner = addedProduct ? `<div class="cart-drawer-added">✓ ${esc(addedProduct.name)} added to your cart</div>` : '';
+  if(!items.length){
+    body.innerHTML = addedBanner + `<div class="empty-state" style="padding:50px 10px;"><div class="emoji">🛒</div><p>Your cart is empty.</p></div>`;
+    foot.innerHTML = `<a href="#/shop" class="btn btn-primary btn-block" onclick="closeCartDrawer()">Start shopping</a>`;
+    return;
+  }
+  const subtotal=items.reduce((s,i)=>s+i.product.price*i.qty,0);
+  body.innerHTML = addedBanner + items.map(i=>`
+    <div class="cart-drawer-item">
+      <div class="cart-drawer-thumb">${i.product.image}</div>
+      <div>
+        <div class="cart-drawer-name">${esc(i.product.name)}</div>
+        <div class="cart-drawer-meta">${fmtMoney(i.product.price)} each</div>
+        <div class="cart-drawer-qty">
+          <button onclick="changeCartQty(${i.productId},-1);renderCartDrawer();">−</button>
+          <span>${i.qty}</span>
+          <button onclick="changeCartQty(${i.productId},1);renderCartDrawer();">+</button>
+        </div>
+      </div>
+      <div>
+        <div class="cart-drawer-price">${fmtMoney(i.product.price*i.qty)}</div>
+        <button class="cart-drawer-remove" onclick="confirmRemoveFromCart(${i.productId},'${esc(i.product.name).replace(/'/g,"\\'")}',true)">Remove</button>
+      </div>
+    </div>`).join('');
+  foot.innerHTML = `
+    <div class="summary-row total" style="margin-bottom:14px;"><span>Subtotal</span><span>${fmtMoney(subtotal)}</span></div>
+    <a href="#/cart" class="btn btn-secondary btn-block" style="margin-bottom:10px;" onclick="closeCartDrawer()">View full cart</a>
+    <a href="#/checkout" class="btn btn-primary btn-block" onclick="closeCartDrawer()">Checkout now</a>`;
+}
 </script>
+
 <script>
 /* ---------------------------- LOGIN / REGISTER ---------------------------- */
 function renderLogin(root){
@@ -1037,7 +1242,7 @@ function renderCart(root){
             <div><div class="cart-name">${esc(i.product.name)}</div><div class="cart-meta">${esc(catName(i.product.categoryId))} · ${fmtMoney(i.product.price)} each</div></div>
             <div class="qty-control"><button onclick="changeCartQty(${i.productId},-1)">−</button><span>${i.qty}</span><button onclick="changeCartQty(${i.productId},1)">+</button></div>
             <div style="font-weight:700;">${fmtMoney(i.product.price*i.qty)}</div>
-            <button class="cart-remove" onclick="removeFromCart(${i.productId})" title="Remove">✕</button>
+            <button class="cart-remove" onclick="confirmRemoveFromCart(${i.productId},'${esc(i.product.name).replace(/'/g,"\\'")}',false)" title="Remove">✕</button>
           </div>`).join('')}
       </div>
       <div class="summary-card">
@@ -1062,6 +1267,15 @@ function changeCartQty(productId,delta){
 function removeFromCart(productId){
   SESSION.cart=SESSION.cart.filter(i=>i.productId!==productId);
   saveState(); showToast('Item removed'); render();
+}
+function confirmRemoveFromCart(productId,productName,isDrawer){
+  openConfirm('Remove item from cart?','"'+productName+'" will be removed from your cart.',()=>{
+    SESSION.cart=SESSION.cart.filter(i=>i.productId!==productId);
+    saveState();
+    showToast('Item removed');
+    if(isDrawer){ renderCartDrawer(); $('#cartCount').textContent=SESSION.cart.reduce((s,i)=>s+i.qty,0); }
+    else { render(); }
+  });
 }
 </script>
 <script>
@@ -1457,6 +1671,27 @@ const adminModules={
     searchKeys:['title','slug'],
     defaults:{title:'',slug:'',status:'draft',content:''},
   },
+  orders:{
+    label:'Orders', icon:'🧾', table:'orders', idKey:'id',
+    columns:[
+      {key:'customerId',label:'Customer',render:v=>{ const c=DB.customers.find(c=>c.id===v); return c?c.name:'Deleted customer #'+v; }},
+      {key:'items',label:'Items',render:v=>v.reduce((s,i)=>s+i.qty,0)+' item(s)'},
+      {key:'total',label:'Total',render:v=>fmtMoney(v)},
+      {key:'status',label:'Status',render:v=>`<span class="status-pill status-${v}">${v}</span>`},
+      {key:'date',label:'Date'},
+    ],
+    fields:[
+      {key:'customerId',label:'Customer',type:'select',required:true,options:()=>DB.customers.map(c=>({value:c.id,label:c.name+' ('+c.email+')'}))},
+      {key:'status',label:'Order status',type:'select',required:true,options:()=>[{value:'pending',label:'Pending'},{value:'processing',label:'Processing'},{value:'delivered',label:'Delivered'},{value:'cancelled',label:'Cancelled'}]},
+      {key:'total',label:'Total (USD)',type:'number',required:true,step:'0.01'},
+      {key:'date',label:'Order date',type:'text',required:true,hint:'Format: YYYY-MM-DD'},
+      {key:'items',label:'Items (JSON array)',type:'json',hint:'e.g. [{"productId":1,"qty":2,"price":129.99}]'},
+      {key:'shipping',label:'Shipping address (JSON)',type:'json'},
+      {key:'payment',label:'Payment info (JSON)',type:'json'},
+    ],
+    searchKeys:['status','date'],
+    defaults:{customerId:()=>DB.customers[0]?DB.customers[0].id:1,status:'pending',total:0,date:()=>new Date().toISOString().slice(0,10),items:[],shipping:{name:'',address:'',city:'',zip:'',country:'',phone:''},payment:{method:'cod'}},
+  },
 };
 let adminActiveTab='products';
 let adminSearch='';
@@ -1515,7 +1750,7 @@ function viewAdminRecord(modKey,id){
   const rec=DB[mod.table].find(r=>r[mod.idKey]===id);
   if(!rec) return;
   $('#adminFormTitle').textContent='View '+mod.label.slice(0,-1)+' #'+id;
-  $('#adminFormBody').innerHTML=`<div style="display:grid;gap:10px;">${Object.entries(rec).map(([k,v])=>`<div style="display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:8px;"><b style="color:var(--ink-faint);font-size:0.82rem;">${esc(k)}</b><span style="text-align:right;">${esc(String(v))}</span></div>`).join('')}</div>`;
+  $('#adminFormBody').innerHTML=`<div style="display:grid;gap:10px;">${Object.entries(rec).map(([k,v])=>`<div style="display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:8px;"><b style="color:var(--ink-faint);font-size:0.82rem;">${esc(k)}</b><span style="text-align:right;white-space:pre-wrap;">${esc(formatCell(v))}</span></div>`).join('')}</div>`;
   $('#adminFormSaveBtn').classList.add('hidden');
   openModal('adminFormModal');
   $('#adminFormModal').addEventListener('transitionend',()=>{},{once:true});
@@ -1538,13 +1773,16 @@ function openAdminForm(modKey,id){
       control=`<select id="${fid}">${opts.map(o=>`<option value="${o.value}" ${String(val)===String(o.value)?'selected':''}>${esc(o.label)}</option>`).join('')}</select>`;
     } else if(f.type==='textarea'){
       control=`<textarea id="${fid}">${esc(val||'')}</textarea>`;
+    } else if(f.type==='json'){
+      control=`<textarea id="${fid}" style="font-family:var(--font-mono);font-size:0.82rem;min-height:120px;">${esc(JSON.stringify(val,null,2))}</textarea>`;
     } else {
       control=`<input id="${fid}" type="${f.type==='number'?'number':'text'}" ${f.step?`step="${f.step}"`:''} value="${esc(val!=null?val:'')}">`;
     }
-    return `<div class="field" id="fw_${fid}"><label>${esc(f.label)} ${f.required?'<span class="req">*</span>':''}</label>${control}<div class="field-error">This field is required.</div></div>`;
+    return `<div class="field" id="fw_${fid}"><label>${esc(f.label)} ${f.required?'<span class="req">*</span>':''}</label>${control}<div class="field-hint">${f.hint?esc(f.hint):''}</div><div class="field-error">${f.type==='json'?'Must be valid JSON.':'This field is required.'}</div></div>`;
   }).join('');
   openModal('adminFormModal');
 }
+const nextIdKeyMap={categories:'category',products:'product',customers:'customer',reviews:'review',cms:'cms',orders:'order'};
 $('#adminFormSaveBtn').addEventListener('click',()=>{
   const {module:modKey,id}=adminEditing;
   const mod=adminModules[modKey];
@@ -1554,27 +1792,30 @@ $('#adminFormSaveBtn').addEventListener('click',()=>{
     const el=$('#af_'+f.key);
     let val=el.value;
     if(f.type==='number') val = val===''? 0 : Number(val);
-    if(f.required && (val==='' || val==null)){
+    if(f.type==='json'){
+      try{ val=JSON.parse(val); $('#fw_af_'+f.key).classList.remove('invalid'); }
+      catch(e){ $('#fw_af_'+f.key).classList.add('invalid'); valid=false; }
+    } else if(f.required && (val==='' || val==null)){
       $('#fw_af_'+f.key).classList.add('invalid'); valid=false;
     } else {
       $('#fw_af_'+f.key).classList.remove('invalid');
     }
-    if(f.key==='categoryId'||f.key==='productId') val=Number(val);
+    if(['categoryId','productId','customerId'].includes(f.key)) val=Number(val);
     values[f.key]=val;
   });
-  if(!valid){ $('#adminFormAlert').innerHTML='<div class="alert alert-error">⚠️ Please fill in all required fields.</div>'; return; }
+  if(!valid){ $('#adminFormAlert').innerHTML='<div class="alert alert-error">⚠️ Please fix the highlighted fields (required values, or invalid JSON).</div>'; return; }
   if(id!=null){
     const rec=DB[mod.table].find(r=>r[mod.idKey]===id);
     Object.assign(rec,values);
     showToast(mod.label.slice(0,-1)+' updated','success');
   } else {
-    const newId=DB.nextIds[modKey==='cms'?'cms':modKey.slice(0,-1)] || (Math.max(0,...DB[mod.table].map(r=>r[mod.idKey]))+1);
-    const nextKey = modKey==='categories'?'category': modKey==='products'?'product': modKey==='customers'?'customer': modKey==='reviews'?'review':'cms';
-    const idToUse = DB.nextIds[nextKey];
+    const nextKey = nextIdKeyMap[modKey] || modKey;
+    const idToUse = DB.nextIds[nextKey] || (Math.max(0,...DB[mod.table].map(r=>r[mod.idKey]))+1);
     DB.nextIds[nextKey]=idToUse+1;
     const newRec=Object.assign({[mod.idKey]:idToUse}, values);
     if(modKey==='reviews'){ newRec.date=new Date().toISOString().slice(0,10); }
     if(modKey==='customers'){ newRec.createdAt=new Date().toISOString().slice(0,10); }
+    if(modKey==='orders'){ newRec.date=newRec.date||new Date().toISOString().slice(0,10); }
     DB[mod.table].push(newRec);
     showToast(mod.label.slice(0,-1)+' added','success');
   }
@@ -1601,14 +1842,36 @@ function deleteAdminRecord(modKey,id){
    DATABASE CONSOLE — phpMyAdmin-style SQL sandbox over the in-memory DB
    ====================================================================== */
 const dbTables={
-  products:{columns:['id','name','categoryId','price','compareAt','stock','image','rating','reviewsCount','description']},
-  categories:{columns:['id','name','slug','icon','description']},
-  customers:{columns:['id','name','email','phone','address','role','createdAt']},
-  orders:{columns:['id','customerId','total','status','date']},
-  reviews:{columns:['id','productId','customerId','customerName','rating','comment','status','date']},
-  cms:{columns:['id','title','slug','status','content']},
+  products:{columns:[
+    {name:'id',type:'INT',key:'PK'},{name:'name',type:'VARCHAR(255)'},{name:'categoryId',type:'INT',key:'FK → categories.id'},
+    {name:'price',type:'DECIMAL(10,2)'},{name:'compareAt',type:'DECIMAL(10,2)'},{name:'stock',type:'INT'},
+    {name:'image',type:'VARCHAR(10)'},{name:'rating',type:'DECIMAL(2,1)'},{name:'reviewsCount',type:'INT'},{name:'description',type:'TEXT'},
+  ]},
+  categories:{columns:[
+    {name:'id',type:'INT',key:'PK'},{name:'name',type:'VARCHAR(255)'},{name:'slug',type:'VARCHAR(255)'},
+    {name:'icon',type:'VARCHAR(10)'},{name:'description',type:'TEXT'},
+  ]},
+  customers:{columns:[
+    {name:'id',type:'INT',key:'PK'},{name:'name',type:'VARCHAR(255)'},{name:'email',type:'VARCHAR(255)',key:'UNIQUE'},
+    {name:'phone',type:'VARCHAR(30)'},{name:'address',type:'VARCHAR(255)'},{name:'role',type:"ENUM('customer','admin')"},{name:'createdAt',type:'DATE'},
+  ]},
+  orders:{columns:[
+    {name:'id',type:'INT',key:'PK'},{name:'customerId',type:'INT',key:'FK → customers.id'},{name:'items',type:'JSON'},
+    {name:'shipping',type:'JSON'},{name:'payment',type:'JSON'},{name:'total',type:'DECIMAL(10,2)'},
+    {name:'status',type:"ENUM('pending','processing','delivered','cancelled')"},{name:'date',type:'DATE'},
+  ]},
+  reviews:{columns:[
+    {name:'id',type:'INT',key:'PK'},{name:'productId',type:'INT',key:'FK → products.id'},{name:'customerId',type:'INT',key:'FK → customers.id'},
+    {name:'customerName',type:'VARCHAR(255)'},{name:'rating',type:'TINYINT'},{name:'comment',type:'TEXT'},
+    {name:'status',type:"ENUM('pending','approved','rejected')"},{name:'date',type:'DATE'},
+  ]},
+  cms:{columns:[
+    {name:'id',type:'INT',key:'PK'},{name:'title',type:'VARCHAR(255)'},{name:'slug',type:'VARCHAR(255)'},
+    {name:'status',type:"ENUM('draft','published')"},{name:'content',type:'TEXT'},
+  ]},
 };
 let activeDbTable='products';
+let dbViewMode='data';
 let sqlHistory=[];
 
 function renderDatabase(root){
@@ -1621,53 +1884,127 @@ function renderDatabase(root){
         <div class="db-sidebar">
           <h5>Tables</h5>
           ${Object.keys(dbTables).map(t=>`<div class="db-table-item ${activeDbTable===t?'active':''}" data-tbl="${t}">🧱 ${t} <span class="n">${DB[t].length}</span></div>`).join('')}
+          <h5 style="margin-top:18px;">Query History</h5>
+          <div id="sqlHistoryList">${renderSqlHistoryItems()}</div>
         </div>
         <div class="db-main">
           <div class="sql-toolbar">
             <h4 id="dbActiveTableLabel"># ${activeDbTable}</h4>
-            <span class="sql-hint">Columns: ${dbTables[activeDbTable].columns.join(', ')}</span>
-          </div>
-          <textarea class="sql-editor" id="sqlEditor" spellcheck="false">SELECT * FROM ${activeDbTable} LIMIT 50;</textarea>
-          <div class="sql-actions">
-            <span class="sql-hint">Supports SELECT / INSERT / UPDATE / DELETE with WHERE, ORDER BY, LIMIT</span>
-            <div style="display:flex;gap:10px;">
-              <button class="btn btn-secondary btn-sm" onclick="clearSqlEditor()">Clear</button>
-              <button class="btn btn-primary" id="executeSqlBtn">▶ Execute</button>
+            <div style="display:flex;gap:6px;">
+              <button class="chip ${dbViewMode==='data'?'active':''}" id="dbViewData" style="padding:5px 12px;font-size:0.76rem;">📄 Data (SQL)</button>
+              <button class="chip ${dbViewMode==='structure'?'active':''}" id="dbViewStructure" style="padding:5px 12px;font-size:0.76rem;">🏗 Structure</button>
             </div>
           </div>
-          <div id="sqlResultArea"></div>
+          <div id="dbMainContent"></div>
         </div>
       </div>
     </div>
   </div>`;
   $all('.db-table-item').forEach(item=>item.addEventListener('click',()=>{
     activeDbTable=item.dataset.tbl;
-    $('#sqlEditor').value=`SELECT * FROM ${activeDbTable} LIMIT 50;`;
     renderDatabase(root);
-    runSqlQuery();
   }));
+  $('#dbViewData').addEventListener('click',()=>{ dbViewMode='data'; renderDatabase(root); });
+  $('#dbViewStructure').addEventListener('click',()=>{ dbViewMode='structure'; renderDatabase(root); });
+  renderDbMainContent();
+}
+function renderDbMainContent(){
+  const wrap=$('#dbMainContent');
+  if(!wrap) return;
+  if(dbViewMode==='structure'){
+    wrap.innerHTML=`
+      <div class="jm-report-table-wrap">
+        <table class="jm-report-table">
+          <thead><tr><th>Column</th><th>Type</th><th>Key</th></tr></thead>
+          <tbody>${dbTables[activeDbTable].columns.map(c=>`<tr><td style="font-family:var(--font-mono);">${esc(c.name)}</td><td style="font-family:var(--font-mono);color:var(--purple-600);">${esc(c.type)}</td><td>${c.key?esc(c.key):''}</td></tr>`).join('')}</tbody>
+        </table>
+      </div>
+      <p class="sql-hint" style="margin-top:14px;color:var(--ink-faint);">${DB[activeDbTable].length} row(s) currently in this table. Switch to "Data (SQL)" to query them.</p>
+    `;
+    return;
+  }
+  wrap.innerHTML=`
+    <span class="sql-hint">Columns: ${dbTables[activeDbTable].columns.map(c=>c.name).join(', ')}</span>
+    <textarea class="sql-editor" id="sqlEditor" spellcheck="false">SELECT * FROM ${activeDbTable} LIMIT 50;</textarea>
+    <div class="sql-actions">
+      <span class="sql-hint">Supports SELECT / INSERT / UPDATE / DELETE with WHERE, ORDER BY, LIMIT · Ctrl/Cmd+Enter to run</span>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-secondary btn-sm" onclick="clearSqlEditor()">Clear</button>
+        <button class="btn btn-secondary btn-sm" onclick="exportSqlResultsCsv()">⬇ Export .csv</button>
+        <button class="btn btn-primary" id="executeSqlBtn">▶ Execute</button>
+      </div>
+    </div>
+    <div id="sqlResultArea"></div>
+  `;
   $('#executeSqlBtn').addEventListener('click',runSqlQuery);
   $('#sqlEditor').addEventListener('keydown',e=>{ if(e.key==='Enter' && (e.ctrlKey||e.metaKey)) runSqlQuery(); });
   runSqlQuery();
+}
+function renderSqlHistoryItems(){
+  if(!sqlHistory.length) return `<div style="padding:8px 18px;font-size:0.76rem;color:var(--purple-400);">No queries run yet.</div>`;
+  return sqlHistory.slice(-15).reverse().map((q,i)=>{
+    const realIdx=sqlHistory.length-1-i;
+    return `<div class="db-table-item" style="font-size:0.72rem;line-height:1.4;padding:8px 18px;white-space:normal;" onclick="loadHistoryQuery(${realIdx})" title="${esc(q)}">${esc(q.length>42?q.slice(0,42)+'…':q)}</div>`;
+  }).join('');
+}
+function loadHistoryQuery(idx){
+  const q=sqlHistory[idx];
+  if(q==null) return;
+  dbViewMode='data';
+  renderDatabase($('#app'));
+  requestAnimationFrame(()=>{ const el=$('#sqlEditor'); if(el){ el.value=q; runSqlQuery(); } });
+}
+function exportSqlResultsCsv(){
+  if(!lastQueryRows || !lastQueryRows.length){ showToast('Run a query with results first.'); return; }
+  const cols=Object.keys(lastQueryRows[0]);
+  const header=cols.join(',')+'\n';
+  const rows=lastQueryRows.map(r=>cols.map(c=>{
+    const v=r[c];
+    const s = v==null ? '' : (typeof v==='object' ? JSON.stringify(v) : String(v));
+    return '"'+s.replace(/"/g,'""')+'"';
+  }).join(',')).join('\n');
+  const blob=new Blob([header+rows],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download='query-results-'+Date.now()+'.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('.csv exported','success');
 }
 function clearSqlEditor(){ $('#sqlEditor').value=''; $('#sqlEditor').focus(); }
 
 function renderSqlError(msg){
   $('#sqlResultArea').innerHTML=`<div class="db-error-box">✖ SQL Error: ${esc(msg)}</div>`;
 }
+let lastQueryRows=[];
 function renderSqlRows(rows,meta){
   if(!rows || !rows.length){
     $('#sqlResultArea').innerHTML=`<div class="db-result-box"><div class="db-result-meta">${esc(meta)}</div><div class="table-empty">Query returned 0 rows.</div></div>`;
     return;
   }
+  lastQueryRows=rows;
   const cols=Object.keys(rows[0]);
   $('#sqlResultArea').innerHTML=`<div class="db-result-box">
     <div class="db-result-meta">${esc(meta)}</div>
-    <div class="db-result-scroll"><table class="data-table">
-      <thead><tr>${cols.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead>
-      <tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td>${esc(formatCell(r[c]))}</td>`).join('')}</tr>`).join('')}</tbody>
+    <div class="db-result-scroll"><table class="data-table" style="min-width:max-content;">
+      <thead><tr>${cols.map(c=>`<th style="white-space:nowrap;">${esc(c)}</th>`).join('')}</tr></thead>
+      <tbody>${rows.map((r,ri)=>`<tr>${cols.map(c=>`<td style="white-space:nowrap;">${renderSqlCell(r[c],ri,c)}</td>`).join('')}</tr>`).join('')}</tbody>
     </table></div>
   </div>`;
+}
+function renderSqlCell(val,rowIndex,col){
+  if(val==null) return 'NULL';
+  if(typeof val==='object'){
+    const preview=esc(JSON.stringify(val).slice(0,26))+(JSON.stringify(val).length>26?'…':'');
+    return `<span style="font-family:var(--font-mono);font-size:0.78rem;color:var(--ink-faint);">${preview}</span> <button class="btn btn-sm btn-secondary" style="padding:3px 9px;font-size:0.7rem;" onclick="showJsonCellModal(${rowIndex},'${col}')">View</button>`;
+  }
+  return esc(String(val));
+}
+function showJsonCellModal(rowIndex,col){
+  const val=lastQueryRows[rowIndex] ? lastQueryRows[rowIndex][col] : null;
+  $('#jsonViewTitle').textContent=col+' — full value';
+  $('#jsonViewBody').innerHTML=`<div class="pm-response-body" style="background:#150b28;border-radius:var(--radius-m);padding:16px;">${syntaxHighlightJSON(val)}</div>`;
+  openModal('jsonViewModal');
 }
 function formatCell(val){
   if(val==null) return 'NULL';
@@ -1704,6 +2041,7 @@ function runSqlQuery(){
   const raw=$('#sqlEditor').value.trim().replace(/;$/,'');
   if(!raw){ renderSqlError('Query is empty.'); return; }
   sqlHistory.push(raw);
+  const histEl=$('#sqlHistoryList'); if(histEl) histEl.innerHTML=renderSqlHistoryItems();
   try{
     const selectM=raw.match(/^SELECT\s+(.+?)\s+FROM\s+([a-zA-Z_]+)\s*(?:WHERE\s+(.+?))?\s*(?:ORDER BY\s+([a-zA-Z_]+)\s*(ASC|DESC)?)?\s*(?:LIMIT\s+(\d+))?$/is);
     const insertM=raw.match(/^INSERT\s+INTO\s+([a-zA-Z_]+)\s*\(([^)]+)\)\s*VALUES\s*\(([^)]+)\)$/is);
@@ -1798,11 +2136,14 @@ pm.test("Body is not empty", function () {
   pm.expect(pm.response.json()).to.not.equal(null);
 });`};
 let pmLastTestResults=null;
+let pmEnvironment=[{k:'baseUrl',v:'/api'},{k:'authToken',v:'mock-jwt-example'}];
+let pmHistory=[];
 const pmCollection=[
   {method:'GET',url:'/api/products'},
   {method:'GET',url:'/api/products/1'},
   {method:'POST',url:'/api/products'},
   {method:'PUT',url:'/api/products/1'},
+  {method:'PATCH',url:'/api/products/1'},
   {method:'DELETE',url:'/api/products/1'},
   {method:'GET',url:'/api/categories'},
   {method:'GET',url:'/api/customers'},
@@ -1816,11 +2157,15 @@ function renderPostman(root){
       <div class="tool-panel-title">📮 API Client</div>
       <div class="tool-panel-sub">Send requests to the mock REST API and inspect real status codes and JSON responses.</div>
       <div class="collection-list" id="pmCollection"></div>
+      <details style="margin-bottom:16px;">
+        <summary style="color:var(--purple-300);font-size:0.8rem;cursor:pointer;font-weight:600;">🕐 Request history (<span id="pmHistoryCount">${pmHistory.length}</span>)</summary>
+        <div class="collection-list" id="pmHistoryList" style="margin-top:10px;">${renderPmHistoryItems()}</div>
+      </details>
       <div class="pm-request-bar">
         <select class="pm-method" id="pmMethod">
-          ${['GET','POST','PUT','DELETE'].map(m=>`<option ${pmState.method===m?'selected':''}>${m}</option>`).join('')}
+          ${['GET','POST','PUT','PATCH','DELETE','HEAD','OPTIONS'].map(m=>`<option ${pmState.method===m?'selected':''}>${m}</option>`).join('')}
         </select>
-        <input class="pm-url" id="pmUrl" value="${esc(pmState.url)}" placeholder="/api/products">
+        <input class="pm-url" id="pmUrl" value="${esc(pmState.url)}" placeholder="{{baseUrl}}/products">
         <button class="btn btn-primary" id="pmSendBtn" style="padding:0 26px;">Send</button>
       </div>
       <div class="pm-tabs" id="pmReqTabs">
@@ -1828,6 +2173,7 @@ function renderPostman(root){
         <div class="pm-tab ${pmState.activeReqTab==='headers'?'active':''}" data-t="headers">Headers</div>
         <div class="pm-tab ${pmState.activeReqTab==='body'?'active':''}" data-t="body">Body (JSON)</div>
         <div class="pm-tab ${pmState.activeReqTab==='tests'?'active':''}" data-t="tests">Tests</div>
+        <div class="pm-tab ${pmState.activeReqTab==='env'?'active':''}" data-t="env">Environment</div>
       </div>
       <div class="pm-panel ${pmState.activeReqTab==='params'?'active':''}" id="pmPanelParams">
         <div id="paramRows"></div>
@@ -1839,11 +2185,16 @@ function renderPostman(root){
       </div>
       <div class="pm-panel ${pmState.activeReqTab==='body'?'active':''}" id="pmPanelBody">
         <textarea class="pm-body-editor" id="pmBody" spellcheck="false">${esc(pmState.body)}</textarea>
-        <p class="sql-hint" style="margin-top:8px;">Sent with POST / PUT requests. Must be valid JSON.</p>
+        <p class="sql-hint" style="margin-top:8px;">Sent with POST / PUT / PATCH requests. Must be valid JSON.</p>
       </div>
       <div class="pm-panel ${pmState.activeReqTab==='tests'?'active':''}" id="pmPanelTests">
         <textarea class="pm-body-editor" id="pmTests" spellcheck="false">${esc(pmState.testsScript)}</textarea>
         <p class="sql-hint" style="margin-top:8px;">Runs automatically after Send. Available: pm.test(name, fn), pm.response.status / .responseTime / .json(), pm.expect(x).to.equal/.not.equal/.include/.be.above/.be.below/.be.ok/.have.property(k).</p>
+      </div>
+      <div class="pm-panel ${pmState.activeReqTab==='env'?'active':''}" id="pmPanelEnv">
+        <p class="sql-hint" style="margin-bottom:10px;">Define variables here, then reference them anywhere in the URL, headers, or body as <code>{{variableName}}</code> — just like a Postman environment.</p>
+        <div id="envRows"></div>
+        <button class="btn btn-secondary btn-sm" onclick="pmAddEnvRow()">+ Add variable</button>
       </div>
       <div class="pm-response-wrap" id="pmResponseWrap">
         <div class="pm-empty-response">Hit <b>Send</b> to see the response here.</div>
@@ -1855,7 +2206,7 @@ function renderPostman(root){
     pmState.method=item.dataset.m; pmState.url=item.dataset.u;
     if(item.dataset.m==='POST' && item.dataset.u==='/api/products') pmState.body=JSON.stringify({name:'New Product',categoryId:1,price:49.99,stock:10,image:'🆕',description:'A brand new product.'},null,2);
     else if(item.dataset.m==='POST' && item.dataset.u==='/api/login') pmState.body=JSON.stringify({email:'priya@example.com',password:'priya123'},null,2);
-    else if(item.dataset.m==='PUT') pmState.body=JSON.stringify({price:99.99,stock:25},null,2);
+    else if(item.dataset.m==='PUT' || item.dataset.m==='PATCH') pmState.body=JSON.stringify({price:99.99,stock:25},null,2);
     renderPostman(root);
   }));
   $('#pmMethod').addEventListener('change',e=>pmState.method=e.target.value);
@@ -1864,7 +2215,39 @@ function renderPostman(root){
   $('#pmTests').addEventListener('input',e=>pmState.testsScript=e.target.value);
   $all('#pmReqTabs .pm-tab').forEach(t=>t.addEventListener('click',()=>{ pmState.activeReqTab=t.dataset.t; renderPostman(root); }));
   $('#pmSendBtn').addEventListener('click',sendPmRequest);
-  renderPmRows('params'); renderPmRows('headers');
+  renderPmRows('params'); renderPmRows('headers'); renderEnvRows();
+}
+function renderEnvRows(){
+  const wrap=$('#envRows');
+  if(!wrap) return;
+  wrap.innerHTML=pmEnvironment.map((row,i)=>`
+    <div class="kv-row">
+      <input placeholder="Variable name" value="${esc(row.k)}" onchange="pmEnvironment[${i}].k=this.value">
+      <input placeholder="Value" value="${esc(row.v)}" onchange="pmEnvironment[${i}].v=this.value">
+      <button class="kv-remove" onclick="pmEnvironment.splice(${i},1);renderEnvRows();">✕</button>
+    </div>`).join('');
+}
+function pmAddEnvRow(){ pmEnvironment.push({k:'',v:''}); renderEnvRows(); }
+function pmSubstituteVars(str){
+  if(!str) return str;
+  return str.replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (match,name)=>{
+    const v=pmEnvironment.find(e=>e.k===name);
+    return v ? v.v : match;
+  });
+}
+function renderPmHistoryItems(){
+  if(!pmHistory.length) return `<span style="color:var(--purple-400);font-size:0.76rem;">No requests sent yet.</span>`;
+  return pmHistory.slice(-20).reverse().map((h,i)=>{
+    const realIdx=pmHistory.length-1-i;
+    const cls = h.status>=500?'status-5xx':h.status>=400?'status-4xx':'status-2xx';
+    return `<span class="collection-item" onclick="loadHistoryRequest(${realIdx})"><b>${h.method}</b>${esc(h.url)} <span class="status-badge ${cls}" style="padding:1px 7px;font-size:0.68rem;margin-left:6px;">${h.status}</span></span>`;
+  }).join('');
+}
+function loadHistoryRequest(idx){
+  const h=pmHistory[idx];
+  if(!h) return;
+  pmState.method=h.method; pmState.url=h.url;
+  renderPostman($('#app'));
 }
 function renderPmRows(kind){
   const arr = kind==='params'? pmState.params : pmState.headers;
@@ -1894,7 +2277,8 @@ function syntaxHighlightJSON(obj){
 }
 
 /* ---- Mock REST API router, shares DB with the rest of the app ---- */
-function mockApiRequest(method,url,bodyStr){
+function mockApiRequest(method,url,bodyStr,persist){
+  if(persist===undefined) persist=true;
   const [pathOnly,queryStr]=url.split('?');
   const segs=pathOnly.split('/').filter(Boolean); // ['api','products','1']
   const query=new URLSearchParams(queryStr||'');
@@ -1905,6 +2289,7 @@ function mockApiRequest(method,url,bodyStr){
   const resourceMap={products:'products',categories:'categories',customers:'customers',orders:'orders',reviews:'reviews',cms:'cms'};
 
   if(resource==='login'){
+    if(method==='OPTIONS') return {status:204,body:null,headers:{Allow:'POST, OPTIONS'}};
     if(method!=='POST') return {status:405,body:{error:'Method Not Allowed',message:'Use POST for /api/login'}};
     let payload;
     try{ payload=JSON.parse(bodyStr||'{}'); }catch(e){ return {status:400,body:{error:'Bad Request',message:'Body is not valid JSON.'}}; }
@@ -1915,7 +2300,19 @@ function mockApiRequest(method,url,bodyStr){
 
   if(!resourceMap[resource]) return {status:404,body:{error:'Not Found',message:"Unknown resource '"+resource+"'. Try products, categories, customers, orders, reviews or cms."}};
   const table=resourceMap[resource];
+  const allowHeader='GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS';
 
+  if(method==='OPTIONS'){
+    return {status:204,body:null,headers:{Allow:allowHeader}};
+  }
+  if(method==='HEAD'){
+    if(id!=null){
+      const rec=DB[table].find(r=>r.id===id);
+      if(!rec) return {status:404,body:null};
+      return {status:200,body:null,headers:{'Content-Type':'application/json'}};
+    }
+    return {status:200,body:null,headers:{'Content-Type':'application/json','X-Total-Count':String(DB[table].length)}};
+  }
   if(method==='GET'){
     if(id!=null){
       const rec=DB[table].find(r=>r.id===id);
@@ -1934,17 +2331,17 @@ function mockApiRequest(method,url,bodyStr){
     const newId=Math.max(0,...DB[table].map(r=>r.id))+1;
     const newRec=Object.assign({id:newId},payload);
     DB[table].push(newRec);
-    saveState();
+    if(persist) saveState();
     return {status:201,body:newRec};
   }
-  if(method==='PUT'){
-    if(id==null) return {status:400,body:{error:'Bad Request',message:'PUT requires an /:id in the URL.'}};
+  if(method==='PUT' || method==='PATCH'){
+    if(id==null) return {status:400,body:{error:'Bad Request',message:method+' requires an /:id in the URL.'}};
     const rec=DB[table].find(r=>r.id===id);
     if(!rec) return {status:404,body:{error:'Not Found',message:table.slice(0,-1)+' with id '+id+' does not exist.'}};
     let payload;
     try{ payload=JSON.parse(bodyStr||'{}'); }catch(e){ return {status:400,body:{error:'Bad Request',message:'Body is not valid JSON.'}}; }
     Object.assign(rec,payload);
-    saveState();
+    if(persist) saveState();
     return {status:200,body:rec};
   }
   if(method==='DELETE'){
@@ -1952,30 +2349,60 @@ function mockApiRequest(method,url,bodyStr){
     const exists=DB[table].some(r=>r.id===id);
     if(!exists) return {status:404,body:{error:'Not Found',message:table.slice(0,-1)+' with id '+id+' does not exist.'}};
     DB[table]=DB[table].filter(r=>r.id!==id);
-    saveState();
+    if(persist) saveState();
     return {status:204,body:null};
   }
-  return {status:405,body:{error:'Method Not Allowed'}};
+  return {status:405,body:{error:'Method Not Allowed'},headers:{Allow:allowHeader}};
+}
+function buildResponseHeaders(result,method,ms,bodySize){
+  const h={
+    'content-type': (result.body===null||result.body===undefined) ? 'text/plain; charset=utf-8' : 'application/json; charset=utf-8',
+    'date': new Date().toUTCString(),
+    'x-powered-by': 'Purple Cart Mock API (sandbox)',
+    'x-response-time': ms+'ms',
+    'cache-control': method==='GET'||method==='HEAD' ? 'no-cache' : 'no-store',
+    'connection': 'keep-alive',
+  };
+  if(bodySize) h['content-length']=String(bodySize);
+  if(result.headers){
+    Object.entries(result.headers).forEach(([k,v])=>{ h[k.toLowerCase()]=v; });
+  }
+  return h;
+}
+function renderPmHeadersHTML(headers){
+  const keys=Object.keys(headers);
+  if(!keys.length) return '<p style="color:var(--purple-300);">No headers.</p>';
+  return `<div style="display:grid;grid-template-columns:180px 1fr;gap:10px 16px;">${keys.map(k=>`
+    <div style="color:var(--purple-300);font-family:var(--font-mono);font-size:0.8rem;">${esc(k)}</div>
+    <div style="color:#fff;font-family:var(--font-mono);font-size:0.8rem;">${esc(String(headers[k]))}</div>
+  `).join('')}</div>`;
 }
 function sendPmRequest(){
-  const method=pmState.method, rawUrl=pmState.url.trim();
+  const method=pmState.method, rawUrl=pmSubstituteVars(pmState.url.trim());
+  if(!rawUrl){ showToast('Enter a URL first.'); return; }
   let url=rawUrl;
-  const extraParams=pmState.params.filter(p=>p.k).map(p=>`${encodeURIComponent(p.k)}=${encodeURIComponent(p.v)}`).join('&');
+  const extraParams=pmState.params.filter(p=>p.k).map(p=>`${encodeURIComponent(pmSubstituteVars(p.k))}=${encodeURIComponent(pmSubstituteVars(p.v))}`).join('&');
   if(extraParams) url += (url.includes('?')?'&':'?') + extraParams;
   const startTime=performance.now();
+  const substitutedBody=pmSubstituteVars(pmState.body);
   let result;
-  if((method==='POST'||method==='PUT') && pmState.body.trim()){
-    try{ JSON.parse(pmState.body); }
+  if(['POST','PUT','PATCH'].includes(method) && substitutedBody.trim()){
+    try{ JSON.parse(substitutedBody); }
     catch(e){ result={status:400,body:{error:'Bad Request',message:'Request body is not valid JSON: '+e.message}}; }
   }
-  if(!result) result=mockApiRequest(method,url,pmState.body);
+  if(!result) result=mockApiRequest(method,url,substitutedBody);
   const ms=Math.max(8,Math.round(performance.now()-startTime + Math.random()*40));
   const statusClass = result.status>=500?'status-5xx': result.status>=400?'status-4xx':'status-2xx';
   const statusText={200:'OK',201:'Created',204:'No Content',400:'Bad Request',401:'Unauthorized',404:'Not Found',405:'Method Not Allowed',500:'Internal Server Error'}[result.status]||'';
-  const bodySize=JSON.stringify(result.body||{}).length;
+  const bodySize=JSON.stringify(result.body===undefined?null:result.body).length;
+  const respHeaders=buildResponseHeaders(result,method,ms,bodySize);
   pmLastTestResults=runPmTests(pmState.testsScript,result,ms);
   const passCount=pmLastTestResults.filter(t=>t.pass).length;
   const failCount=pmLastTestResults.length-passCount;
+  pmHistory.push({method,url,status:result.status,ts:Date.now()});
+  if(pmHistory.length>100) pmHistory.shift();
+  const histListEl=$('#pmHistoryList'); if(histListEl) histListEl.innerHTML=renderPmHistoryItems();
+  const histCountEl=$('#pmHistoryCount'); if(histCountEl) histCountEl.textContent=pmHistory.length;
   $('#pmResponseWrap').innerHTML=`
     <div class="pm-response-head">
       <span class="status-badge ${statusClass}">${result.status} ${statusText}</span>
@@ -1986,15 +2413,18 @@ function sendPmRequest(){
     </div>
     <div class="pm-tabs" style="padding:0 18px;margin:0;" id="pmRespTabs">
       <div class="pm-tab active" data-rt="body">Body</div>
+      <div class="pm-tab" data-rt="headers">Headers (${Object.keys(respHeaders).length})</div>
       <div class="pm-tab" data-rt="tests">Test Results ${pmLastTestResults.length? `(${passCount}/${pmLastTestResults.length})`:''}</div>
     </div>
     <div class="pm-panel active" id="pmRespBody"><div class="pm-response-body">${syntaxHighlightJSON(result.body===undefined?null:result.body)}</div></div>
+    <div class="pm-panel" id="pmRespHeaders"><div class="pm-response-body" style="white-space:normal;">${renderPmHeadersHTML(respHeaders)}</div></div>
     <div class="pm-panel" id="pmRespTests"><div class="pm-response-body" style="white-space:normal;">${renderPmTestResultsHTML(pmLastTestResults)}</div></div>
   `;
   $all('#pmRespTabs .pm-tab').forEach(t=>t.addEventListener('click',()=>{
     $all('#pmRespTabs .pm-tab').forEach(x=>x.classList.remove('active'));
     t.classList.add('active');
     $('#pmRespBody').classList.toggle('active', t.dataset.rt==='body');
+    $('#pmRespHeaders').classList.toggle('active', t.dataset.rt==='headers');
     $('#pmRespTests').classList.toggle('active', t.dataset.rt==='tests');
   }));
 }
@@ -2053,179 +2483,735 @@ function renderPmTestResultsHTML(results){
 </script>
 <script>
 /* ======================================================================
-   PERFORMANCE TESTING — lightweight load-test simulator (k6/JMeter style)
-   Fires simulated concurrent "virtual users" against the same mock API
-   used by the API Client, so you can practice reading throughput,
-   latency percentiles, and error-rate metrics under load.
-   ====================================================================== */
-const perfEndpoints=[
-  {id:'products-list', label:'GET /api/products', method:'GET', url:'/api/products'},
-  {id:'products-one', label:'GET /api/products/:id', method:'GET', url:'/api/products/3'},
-  {id:'categories', label:'GET /api/categories', method:'GET', url:'/api/categories'},
-  {id:'customers', label:'GET /api/customers', method:'GET', url:'/api/customers'},
-  {id:'orders', label:'GET /api/orders', method:'GET', url:'/api/orders'},
-  {id:'reviews', label:'GET /api/reviews', method:'GET', url:'/api/reviews'},
-  {id:'login', label:'POST /api/login', method:'POST', url:'/api/login', body:JSON.stringify({email:'priya@example.com',password:'priya123'})},
-];
-let perfState={
-  running:false, endpointId:'products-list', vus:5, duration:10, errorRate:5,
-  results:[], startTs:0, uiTimer:null, vuTimers:[],
-};
+   PERFORMANCE TESTING — a real, editable JMeter-style Test Plan.
+   Add/remove Thread Groups (setUp / Normal / tearDown), add/remove
+   HTTP Request or JSR223-style (JavaScript) samplers inside each group,
+   define Test Plan variables and a global HTTP Header Manager, then run
+   it: setUp groups complete first, Normal groups run concurrently,
+   tearDown groups run last — same phase order as real JMeter. Listeners
+   (View Results Tree, Summary Report, Aggregate Report, Graph Results)
+   are grouped by sampler label, just like the real tool.
 
+   NOTE ON SCOPE: an HTTP(S) Test Script Recorder is intentionally NOT
+   included — that requires JMeter acting as a real network proxy
+   intercepting your traffic, which a static, offline HTML file cannot
+   do. Everything else below is fully functional.
+   ====================================================================== */
+
+/* ---- Data model ---- */
+function newHttpSampler(){
+  return {id:uid('s'), kind:'http', name:'HTTP Request', enabled:true,
+    protocol:'https', server:'api.purplecart.test', port:443, path:'/api/products', method:'GET',
+    parameters:[{k:'',v:''}], rawBody:'', extractVar:'', extractPath:''};
+}
+function newScriptSampler(){
+  return {id:uid('s'), kind:'script', name:'JSR223 Sampler', enabled:true,
+    script:`// Return the request this sampler should fire.
+// Available: vars (Test Plan + extracted variables, as a plain object)
+//            helpers.setVar(name, value) — like Groovy's vars.put()
+//            helpers.random(min, max), helpers.uuid()
+return { method: 'GET', path: '/api/products' };`};
+}
+function newThreadGroup(type){
+  return {id:uid('tg'), name: type==='setup'?'setUp Thread Group': type==='teardown'?'tearDown Thread Group':'Thread Group',
+    type: type||'normal', enabled:true,
+    threads:10, rampUp:3, loopCount:0, duration:15, startupDelay:0, sameUser:true,
+    children:[newHttpSampler()]};
+}
+let testPlan={
+  variables:[{k:'baseUrl',v:'/api'}],
+  headerManager:[{k:'Content-Type',v:'application/json'}],
+  threadGroups:[newThreadGroup('normal')],
+};
+let perfRuntimeVars={};
+let perfSelected='tg::'+testPlan.threadGroups[0].id;
+let perfState={
+  running:false,
+  errorRate:5, thresholdMs:500,
+  results:[], startTs:0, startWallTs:0, uiTimer:null, vuTimers:[], liveThreads:0, watchdogTimer:null,
+};
+let perfResultCounter=0;
+let perfExpandedId=null;
+
+const perfHttpExamples=[
+  {label:'— Load an example —', method:'GET', path:'', params:[], rawBody:''},
+  {label:'GET /api/products', method:'GET', path:'/api/products', params:[], rawBody:''},
+  {label:'GET /api/products/:id', method:'GET', path:'/api/products/3', params:[], rawBody:''},
+  {label:'GET /api/products (filtered)', method:'GET', path:'/api/products', params:[{k:'categoryId',v:'1'}], rawBody:''},
+  {label:'POST /api/login', method:'POST', path:'/api/login', params:[], rawBody:JSON.stringify({email:'priya@example.com',password:'priya123'})},
+  {label:'POST /api/products (creates data!)', method:'POST', path:'/api/products', params:[], rawBody:JSON.stringify({name:'Load Test Product',categoryId:1,price:19.99,stock:5,image:'🧪',description:'Created by a load test.'})},
+  {label:'PATCH /api/products/:id', method:'PATCH', path:'/api/products/3', params:[], rawBody:JSON.stringify({stock:99})},
+  {label:'DELETE /api/reviews/:id (deletes data!)', method:'DELETE', path:'/api/reviews/3', params:[], rawBody:''},
+];
+const perfBodyMethods=['POST','PUT','PATCH'];
+function perfSupportsBody(method){ return perfBodyMethods.includes(method); }
+
+/* ---- Variable substitution & path resolution ---- */
+function perfGetVarsObject(){
+  const obj={};
+  testPlan.variables.forEach(v=>{ if(v.k) obj[v.k]=v.v; });
+  Object.assign(obj, perfRuntimeVars);
+  return obj;
+}
+function perfSubstituteVars(str){
+  if(!str) return str;
+  const vars=perfGetVarsObject();
+  return str.replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (m,name)=> (name in vars) ? vars[name] : m);
+}
+function perfResolvePath(obj,path){
+  if(!path) return undefined;
+  return path.split('.').reduce((acc,key)=> (acc && typeof acc==='object') ? acc[key] : undefined, obj);
+}
+
+/* ---- Find helpers ---- */
+function findGroup(id){ return testPlan.threadGroups.find(g=>g.id===id); }
+function findSampler(groupId,samplerId){ const g=findGroup(groupId); return g ? g.children.find(c=>c.id===samplerId) : null; }
+
+/* ---- Tree + shell render ---- */
 function renderPerformance(root){
-  const ep=perfEndpoints.find(e=>e.id===perfState.endpointId);
   root.innerHTML=`
   <div class="tool-shell">
     <div class="tool-body container">
       <div class="tool-panel-title">⚡ Performance Testing</div>
-      <div class="tool-panel-sub">Run a simulated load test against the mock API and practice reading throughput, latency and error-rate metrics.</div>
-      <div class="perf-layout">
-        <div class="perf-config">
-          <h4>Test configuration</h4>
-          <div class="field">
-            <label>Target endpoint</label>
-            <select id="perfEndpoint" ${perfState.running?'disabled':''}>
-              ${perfEndpoints.map(e=>`<option value="${e.id}" ${perfState.endpointId===e.id?'selected':''}>${esc(e.label)}</option>`).join('')}
-            </select>
+      <div class="tool-panel-sub">A fully editable JMeter-style Test Plan — add Thread Groups, add samplers inside them, then run it and read the Listeners.</div>
+      <div class="jm-shell">
+        <div class="jm-tree" id="jmTree"></div>
+        <div class="jm-main">
+          <div class="jm-toolbar">
+            <button class="jm-run-btn" id="perfStartBtn" ${perfState.running?'disabled':''} title="Run Test Plan">▶</button>
+            <button class="jm-stop-btn" id="perfStopBtn" ${perfState.running?'':'disabled'} title="Stop">■</button>
+            <span class="jm-toolbar-status"><span class="perf-dot ${perfState.running?'live':''}"></span><span id="perfStatusText">${perfState.running?'Running…':(perfState.results.length? 'Test plan complete':'Idle')}</span></span>
+            <div class="jm-toolbar-export">
+              <button class="btn btn-secondary btn-sm" onclick="exportPerfCsv()" style="background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.2);">⬇ Save as .csv</button>
+              <button class="btn btn-secondary btn-sm" onclick="downloadPerfReport()" style="background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.2);">⬇ Save as .json</button>
+            </div>
           </div>
-          <div class="field">
-            <label>Virtual users (concurrency)</label>
-            <input type="number" id="perfVus" min="1" max="30" value="${perfState.vus}" ${perfState.running?'disabled':''}>
-            <div class="field-hint">1–30 simulated users hitting the endpoint at once.</div>
-          </div>
-          <div class="field">
-            <label>Duration (seconds)</label>
-            <input type="number" id="perfDuration" min="3" max="30" value="${perfState.duration}" ${perfState.running?'disabled':''}>
-            <div class="field-hint">3–30 seconds for a quick sandbox run.</div>
-          </div>
-          <div class="field">
-            <label>Injected error rate (%)</label>
-            <input type="number" id="perfErrorRate" min="0" max="40" value="${perfState.errorRate}" ${perfState.running?'disabled':''}>
-            <div class="field-hint">Randomly simulates 500 / 503 / 429 responses so you can practice spotting failures.</div>
-          </div>
-          <div class="perf-run-row">
-            <button class="btn btn-primary btn-block" id="perfStartBtn" ${perfState.running?'disabled':''}>▶ Run load test</button>
-            <button class="btn btn-danger" id="perfStopBtn" ${perfState.running?'':'disabled'}>■ Stop</button>
-          </div>
-          <div class="perf-status-line"><span class="perf-dot ${perfState.running?'live':''}"></span><span id="perfStatusText">${perfState.running?'Running…':(perfState.results.length? 'Last run complete':'Idle')}</span></div>
-          <div class="perf-progress-bar"><div class="perf-progress-fill" id="perfProgressFill" style="width:${perfState.running?0:(perfState.results.length?100:0)}%;"></div></div>
-        </div>
-        <div>
-          <div class="perf-metric-row" id="perfMetrics"></div>
-          <div class="perf-chart-box">
-            <h5>Response time per request ${perfState.results.length?`(last ${Math.min(150,perfState.results.length)} of ${perfState.results.length})`:''}</h5>
-            <svg id="perfChart" viewBox="0 0 680 160" style="width:100%;height:160px;display:block;"></svg>
-            <div class="perf-legend"><span><i style="background:var(--success);"></i>Success</span><span><i style="background:var(--error);"></i>Failed</span></div>
-          </div>
-          <div class="perf-log-box">
-            <div class="db-result-meta">Request log — most recent first</div>
-            <div class="perf-log-scroll"><table class="data-table" id="perfLogTable"></table></div>
-          </div>
+          <div id="perfAssertionBanner"></div>
+          <div class="jm-main-body" id="jmMainBody"></div>
         </div>
       </div>
     </div>
   </div>`;
-  $('#perfEndpoint').addEventListener('change',e=>perfState.endpointId=e.target.value);
-  $('#perfVus').addEventListener('change',e=>perfState.vus=Math.max(1,Math.min(30,Number(e.target.value)||1)));
-  $('#perfDuration').addEventListener('change',e=>perfState.duration=Math.max(3,Math.min(30,Number(e.target.value)||3)));
-  $('#perfErrorRate').addEventListener('change',e=>perfState.errorRate=Math.max(0,Math.min(40,Number(e.target.value)||0)));
+  renderJmTree();
   $('#perfStartBtn').addEventListener('click',startLoadTest);
   $('#perfStopBtn').addEventListener('click',()=>stopLoadTest(false));
+  renderJmMainBody();
   updatePerfUI();
 }
 
+function renderJmTree(){
+  const wrap=$('#jmTree');
+  if(!wrap) return;
+  let html=`<div class="jm-tree-node lvl0 ${perfSelected==='testPlan'?'active':''}" data-sel="testPlan" style="cursor:pointer;">🧪 Test Plan</div>`;
+  testPlan.threadGroups.forEach(g=>{
+    const gKey='tg::'+g.id;
+    const gIcon = g.type==='setup'?'🟩':(g.type==='teardown'?'🟥':'🧵');
+    html+=`<div class="jm-tree-node lvl1 clickable ${perfSelected===gKey?'active':''} ${g.enabled===false?'disabled':''}" data-sel="${gKey}">${gIcon} ${esc(g.name)}<button class="jm-tree-remove" onclick="event.stopPropagation();removeGroup('${g.id}')" title="Remove group">✕</button></div>`;
+    g.children.forEach(c=>{
+      const sKey='s::'+g.id+'::'+c.id;
+      const sIcon = c.kind==='script' ? '📜' : '🌐';
+      const label = c.kind==='http' ? (esc(c.name)+' <span style="opacity:.6;">('+c.method+')</span>') : esc(c.name);
+      html+=`<div class="jm-tree-node lvl2 ${perfSelected===sKey?'active':''} ${(c.enabled===false)?'disabled':''}" data-sel="${sKey}">${sIcon} ${label}<button class="jm-tree-remove" onclick="event.stopPropagation();removeSampler('${g.id}','${c.id}')" title="Remove sampler">✕</button></div>`;
+    });
+  });
+  html+=`<div class="jm-add-row" data-add="group">+ Add Thread Group ▾</div>`;
+  html+=`<div class="jm-tree-node lvl1 clickable ${perfSelected==='headerManager'?'active':''}" data-sel="headerManager">🗂 HTTP Header Manager</div>`;
+  html+=`<div class="jm-tree-node lvl1">📊 Listeners</div>`;
+  [['resultsTree','🌳','View Results Tree'],['summaryReport','📊','Summary Report'],['aggregateReport','📈','Aggregate Report'],['graphResults','📉','Graph Results']].forEach(([key,icon,label])=>{
+    html+=`<div class="jm-tree-node lvl2 ${perfSelected===key?'active':''}" data-sel="${key}">${icon} ${label}</div>`;
+  });
+  wrap.innerHTML=html;
+  $all('.jm-tree-node[data-sel]').forEach(n=>n.addEventListener('click',()=>{ perfSelected=n.dataset.sel; renderJmTree(); renderJmMainBody(); }));
+  const addRow=wrap.querySelector('.jm-add-row[data-add="group"]');
+  if(addRow) addRow.addEventListener('click',(e)=>{
+    const type=prompt('Thread Group type: type "setup", "normal", or "teardown"','normal');
+    if(type===null) return;
+    const clean=['setup','normal','teardown'].includes(type.trim().toLowerCase()) ? type.trim().toLowerCase() : 'normal';
+    const g=newThreadGroup(clean);
+    testPlan.threadGroups.push(g);
+    perfSelected='tg::'+g.id;
+    renderJmTree(); renderJmMainBody();
+  });
+}
+function removeGroup(id){
+  if(testPlan.threadGroups.length<=1){ showToast('Keep at least one Thread Group.'); return; }
+  openConfirm('Remove this Thread Group?','Its samplers will be removed too.',()=>{
+    testPlan.threadGroups=testPlan.threadGroups.filter(g=>g.id!==id);
+    if(perfSelected==='tg::'+id || perfSelected.startsWith('s::'+id+'::')) perfSelected='tg::'+testPlan.threadGroups[0].id;
+    renderJmTree(); renderJmMainBody();
+  });
+}
+function removeSampler(groupId,samplerId){
+  const g=findGroup(groupId);
+  if(!g) return;
+  if(g.children.length<=1){ showToast('Keep at least one sampler in the group (or remove the whole group).'); return; }
+  openConfirm('Remove this sampler?','It will be deleted from the Thread Group.',()=>{
+    g.children=g.children.filter(c=>c.id!==samplerId);
+    if(perfSelected==='s::'+groupId+'::'+samplerId) perfSelected='tg::'+groupId;
+    renderJmTree(); renderJmMainBody();
+  });
+}
+
+/* ---- Main body dispatch ---- */
+function renderJmMainBody(){
+  const body=$('#jmMainBody');
+  if(!body) return;
+  if(perfSelected==='testPlan'){ body.innerHTML=jmTestPlanPanel(); wireTestPlanPanel(); return; }
+  if(perfSelected==='headerManager'){ body.innerHTML=jmHeaderManagerPanel(); wireHeaderManagerPanel(); return; }
+  if(perfSelected==='resultsTree'){ body.innerHTML=jmResultsTreePanel(); return; }
+  if(perfSelected==='summaryReport'){ body.innerHTML=jmSummaryReportPanel(); return; }
+  if(perfSelected==='aggregateReport'){ body.innerHTML=jmAggregateReportPanel(); return; }
+  if(perfSelected==='graphResults'){ body.innerHTML=jmGraphResultsPanel(); renderPerfChart(); renderPerfThroughputChart(); return; }
+  if(perfSelected.startsWith('tg::')){
+    const g=findGroup(perfSelected.slice(4));
+    if(g){ body.innerHTML=jmThreadGroupPanel(g); wireThreadGroupPanel(g); return; }
+  }
+  if(perfSelected.startsWith('s::')){
+    const parts=perfSelected.split('::'); // ['s', groupId, samplerId]
+    const g=findGroup(parts[1]), c=g? g.children.find(x=>x.id===parts[2]) : null;
+    if(g && c){
+      if(c.kind==='script'){ body.innerHTML=jmScriptSamplerPanel(g,c); wireScriptSamplerPanel(g,c); }
+      else { body.innerHTML=jmHttpRequestPanel(g,c); wireHttpRequestPanel(g,c); }
+      return;
+    }
+  }
+  // fallback
+  perfSelected='tg::'+testPlan.threadGroups[0].id;
+  renderJmTree(); renderJmMainBody();
+}
+
+/* ---- Test Plan panel (variables + sandbox simulation controls) ---- */
+function jmTestPlanPanel(){
+  return `
+    <div class="jm-panel-title">🧪 Test Plan — User Defined Variables</div>
+    <div class="jm-panel-sub">Reference these anywhere (Path, Parameters, Body Data, scripts) as <code>{{name}}</code>. Samplers with "Extract to variable" set will add to this pool automatically at runtime.</div>
+    <div id="tpVarRows"></div>
+    <button class="btn btn-secondary btn-sm" onclick="tpAddVarRow()">+ Add variable</button>
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:22px 0;">
+    <div class="jm-panel-title" style="font-size:0.92rem;">Sandbox simulation controls</div>
+    <div class="jm-panel-sub">Not a real JMeter element — lets you rehearse reading error rates and SLA thresholds without a flaky real backend.</div>
+    <div class="field-row">
+      <div class="field"><label>Injected error rate (%)</label><input type="number" id="tpErrorRate" min="0" max="50" value="${perfState.errorRate}" ${perfState.running?'disabled':''}></div>
+      <div class="field"><label>Duration Assertion threshold (ms)</label><input type="number" id="tpThreshold" min="50" max="5000" value="${perfState.thresholdMs}" ${perfState.running?'disabled':''}></div>
+    </div>
+  `;
+}
+function wireTestPlanPanel(){
+  renderTpVarRows();
+  const b=(id,fn)=>{ const el=$('#'+id); if(el) el.addEventListener('change',fn); };
+  b('tpErrorRate',e=>perfState.errorRate=Math.max(0,Math.min(50,Number(e.target.value)||0)));
+  b('tpThreshold',e=>perfState.thresholdMs=Math.max(50,Math.min(5000,Number(e.target.value)||500)));
+}
+function renderTpVarRows(){
+  const wrap=$('#tpVarRows');
+  if(!wrap) return;
+  wrap.innerHTML=testPlan.variables.map((row,i)=>`
+    <div class="kv-row">
+      <input placeholder="Variable name" value="${esc(row.k)}" onchange="testPlan.variables[${i}].k=this.value">
+      <input placeholder="Value" value="${esc(row.v)}" onchange="testPlan.variables[${i}].v=this.value">
+      <button class="kv-remove" onclick="testPlan.variables.splice(${i},1);renderTpVarRows();">✕</button>
+    </div>`).join('');
+}
+function tpAddVarRow(){ testPlan.variables.push({k:'',v:''}); renderTpVarRows(); }
+
+/* ---- HTTP Header Manager panel (global) ---- */
+function jmHeaderManagerPanel(){
+  return `
+    <div class="jm-panel-title">🗂 HTTP Header Manager</div>
+    <div class="jm-panel-sub">Headers sent with every HTTP Request sampler in this Test Plan.</div>
+    <div id="hmRows"></div>
+    <button class="btn btn-secondary btn-sm" onclick="hmAddRow()">+ Add header</button>
+  `;
+}
+function wireHeaderManagerPanel(){ renderHmRows(); }
+function renderHmRows(){
+  const wrap=$('#hmRows');
+  if(!wrap) return;
+  wrap.innerHTML=testPlan.headerManager.map((row,i)=>`
+    <div class="kv-row">
+      <input placeholder="Name" value="${esc(row.k)}" onchange="testPlan.headerManager[${i}].k=this.value">
+      <input placeholder="Value" value="${esc(row.v)}" onchange="testPlan.headerManager[${i}].v=this.value">
+      <button class="kv-remove" onclick="testPlan.headerManager.splice(${i},1);renderHmRows();">✕</button>
+    </div>`).join('');
+}
+function hmAddRow(){ testPlan.headerManager.push({k:'',v:''}); renderHmRows(); }
+
+/* ---- Thread Group panel ---- */
+function jmThreadGroupPanel(g){
+  return `
+    <div class="jm-panel-title">🧵 ${esc(g.name)}</div>
+    <div class="jm-panel-sub">Controls how many virtual users run, how quickly they ramp up, and how many times each one loops through its samplers, in order.</div>
+    <div class="field"><label>Name</label><input type="text" id="tgName" value="${esc(g.name)}" ${perfState.running?'disabled':''}></div>
+    <div class="jm-checkbox-row"><input type="checkbox" id="tgEnabled" ${g.enabled!==false?'checked':''} ${perfState.running?'disabled':''}> <label for="tgEnabled">Enabled</label></div>
+    <div class="field"><label>Type</label>
+      <select id="tgType" class="jm-inline-select" style="width:100%;margin-left:0;" ${perfState.running?'disabled':''}>
+        <option value="normal" ${g.type==='normal'?'selected':''}>Normal Thread Group</option>
+        <option value="setup" ${g.type==='setup'?'selected':''}>setUp Thread Group (runs first, to completion)</option>
+        <option value="teardown" ${g.type==='teardown'?'selected':''}>tearDown Thread Group (runs last)</option>
+      </select>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Number of Threads (users)</label><input type="number" id="tgThreads" min="1" max="300" value="${g.threads}" ${perfState.running?'disabled':''}></div>
+      <div class="field"><label>Ramp-Up Period (seconds)</label><input type="number" id="tgRampUp" min="0" max="60" value="${g.rampUp}" ${perfState.running?'disabled':''}></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Loop Count (0 = run for full duration)</label><input type="number" id="tgLoopCount" min="0" max="1000" value="${g.loopCount}" ${perfState.running?'disabled':''}></div>
+      <div class="field"><label>Duration (seconds)</label><input type="number" id="tgDuration" min="3" max="120" value="${g.duration}" ${perfState.running?'disabled':''}></div>
+    </div>
+    <div class="field"><label>Startup delay (seconds)</label><input type="number" id="tgStartupDelay" min="0" max="30" value="${g.startupDelay}" ${perfState.running?'disabled':''}></div>
+    <div class="jm-checkbox-row"><input type="checkbox" id="tgSameUser" ${g.sameUser!==false?'checked':''} ${perfState.running?'disabled':''}> <label for="tgSameUser">Same user on each iteration (cosmetic in this simulator)</label></div>
+    <div class="field-hint" style="color:var(--purple-300);margin-bottom:18px;">Runs in your browser tab, not a distributed load generator — duration capped at 120s, threads at 300.</div>
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:18px 0;">
+    <div class="jm-panel-title" style="font-size:0.92rem;">Samplers in this group (run in order, each loop)</div>
+    <div class="jm-panel-sub">${g.children.length} sampler(s): ${g.children.map(c=>esc(c.name)).join(' → ')}</div>
+    <div class="jm-sampler-picker">
+      <button class="btn btn-secondary btn-sm" onclick="addSampler('${g.id}','http')" style="background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.2);">+ Add HTTP Request</button>
+      <button class="btn btn-secondary btn-sm" onclick="addSampler('${g.id}','script')" style="background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.2);">+ Add JSR223 Sampler (JS)</button>
+    </div>
+  `;
+}
+function wireThreadGroupPanel(g){
+  const b=(id,fn)=>{ const el=$('#'+id); if(el) el.addEventListener('change',fn); };
+  b('tgName',e=>{ g.name=e.target.value||'Thread Group'; renderJmTree(); });
+  b('tgEnabled',e=>{ g.enabled=e.target.checked; renderJmTree(); });
+  b('tgType',e=>{ g.type=e.target.value; renderJmTree(); renderJmMainBody(); });
+  b('tgThreads',e=>g.threads=Math.max(1,Math.min(300,Number(e.target.value)||1)));
+  b('tgRampUp',e=>g.rampUp=Math.max(0,Math.min(60,Number(e.target.value)||0)));
+  b('tgLoopCount',e=>g.loopCount=Math.max(0,Math.min(1000,Number(e.target.value)||0)));
+  b('tgDuration',e=>g.duration=Math.max(3,Math.min(120,Number(e.target.value)||3)));
+  b('tgStartupDelay',e=>g.startupDelay=Math.max(0,Math.min(30,Number(e.target.value)||0)));
+  b('tgSameUser',e=>g.sameUser=e.target.checked);
+}
+function addSampler(groupId,kind){
+  const g=findGroup(groupId);
+  if(!g) return;
+  const s = kind==='script' ? newScriptSampler() : newHttpSampler();
+  g.children.push(s);
+  perfSelected='s::'+groupId+'::'+s.id;
+  renderJmTree(); renderJmMainBody();
+}
+
+/* ---- HTTP Request sampler panel ---- */
+function jmHttpRequestPanel(g,c){
+  const mutating=perfSupportsBody(c.method);
+  const fullUrl=perfFullUrlDisplayFor(c);
+  return `
+    <div class="jm-panel-title">🌐 ${esc(c.name)} <span style="color:var(--purple-300);font-size:0.8rem;font-weight:400;">— in ${esc(g.name)}</span></div>
+    <div class="jm-panel-sub">Only Path is actually routed in this sandbox (one mock server) — Protocol/Server/Port are for realism &amp; report labels.</div>
+    <div class="field-row">
+      <div class="field"><label>Name</label><input type="text" id="reqName" value="${esc(c.name)}"></div>
+      <div class="field" style="display:flex;align-items:flex-end;"><label class="jm-checkbox-row" style="margin:0;"><input type="checkbox" id="reqEnabled" ${c.enabled!==false?'checked':''}> Enabled</label></div>
+    </div>
+    <div class="field">
+      <label>Load an example (optional)</label>
+      <select id="perfExample">${perfHttpExamples.map((e,i)=>`<option value="${i}">${esc(e.label)}</option>`).join('')}</select>
+    </div>
+    <div class="jm-field-row">
+      <div class="field"><label>Protocol</label><select id="reqProtocol"><option value="https" ${c.protocol==='https'?'selected':''}>https</option><option value="http" ${c.protocol==='http'?'selected':''}>http</option></select></div>
+      <div class="field"><label>Port</label><input type="number" id="reqPort" value="${c.port}"></div>
+      <div class="field"><label>Server Name or IP</label><input type="text" id="reqServer" value="${esc(c.server)}"></div>
+    </div>
+    <div class="jm-field-row">
+      <div class="field"><label>Method</label><select id="reqMethod">${['GET','POST','PUT','PATCH','DELETE','HEAD','OPTIONS'].map(m=>`<option ${c.method===m?'selected':''}>${m}</option>`).join('')}</select></div>
+      <div class="field" style="grid-column:2/-1;"><label>Path</label><input type="text" id="reqPath" value="${esc(c.path)}" placeholder="/api/products"></div>
+    </div>
+    <div class="field-hint" style="color:var(--purple-300);margin-bottom:16px;font-family:var(--font-mono);word-break:break-all;">Full URL: ${esc(fullUrl)}</div>
+    <div id="perfMutateWarning"></div>
+    <div class="pm-tabs" id="reqBodyTabs">
+      <div class="pm-tab ${c.uiTab!=='raw'?'active':''}" data-bt="params">Parameters</div>
+      <div class="pm-tab ${c.uiTab==='raw'?'active':''}" data-bt="raw">Body Data</div>
+    </div>
+    <div class="pm-panel ${c.uiTab!=='raw'?'active':''}" id="reqParamsPanel">
+      <div id="perfParamRows"></div>
+      <button class="btn btn-secondary btn-sm" onclick="perfAddRow('${g.id}','${c.id}','parameters')">+ Add parameter</button>
+      <p class="field-hint" style="color:var(--purple-300);margin-top:10px;">Sent as a query string on the path. If Body Data is empty, these also become the JSON body for POST/PUT/PATCH.</p>
+    </div>
+    <div class="pm-panel ${c.uiTab==='raw'?'active':''}" id="reqRawPanel">
+      <textarea class="pm-body-editor" id="reqRawBody" style="min-height:110px;" ${!mutating?'disabled':''}>${esc(c.rawBody)}</textarea>
+      <p class="field-hint" style="color:var(--purple-300);margin-top:8px;">${mutating? 'Used as the raw JSON request body for '+c.method+'.' : 'Only used for POST / PUT / PATCH — '+c.method+' does not send a body.'}</p>
+    </div>
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:18px 0;">
+    <div class="jm-panel-title" style="font-size:0.88rem;">Extract from response (optional)</div>
+    <div class="jm-panel-sub">Like JMeter's JSON Extractor — store a value from a successful response so later samplers can reuse it as <code>{{name}}</code>.</div>
+    <div class="field-row">
+      <div class="field"><label>Extract to variable</label><input type="text" id="reqExtractVar" value="${esc(c.extractVar)}" placeholder="authToken"></div>
+      <div class="field"><label>From response field (dot path)</label><input type="text" id="reqExtractPath" value="${esc(c.extractPath)}" placeholder="token"></div>
+    </div>
+  `;
+}
+function wireHttpRequestPanel(g,c){
+  const b=(id,fn)=>{ const el=$('#'+id); if(el) el.addEventListener('change',fn); };
+  const bi=(id,fn)=>{ const el=$('#'+id); if(el) el.addEventListener('input',fn); };
+  bi('reqName',e=>{ c.name=e.target.value||'HTTP Request'; renderJmTree(); });
+  b('reqEnabled',e=>{ c.enabled=e.target.checked; renderJmTree(); });
+  $('#perfExample').addEventListener('change',e=>{
+    const ex=perfHttpExamples[Number(e.target.value)];
+    if(!ex || !ex.path) return;
+    c.method=ex.method; c.path=ex.path;
+    c.parameters=ex.params && ex.params.length? ex.params.map(p=>({...p})) : [{k:'',v:''}];
+    c.rawBody=ex.rawBody||'';
+    renderJmMainBody();
+  });
+  b('reqProtocol',e=>{ c.protocol=e.target.value; renderJmMainBody(); });
+  b('reqPort',e=>{ c.port=Number(e.target.value)||443; renderJmMainBody(); });
+  bi('reqServer',e=>{ c.server=e.target.value; });
+  b('reqMethod',e=>{ c.method=e.target.value; renderJmTree(); renderJmMainBody(); });
+  bi('reqPath',e=>{ c.path=e.target.value; });
+  bi('reqRawBody',e=>{ c.rawBody=e.target.value; });
+  bi('reqExtractVar',e=>{ c.extractVar=e.target.value; });
+  bi('reqExtractPath',e=>{ c.extractPath=e.target.value; });
+  $all('#reqBodyTabs .pm-tab').forEach(t=>t.addEventListener('click',()=>{ c.uiTab=t.dataset.bt; renderJmMainBody(); }));
+  renderPerfParamRows(g,c);
+  renderPerfMutateWarning(c);
+}
+function renderPerfParamRows(g,c){
+  const wrap=$('#perfParamRows');
+  if(!wrap) return;
+  wrap.innerHTML=c.parameters.map((row,i)=>`
+    <div class="kv-row">
+      <input placeholder="Name" value="${esc(row.k)}" onchange="perfUpdateRow('${g.id}','${c.id}',${i},'k',this.value)">
+      <input placeholder="Value" value="${esc(row.v)}" onchange="perfUpdateRow('${g.id}','${c.id}',${i},'v',this.value)">
+      <button class="kv-remove" onclick="perfRemoveRow('${g.id}','${c.id}',${i})">✕</button>
+    </div>`).join('');
+}
+function renderPerfMutateWarning(c){
+  const el=$('#perfMutateWarning');
+  if(!el) return;
+  if(perfSupportsBody(c.method) || c.method==='DELETE'){
+    el.innerHTML=`<div class="alert alert-info" style="margin-bottom:14px;">⚠️ ${c.method} requests change real sandbox data on every successful sample — many threads × loops can create/update/delete a lot of records fast. Use "Reset demo data" in the footer afterward if you want a clean slate.</div>`;
+  } else { el.innerHTML=''; }
+}
+function perfAddRow(groupId,samplerId,kind){
+  const c=findSampler(groupId,samplerId); if(!c) return;
+  c.parameters.push({k:'',v:''}); renderPerfParamRows(findGroup(groupId),c);
+}
+function perfUpdateRow(groupId,samplerId,i,field,val){
+  const c=findSampler(groupId,samplerId); if(!c) return;
+  c.parameters[i][field]=val;
+}
+function perfRemoveRow(groupId,samplerId,i){
+  const c=findSampler(groupId,samplerId); if(!c) return;
+  c.parameters.splice(i,1); renderPerfParamRows(findGroup(groupId),c);
+}
+function perfBuildQueryStringFor(c){
+  return c.parameters.filter(p=>p.k).map(p=>encodeURIComponent(perfSubstituteVars(p.k))+'='+encodeURIComponent(perfSubstituteVars(p.v))).join('&');
+}
+function perfBuildRequestPathFor(c){
+  let p=perfSubstituteVars(c.path)||'/';
+  if(!p.startsWith('/')) p='/'+p;
+  const qs=perfBuildQueryStringFor(c);
+  if(qs) p += (p.includes('?')?'&':'?') + qs;
+  return p;
+}
+function perfBuildBodyFor(c){
+  if(!perfSupportsBody(c.method)) return null;
+  if(c.rawBody && c.rawBody.trim()) return perfSubstituteVars(c.rawBody);
+  const obj={};
+  c.parameters.filter(p=>p.k).forEach(p=>{ obj[p.k]=perfSubstituteVars(p.v); });
+  return JSON.stringify(obj);
+}
+function perfFullUrlDisplayFor(c){
+  const defaultPort = c.protocol==='https'?443:80;
+  const portPart = Number(c.port)===defaultPort ? '' : ':'+c.port;
+  return `${c.protocol}://${c.server}${portPart}${perfBuildRequestPathFor(c)}`;
+}
+
+/* ---- JSR223 (JavaScript) sampler panel ---- */
+function jmScriptSamplerPanel(g,c){
+  return `
+    <div class="jm-panel-title">📜 ${esc(c.name)} <span style="color:var(--purple-300);font-size:0.8rem;font-weight:400;">— in ${esc(g.name)}</span></div>
+    <div class="jm-panel-sub">Like JMeter's JSR223 Sampler, but scripted in JavaScript (sandboxed) instead of Groovy — return the request you want fired.</div>
+    <div class="field-row">
+      <div class="field"><label>Name</label><input type="text" id="scriptName" value="${esc(c.name)}"></div>
+      <div class="field" style="display:flex;align-items:flex-end;"><label class="jm-checkbox-row" style="margin:0;"><input type="checkbox" id="scriptEnabled" ${c.enabled!==false?'checked':''}> Enabled</label></div>
+    </div>
+    <div class="field">
+      <label>Script (variables: vars, helpers — must <code>return {method, path, body?}</code>)</label>
+      <textarea id="scriptBody" class="pm-body-editor" style="min-height:220px;">${esc(c.script)}</textarea>
+    </div>
+    <p class="field-hint" style="color:var(--purple-300);">helpers.setVar(name, value) stores a Test Plan variable, just like Groovy's <code>vars.put()</code>. helpers.random(min,max) and helpers.uuid() are also available.</p>
+  `;
+}
+function wireScriptSamplerPanel(g,c){
+  const bi=(id,fn)=>{ const el=$('#'+id); if(el) el.addEventListener('input',fn); };
+  const b=(id,fn)=>{ const el=$('#'+id); if(el) el.addEventListener('change',fn); };
+  bi('scriptName',e=>{ c.name=e.target.value||'JSR223 Sampler'; renderJmTree(); });
+  b('scriptEnabled',e=>{ c.enabled=e.target.checked; renderJmTree(); });
+  bi('scriptBody',e=>{ c.script=e.target.value; });
+}
+
+/* ---- Listener panels ---- */
+function resultsByLabel(){
+  const map={};
+  perfState.results.forEach(r=>{ (map[r.label]=map[r.label]||[]).push(r); });
+  return map;
+}
+function jmResultsTreePanel(){
+  const rows=perfState.results.slice(-300).reverse();
+  if(!rows.length) return `<div class="jm-panel-title">🌳 View Results Tree</div><div class="jm-panel-sub">Every sample this run, newest first — click a row to inspect it.</div><div class="perf-empty">No samples yet. Click ▶ Run to start the test plan.</div>`;
+  return `<div class="jm-panel-title">🌳 View Results Tree</div>
+  <div class="jm-panel-sub">Showing last ${rows.length} of ${perfState.results.length} samples. Click a row to expand.</div>
+  <div class="jm-tree-result">${rows.map(r=>`
+    <div>
+      <div class="jm-result-row" onclick="togglePerfResultDetail(${r.id})">
+        <span class="jm-result-icon ${r.success?'pass':'fail'}">${r.success?'✔':'✖'}</span>
+        <span style="width:150px;color:var(--ink-faint);">${esc(r.label)}</span>
+        <span style="flex:1;">${r.method} ${esc(r.url)}</span>
+        <span style="width:50px;text-align:right;">${r.status}</span>
+        <span style="width:90px;text-align:right;color:var(--ink-faint);">${r.responseTime} ms</span>
+      </div>
+      ${perfExpandedId===r.id ? `<div class="jm-result-detail">Label: ${esc(r.label)}
+Thread Name: Thread ${r.vu+1}
+Sample Start: ${new Date(r.ts).toLocaleTimeString()}
+Load time: ${r.responseTime} ms
+Response code: ${r.status}
+Response message: ${r.success?'OK':'Error'}
+Request: ${r.method} ${esc(r.url)}
+${r.requestBody? 'Request body: '+esc(r.requestBody) : ''}
+
+Response data:
+${esc(JSON.stringify(r.responseBody,null,2))}</div>` : ''}
+    </div>`).join('')}</div>`;
+}
+function togglePerfResultDetail(id){
+  perfExpandedId = perfExpandedId===id ? null : id;
+  if(perfSelected==='resultsTree') renderJmMainBody();
+}
+function jmSummaryReportPanel(){
+  const byLabel=resultsByLabel();
+  const labels=Object.keys(byLabel);
+  const totalM=computeMetricsForSet(perfState.results);
+  const rowsHtml = labels.length ? labels.map(l=>{
+    const m=computeMetricsForSet(byLabel[l]);
+    return `<tr><td>${esc(l)}</td><td>${m.total}</td><td>${m.avg} ms</td><td>${m.min} ms</td><td>${m.max} ms</td><td>${m.stdDev} ms</td><td>${m.errorRate.toFixed(2)}%</td><td>${m.rps.toFixed(1)}/sec</td><td>${m.kbPerSec.toFixed(2)}</td></tr>`;
+  }).join('') + (labels.length>1 ? `<tr style="font-weight:700;background:var(--purple-50);"><td>TOTAL</td><td>${totalM.total}</td><td>${totalM.avg} ms</td><td>${totalM.min} ms</td><td>${totalM.max} ms</td><td>${totalM.stdDev} ms</td><td>${totalM.errorRate.toFixed(2)}%</td><td>${totalM.rps.toFixed(1)}/sec</td><td>${totalM.kbPerSec.toFixed(2)}</td></tr>` : '')
+    : `<tr><td colspan="9" class="table-empty">No samples yet. Click ▶ Run to start the test plan.</td></tr>`;
+  return `<div class="jm-panel-title">📊 Summary Report</div>
+  <div class="jm-panel-sub">One row per sampler label — the classic JMeter Summary Report columns.</div>
+  <div class="jm-report-table-wrap"><table class="jm-report-table">
+    <thead><tr><th>Label</th><th># Samples</th><th>Average</th><th>Min</th><th>Max</th><th>Std. Dev.</th><th>Error %</th><th>Throughput</th><th>Received KB/sec</th></tr></thead>
+    <tbody>${rowsHtml}</tbody>
+  </table></div>`;
+}
+function jmAggregateReportPanel(){
+  const byLabel=resultsByLabel();
+  const labels=Object.keys(byLabel);
+  const totalM=computeMetricsForSet(perfState.results);
+  const rowsHtml = labels.length ? labels.map(l=>{
+    const m=computeMetricsForSet(byLabel[l]);
+    return `<tr><td>${esc(l)}</td><td>${m.total}</td><td>${m.avg} ms</td><td>${m.p50} ms</td><td>${m.p90} ms</td><td>${m.p95} ms</td><td>${m.p99} ms</td><td>${m.min} ms</td><td>${m.max} ms</td><td>${m.errorRate.toFixed(2)}%</td><td>${m.rps.toFixed(1)}/sec</td><td>${m.kbPerSec.toFixed(2)}</td></tr>`;
+  }).join('') + (labels.length>1 ? `<tr style="font-weight:700;background:var(--purple-50);"><td>TOTAL</td><td>${totalM.total}</td><td>${totalM.avg} ms</td><td>${totalM.p50} ms</td><td>${totalM.p90} ms</td><td>${totalM.p95} ms</td><td>${totalM.p99} ms</td><td>${totalM.min} ms</td><td>${totalM.max} ms</td><td>${totalM.errorRate.toFixed(2)}%</td><td>${totalM.rps.toFixed(1)}/sec</td><td>${totalM.kbPerSec.toFixed(2)}</td></tr>` : '')
+    : `<tr><td colspan="12" class="table-empty">No samples yet. Click ▶ Run to start the test plan.</td></tr>`;
+  return `<div class="jm-panel-title">📈 Aggregate Report</div>
+  <div class="jm-panel-sub">One row per sampler label, with response-time percentiles — the classic JMeter Aggregate Report columns.</div>
+  <div class="jm-report-table-wrap"><table class="jm-report-table">
+    <thead><tr><th>Label</th><th># Samples</th><th>Average</th><th>Median</th><th>90% Line</th><th>95% Line</th><th>99% Line</th><th>Min</th><th>Max</th><th>Error %</th><th>Throughput</th><th>KB/sec</th></tr></thead>
+    <tbody>${rowsHtml}</tbody>
+  </table></div>`;
+}
+function jmGraphResultsPanel(){
+  return `<div class="jm-panel-title">📉 Graph Results</div>
+  <div class="jm-panel-sub">Response time per sample (all labels combined) and throughput over time.</div>
+  <div class="perf-chart-box" style="margin-top:12px;">
+    <h5>Response time per request ${perfState.results.length?`(last ${Math.min(150,perfState.results.length)} of ${perfState.results.length})`:''}</h5>
+    <svg id="perfChart" viewBox="0 0 680 160" style="width:100%;height:160px;display:block;"></svg>
+    <div class="perf-legend"><span><i style="background:var(--success);"></i>Success</span><span><i style="background:var(--error);"></i>Failed</span></div>
+  </div>
+  <div class="perf-chart-box">
+    <h5>Throughput — requests per second</h5>
+    <svg id="perfThroughputChart" viewBox="0 0 680 140" style="width:100%;height:140px;display:block;"></svg>
+  </div>
+  <div class="perf-status-breakdown">
+    <h5 style="font-size:0.85rem;color:var(--ink-soft);margin-bottom:12px;">Response status code breakdown</h5>
+    <div id="perfStatusBreakdown"></div>
+  </div>`;
+}
+
+/* ---- Run / Stop / execution engine ---- */
 function startLoadTest(){
   if(perfState.running) return;
+  const enabledGroups=testPlan.threadGroups.filter(g=>g.enabled!==false);
+  if(!enabledGroups.length){ showToast('Add at least one enabled Thread Group first.'); return; }
+  for(const g of enabledGroups){
+    const activeChildren=g.children.filter(c=>c.enabled!==false);
+    if(!activeChildren.length){ showToast('"'+g.name+'" has no enabled samplers.'); return; }
+    for(const c of activeChildren){
+      if(c.kind==='http' && !c.path.trim()){ showToast('Every enabled HTTP Request needs a Path.'); return; }
+      if(c.kind==='script' && !c.script.trim()){ showToast('Every enabled JSR223 Sampler needs a script.'); return; }
+    }
+  }
   perfState.results=[];
+  perfResultCounter=0;
+  perfExpandedId=null;
+  perfRuntimeVars={};
+  perfState.liveThreads=0;
   perfState.running=true;
   perfState.startTs=performance.now();
+  perfState.startWallTs=Date.now();
+  perfState.vuTimers=[];
   renderPerformance($('#app'));
-  const ep=perfEndpoints.find(e=>e.id===perfState.endpointId);
-  const durationMs=perfState.duration*1000;
-  for(let i=0;i<perfState.vus;i++){
-    runVirtualUser(ep,durationMs,i);
-  }
   perfState.uiTimer=setInterval(updatePerfUI,150);
-  setTimeout(()=>{ if(perfState.running) stopLoadTest(true); }, durationMs+50);
+  perfState.watchdogTimer=setTimeout(()=>{ if(perfState.running) stopLoadTest(true); }, 180000);
+  runTestPlanPhases(enabledGroups);
 }
-function runVirtualUser(ep,durationMs,vuIndex){
-  const tick=()=>{
-    if(!perfState.running) return;
-    const elapsed=performance.now()-perfState.startTs;
-    if(elapsed>=durationMs){ return; }
-    const concurrency=perfState.vus;
-    let latency = (ep.method==='POST'?90:55) + Math.random()*130 + concurrency*(1+Math.random()*3);
-    let status, success;
-    const forceError = Math.random()*100 < perfState.errorRate;
-    if(forceError){
-      status = [429,500,503][Math.floor(Math.random()*3)];
-      latency += 250+Math.random()*500;
-      success=false;
-    } else {
-      const res=mockApiRequest(ep.method, ep.url, ep.body||null);
-      status=res.status; success=status<400;
+async function runTestPlanPhases(enabledGroups){
+  const setupGroups=enabledGroups.filter(g=>g.type==='setup');
+  const normalGroups=enabledGroups.filter(g=>g.type==='normal');
+  const teardownGroups=enabledGroups.filter(g=>g.type==='teardown');
+  for(const g of setupGroups){ if(!perfState.running) break; await runThreadGroupAsync(g); }
+  if(perfState.running) await Promise.all(normalGroups.map(g=>runThreadGroupAsync(g)));
+  for(const g of teardownGroups){ if(!perfState.running) break; await runThreadGroupAsync(g); }
+  if(perfState.running) stopLoadTest(true);
+}
+function runThreadGroupAsync(group){
+  return new Promise(resolve=>{
+    if(!perfState.running || group.threads<=0){ resolve(); return; }
+    let finished=0;
+    for(let i=0;i<group.threads;i++){
+      const startDelay = group.startupDelay*1000 + (group.rampUp>0 ? (i/group.threads)*group.rampUp*1000 : 0);
+      perfState.liveThreads++;
+      runVirtualUserForGroup(group, i, startDelay, ()=>{
+        perfState.liveThreads=Math.max(0,perfState.liveThreads-1);
+        finished++;
+        if(finished>=group.threads) resolve();
+      });
     }
-    const timerId=setTimeout(()=>{
-      perfState.results.push({ts:Date.now(),vu:vuIndex,method:ep.method,url:ep.url,status,responseTime:Math.round(latency),success});
+  });
+}
+function runVirtualUserForGroup(group, vuIndex, startDelay, onDone){
+  let iterations=0;
+  const tick=()=>{
+    if(!perfState.running){ onDone(); return; }
+    const elapsed=performance.now()-perfState.startTs;
+    if(elapsed>=(group.startupDelay+group.duration)*1000){ onDone(); return; }
+    if(group.loopCount>0 && iterations>=group.loopCount){ onDone(); return; }
+    runSamplerSequence(group, vuIndex, 0, ()=>{
+      iterations++;
       const thinkTime=150+Math.random()*450;
-      const nextTimer=setTimeout(tick,thinkTime);
-      perfState.vuTimers.push(nextTimer);
-    },Math.min(latency,durationMs-elapsed>0?latency:0));
-    perfState.vuTimers.push(timerId);
+      const t=setTimeout(tick,thinkTime);
+      perfState.vuTimers.push(t);
+    });
   };
-  tick();
+  const t=setTimeout(tick,startDelay);
+  perfState.vuTimers.push(t);
+}
+function runSamplerSequence(group, vuIndex, childIndex, onIterationDone){
+  if(!perfState.running){ onIterationDone(); return; }
+  const children=group.children.filter(c=>c.enabled!==false);
+  if(childIndex>=children.length){ onIterationDone(); return; }
+  fireSampler(group, children[childIndex], vuIndex, ()=>{
+    runSamplerSequence(group, vuIndex, childIndex+1, onIterationDone);
+  });
+}
+function fireSampler(group, sampler, vuIndex, onDone){
+  const concurrency=Math.max(1,perfState.liveThreads);
+  let method, path, bodyStr;
+  const label=sampler.name || (sampler.kind==='script'?'JSR223 Sampler':'HTTP Request');
+  if(sampler.kind==='script'){
+    let reqSpec;
+    try{
+      const varsObj=perfGetVarsObject();
+      const helpers={ setVar:(k,v)=>{ perfRuntimeVars[String(k)]=String(v); }, random:(a,b)=>Math.floor(a+Math.random()*(b-a+1)), uuid:()=>uid('id') };
+      const fn=new Function('vars','helpers','"use strict";\n'+sampler.script);
+      reqSpec=fn(varsObj,helpers)||{};
+    }catch(e){
+      const t=setTimeout(()=>{
+        perfState.results.push({id:perfResultCounter++, ts:Date.now(), vu:vuIndex, label, method:'SCRIPT', url:'(script error)', status:0, responseTime:1, success:false, requestBody:null, responseBody:{error:e.message}, bytes:0});
+        if(perfState.results.length>5000) perfState.results.shift();
+        onDone();
+      },5);
+      perfState.vuTimers.push(t);
+      return;
+    }
+    method=(reqSpec.method||'GET').toUpperCase();
+    path=perfSubstituteVars(reqSpec.path||'/');
+    bodyStr=reqSpec.body!=null ? (typeof reqSpec.body==='string'?reqSpec.body:JSON.stringify(reqSpec.body)) : null;
+  } else {
+    method=sampler.method;
+    path=perfBuildRequestPathFor(sampler);
+    bodyStr=perfBuildBodyFor(sampler);
+  }
+  let latency=(method==='GET'||method==='HEAD'?55:90) + Math.random()*130 + concurrency*(1+Math.random()*3);
+  let status,success,responseBody;
+  const forceError=Math.random()*100<perfState.errorRate;
+  if(forceError){
+    status=[429,500,503][Math.floor(Math.random()*3)];
+    latency+=250+Math.random()*500;
+    success=false;
+    responseBody={error:'Simulated failure injected by load test',code:status};
+  } else {
+    const res=mockApiRequest(method, path, bodyStr, false);
+    status=res.status; success=status<400; responseBody=res.body;
+  }
+  const timerId=setTimeout(()=>{
+    if(sampler.kind==='http' && sampler.extractVar && success && responseBody!=null){
+      const val=perfResolvePath(responseBody, sampler.extractPath||'');
+      if(val!==undefined) perfRuntimeVars[sampler.extractVar]=String(val);
+    }
+    const bytes=responseBody!=null? JSON.stringify(responseBody).length : 0;
+    perfState.results.push({id:perfResultCounter++, ts:Date.now(), vu:vuIndex, label, method, url:path, status, responseTime:Math.round(latency), success, requestBody:bodyStr, responseBody, bytes});
+    if(perfState.results.length>5000) perfState.results.shift();
+    onDone();
+  }, latency);
+  perfState.vuTimers.push(timerId);
 }
 function stopLoadTest(completedNaturally){
   perfState.running=false;
   perfState.vuTimers.forEach(t=>clearTimeout(t));
   perfState.vuTimers=[];
   if(perfState.uiTimer){ clearInterval(perfState.uiTimer); perfState.uiTimer=null; }
+  if(perfState.watchdogTimer){ clearTimeout(perfState.watchdogTimer); perfState.watchdogTimer=null; }
+  saveState(); // persist whatever the run created/changed, once, instead of on every sample
   renderPerformance($('#app'));
-  showToast(completedNaturally? 'Load test complete' : 'Load test stopped', completedNaturally?'success':undefined);
+  showToast(completedNaturally? 'Test plan complete' : 'Test plan stopped', completedNaturally?'success':undefined);
 }
-function computePerfMetrics(){
-  const r=perfState.results;
-  if(!r.length) return null;
-  const times=r.map(x=>x.responseTime).sort((a,b)=>a-b);
-  const success=r.filter(x=>x.success).length;
-  const failed=r.length-success;
+
+/* ---- Metrics ---- */
+function percentile(sortedArr,p){
+  if(!sortedArr.length) return 0;
+  const idx=Math.min(sortedArr.length-1, Math.ceil((p/100)*sortedArr.length)-1);
+  return sortedArr[Math.max(0,idx)];
+}
+function computeMetricsForSet(results){
+  if(!results || !results.length) return null;
+  const times=results.map(x=>x.responseTime).sort((a,b)=>a-b);
+  const success=results.filter(x=>x.success).length;
+  const failed=results.length-success;
   const avg=times.reduce((s,v)=>s+v,0)/times.length;
-  const p95=times[Math.min(times.length-1,Math.floor(times.length*0.95))];
+  const variance=times.reduce((s,v)=>s+Math.pow(v-avg,2),0)/times.length;
   const elapsedSec=Math.max(0.001,(performance.now()-perfState.startTs)/1000);
+  const totalBytes=results.reduce((s,x)=>s+(x.bytes||0),0);
   return {
-    total:r.length, success, failed,
-    errorRate: (failed/r.length*100),
-    avg:Math.round(avg), min:times[0], max:times[times.length-1], p95,
-    rps:(r.length/Math.min(elapsedSec,perfState.duration+0.5)).toFixed(1),
+    total:results.length, success, failed, errorRate:(failed/results.length*100),
+    avg:Math.round(avg), min:times[0], max:times[times.length-1], stdDev:Math.round(Math.sqrt(variance)),
+    p50:percentile(times,50), p90:percentile(times,90), p95:percentile(times,95), p99:percentile(times,99),
+    rps:(results.length/elapsedSec), kbPerSec:(totalBytes/1024)/elapsedSec,
   };
 }
+function computePerfMetrics(){ return computeMetricsForSet(perfState.results); }
 function updatePerfUI(){
-  if(!$('#perfMetrics')) return;
   const m=computePerfMetrics();
-  $('#perfMetrics').innerHTML = m ? `
-    <div class="perf-metric-card"><b>${m.total}</b><span>Total requests</span></div>
-    <div class="perf-metric-card"><b>${m.rps}</b><span>Req / sec</span></div>
-    <div class="perf-metric-card"><b>${m.avg} ms</b><span>Avg response</span></div>
-    <div class="perf-metric-card"><b>${m.p95} ms</b><span>p95 latency</span></div>
-    <div class="perf-metric-card"><b>${m.min} ms</b><span>Min</span></div>
-    <div class="perf-metric-card"><b>${m.max} ms</b><span>Max</span></div>
-    <div class="perf-metric-card"><b>${m.success}</b><span>Successful</span></div>
-    <div class="perf-metric-card err"><b>${m.failed}</b><span>Failed (${m.errorRate.toFixed(1)}%)</span></div>
-  ` : `<div class="perf-empty" style="grid-column:1/-1;">Configure a run and hit <b>Run load test</b> to see live metrics.</div>`;
-
-  const progressPct = perfState.running ? Math.min(100,Math.round((performance.now()-perfState.startTs)/(perfState.duration*1000)*100)) : (perfState.results.length?100:0);
-  const fill=$('#perfProgressFill'); if(fill) fill.style.width=progressPct+'%';
-  const statusEl=$('#perfStatusText'); if(statusEl) statusEl.textContent = perfState.running? `Running… ${progressPct}%` : (perfState.results.length? 'Last run complete':'Idle');
+  const bannerEl=$('#perfAssertionBanner');
+  if(bannerEl){
+    bannerEl.innerHTML = m ? `
+      <div class="jm-assertion-banner ${m.p95<=perfState.thresholdMs?'pass':'fail'}">
+        <span>Duration Assertion: ${m.p95<=perfState.thresholdMs?'✓ PASSED':'✖ FAILED'} — target p95 &lt; ${perfState.thresholdMs}ms, actual: ${m.p95}ms</span>
+        <span>${perfState.liveThreads} thread(s) active · ${m.total} samples</span>
+      </div>` : `<div class="jm-assertion-banner idle">No samples yet — configure the Test Plan, then click ▶ Run.</div>`;
+  }
+  const statusEl=$('#perfStatusText');
+  if(statusEl) statusEl.textContent = perfState.running? `Running… ${perfState.liveThreads} thread(s) active` : (perfState.results.length? 'Test plan complete':'Idle');
   const dotEl=$('.perf-dot'); if(dotEl) dotEl.classList.toggle('live',perfState.running);
-
-  renderPerfChart();
-  renderPerfLog();
+  if(['resultsTree','summaryReport','aggregateReport','graphResults'].includes(perfSelected)){
+    renderJmMainBody();
+  }
 }
+function statusColor(code){ if(code<300) return '#1fa971'; if(code<500) return '#c97e1a'; return '#e0473c'; }
 function renderPerfChart(){
   const svg=$('#perfChart');
   if(!svg) return;
   const points=perfState.results.slice(-150);
-  if(!points.length){ svg.innerHTML=`<text x="340" y="80" text-anchor="middle" fill="#c9bce8" font-size="12">No data yet</text>`; return; }
+  if(!points.length){ svg.innerHTML=`<text x="340" y="80" text-anchor="middle" fill="#8579a1" font-size="12">No data yet</text>`; return; }
   const w=680,h=160,pad=8;
   const maxT=Math.max(50,...points.map(p=>p.responseTime));
   const stepX=(w-pad*2)/Math.max(1,points.length-1);
@@ -2234,19 +3220,86 @@ function renderPerfChart(){
   const dots=points.map((p,i)=>`<circle cx="${(pad+i*stepX).toFixed(1)}" cy="${toY(p.responseTime).toFixed(1)}" r="2.6" fill="${p.success?'#1fa971':'#e0473c'}"></circle>`).join('');
   svg.innerHTML=`<polyline points="${linePts}" fill="none" stroke="#9a63ef" stroke-width="1.5" opacity="0.55"></polyline>${dots}`;
 }
-function renderPerfLog(){
-  const wrap=$('#perfLogTable');
+function renderPerfThroughputChart(){
+  const svg=$('#perfThroughputChart');
+  if(!svg) return;
+  const r=perfState.results;
+  if(!r.length){ svg.innerHTML=`<text x="340" y="70" text-anchor="middle" fill="#8579a1" font-size="12">No data yet</text>`; return; }
+  const buckets={};
+  r.forEach(x=>{ const sec=Math.max(0,Math.floor((x.ts-perfState.startWallTs)/1000)); buckets[sec]=(buckets[sec]||0)+1; });
+  const maxSec=Math.max(...Object.keys(buckets).map(Number));
+  const w=680,h=140,pad=10;
+  const barCount=maxSec+1;
+  const slot=(w-pad*2)/Math.max(1,barCount);
+  const barW=Math.max(2,slot-2);
+  const maxCount=Math.max(1,...Object.values(buckets));
+  let bars='';
+  for(let s=0;s<=maxSec;s++){
+    const c=buckets[s]||0;
+    const bh=(c/maxCount)*(h-pad*2);
+    const x=pad+s*slot;
+    const y=h-pad-bh;
+    bars+=`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${bh.toFixed(1)}" fill="#7c3ee6" rx="1.5"><title>${c} req/s at ${s}s</title></rect>`;
+  }
+  svg.innerHTML=bars;
+}
+function renderPerfStatusBreakdown(){
+  const wrap=$('#perfStatusBreakdown');
   if(!wrap) return;
-  const rows=perfState.results.slice(-50).reverse();
-  if(!rows.length){ wrap.innerHTML=`<tr><td class="table-empty">No requests logged yet.</td></tr>`; return; }
-  wrap.innerHTML=`<thead><tr><th>Time</th><th>VU</th><th>Request</th><th>Status</th><th>Response time</th></tr></thead>
-  <tbody>${rows.map(r=>`<tr>
-    <td>${new Date(r.ts).toLocaleTimeString()}</td>
-    <td>#${r.vu+1}</td>
-    <td>${r.method} ${esc(r.url)}</td>
-    <td><span class="status-pill ${r.success?'status-delivered':'status-cancelled'}">${r.status}</span></td>
-    <td>${r.responseTime} ms</td>
-  </tr>`).join('')}</tbody>`;
+  const m=computePerfMetrics();
+  if(!m){ wrap.innerHTML='<p style="color:var(--ink-faint);font-size:0.85rem;">No data yet.</p>'; return; }
+  const statusCounts={};
+  perfState.results.forEach(x=>{ statusCounts[x.status]=(statusCounts[x.status]||0)+1; });
+  const codes=Object.keys(statusCounts).map(Number).sort((a,b)=>statusCounts[b]-statusCounts[a]);
+  wrap.innerHTML=codes.map(code=>{
+    const cnt=statusCounts[code];
+    const pct=(cnt/m.total*100);
+    return `<div class="perf-status-row">
+      <span class="code" style="color:${statusColor(code)};">${code}</span>
+      <div class="perf-status-bar-track"><div class="perf-status-bar-fill" style="width:${pct.toFixed(1)}%;background:${statusColor(code)};"></div></div>
+      <span class="cnt">${cnt} (${pct.toFixed(1)}%)</span>
+    </div>`;
+  }).join('');
+}
+function downloadPerfReport(){
+  const m=computePerfMetrics();
+  if(!m){ showToast('Run the test plan first, then export.'); return; }
+  const byLabel=resultsByLabel();
+  const perLabel={};
+  Object.keys(byLabel).forEach(l=>{ perLabel[l]=computeMetricsForSet(byLabel[l]); });
+  const report={
+    generatedAt:new Date().toISOString(),
+    testPlan:{
+      threadGroups:testPlan.threadGroups.map(g=>({name:g.name,type:g.type,enabled:g.enabled!==false,threads:g.threads,rampUpSeconds:g.rampUp,loopCount:g.loopCount,durationSeconds:g.duration,samplers:g.children.map(c=>c.name)})),
+      variables:testPlan.variables.filter(v=>v.k),
+    },
+    simulation:{injectedErrorRatePct:perfState.errorRate,thresholdMs:perfState.thresholdMs},
+    overallSummary:m,
+    perLabelSummary:perLabel,
+    durationAssertionResult: m.p95<=perfState.thresholdMs? 'PASS':'FAIL',
+    sampleOfLast20Requests: perfState.results.slice(-20),
+  };
+  const blob=new Blob([JSON.stringify(report,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download='performance-report-'+Date.now()+'.json';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('JSON report downloaded','success');
+}
+function exportPerfCsv(){
+  if(!perfState.results.length){ showToast('Run the test plan first, then export.'); return; }
+  const header='timeStamp,elapsed,label,responseCode,success,threadName,bytes\n';
+  const rows=perfState.results.map(r=>[
+    r.ts, r.responseTime, `"${r.label}"`, r.status, r.success, `"Thread ${r.vu+1}"`, r.bytes||0
+  ].join(',')).join('\n');
+  const blob=new Blob([header+rows],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download='performance-results-'+Date.now()+'.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('.csv results exported','success');
 }
 </script>
 <script>
