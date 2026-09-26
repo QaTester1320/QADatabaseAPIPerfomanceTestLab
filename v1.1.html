@@ -334,7 +334,7 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
 .count-badge{background:var(--purple-100);color:var(--purple-700);font-size:0.72rem;font-weight:700;padding:3px 9px;border-radius:999px;margin-left:8px;}
 
 /* Database console */
-.db-layout{grid-template-columns:230px 1fr;gap:0;background:#251246;border-radius:var(--radius-l);overflow:hidden;min-height:560px;box-shadow:var(--shadow-pop);}
+.db-layout{display:grid;grid-template-columns:230px 1fr;gap:0;background:#251246;border-radius:var(--radius-l);overflow:hidden;min-height:560px;box-shadow:var(--shadow-pop);}
 .db-sidebar{background:#1c0f38;padding:16px 0;border-right:1px solid rgba(255,255,255,0.08);}
 .db-sidebar h5{color:var(--purple-300);font-size:0.7rem;text-transform:uppercase;letter-spacing:.06em;padding:0 18px 10px;}
 .db-table-item{padding:10px 18px;font-size:0.86rem;color:var(--purple-100);display:flex;align-items:center;gap:9px;border-left:3px solid transparent;font-family:var(--font-mono);}
@@ -352,6 +352,12 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
 .db-result-meta{padding:10px 16px;background:var(--purple-50);font-size:0.78rem;color:var(--purple-700);font-family:var(--font-mono);border-bottom:1px solid var(--line);}
 .db-result-scroll{overflow:auto;max-height:340px;}
 .db-error-box{background:#3a1414;color:#ff9d92;padding:14px 16px;border-radius:var(--radius-m);font-family:var(--font-mono);font-size:0.85rem;border:1px solid #5c1f1f;}
+.db-tool-body{
+  width:100%;
+  max-width:none;
+  padding-left:20px;
+  padding-right:20px;
+}
 @media(max-width:900px){.db-layout{grid-template-columns:1fr;}.db-sidebar{display:flex;overflow-x:auto;padding:10px;}.db-sidebar h5{display:none;}.db-table-item{border-left:none;border-bottom:3px solid transparent;flex-shrink:0;}}
 
 /* Postman */
@@ -1877,7 +1883,7 @@ let sqlHistory=[];
 function renderDatabase(root){
   root.innerHTML=`
   <div class="tool-shell">
-    <div class="tool-body container">
+    <div class="tool-body db-tool-body">
       <div class="tool-panel-title">🗄 Database Console</div>
       <div class="tool-panel-sub">Run SQL against the sandbox database — practice SELECT, INSERT, UPDATE and DELETE queries.</div>
       <div class="db-layout">
