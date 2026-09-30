@@ -390,6 +390,22 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
 .pm-empty-response{padding:60px 20px;text-align:center;color:var(--purple-300);}
 .collection-list{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
 .collection-item{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);color:var(--purple-100);font-family:var(--font-mono);font-size:0.76rem;padding:7px 12px;border-radius:999px;}
+.pm-tree-wrap{background:#150b28;border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-m);padding:8px;margin-bottom:16px;max-height:280px;overflow-y:auto;}
+.pm-tree-row{display:flex;align-items:center;gap:6px;padding:6px 6px;border-radius:6px;cursor:pointer;font-size:0.82rem;}
+.pm-tree-row:hover{background:rgba(255,255,255,0.06);}
+.pm-tree-row:hover .pm-tree-actions{display:flex;}
+.pm-tree-row.active{background:rgba(122,63,230,0.28);}
+.pm-tree-chevron{width:12px;color:var(--purple-300);font-size:0.7rem;flex-shrink:0;}
+.pm-tree-gname{color:#fff;font-weight:600;flex:1;}
+.pm-tree-method{font-family:var(--font-mono);font-weight:700;font-size:0.66rem;width:40px;flex-shrink:0;text-align:center;border-radius:4px;padding:2px 0;}
+.pm-tree-method.m-GET{color:#7fd9b9;}.pm-tree-method.m-POST{color:#f0c674;}.pm-tree-method.m-PUT,.pm-tree-method.m-PATCH{color:#93b8f7;}.pm-tree-method.m-DELETE{color:#ff9d92;}
+.pm-tree-name{color:var(--purple-100);font-family:var(--font-mono);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.pm-tree-actions{display:none;gap:2px;flex-shrink:0;}
+.pm-tree-actions button{background:transparent;border:0;color:var(--purple-300);font-size:0.78rem;padding:2px 5px;border-radius:4px;}
+.pm-tree-actions button:hover{background:rgba(255,255,255,0.12);color:#fff;}
+.pm-save-row{display:flex;gap:8px;align-items:center;padding:8px 4px;border-radius:6px;}
+.pm-save-row:hover{background:var(--purple-50);}
+.pm-save-row button{margin-left:auto;}
 .collection-item b{color:var(--purple-300);margin-right:5px;}
 .collection-item:hover{background:rgba(124,62,230,0.25);border-color:var(--purple-400);}
 @media(max-width:700px){.pm-request-bar{flex-wrap:wrap;}.pm-method{width:100%;}}
@@ -622,6 +638,36 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
       <button class="modal-close" onclick="closeModal('jsonViewModal')">✕</button>
     </div>
     <div class="modal-body" id="jsonViewBody"></div>
+  </div>
+</div>
+
+<!-- ========== SAVE REQUEST MODAL (used by API Client) ========== -->
+<div class="modal-overlay" id="pmSaveModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Save request</h3>
+      <button class="modal-close" onclick="closeModal('pmSaveModal')">✕</button>
+    </div>
+    <div class="modal-body" id="pmSaveModalBody"></div>
+  </div>
+</div>
+
+<!-- ========== GENERIC NAME-INPUT MODAL (used by API Client tree: new collection/folder/request, rename) ========== -->
+<div class="modal-overlay" id="pmInputModal">
+  <div class="modal-box" style="max-width:420px;">
+    <div class="modal-head">
+      <h3 id="pmInputModalTitle">Name</h3>
+      <button class="modal-close" onclick="closeModal('pmInputModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="kv-row" style="grid-template-columns:1fr;margin-bottom:16px;">
+        <input id="pmInputModalField" placeholder="Name">
+      </div>
+      <div class="modal-foot" style="justify-content:flex-end;gap:8px;">
+        <button class="btn btn-secondary" onclick="closeModal('pmInputModal')">Cancel</button>
+        <button class="btn btn-primary" id="pmInputModalConfirm">Save</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2127,6 +2173,14 @@ function runSqlQuery(){
    API CLIENT (Postman-style) — mock REST server over the same DB
    ====================================================================== */
 let pmState={method:'GET',url:'/api/products',headers:[{k:'Content-Type',v:'application/json'}],body:'{\n  \n}',activeReqTab:'params',params:[{k:'',v:''}],
+  localVars:[],
+  auth:{type:'none',bearerToken:'',basicUser:'',basicPass:'',apiKeyName:'X-API-Key',apiKeyValue:'',apiKeyIn:'header'},
+  name:'Untitled Request', savedId:null,
+  preRequestScript:`// Runs BEFORE the request is sent.
+// Use it to set variables dynamically, e.g. a timestamp or a computed value.
+// pm.environment.set(key, value) / pm.environment.get(key) / pm.environment.unset(key)
+
+pm.environment.set("requestedAt", new Date().toISOString());`,
   testsScript:`// Write assertions using the pm.test() helper, just like Postman.
 // pm.response gives you status, responseTime (ms) and json() (parsed body).
 
@@ -2142,48 +2196,170 @@ pm.test("Body is not empty", function () {
   pm.expect(pm.response.json()).to.not.equal(null);
 });`};
 let pmLastTestResults=null;
-let pmEnvironment=[{k:'baseUrl',v:'/api'},{k:'authToken',v:'mock-jwt-example'}];
+function loadGlobals(){ try{ const raw=localStorage.getItem('pmGlobals_v1'); if(raw) return JSON.parse(raw); }catch(e){} return [{k:'baseUrl',v:'/api'}]; }
+function saveGlobals(){ try{ localStorage.setItem('pmGlobals_v1', JSON.stringify(pmGlobals)); }catch(e){} }
+let pmGlobals=loadGlobals();
+function loadEnvironments(){ try{ const raw=localStorage.getItem('pmEnvironments_v1'); if(raw) return JSON.parse(raw); }catch(e){} return null; }
+function saveEnvironments(){ try{ localStorage.setItem('pmEnvironments_v1', JSON.stringify({environments:pmEnvironments,activeId:pmActiveEnvId})); }catch(e){} }
+let pmEnvironments, pmActiveEnvId;
+(function(){
+  const d=loadEnvironments();
+  if(d && d.environments && d.environments.length){ pmEnvironments=d.environments; pmActiveEnvId=d.activeId; }
+  else{ const id=uid('env'); pmEnvironments=[{id,name:'QA',vars:[{k:'authToken',v:'mock-jwt-example'}]}]; pmActiveEnvId=id; }
+})();
+function pmActiveEnv(){ return pmEnvironments.find(e=>e.id===pmActiveEnvId)||null; }
+function pmCollectionOfNode(id){ for(const col of pmCollections){ if(pmFindNode(id,[col])) return col; } return null; }
+function pmCurrentCollectionCtx(){ return pmState.savedId ? pmCollectionOfNode(pmState.savedId) : (pmCollections[0]||null); }
 let pmHistory=[];
-const pmCollection=[
-  {method:'GET',url:'/api/products'},
-  {method:'GET',url:'/api/products/1'},
-  {method:'POST',url:'/api/products'},
-  {method:'PUT',url:'/api/products/1'},
-  {method:'PATCH',url:'/api/products/1'},
-  {method:'DELETE',url:'/api/products/1'},
-  {method:'GET',url:'/api/categories'},
-  {method:'GET',url:'/api/customers'},
-  {method:'GET',url:'/api/orders'},
-  {method:'POST',url:'/api/login'},
-];
+let pmCookieJar=[];
+let pmLastResponse=null;
+function pmUpsertCookie(setCookieHeader){
+  if(!setCookieHeader) return;
+  const first=String(setCookieHeader).split(';')[0];
+  const eq=first.indexOf('=');
+  if(eq<0) return;
+  const name=first.slice(0,eq).trim(), value=first.slice(eq+1).trim();
+  const existing=pmCookieJar.find(c=>c.name===name);
+  if(existing) existing.value=value; else pmCookieJar.push({name,value});
+}
+function renderCookieRows(){
+  const wrap=$('#cookieRows'); if(!wrap) return;
+  wrap.innerHTML = pmCookieJar.length ? pmCookieJar.map((c,i)=>`
+    <div class="kv-row">
+      <input value="${esc(c.name)}" placeholder="Name" onchange="pmCookieJar[${i}].name=this.value">
+      <input value="${esc(c.value)}" placeholder="Value" onchange="pmCookieJar[${i}].value=this.value">
+      <button class="kv-remove" onclick="pmCookieJar.splice(${i},1);renderCookieRows();">✕</button>
+    </div>`).join('') : '<p class="sql-hint">No cookies yet — they appear here automatically after a response sets one (try Login), or add one manually.</p>';
+}
+function pmAddCookieRow(){ pmCookieJar.push({name:'',value:''}); renderCookieRows(); }
+function renderSavedResponsesHTML(node){
+  return (node.savedResponses||[]).map((ex,i)=>{
+    const cls = ex.status>=500?'status-5xx':ex.status>=400?'status-4xx':'status-2xx';
+    return `<span class="collection-item">${esc(ex.name)} <span class="status-badge ${cls}" style="padding:1px 7px;font-size:0.68rem;margin:0 6px;">${ex.status}</span><button data-viewex="${node.id}:${i}" style="background:none;border:0;color:var(--purple-300);cursor:pointer;" title="View">👁</button><button data-delex="${node.id}:${i}" style="background:none;border:0;color:var(--purple-300);cursor:pointer;" title="Delete">🗑</button></span>`;
+  }).join('');
+}
+function pmGetByPath(obj,path){
+  const parts=String(path).replace(/\[(\d+)\]/g,'.$1').split('.').filter(Boolean);
+  let cur=obj;
+  for(const p of parts){ if(cur==null) return undefined; cur=cur[p]; }
+  return cur;
+}
+function pmExtractToVariable(){
+  if(!pmLastResponse){ showToast('Send a request first.'); return; }
+  pmPromptModal('JSON path to extract (e.g. token or user.id)','token',path=>{
+    const val=pmGetByPath(pmLastResponse.body,path);
+    if(val===undefined){ showToast('No value found at path "'+path+'" in the response body.'); return; }
+    pmPromptModal('Save as variable name','authToken',varName=>{
+      const strVal = (typeof val==='object' && val!==null) ? JSON.stringify(val) : String(val);
+      const existing2=pmActiveEnv();
+      if(!existing2){ showToast('Select or create an environment first (top of the request bar).'); return; }
+      const ev=existing2.vars.find(e=>e.k===varName);
+      if(ev) ev.v=strVal; else existing2.vars.push({k:varName,v:strVal});
+      saveEnvironments();
+      if($('#envRows')) renderEnvRows();
+      showToast('Saved {{'+varName+'}} = '+strVal);
+    });
+  });
+}
+function pmSaveResponseExample(){
+  if(!pmLastResponse){ showToast('Send a request first.'); return; }
+  if(!pmState.savedId){ showToast('Save the request first, then you can save example responses to it.'); return; }
+  const node=pmFindNode(pmState.savedId); if(!node) return;
+  pmPromptModal('Name this saved response',pmLastResponse.status+' example',name=>{
+    node.savedResponses=node.savedResponses||[];
+    node.savedResponses.push({id:uid('ex'),name,status:pmLastResponse.status,ms:pmLastResponse.ms,body:pmLastResponse.body});
+    savePmCollections(); showToast('Response saved as "'+name+'"'); renderPostman($('#app'));
+  });
+}
+function pmViewSavedResponse(nodeId,idx){
+  const node=pmFindNode(nodeId); const ex=node&&node.savedResponses&&node.savedResponses[idx]; if(!ex) return;
+  $('#jsonViewTitle').textContent=ex.name+' — '+ex.status;
+  $('#jsonViewBody').innerHTML=`<div class="pm-response-body" style="background:#150b28;border-radius:var(--radius-m);padding:16px;">${syntaxHighlightJSON(ex.body)}</div>`;
+  openModal('jsonViewModal');
+}
+function pmDeleteSavedResponse(nodeId,idx){
+  const node=pmFindNode(nodeId); if(!node||!node.savedResponses) return;
+  node.savedResponses.splice(idx,1); savePmCollections(); renderPostman($('#app'));
+}
+const PM_COL_KEY='purpleCartApiCollections_v2';
+function pmDefaultCollections(){
+  return [{type:'collection',id:uid('col'),name:'Purple Cart API',open:true,items:[
+    {type:'folder',id:uid('fld'),name:'Products',open:true,items:[
+      {type:'req',id:uid('req'),name:'Get All Products',method:'GET',url:'/api/products',params:[{k:'',v:''}],headers:[],body:'',testsScript:'',preRequestScript:'',localVars:[]},
+      {type:'req',id:uid('req'),name:'Get Single Product',method:'GET',url:'/api/products/1',params:[{k:'',v:''}],headers:[],body:'',testsScript:'',preRequestScript:'',localVars:[]},
+      {type:'req',id:uid('req'),name:'Create a Product',method:'POST',url:'/api/products',params:[{k:'',v:''}],headers:[{k:'Content-Type',v:'application/json'}],body:JSON.stringify({name:'New Product',categoryId:1,price:49.99,stock:10,image:'🆕',description:'A brand new product.'},null,2),testsScript:'',preRequestScript:'',localVars:[],auth:{type:'bearer',bearerToken:'{{authToken}}',basicUser:'',basicPass:'',apiKeyName:'X-API-Key',apiKeyValue:'',apiKeyIn:'header'}},
+      {type:'req',id:uid('req'),name:'Update a Product',method:'PUT',url:'/api/products/1',params:[{k:'',v:''}],headers:[{k:'Content-Type',v:'application/json'}],body:JSON.stringify({price:99.99,stock:25},null,2),testsScript:'',preRequestScript:'',localVars:[]},
+      {type:'req',id:uid('req'),name:'Partially Update a Product',method:'PATCH',url:'/api/products/1',params:[{k:'',v:''}],headers:[{k:'Content-Type',v:'application/json'}],body:JSON.stringify({price:99.99,stock:25},null,2),testsScript:'',preRequestScript:'',localVars:[]},
+      {type:'req',id:uid('req'),name:'Delete a Product',method:'DELETE',url:'/api/products/1',params:[{k:'',v:''}],headers:[],body:'',testsScript:'',preRequestScript:'',localVars:[]},
+    ]},
+    {type:'req',id:uid('req'),name:'Get All Categories',method:'GET',url:'/api/categories',params:[{k:'',v:''}],headers:[],body:'',testsScript:'',preRequestScript:'',localVars:[]},
+    {type:'req',id:uid('req'),name:'Get All Customers',method:'GET',url:'/api/customers',params:[{k:'',v:''}],headers:[],body:'',testsScript:'',preRequestScript:'',localVars:[]},
+    {type:'req',id:uid('req'),name:'Get All Orders',method:'GET',url:'/api/orders',params:[{k:'',v:''}],headers:[],body:'',testsScript:'',preRequestScript:'',localVars:[]},
+    {type:'req',id:uid('req'),name:'Login',method:'POST',url:'/api/login',params:[{k:'',v:''}],headers:[{k:'Content-Type',v:'application/json'}],body:JSON.stringify({email:'priya@example.com',password:'priya123'},null,2),testsScript:'pm.test("Status code is 200", () => { pm.response.to.have.status(200); });\\n\\n// Chain: pull the token out of the response and stash it as a variable\\n// so other requests can use it as {{authToken}}.\\nconst body = pm.response.json();\\nif (body && body.token) {\\n  pm.environment.set("authToken", body.token);\\n}',preRequestScript:''},
+  ]}];
+}
+function loadPmCollections(){
+  try{ const raw=localStorage.getItem(PM_COL_KEY); if(raw) return JSON.parse(raw); }
+  catch(e){ console.warn('Could not load saved collections, reseeding.',e); }
+  return pmDefaultCollections();
+}
+function savePmCollections(){ try{ localStorage.setItem(PM_COL_KEY, JSON.stringify(pmCollections)); }catch(e){ console.warn('Could not persist collections',e); } }
+let pmCollections=loadPmCollections();
+function pmFindNode(id,nodes=pmCollections){ for(const n of nodes){ if(n.id===id) return n; if(n.items){ const f=pmFindNode(id,n.items); if(f) return f; } } return null; }
+function pmFindParentArray(id,nodes=pmCollections){ for(const n of nodes){ if(n.id===id) return nodes; if(n.items){ const f=pmFindParentArray(id,n.items); if(f) return f; } } return null; }
 function renderPostman(root){
+  const curNode=pmState.savedId?pmFindNode(pmState.savedId):null;
   root.innerHTML=`
   <div class="tool-shell">
     <div class="tool-body container">
       <div class="tool-panel-title">📮 API Client</div>
-      <div class="tool-panel-sub">Send requests to the mock REST API and inspect real status codes and JSON responses.</div>
-      <div class="collection-list" id="pmCollection"></div>
+      <div class="tool-panel-sub">Send requests to the mock REST API and inspect real status codes and JSON responses. <span style="color:var(--purple-100);">${esc(pmState.name)}${pmState.savedId?'':' (unsaved)'}</span></div>
+      <div class="pm-tree-wrap" id="pmTree"></div>
       <details style="margin-bottom:16px;">
         <summary style="color:var(--purple-300);font-size:0.8rem;cursor:pointer;font-weight:600;">🕐 Request history (<span id="pmHistoryCount">${pmHistory.length}</span>)</summary>
         <div class="collection-list" id="pmHistoryList" style="margin-top:10px;">${renderPmHistoryItems()}</div>
       </details>
+      ${curNode && (curNode.savedResponses||[]).length ? `
+      <details style="margin-bottom:16px;" open>
+        <summary style="color:var(--purple-300);font-size:0.8rem;cursor:pointer;font-weight:600;">💾 Saved responses (${curNode.savedResponses.length})</summary>
+        <div class="collection-list" style="margin-top:10px;" id="pmSavedRespList">${renderSavedResponsesHTML(curNode)}</div>
+      </details>` : ''}
       <div class="pm-request-bar">
         <select class="pm-method" id="pmMethod">
           ${['GET','POST','PUT','PATCH','DELETE','HEAD','OPTIONS'].map(m=>`<option ${pmState.method===m?'selected':''}>${m}</option>`).join('')}
         </select>
         <input class="pm-url" id="pmUrl" value="${esc(pmState.url)}" placeholder="{{baseUrl}}/products">
+        <select class="pm-method" id="pmEnvSelect" style="max-width:150px;" title="Active environment">
+          <option value="">No Environment</option>
+          ${pmEnvironments.map(e=>`<option value="${e.id}" ${e.id===pmActiveEnvId?'selected':''}>${esc(e.name)}</option>`).join('')}
+        </select>
+        <button class="btn btn-secondary" id="pmSaveBtn" title="Save">💾 Save</button>
         <button class="btn btn-primary" id="pmSendBtn" style="padding:0 26px;">Send</button>
       </div>
       <div class="pm-tabs" id="pmReqTabs">
         <div class="pm-tab ${pmState.activeReqTab==='params'?'active':''}" data-t="params">Params</div>
+        <div class="pm-tab ${pmState.activeReqTab==='auth'?'active':''}" data-t="auth">Authorization</div>
         <div class="pm-tab ${pmState.activeReqTab==='headers'?'active':''}" data-t="headers">Headers</div>
         <div class="pm-tab ${pmState.activeReqTab==='body'?'active':''}" data-t="body">Body (JSON)</div>
+        <div class="pm-tab ${pmState.activeReqTab==='prereq'?'active':''}" data-t="prereq">Pre-request Script</div>
         <div class="pm-tab ${pmState.activeReqTab==='tests'?'active':''}" data-t="tests">Tests</div>
-        <div class="pm-tab ${pmState.activeReqTab==='env'?'active':''}" data-t="env">Environment</div>
+        <div class="pm-tab ${pmState.activeReqTab==='env'?'active':''}" data-t="env">Variables</div>
       </div>
       <div class="pm-panel ${pmState.activeReqTab==='params'?'active':''}" id="pmPanelParams">
         <div id="paramRows"></div>
         <button class="btn btn-secondary btn-sm" onclick="pmAddRow('params')">+ Add param</button>
+      </div>
+      <div class="pm-panel ${pmState.activeReqTab==='auth'?'active':''}" id="pmPanelAuth">
+        <div class="kv-row" style="grid-template-columns:200px 1fr;margin-bottom:14px;">
+          <select id="pmAuthType" class="pm-method" style="width:100%;">
+            <option value="none" ${pmState.auth.type==='none'?'selected':''}>No Auth</option>
+            <option value="bearer" ${pmState.auth.type==='bearer'?'selected':''}>Bearer Token</option>
+            <option value="basic" ${pmState.auth.type==='basic'?'selected':''}>Basic Auth</option>
+            <option value="apikey" ${pmState.auth.type==='apikey'?'selected':''}>API Key</option>
+          </select>
+          <span class="sql-hint" style="margin:0;align-self:center;">Applied automatically as a header (or query param) on Send — separate from the Headers tab, and enforced by the mock API on write requests.</span>
+        </div>
+        <div id="pmAuthFields"></div>
       </div>
       <div class="pm-panel ${pmState.activeReqTab==='headers'?'active':''}" id="pmPanelHeaders">
         <div id="headerRows"></div>
@@ -2193,52 +2369,291 @@ function renderPostman(root){
         <textarea class="pm-body-editor" id="pmBody" spellcheck="false">${esc(pmState.body)}</textarea>
         <p class="sql-hint" style="margin-top:8px;">Sent with POST / PUT / PATCH requests. Must be valid JSON.</p>
       </div>
+      <div class="pm-panel ${pmState.activeReqTab==='prereq'?'active':''}" id="pmPanelPreReq">
+        <textarea class="pm-body-editor" id="pmPreReq" spellcheck="false">${esc(pmState.preRequestScript)}</textarea>
+        <p class="sql-hint" style="margin-top:8px;">Runs automatically BEFORE Send, before {{variables}} are substituted into the URL/headers/body. Available: pm.globals / pm.collectionVariables / pm.environment / pm.variables (local), each with .get(key) / .set(key, value) / .unset(key). If this script throws, the request is not sent.</p>
+      </div>
       <div class="pm-panel ${pmState.activeReqTab==='tests'?'active':''}" id="pmPanelTests">
         <textarea class="pm-body-editor" id="pmTests" spellcheck="false">${esc(pmState.testsScript)}</textarea>
-        <p class="sql-hint" style="margin-top:8px;">Runs automatically after Send. Available: pm.test(name, fn), pm.response.status / .responseTime / .json(), pm.expect(x).to.equal/.not.equal/.include/.be.above/.be.below/.be.ok/.have.property(k).</p>
+        <p class="sql-hint" style="margin-top:8px;">Runs automatically after Send. Available: pm.test(name, fn), pm.response.status/.responseTime/.json()/.headers.get(name), pm.response.to.have.status(code)/.header(name)/.jsonSchema(schema), pm.expect(x).to.equal/.eql/.include/.not.*, .be.above/.below/.ok/.a()/.an(), .have.property(k)/.members([...])/.length(n), plus pm.globals/.collectionVariables/.environment/.variables.get/set/unset to extract values for later requests.</p>
       </div>
       <div class="pm-panel ${pmState.activeReqTab==='env'?'active':''}" id="pmPanelEnv">
-        <p class="sql-hint" style="margin-bottom:10px;">Define variables here, then reference them anywhere in the URL, headers, or body as <code>{{variableName}}</code> — just like a Postman environment.</p>
+        <p class="sql-hint" style="margin-bottom:14px;">Reference any variable anywhere as <code>{{name}}</code> — in the URL, params, headers or body. If the same name exists in more than one scope, the closest one wins: <b>Local → Environment → Collection → Global</b>.</p>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <b style="font-size:0.82rem;color:#fff;">🔒 Local variables</b><span class="sql-hint" style="margin:0;">— this request only</span>
+        </div>
+        <div id="localVarRows"></div>
+        <button class="btn btn-secondary btn-sm" onclick="pmAddLocalVarRow()">+ Add local variable</button>
+        <div style="display:flex;align-items:center;gap:8px;margin:18px 0 6px;flex-wrap:wrap;">
+          <b style="font-size:0.82rem;color:#fff;">🌎 Environment variables</b><span class="sql-hint" style="margin:0;">— ${pmActiveEnv()?esc(pmActiveEnv().name):'none selected'}</span>
+          <span style="margin-left:auto;display:flex;gap:6px;">
+            <button class="btn btn-secondary btn-sm" id="pmEnvNewBtn">+ New environment</button>
+            ${pmActiveEnv()?`<button class="btn btn-secondary btn-sm" id="pmEnvRenameBtn">✎ Rename</button><button class="btn btn-secondary btn-sm" id="pmEnvDeleteBtn">🗑 Delete</button>`:''}
+          </span>
+        </div>
         <div id="envRows"></div>
-        <button class="btn btn-secondary btn-sm" onclick="pmAddEnvRow()">+ Add variable</button>
+        <button class="btn btn-secondary btn-sm" onclick="pmAddEnvRow()">+ Add environment variable</button>
+        <div style="display:flex;align-items:center;gap:8px;margin:18px 0 6px;">
+          <b style="font-size:0.82rem;color:#fff;">📁 Collection variables</b><span class="sql-hint" style="margin:0;">— ${pmCurrentCollectionCtx()?esc(pmCurrentCollectionCtx().name):'none'}</span>
+        </div>
+        <div id="colVarRows"></div>
+        <button class="btn btn-secondary btn-sm" onclick="pmAddColVarRow()">+ Add collection variable</button>
+        <div style="display:flex;align-items:center;gap:8px;margin:18px 0 6px;">
+          <b style="font-size:0.82rem;color:#fff;">🌐 Global variables</b><span class="sql-hint" style="margin:0;">— shared everywhere</span>
+        </div>
+        <div id="globalVarRows"></div>
+        <button class="btn btn-secondary btn-sm" onclick="pmAddGlobalVarRow()">+ Add global variable</button>
       </div>
       <div class="pm-response-wrap" id="pmResponseWrap">
         <div class="pm-empty-response">Hit <b>Send</b> to see the response here.</div>
       </div>
     </div>
   </div>`;
-  $('#pmCollection').innerHTML = pmCollection.map(c=>`<span class="collection-item" data-m="${c.method}" data-u="${c.url}"><b>${c.method}</b>${c.url}</span>`).join('');
-  $all('.collection-item').forEach(item=>item.addEventListener('click',()=>{
-    pmState.method=item.dataset.m; pmState.url=item.dataset.u;
-    if(item.dataset.m==='POST' && item.dataset.u==='/api/products') pmState.body=JSON.stringify({name:'New Product',categoryId:1,price:49.99,stock:10,image:'🆕',description:'A brand new product.'},null,2);
-    else if(item.dataset.m==='POST' && item.dataset.u==='/api/login') pmState.body=JSON.stringify({email:'priya@example.com',password:'priya123'},null,2);
-    else if(item.dataset.m==='PUT' || item.dataset.m==='PATCH') pmState.body=JSON.stringify({price:99.99,stock:25},null,2);
-    renderPostman(root);
-  }));
+  renderPmTree();
   $('#pmMethod').addEventListener('change',e=>pmState.method=e.target.value);
   $('#pmUrl').addEventListener('input',e=>pmState.url=e.target.value);
   $('#pmBody').addEventListener('input',e=>pmState.body=e.target.value);
+  $('#pmPreReq').addEventListener('input',e=>pmState.preRequestScript=e.target.value);
   $('#pmTests').addEventListener('input',e=>pmState.testsScript=e.target.value);
   $all('#pmReqTabs .pm-tab').forEach(t=>t.addEventListener('click',()=>{ pmState.activeReqTab=t.dataset.t; renderPostman(root); }));
+  $('#pmAuthType').addEventListener('change',e=>{ pmState.auth.type=e.target.value; renderAuthFields(); });
   $('#pmSendBtn').addEventListener('click',sendPmRequest);
-  renderPmRows('params'); renderPmRows('headers'); renderEnvRows();
+  $('#pmSaveBtn').addEventListener('click',pmQuickSave);
+  $all('[data-viewex]').forEach(btn=>btn.addEventListener('click',()=>{ const [nodeId,idx]=btn.dataset.viewex.split(':'); pmViewSavedResponse(nodeId,Number(idx)); }));
+  $all('[data-delex]').forEach(btn=>btn.addEventListener('click',()=>{ const [nodeId,idx]=btn.dataset.delex.split(':'); pmDeleteSavedResponse(nodeId,Number(idx)); }));
+  $('#pmEnvSelect').addEventListener('change',e=>{ pmActiveEnvId=e.target.value||null; saveEnvironments(); renderPostman(root); });
+  $('#pmEnvNewBtn').addEventListener('click',()=>{
+    pmPromptModal('New environment name','Staging',name=>{
+      const id=uid('env'); pmEnvironments.push({id,name,vars:[]}); pmActiveEnvId=id; saveEnvironments(); renderPostman(root);
+    });
+  });
+  const renameBtn=$('#pmEnvRenameBtn'); if(renameBtn) renameBtn.addEventListener('click',()=>{
+    const env=pmActiveEnv(); if(!env) return;
+    pmPromptModal('Rename environment',env.name,name=>{ env.name=name; saveEnvironments(); renderPostman(root); });
+  });
+  const deleteBtn=$('#pmEnvDeleteBtn'); if(deleteBtn) deleteBtn.addEventListener('click',()=>{
+    const env=pmActiveEnv(); if(!env) return;
+    openConfirm('Delete "'+env.name+'"?','This removes the environment and all its variables.',()=>{
+      pmEnvironments=pmEnvironments.filter(e=>e.id!==env.id);
+      pmActiveEnvId=pmEnvironments.length?pmEnvironments[0].id:null;
+      saveEnvironments(); renderPostman(root);
+    });
+  });
+  renderPmRows('params'); renderPmRows('headers'); renderAuthFields(); renderEnvRows(); renderGlobalVarRows(); renderColVarRows(); renderLocalVarRows();
+}
+/* ---- Collection / folder / request tree ---- */
+function pmTreeNodeHTML(n,depth){
+  if(n.type==='req'){
+    const active=pmState.savedId===n.id;
+    return `<div class="pm-tree-row pm-tree-req ${active?'active':''}" style="padding-left:${depth*16+18}px" data-open="${n.id}">
+      <span class="pm-tree-method m-${n.method}">${n.method}</span><span class="pm-tree-name">${esc(n.name)}</span>
+      <span class="pm-tree-actions"><button data-rn="${n.id}" title="Rename">✎</button><button data-del="${n.id}" title="Delete">🗑</button></span>
+    </div>`;
+  }
+  const icon=n.type==='collection'?'📁':'📂', chev=n.open?'▾':'▸';
+  const kids = n.open ? (n.items||[]).map(c=>pmTreeNodeHTML(c,depth+1)).join('') : '';
+  return `<div class="pm-tree-row pm-tree-group" style="padding-left:${depth*16}px" data-toggle="${n.id}">
+      <span class="pm-tree-chevron">${chev}</span><span class="pm-tree-gname">${icon} ${esc(n.name)}</span>
+      <span class="pm-tree-actions">
+        <button data-addreq="${n.id}" title="Add request">+Req</button>
+        ${n.type==='collection'?`<button data-addfld="${n.id}" title="Add folder">+Fld</button>`:''}
+        <button data-rn="${n.id}" title="Rename">✎</button><button data-del="${n.id}" title="Delete">🗑</button>
+      </span>
+    </div>${kids}`;
+}
+function renderPmTree(){
+  const wrap=$('#pmTree'); if(!wrap) return;
+  wrap.innerHTML = pmCollections.map(c=>pmTreeNodeHTML(c,0)).join('') +
+    `<button class="btn btn-secondary btn-sm" id="pmAddColBtn" style="margin-top:6px;">+ New Collection</button>`;
+  $all('[data-toggle]',wrap).forEach(el=>el.addEventListener('click',()=>{ pmFindNode(el.dataset.toggle).open=!pmFindNode(el.dataset.toggle).open; renderPmTree(); }));
+  $all('[data-open]',wrap).forEach(el=>el.addEventListener('click',e=>{ if(e.target.closest('.pm-tree-actions')) return; pmLoadRequest(el.dataset.open); }));
+  $all('[data-addreq]',wrap).forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); pmAddRequestTo(el.dataset.addreq); }));
+  $all('[data-addfld]',wrap).forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); pmAddFolderTo(el.dataset.addfld); }));
+  $all('[data-rn]',wrap).forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); pmRenameNode(el.dataset.rn); }));
+  $all('[data-del]',wrap).forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); pmDeleteNode(el.dataset.del); }));
+  const addCol=$('#pmAddColBtn'); if(addCol) addCol.addEventListener('click',()=>{
+    pmPromptModal('New collection name','New Collection',name=>{
+      pmCollections.push({type:'collection',id:uid('col'),name,open:true,items:[]}); savePmCollections(); renderPmTree();
+    });
+  });
+}
+function pmAddFolderTo(colId){
+  const col=pmFindNode(colId); if(!col) return;
+  pmPromptModal('New folder name','New Folder',name=>{
+    col.open=true; col.items=col.items||[]; col.items.push({type:'folder',id:uid('fld'),name,open:true,items:[]});
+    savePmCollections(); renderPmTree();
+  });
+}
+function pmAddRequestTo(parentId){
+  const parent=pmFindNode(parentId); if(!parent) return;
+  const req={type:'req',id:uid('req'),name:'New Request',method:'GET',url:'/api/products',params:[{k:'',v:''}],headers:[],body:'',testsScript:'',preRequestScript:'',localVars:[]};
+  parent.open=true; parent.items=parent.items||[]; parent.items.push(req);
+  savePmCollections(); pmLoadRequest(req.id);
+}
+function pmRenameNode(id){
+  const n=pmFindNode(id); if(!n) return;
+  pmPromptModal('Rename to',n.name,name=>{
+    n.name=name; if(pmState.savedId===id) pmState.name=name;
+    savePmCollections(); renderPostman($('#app'));
+  });
+}
+function pmDeleteNode(id){
+  const arr=pmFindParentArray(id); if(!arr) return;
+  openConfirm('Delete this item?','This will permanently remove it and anything inside it.',()=>{
+    const idx=arr.findIndex(n=>n.id===id); if(idx>-1) arr.splice(idx,1);
+    if(pmState.savedId===id){ pmState.savedId=null; pmState.name='Untitled Request'; }
+    savePmCollections(); renderPostman($('#app'));
+  });
+}
+function pmLoadRequest(id){
+  const n=pmFindNode(id); if(!n||n.type!=='req') return;
+  pmState.method=n.method; pmState.url=n.url;
+  pmState.params=(n.params&&n.params.length?JSON.parse(JSON.stringify(n.params)):[{k:'',v:''}]);
+  pmState.headers=n.headers?JSON.parse(JSON.stringify(n.headers)):[];
+  pmState.body=n.body||''; pmState.preRequestScript=n.preRequestScript||''; pmState.testsScript=n.testsScript||'';
+  pmState.localVars=n.localVars?JSON.parse(JSON.stringify(n.localVars)):[];
+  pmState.auth=n.auth?JSON.parse(JSON.stringify(n.auth)):{type:'none',bearerToken:'',basicUser:'',basicPass:'',apiKeyName:'X-API-Key',apiKeyValue:'',apiKeyIn:'header'};
+  pmState.savedId=id; pmState.name=n.name;
+  renderPostman($('#app'));
+}
+function pmQuickSave(){
+  if(pmState.savedId){
+    const n=pmFindNode(pmState.savedId);
+    if(n){ n.method=pmState.method; n.url=pmState.url; n.params=pmState.params; n.headers=pmState.headers; n.body=pmState.body; n.preRequestScript=pmState.preRequestScript; n.testsScript=pmState.testsScript; n.localVars=pmState.localVars; n.auth=pmState.auth;
+      savePmCollections(); showToast('Saved "'+n.name+'"'); return; }
+  }
+  pmOpenSaveModal();
+}
+function pmOpenSaveModal(){
+  function pickerHTML(nodes,depth){
+    return nodes.filter(n=>n.type!=='req').map(n=>`
+      <div class="pm-save-row" style="padding-left:${depth*16}px;">
+        <span>${n.type==='collection'?'📁':'📂'} ${esc(n.name)}</span>
+        <button class="btn btn-secondary btn-sm" data-savehere="${n.id}">Save here</button>
+      </div>${pickerHTML(n.items||[],depth+1)}`).join('');
+  }
+  $('#pmSaveModalBody').innerHTML=`
+    <div class="kv-row" style="grid-template-columns:1fr;margin-bottom:14px;">
+      <input id="pmSaveNameInput" placeholder="Request name" value="${esc(pmState.name==='Untitled Request'?'':pmState.name)}">
+    </div>
+    <div style="max-height:260px;overflow-y:auto;">${pickerHTML(pmCollections,0) || '<p class="sql-hint">No collections yet — create one first.</p>'}</div>
+    <button class="btn btn-secondary btn-sm" id="pmSaveNewColBtn" style="margin-top:10px;">+ New Collection</button>`;
+  openModal('pmSaveModal');
+  $all('[data-savehere]').forEach(btn=>btn.addEventListener('click',()=>{
+    const name=$('#pmSaveNameInput').value.trim()||'Untitled Request';
+    const parent=pmFindNode(btn.dataset.savehere); if(!parent) return;
+    const req={type:'req',id:uid('req'),name,method:pmState.method,url:pmState.url,params:pmState.params,headers:pmState.headers,body:pmState.body,preRequestScript:pmState.preRequestScript,testsScript:pmState.testsScript,localVars:pmState.localVars,auth:pmState.auth};
+    parent.open=true; parent.items=parent.items||[]; parent.items.push(req);
+    pmState.savedId=req.id; pmState.name=name;
+    savePmCollections(); closeModal('pmSaveModal'); renderPostman($('#app')); showToast('Saved "'+name+'"');
+  }));
+  $('#pmSaveNewColBtn').addEventListener('click',()=>{
+    pmPromptModal('New collection name','New Collection',name=>{
+      pmCollections.push({type:'collection',id:uid('col'),name,open:true,items:[]}); savePmCollections(); pmOpenSaveModal();
+    });
+  });
+}
+function renderAuthFields(){
+  const wrap=$('#pmAuthFields'); if(!wrap) return;
+  pmState.auth=pmState.auth||{type:'none'};
+  const a=pmState.auth;
+  if(a.type==='bearer'){
+    wrap.innerHTML=`<div class="kv-row" style="grid-template-columns:1fr;">
+      <input placeholder="Token, e.g. {{authToken}}" value="${esc(a.bearerToken||'')}" oninput="pmState.auth.bearerToken=this.value">
+    </div>
+    <p class="sql-hint" style="margin-top:8px;">Sent as header <code>Authorization: Bearer &lt;token&gt;</code>. Try <code>{{authToken}}</code> after running Login.</p>`;
+  }else if(a.type==='basic'){
+    wrap.innerHTML=`<div class="kv-row" style="grid-template-columns:1fr 1fr;">
+      <input placeholder="Username / email" value="${esc(a.basicUser||'')}" oninput="pmState.auth.basicUser=this.value">
+      <input placeholder="Password" value="${esc(a.basicPass||'')}" oninput="pmState.auth.basicPass=this.value">
+    </div>
+    <p class="sql-hint" style="margin-top:8px;">Sent as header <code>Authorization: Basic &lt;base64(user:pass)&gt;</code>. Try a customer's email/password, e.g. <code>priya@example.com</code> / <code>priya123</code>.</p>`;
+  }else if(a.type==='apikey'){
+    wrap.innerHTML=`<div class="kv-row" style="grid-template-columns:1fr 1fr;">
+      <input placeholder="Key name (e.g. X-API-Key)" value="${esc(a.apiKeyName||'X-API-Key')}" oninput="pmState.auth.apiKeyName=this.value">
+      <input placeholder="Value" value="${esc(a.apiKeyValue||'')}" oninput="pmState.auth.apiKeyValue=this.value">
+    </div>
+    <select style="margin-top:8px;" onchange="pmState.auth.apiKeyIn=this.value">
+      <option value="header" ${a.apiKeyIn!=='query'?'selected':''}>Add to Header</option>
+      <option value="query" ${a.apiKeyIn==='query'?'selected':''}>Add to Query Params</option>
+    </select>
+    <p class="sql-hint" style="margin-top:8px;">Sandbox key that always works: <code>sandbox-api-key-123</code></p>`;
+  }else{
+    wrap.innerHTML='<p class="sql-hint">This request does not use authorization.</p>';
+  }
+}
+function pmComputeAuth(){
+  const a=pmState.auth||{type:'none'};
+  if(a.type==='bearer'){
+    const token=pmSubstituteVars(a.bearerToken||'');
+    return token? {headers:{Authorization:'Bearer '+token},query:{}} : {headers:{},query:{}};
+  }
+  if(a.type==='basic'){
+    const user=pmSubstituteVars(a.basicUser||''), pass=pmSubstituteVars(a.basicPass||'');
+    if(!user && !pass) return {headers:{},query:{}};
+    return {headers:{Authorization:'Basic '+btoa(user+':'+pass)},query:{}};
+  }
+  if(a.type==='apikey'){
+    const name=pmSubstituteVars(a.apiKeyName||'X-API-Key')||'X-API-Key', val=pmSubstituteVars(a.apiKeyValue||'');
+    if(!val) return {headers:{},query:{}};
+    return a.apiKeyIn==='query' ? {headers:{},query:{[name]:val}} : {headers:{[name]:val},query:{}};
+  }
+  return {headers:{},query:{}};
 }
 function renderEnvRows(){
-  const wrap=$('#envRows');
-  if(!wrap) return;
-  wrap.innerHTML=pmEnvironment.map((row,i)=>`
+  const wrap=$('#envRows'); if(!wrap) return;
+  const env=pmActiveEnv();
+  if(!env){ wrap.innerHTML='<p class="sql-hint">No environment selected. Choose or create one from the dropdown in the request bar.</p>'; return; }
+  wrap.innerHTML=(env.vars.map((row,i)=>`
     <div class="kv-row">
-      <input placeholder="Variable name" value="${esc(row.k)}" onchange="pmEnvironment[${i}].k=this.value">
-      <input placeholder="Value" value="${esc(row.v)}" onchange="pmEnvironment[${i}].v=this.value">
-      <button class="kv-remove" onclick="pmEnvironment.splice(${i},1);renderEnvRows();">✕</button>
-    </div>`).join('');
+      <input placeholder="Variable name" value="${esc(row.k)}" onchange="pmActiveEnv().vars[${i}].k=this.value;saveEnvironments();">
+      <input placeholder="Value" value="${esc(row.v)}" onchange="pmActiveEnv().vars[${i}].v=this.value;saveEnvironments();">
+      <button class="kv-remove" onclick="pmActiveEnv().vars.splice(${i},1);saveEnvironments();renderEnvRows();">✕</button>
+    </div>`).join('')) || '<p class="sql-hint">No variables in this environment yet.</p>';
 }
-function pmAddEnvRow(){ pmEnvironment.push({k:'',v:''}); renderEnvRows(); }
+function pmAddEnvRow(){ const env=pmActiveEnv(); if(!env){ showToast('Select or create an environment first.'); return; } env.vars.push({k:'',v:''}); saveEnvironments(); renderEnvRows(); }
+function renderGlobalVarRows(){
+  const wrap=$('#globalVarRows'); if(!wrap) return;
+  wrap.innerHTML=(pmGlobals.map((row,i)=>`
+    <div class="kv-row">
+      <input placeholder="Variable name" value="${esc(row.k)}" onchange="pmGlobals[${i}].k=this.value;saveGlobals();">
+      <input placeholder="Value" value="${esc(row.v)}" onchange="pmGlobals[${i}].v=this.value;saveGlobals();">
+      <button class="kv-remove" onclick="pmGlobals.splice(${i},1);saveGlobals();renderGlobalVarRows();">✕</button>
+    </div>`).join('')) || '<p class="sql-hint">No global variables yet. Visible everywhere, in every collection and environment.</p>';
+}
+function pmAddGlobalVarRow(){ pmGlobals.push({k:'',v:''}); saveGlobals(); renderGlobalVarRows(); }
+function renderColVarRows(){
+  const wrap=$('#colVarRows'); if(!wrap) return;
+  const col=pmCurrentCollectionCtx();
+  if(!col){ wrap.innerHTML='<p class="sql-hint">Create or save into a collection first.</p>'; return; }
+  col.variables=col.variables||[];
+  wrap.innerHTML=(col.variables.map((row,i)=>`
+    <div class="kv-row">
+      <input placeholder="Variable name" value="${esc(row.k)}" onchange="pmCurrentCollectionCtx().variables[${i}].k=this.value;savePmCollections();">
+      <input placeholder="Value" value="${esc(row.v)}" onchange="pmCurrentCollectionCtx().variables[${i}].v=this.value;savePmCollections();">
+      <button class="kv-remove" onclick="pmCurrentCollectionCtx().variables.splice(${i},1);savePmCollections();renderColVarRows();">✕</button>
+    </div>`).join('')) || '<p class="sql-hint">No collection variables yet. Shared by every request in this collection.</p>';
+}
+function pmAddColVarRow(){ const col=pmCurrentCollectionCtx(); if(!col){ showToast('Create or save into a collection first.'); return; } col.variables=col.variables||[]; col.variables.push({k:'',v:''}); savePmCollections(); renderColVarRows(); }
+function renderLocalVarRows(){
+  const wrap=$('#localVarRows'); if(!wrap) return;
+  pmState.localVars=pmState.localVars||[];
+  wrap.innerHTML=(pmState.localVars.map((row,i)=>`
+    <div class="kv-row">
+      <input placeholder="Variable name" value="${esc(row.k)}" onchange="pmState.localVars[${i}].k=this.value">
+      <input placeholder="Value" value="${esc(row.v)}" onchange="pmState.localVars[${i}].v=this.value">
+      <button class="kv-remove" onclick="pmState.localVars.splice(${i},1);renderLocalVarRows();">✕</button>
+    </div>`).join('')) || '<p class="sql-hint">No local variables. These apply only to this request and are saved with it.</p>';
+}
+function pmAddLocalVarRow(){ pmState.localVars=pmState.localVars||[]; pmState.localVars.push({k:'',v:''}); renderLocalVarRows(); }
 function pmSubstituteVars(str){
   if(!str) return str;
   return str.replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (match,name)=>{
-    const v=pmEnvironment.find(e=>e.k===name);
-    return v ? v.v : match;
+    const local=(pmState.localVars||[]).find(e=>e.k===name); if(local) return local.v;
+    const env=pmActiveEnv(); const envVar=env&&env.vars.find(e=>e.k===name); if(envVar) return envVar.v;
+    const col=pmCurrentCollectionCtx(); const colVar=col&&(col.variables||[]).find(e=>e.k===name); if(colVar) return colVar.v;
+    const g=pmGlobals.find(e=>e.k===name); if(g) return g.v;
+    return match;
   });
 }
 function renderPmHistoryItems(){
@@ -2283,8 +2698,28 @@ function syntaxHighlightJSON(obj){
 }
 
 /* ---- Mock REST API router, shares DB with the rest of the app ---- */
-function mockApiRequest(method,url,bodyStr,persist){
+function pmGetHeaderCI(headers,name){
+  const key=Object.keys(headers||{}).find(k=>k.toLowerCase()===name.toLowerCase());
+  return key?headers[key]:undefined;
+}
+function pmIsAuthorized(reqHeaders,query){
+  const authVal=pmGetHeaderCI(reqHeaders,'Authorization')||'';
+  if(/^Bearer\s+mock-jwt-/.test(authVal)) return true;
+  if(/^Basic\s+/i.test(authVal)){
+    try{
+      const decoded=atob(authVal.replace(/^Basic\s+/i,'').trim());
+      const idx=decoded.indexOf(':');
+      const email=decoded.slice(0,idx), pass=decoded.slice(idx+1);
+      if(DB.customers.some(c=>c.email.toLowerCase()===String(email||'').toLowerCase() && c.password===pass)) return true;
+    }catch(e){ /* malformed base64, falls through to unauthorized */ }
+  }
+  const apiKeyVal=pmGetHeaderCI(reqHeaders,'X-API-Key') || (query?query.get('apiKey'):null);
+  if(apiKeyVal==='sandbox-api-key-123') return true;
+  return false;
+}
+function mockApiRequest(method,url,bodyStr,persist,reqHeaders){
   if(persist===undefined) persist=true;
+  reqHeaders=reqHeaders||{};
   const [pathOnly,queryStr]=url.split('?');
   const segs=pathOnly.split('/').filter(Boolean); // ['api','products','1']
   const query=new URLSearchParams(queryStr||'');
@@ -2301,12 +2736,18 @@ function mockApiRequest(method,url,bodyStr,persist){
     try{ payload=JSON.parse(bodyStr||'{}'); }catch(e){ return {status:400,body:{error:'Bad Request',message:'Body is not valid JSON.'}}; }
     const user=DB.customers.find(c=>c.email.toLowerCase()===String(payload.email||'').toLowerCase());
     if(!user || user.password!==payload.password) return {status:401,body:{error:'Unauthorized',message:'Invalid email or password.'}};
-    return {status:200,body:{token:'mock-jwt-'+uid('tok'),user:{id:user.id,name:user.name,email:user.email,role:user.role}}};
+    const sessionToken='mock-jwt-'+uid('tok');
+    return {status:200,body:{token:sessionToken,user:{id:user.id,name:user.name,email:user.email,role:user.role}},
+      headers:{'Set-Cookie':'sessionId='+sessionToken+'; Path=/; HttpOnly; Max-Age=3600'}};
   }
 
   if(!resourceMap[resource]) return {status:404,body:{error:'Not Found',message:"Unknown resource '"+resource+"'. Try products, categories, customers, orders, reviews or cms."}};
   const table=resourceMap[resource];
   const allowHeader='GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS';
+
+  if(!['GET','HEAD','OPTIONS'].includes(method) && !pmIsAuthorized(reqHeaders,query)){
+    return {status:401,body:{error:'Unauthorized',message:'This endpoint requires authentication for write requests. Use the Authorization tab: Bearer <token from Login>, Basic <a customer email/password>, or API Key "sandbox-api-key-123" (as X-API-Key header or ?apiKey= query param).'}};
+  }
 
   if(method==='OPTIONS'){
     return {status:204,body:null,headers:{Allow:allowHeader}};
@@ -2383,12 +2824,50 @@ function renderPmHeadersHTML(headers){
     <div style="color:#fff;font-family:var(--font-mono);font-size:0.8rem;">${esc(String(headers[k]))}</div>
   `).join('')}</div>`;
 }
+function pmScopeSandbox(getArr,persistFn){
+  return {
+    get(key){ const arr=getArr(); const v=arr.find(e=>e.k===key); return v?v.v:undefined; },
+    set(key,val){ const arr=getArr(); const v=arr.find(e=>e.k===key); if(v) v.v=String(val); else arr.push({k:String(key),v:String(val)}); if(persistFn) persistFn(); },
+    unset(key){ const arr=getArr(); const i=arr.findIndex(e=>e.k===key); if(i>-1){ arr.splice(i,1); if(persistFn) persistFn(); } },
+  };
+}
+function pmBuildScriptScopes(){
+  return {
+    globals: pmScopeSandbox(()=>pmGlobals, saveGlobals),
+    environment: pmScopeSandbox(()=>{ let e=pmActiveEnv(); if(!e){ const id=uid('env'); e={id,name:'Environment',vars:[]}; pmEnvironments.push(e); pmActiveEnvId=id; } return e.vars; }, saveEnvironments),
+    collectionVariables: pmScopeSandbox(()=>{ const c=pmCurrentCollectionCtx(); if(!c) return []; c.variables=c.variables||[]; return c.variables; }, savePmCollections),
+    variables: pmScopeSandbox(()=>{ pmState.localVars=pmState.localVars||[]; return pmState.localVars; }, null),
+  };
+}
+function runPmPreRequest(script){
+  if(!script || !script.trim()) return {ok:true};
+  const pmSandbox=pmBuildScriptScopes();
+  try{
+    const runner=new Function('pm','"use strict";\n'+script);
+    runner(pmSandbox);
+    return {ok:true};
+  }catch(e){
+    return {ok:false,error:e.message};
+  }
+}
 function sendPmRequest(){
+  const pre=runPmPreRequest(pmState.preRequestScript);
+  if(!pre.ok){
+    showToast('Pre-request script error: '+pre.error,'error');
+    $('#pmResponseWrap').innerHTML=`<div class="pm-empty-response" style="color:#ff9d92;">Pre-request script threw an error, so the request was not sent:<br><span style="font-family:var(--font-mono);">${esc(pre.error)}</span></div>`;
+    return;
+  }
+  if($('#envRows')) renderEnvRows();
   const method=pmState.method, rawUrl=pmSubstituteVars(pmState.url.trim());
   if(!rawUrl){ showToast('Enter a URL first.'); return; }
   let url=rawUrl;
   const extraParams=pmState.params.filter(p=>p.k).map(p=>`${encodeURIComponent(pmSubstituteVars(p.k))}=${encodeURIComponent(pmSubstituteVars(p.v))}`).join('&');
   if(extraParams) url += (url.includes('?')?'&':'?') + extraParams;
+  const reqHeaders={};
+  pmState.headers.filter(h=>h.k).forEach(h=>{ reqHeaders[pmSubstituteVars(h.k)]=pmSubstituteVars(h.v); });
+  const authResult=pmComputeAuth();
+  Object.assign(reqHeaders,authResult.headers);
+  Object.entries(authResult.query).forEach(([k,v])=>{ url += (url.includes('?')?'&':'?') + encodeURIComponent(k)+'='+encodeURIComponent(v); });
   const startTime=performance.now();
   const substitutedBody=pmSubstituteVars(pmState.body);
   let result;
@@ -2396,13 +2875,16 @@ function sendPmRequest(){
     try{ JSON.parse(substitutedBody); }
     catch(e){ result={status:400,body:{error:'Bad Request',message:'Request body is not valid JSON: '+e.message}}; }
   }
-  if(!result) result=mockApiRequest(method,url,substitutedBody);
+  if(!result) result=mockApiRequest(method,url,substitutedBody,undefined,reqHeaders);
   const ms=Math.max(8,Math.round(performance.now()-startTime + Math.random()*40));
   const statusClass = result.status>=500?'status-5xx': result.status>=400?'status-4xx':'status-2xx';
   const statusText={200:'OK',201:'Created',204:'No Content',400:'Bad Request',401:'Unauthorized',404:'Not Found',405:'Method Not Allowed',500:'Internal Server Error'}[result.status]||'';
   const bodySize=JSON.stringify(result.body===undefined?null:result.body).length;
   const respHeaders=buildResponseHeaders(result,method,ms,bodySize);
-  pmLastTestResults=runPmTests(pmState.testsScript,result,ms);
+  if(respHeaders['set-cookie']) pmUpsertCookie(respHeaders['set-cookie']);
+  pmLastResponse={status:result.status,body:result.body===undefined?null:result.body,ms};
+  pmLastTestResults=runPmTests(pmState.testsScript,result,ms,respHeaders);
+  if($('#envRows')) renderEnvRows();
   const passCount=pmLastTestResults.filter(t=>t.pass).length;
   const failCount=pmLastTestResults.length-passCount;
   pmHistory.push({method,url,status:result.status,ts:Date.now()});
@@ -2415,61 +2897,89 @@ function sendPmRequest(){
       <span class="pm-meta-chip">⏱ ${ms} ms</span>
       <span class="pm-meta-chip">📦 ${bodySize} B</span>
       <span class="pm-meta-chip">${method} ${esc(url)}</span>
-      ${pmLastTestResults.length? `<span class="pm-meta-chip" style="margin-left:auto;color:${failCount?'#ff9d92':'#7fd9b9'};">${failCount? '✖ '+failCount+' failed' : '✓ '+passCount+' passed'}</span>` : ''}
+      <button class="btn btn-secondary btn-sm" id="pmExtractBtn" style="margin-left:auto;">🔗 Extract to variable</button>
+      <button class="btn btn-secondary btn-sm" id="pmSaveRespBtn">💾 Save Response</button>
+      ${pmLastTestResults.length? `<span class="pm-meta-chip" style="color:${failCount?'#ff9d92':'#7fd9b9'};">${failCount? '✖ '+failCount+' failed' : '✓ '+passCount+' passed'}</span>` : ''}
     </div>
     <div class="pm-tabs" style="padding:0 18px;margin:0;" id="pmRespTabs">
       <div class="pm-tab active" data-rt="body">Body</div>
       <div class="pm-tab" data-rt="headers">Headers (${Object.keys(respHeaders).length})</div>
+      <div class="pm-tab" data-rt="cookies">Cookies (${pmCookieJar.length})</div>
       <div class="pm-tab" data-rt="tests">Test Results ${pmLastTestResults.length? `(${passCount}/${pmLastTestResults.length})`:''}</div>
     </div>
     <div class="pm-panel active" id="pmRespBody"><div class="pm-response-body">${syntaxHighlightJSON(result.body===undefined?null:result.body)}</div></div>
     <div class="pm-panel" id="pmRespHeaders"><div class="pm-response-body" style="white-space:normal;">${renderPmHeadersHTML(respHeaders)}</div></div>
+    <div class="pm-panel" id="pmRespCookies"><div style="padding:14px 18px;"><div id="cookieRows"></div><button class="btn btn-secondary btn-sm" onclick="pmAddCookieRow()">+ Add cookie</button></div></div>
     <div class="pm-panel" id="pmRespTests"><div class="pm-response-body" style="white-space:normal;">${renderPmTestResultsHTML(pmLastTestResults)}</div></div>
   `;
+  renderCookieRows();
+  $('#pmSaveRespBtn').addEventListener('click',pmSaveResponseExample);
+  $('#pmExtractBtn').addEventListener('click',pmExtractToVariable);
   $all('#pmRespTabs .pm-tab').forEach(t=>t.addEventListener('click',()=>{
     $all('#pmRespTabs .pm-tab').forEach(x=>x.classList.remove('active'));
     t.classList.add('active');
     $('#pmRespBody').classList.toggle('active', t.dataset.rt==='body');
     $('#pmRespHeaders').classList.toggle('active', t.dataset.rt==='headers');
+    $('#pmRespCookies').classList.toggle('active', t.dataset.rt==='cookies');
     $('#pmRespTests').classList.toggle('active', t.dataset.rt==='tests');
   }));
 }
 
 /* ---- Postman-style test runner: pm.test() / pm.expect() sandboxed against the response ---- */
-function runPmTests(script,result,ms){
+function runPmTests(script,result,ms,headers){
   if(!script || !script.trim()) return [];
-  const results=[];
+  const results=[]; const hdrs=headers||{};
+  function typeOf(v){ if(v===null) return 'null'; if(Array.isArray(v)) return 'array'; return typeof v; }
+  function isType(actual,type){ const t=String(type).toLowerCase(); if(t==='integer') return typeOf(actual)==='number'&&Number.isInteger(actual); return typeOf(actual)===t; }
+  function deepEqual(a,b){ if(a===b) return true; try{ return JSON.stringify(a)===JSON.stringify(b); }catch(e){ return false; } }
+  function sameMembers(a,b){ if(!Array.isArray(a)||!Array.isArray(b)||a.length!==b.length) return false; const s1=[...a].sort(),s2=[...b].sort(); return s1.every((v,i)=>deepEqual(v,s2[i])); }
+  function validateSchema(data,schema,path){
+    const errs=[]; if(!schema) return errs;
+    if(schema.type && !isType(data,schema.type)) errs.push(path+' should be '+schema.type+' but got '+typeOf(data));
+    if(schema.type==='object' && schema.properties) Object.entries(schema.properties).forEach(([k,sub])=>{ if(data&&Object.prototype.hasOwnProperty.call(data,k)) errs.push(...validateSchema(data[k],sub,path+'.'+k)); });
+    if(schema.type==='object' && schema.required) schema.required.forEach(k=>{ if(!data||!Object.prototype.hasOwnProperty.call(data,k)) errs.push(path+' missing required property "'+k+'"'); });
+    if(schema.type==='array' && schema.items && Array.isArray(data)) data.forEach((item,i)=>errs.push(...validateSchema(item,schema.items,path+'['+i+']')));
+    return errs;
+  }
   function expect(actual){
-    const self={
-      to:{
-        equal(exp){ if(actual!==exp) throw new Error('expected '+JSON.stringify(actual)+' to equal '+JSON.stringify(exp)); return self; },
-        include(exp){
-          const ok = Array.isArray(actual)||typeof actual==='string' ? actual.includes(exp) : (actual && Object.prototype.hasOwnProperty.call(actual,exp));
-          if(!ok) throw new Error('expected '+JSON.stringify(actual)+' to include '+JSON.stringify(exp)); return self;
-        },
-        not:{
-          equal(exp){ if(actual===exp) throw new Error('expected '+JSON.stringify(actual)+' to not equal '+JSON.stringify(exp)); return self; },
-        },
-        be:{
-          above(n){ if(!(Number(actual)>n)) throw new Error('expected '+actual+' to be above '+n); return self; },
-          below(n){ if(!(Number(actual)<n)) throw new Error('expected '+actual+' to be below '+n); return self; },
-          ok(){ if(!actual) throw new Error('expected '+JSON.stringify(actual)+' to be truthy'); return self; },
-          a(type){ if(typeof actual!==type) throw new Error('expected '+JSON.stringify(actual)+' to be a '+type); return self; },
-          have:{ property(key){ if(!actual || !Object.prototype.hasOwnProperty.call(actual,key)) throw new Error('expected object to have property "'+key+'"'); return self; } },
-        },
-        have:{ property(key){ if(!actual || !Object.prototype.hasOwnProperty.call(actual,key)) throw new Error('expected object to have property "'+key+'"'); return self; } },
-      }
+    const self={to:{}};
+    self.to.equal=exp=>{ if(actual!==exp) throw new Error('expected '+JSON.stringify(actual)+' to equal '+JSON.stringify(exp)); return self; };
+    self.to.eql=exp=>{ if(!deepEqual(actual,exp)) throw new Error('expected '+JSON.stringify(actual)+' to eql '+JSON.stringify(exp)); return self; };
+    self.to.include=exp=>{ const ok=Array.isArray(actual)||typeof actual==='string'?actual.includes(exp):(actual&&Object.prototype.hasOwnProperty.call(actual,exp)); if(!ok) throw new Error('expected '+JSON.stringify(actual)+' to include '+JSON.stringify(exp)); return self; };
+    self.to.not={
+      equal(exp){ if(actual===exp) throw new Error('expected not to equal '+JSON.stringify(exp)); return self; },
+      eql(exp){ if(deepEqual(actual,exp)) throw new Error('expected not to eql '+JSON.stringify(exp)); return self; },
+    };
+    self.to.be={
+      above(n){ if(!(Number(actual)>n)) throw new Error('expected '+actual+' to be above '+n); return self; },
+      below(n){ if(!(Number(actual)<n)) throw new Error('expected '+actual+' to be below '+n); return self; },
+      ok(){ if(!actual) throw new Error('expected '+JSON.stringify(actual)+' to be truthy'); return self; },
+      a(type){ if(!isType(actual,type)) throw new Error('expected '+JSON.stringify(actual)+' to be a '+type); return self; },
+      an(type){ if(!isType(actual,type)) throw new Error('expected '+JSON.stringify(actual)+' to be an '+type); return self; },
+    };
+    self.to.have={
+      property(key){ if(!actual||!Object.prototype.hasOwnProperty.call(actual,key)) throw new Error('expected object to have property "'+key+'"'); return self; },
+      members(arr){ if(!sameMembers(actual,arr)) throw new Error('expected '+JSON.stringify(actual)+' to have members '+JSON.stringify(arr)); return self; },
+      length(n){ if(!actual||actual.length!==n) throw new Error('expected length '+(actual&&actual.length)+' to equal '+n); return self; },
     };
     return self;
   }
-  const pmSandbox={
-    response:{ status:result.status, responseTime:ms, json(){ return result.body; } },
-    test(name,fn){
-      try{ fn(); results.push({name:String(name),pass:true}); }
-      catch(e){ results.push({name:String(name),pass:false,error:e.message}); }
-    },
-    expect,
+  const responseObj={
+    status:result.status, code:result.status, responseTime:ms,
+    headers:{ get(name){ const v=hdrs[String(name).toLowerCase()]; return v===undefined?null:v; }, has(name){ return Object.prototype.hasOwnProperty.call(hdrs,String(name).toLowerCase()); } },
+    json(){ return result.body; }, text(){ return JSON.stringify(result.body); },
   };
+  responseObj.to={ have:{
+    status(code){ if(responseObj.status!==code) throw new Error('expected status '+code+' but got '+responseObj.status); },
+    header(name){ if(!responseObj.headers.has(name)) throw new Error('expected header "'+name+'" to be present'); },
+    jsonSchema(schema){ const errs=validateSchema(result.body,schema,'body'); if(errs.length) throw new Error(errs.join('; ')); },
+  }};
+  const scopes=pmBuildScriptScopes();
+  const pmSandbox=Object.assign({
+    response:responseObj,
+    test(name,fn){ try{ fn(); results.push({name:String(name),pass:true}); } catch(e){ results.push({name:String(name),pass:false,error:e.message}); } },
+    expect,
+  },scopes);
   try{
     const runner=new Function('pm','"use strict";\n'+script);
     runner(pmSandbox);
@@ -3310,6 +3820,22 @@ function exportPerfCsv(){
 </script>
 <script>
 /* ---------------------------- INIT ---------------------------- */
+let pmInputModalCallback=null;
+function pmPromptModal(title,defaultVal,cb){
+  $('#pmInputModalTitle').textContent=title;
+  $('#pmInputModalField').value=defaultVal||'';
+  pmInputModalCallback=cb;
+  openModal('pmInputModal');
+  setTimeout(()=>$('#pmInputModalField').focus(),50);
+}
+function pmInputModalSubmit(){
+  const val=$('#pmInputModalField').value.trim();
+  if(!val) return;
+  closeModal('pmInputModal');
+  if(pmInputModalCallback) pmInputModalCallback(val);
+}
+$('#pmInputModalConfirm').addEventListener('click',pmInputModalSubmit);
+$('#pmInputModalField').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); pmInputModalSubmit(); } });
 loadState();
 render();
 </script>
