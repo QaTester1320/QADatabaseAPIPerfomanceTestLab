@@ -390,6 +390,10 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
 .pm-empty-response{padding:60px 20px;text-align:center;color:var(--purple-300);}
 .collection-list{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
 .collection-item{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);color:var(--purple-100);font-family:var(--font-mono);font-size:0.76rem;padding:7px 12px;border-radius:999px;}
+.pm-layout{display:flex;gap:22px;align-items:flex-start;}
+.pm-sidebar{width:300px;flex-shrink:0;position:sticky;top:16px;max-height:calc(100vh - 90px);overflow-y:auto;padding-right:4px;}
+.pm-main{flex:1;min-width:0;}
+@media (max-width:860px){ .pm-layout{display:block;} .pm-sidebar{width:100%;position:static;max-height:none;margin-bottom:20px;} }
 .pm-tree-wrap{background:#150b28;border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-m);padding:8px;margin-bottom:16px;max-height:280px;overflow-y:auto;}
 .pm-tree-row{display:flex;align-items:center;gap:6px;padding:6px 6px;border-radius:6px;cursor:pointer;font-size:0.82rem;}
 .pm-tree-row:hover{background:rgba(255,255,255,0.06);}
@@ -668,6 +672,17 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
         <button class="btn btn-primary" id="pmInputModalConfirm">Save</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ========== COLLECTION / FOLDER AUTHORIZATION MODAL ========== -->
+<div class="modal-overlay" id="pmAuthEditorModal">
+  <div class="modal-box" style="max-width:480px;">
+    <div class="modal-head">
+      <h3 id="pmAuthEditorTitle">Authorization</h3>
+      <button class="modal-close" onclick="closeModal('pmAuthEditorModal')">✕</button>
+    </div>
+    <div class="modal-body" id="pmAuthEditorBody"></div>
   </div>
 </div>
 
@@ -2174,7 +2189,7 @@ function runSqlQuery(){
    ====================================================================== */
 let pmState={method:'GET',url:'/api/products',headers:[{k:'Content-Type',v:'application/json'}],body:'{\n  \n}',activeReqTab:'params',params:[{k:'',v:''}],
   localVars:[],
-  auth:{type:'none',bearerToken:'',basicUser:'',basicPass:'',apiKeyName:'X-API-Key',apiKeyValue:'',apiKeyIn:'header'},
+  auth:{type:'inherit',bearerToken:'',basicUser:'',basicPass:'',apiKeyName:'X-API-Key',apiKeyValue:'',apiKeyIn:'header'},
   name:'Untitled Request', savedId:null,
   preRequestScript:`// Runs BEFORE the request is sent.
 // Use it to set variables dynamically, e.g. a timestamp or a computed value.
@@ -2209,9 +2224,33 @@ let pmEnvironments, pmActiveEnvId;
 })();
 function pmActiveEnv(){ return pmEnvironments.find(e=>e.id===pmActiveEnvId)||null; }
 function pmCollectionOfNode(id){ for(const col of pmCollections){ if(pmFindNode(id,[col])) return col; } return null; }
+function pmFindPath(id,nodes=pmCollections,path=[]){
+  for(const n of nodes){
+    if(n.id===id) return [...path,n];
+    if(n.items){ const p=pmFindPath(id,n.items,[...path,n]); if(p) return p; }
+  }
+  return null;
+}
+function pmResolveAuth(){
+  const a=pmState.auth||{type:'inherit'};
+  if(a.type!=='inherit') return a;
+  if(!pmState.savedId) return {type:'none'};
+  const path=pmFindPath(pmState.savedId); if(!path) return {type:'none'};
+  const ancestors=path.slice(0,-1).reverse(); // nearest parent first
+  for(const anc of ancestors){
+    const aa=anc.auth || (anc.type==='collection'?{type:'none'}:{type:'inherit'});
+    if(aa.type!=='inherit') return aa;
+  }
+  return {type:'none'};
+}
 function pmCurrentCollectionCtx(){ return pmState.savedId ? pmCollectionOfNode(pmState.savedId) : (pmCollections[0]||null); }
 let pmHistory=[];
 let pmCookieJar=[];
+let pmConsoleLog=[];
+let pmIssues=[];
+let pmTerminalLines=[];
+let pmTerminalCmdHistory=[];
+let pmTerminalHistoryIdx=0;
 let pmLastResponse=null;
 function pmUpsertCookie(setCookieHeader){
   if(!setCookieHeader) return;
@@ -2314,16 +2353,38 @@ function renderPostman(root){
     <div class="tool-body container">
       <div class="tool-panel-title">📮 API Client</div>
       <div class="tool-panel-sub">Send requests to the mock REST API and inspect real status codes and JSON responses. <span style="color:var(--purple-100);">${esc(pmState.name)}${pmState.savedId?'':' (unsaved)'}</span></div>
+      <div class="pm-layout">
+      <div class="pm-sidebar">
       <div class="pm-tree-wrap" id="pmTree"></div>
       <details style="margin-bottom:16px;">
         <summary style="color:var(--purple-300);font-size:0.8rem;cursor:pointer;font-weight:600;">🕐 Request history (<span id="pmHistoryCount">${pmHistory.length}</span>)</summary>
         <div class="collection-list" id="pmHistoryList" style="margin-top:10px;">${renderPmHistoryItems()}</div>
+      </details>
+      <details style="margin-bottom:16px;">
+        <summary style="color:var(--purple-300);font-size:0.8rem;cursor:pointer;font-weight:600;display:flex;align-items:center;">🖥️ Console (<span id="pmConsoleCount">${pmConsoleLog.length}</span>)<button id="pmConsoleClearBtn" class="btn btn-secondary btn-sm" style="margin-left:auto;padding:2px 10px;">Clear</button></summary>
+        <div id="pmConsoleList" style="margin-top:10px;max-height:220px;overflow-y:auto;background:#0d0718;border-radius:var(--radius-m);padding:10px 12px;">${renderConsoleEntries()}</div>
+      </details>
+      <details style="margin-bottom:16px;" ${pmIssues.length?'open':''}>
+        <summary style="color:#ff9d92;font-size:0.8rem;cursor:pointer;font-weight:600;display:flex;align-items:center;">⚠️ Issues (<span id="pmIssuesCount">${pmIssues.length}</span>)<button id="pmIssuesClearBtn" class="btn btn-secondary btn-sm" style="margin-left:auto;padding:2px 10px;">Clear</button></summary>
+        <div id="pmIssuesList" style="margin-top:10px;max-height:220px;overflow-y:auto;background:#1a0d14;border-radius:var(--radius-m);padding:10px 12px;">${renderIssueEntries()}</div>
+      </details>
+      <details style="margin-bottom:16px;" id="pmTerminalDetails">
+        <summary style="color:#7fd9b9;font-size:0.8rem;cursor:pointer;font-weight:600;display:flex;align-items:center;">⌨️ Terminal<button id="pmTerminalClearBtn" class="btn btn-secondary btn-sm" style="margin-left:auto;padding:2px 10px;">Clear</button></summary>
+        <div style="margin-top:10px;background:#000;border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-m);padding:10px 12px;">
+          <div id="pmTerminalOutput" style="max-height:200px;overflow-y:auto;font-family:var(--font-mono);font-size:0.74rem;white-space:pre-wrap;word-break:break-word;">${renderTerminalOutput()}</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:8px;border-top:1px solid rgba(255,255,255,0.12);padding-top:8px;">
+            <span style="color:#7fd9b9;font-family:var(--font-mono);font-size:0.8rem;">$</span>
+            <input id="pmTerminalInput" placeholder="type 'help'" autocomplete="off" style="flex:1;background:transparent;border:0;color:#7fd9b9;font-family:var(--font-mono);font-size:0.8rem;outline:none;">
+          </div>
+        </div>
       </details>
       ${curNode && (curNode.savedResponses||[]).length ? `
       <details style="margin-bottom:16px;" open>
         <summary style="color:var(--purple-300);font-size:0.8rem;cursor:pointer;font-weight:600;">💾 Saved responses (${curNode.savedResponses.length})</summary>
         <div class="collection-list" style="margin-top:10px;" id="pmSavedRespList">${renderSavedResponsesHTML(curNode)}</div>
       </details>` : ''}
+      </div>
+      <div class="pm-main">
       <div class="pm-request-bar">
         <select class="pm-method" id="pmMethod">
           ${['GET','POST','PUT','PATCH','DELETE','HEAD','OPTIONS'].map(m=>`<option ${pmState.method===m?'selected':''}>${m}</option>`).join('')}
@@ -2352,6 +2413,7 @@ function renderPostman(root){
       <div class="pm-panel ${pmState.activeReqTab==='auth'?'active':''}" id="pmPanelAuth">
         <div class="kv-row" style="grid-template-columns:200px 1fr;margin-bottom:14px;">
           <select id="pmAuthType" class="pm-method" style="width:100%;">
+            <option value="inherit" ${pmState.auth.type==='inherit'?'selected':''}>Inherit from parent</option>
             <option value="none" ${pmState.auth.type==='none'?'selected':''}>No Auth</option>
             <option value="bearer" ${pmState.auth.type==='bearer'?'selected':''}>Bearer Token</option>
             <option value="basic" ${pmState.auth.type==='basic'?'selected':''}>Basic Auth</option>
@@ -2370,10 +2432,28 @@ function renderPostman(root){
         <p class="sql-hint" style="margin-top:8px;">Sent with POST / PUT / PATCH requests. Must be valid JSON.</p>
       </div>
       <div class="pm-panel ${pmState.activeReqTab==='prereq'?'active':''}" id="pmPanelPreReq">
+        <select id="pmPreReqSnippet" style="max-width:280px;margin-bottom:8px;">
+          <option value="">+ Insert snippet…</option>
+          <option value="pm.environment.set(&quot;key&quot;, &quot;value&quot;);">Set environment variable</option>
+          <option value="pm.collectionVariables.set(&quot;key&quot;, &quot;value&quot;);">Set collection variable</option>
+          <option value="pm.globals.set(&quot;key&quot;, &quot;value&quot;);">Set global variable</option>
+          <option value="pm.variables.set(&quot;key&quot;, &quot;value&quot;);">Set local variable</option>
+          <option value="console.log(&quot;value:&quot;, pm.environment.get(&quot;key&quot;));">console.log()</option>
+        </select>
         <textarea class="pm-body-editor" id="pmPreReq" spellcheck="false">${esc(pmState.preRequestScript)}</textarea>
         <p class="sql-hint" style="margin-top:8px;">Runs automatically BEFORE Send, before {{variables}} are substituted into the URL/headers/body. Available: pm.globals / pm.collectionVariables / pm.environment / pm.variables (local), each with .get(key) / .set(key, value) / .unset(key). If this script throws, the request is not sent.</p>
       </div>
       <div class="pm-panel ${pmState.activeReqTab==='tests'?'active':''}" id="pmPanelTests">
+        <select id="pmTestsSnippet" style="max-width:280px;margin-bottom:8px;">
+          <option value="">+ Insert snippet…</option>
+          <option value="pm.test(&quot;Status code is 200&quot;, () =&gt; { pm.response.to.have.status(200); });">Test: status code</option>
+          <option value="pm.test(&quot;Response time is below 200ms&quot;, () =&gt; { pm.expect(pm.response.responseTime).to.be.below(200); });">Test: response time</option>
+          <option value="const jsonData = pm.response.json();
+pm.test(&quot;Has expected property&quot;, () =&gt; { pm.expect(jsonData).to.have.property(&quot;id&quot;); });">Test: body has property</option>
+          <option value="pm.test(&quot;Schema is valid&quot;, () =&gt; { pm.response.to.have.jsonSchema({ type: &quot;object&quot;, required: [] }); });">Test: JSON schema</option>
+          <option value="pm.environment.set(&quot;key&quot;, pm.response.json().value);">Extract value to variable</option>
+          <option value="console.log(pm.response.json());">console.log() response</option>
+        </select>
         <textarea class="pm-body-editor" id="pmTests" spellcheck="false">${esc(pmState.testsScript)}</textarea>
         <p class="sql-hint" style="margin-top:8px;">Runs automatically after Send. Available: pm.test(name, fn), pm.response.status/.responseTime/.json()/.headers.get(name), pm.response.to.have.status(code)/.header(name)/.jsonSchema(schema), pm.expect(x).to.equal/.eql/.include/.not.*, .be.above/.below/.ok/.a()/.an(), .have.property(k)/.members([...])/.length(n), plus pm.globals/.collectionVariables/.environment/.variables.get/set/unset to extract values for later requests.</p>
       </div>
@@ -2407,18 +2487,42 @@ function renderPostman(root){
       <div class="pm-response-wrap" id="pmResponseWrap">
         <div class="pm-empty-response">Hit <b>Send</b> to see the response here.</div>
       </div>
+      </div>
+      </div>
     </div>
   </div>`;
   renderPmTree();
-  $('#pmMethod').addEventListener('change',e=>pmState.method=e.target.value);
+  $('#pmMethod').addEventListener('change',e=>{ pmState.method=e.target.value; pmApplyMethodColor(); });
+  pmApplyMethodColor();
   $('#pmUrl').addEventListener('input',e=>pmState.url=e.target.value);
   $('#pmBody').addEventListener('input',e=>pmState.body=e.target.value);
   $('#pmPreReq').addEventListener('input',e=>pmState.preRequestScript=e.target.value);
   $('#pmTests').addEventListener('input',e=>pmState.testsScript=e.target.value);
+  $('#pmPreReqSnippet').addEventListener('change',e=>{ if(e.target.value){ pmInsertSnippet('pmPreReq','preRequestScript',e.target.value); e.target.value=''; } });
+  $('#pmTestsSnippet').addEventListener('change',e=>{ if(e.target.value){ pmInsertSnippet('pmTests','testsScript',e.target.value); e.target.value=''; } });
   $all('#pmReqTabs .pm-tab').forEach(t=>t.addEventListener('click',()=>{ pmState.activeReqTab=t.dataset.t; renderPostman(root); }));
   $('#pmAuthType').addEventListener('change',e=>{ pmState.auth.type=e.target.value; renderAuthFields(); });
-  $('#pmSendBtn').addEventListener('click',sendPmRequest);
+  $('#pmSendBtn').addEventListener('click',()=>sendPmRequest());
   $('#pmSaveBtn').addEventListener('click',pmQuickSave);
+  const consoleClearBtn=$('#pmConsoleClearBtn'); if(consoleClearBtn) consoleClearBtn.addEventListener('click',e=>{
+    e.preventDefault(); e.stopPropagation();
+    pmConsoleLog=[]; const list=$('#pmConsoleList'); if(list) list.innerHTML=renderConsoleEntries();
+    const cnt=$('#pmConsoleCount'); if(cnt) cnt.textContent='0';
+  });
+  const issuesClearBtn=$('#pmIssuesClearBtn'); if(issuesClearBtn) issuesClearBtn.addEventListener('click',e=>{
+    e.preventDefault(); e.stopPropagation();
+    pmIssues=[]; const list=$('#pmIssuesList'); if(list) list.innerHTML=renderIssueEntries();
+    const cnt=$('#pmIssuesCount'); if(cnt) cnt.textContent='0';
+  });
+  const terminalClearBtn=$('#pmTerminalClearBtn'); if(terminalClearBtn) terminalClearBtn.addEventListener('click',e=>{
+    e.preventDefault(); e.stopPropagation();
+    pmTerminalLines=[]; const out=$('#pmTerminalOutput'); if(out) out.innerHTML=renderTerminalOutput();
+  });
+  const terminalInput=$('#pmTerminalInput'); if(terminalInput) terminalInput.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){ const v=e.target.value; e.target.value=''; pmTerminalExec(v); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); if(pmTerminalHistoryIdx>0){ pmTerminalHistoryIdx--; e.target.value=pmTerminalCmdHistory[pmTerminalHistoryIdx]||''; } }
+    else if(e.key==='ArrowDown'){ e.preventDefault(); if(pmTerminalHistoryIdx<pmTerminalCmdHistory.length-1){ pmTerminalHistoryIdx++; e.target.value=pmTerminalCmdHistory[pmTerminalHistoryIdx]||''; } else { pmTerminalHistoryIdx=pmTerminalCmdHistory.length; e.target.value=''; } }
+  });
   $all('[data-viewex]').forEach(btn=>btn.addEventListener('click',()=>{ const [nodeId,idx]=btn.dataset.viewex.split(':'); pmViewSavedResponse(nodeId,Number(idx)); }));
   $all('[data-delex]').forEach(btn=>btn.addEventListener('click',()=>{ const [nodeId,idx]=btn.dataset.delex.split(':'); pmDeleteSavedResponse(nodeId,Number(idx)); }));
   $('#pmEnvSelect').addEventListener('change',e=>{ pmActiveEnvId=e.target.value||null; saveEnvironments(); renderPostman(root); });
@@ -2450,11 +2554,13 @@ function pmTreeNodeHTML(n,depth){
       <span class="pm-tree-actions"><button data-rn="${n.id}" title="Rename">✎</button><button data-del="${n.id}" title="Delete">🗑</button></span>
     </div>`;
   }
-  const icon=n.type==='collection'?'📁':'📂', chev=n.open?'▾':'▸';
+  const icon=n.type==='collection'?'📦':'📁', chev=n.open?'▾':'▸';
   const kids = n.open ? (n.items||[]).map(c=>pmTreeNodeHTML(c,depth+1)).join('') : '';
   return `<div class="pm-tree-row pm-tree-group" style="padding-left:${depth*16}px" data-toggle="${n.id}">
       <span class="pm-tree-chevron">${chev}</span><span class="pm-tree-gname">${icon} ${esc(n.name)}</span>
       <span class="pm-tree-actions">
+        ${n.type==='collection'?`<button data-runcol="${n.id}" title="Run all requests in this collection">▶ Run</button>`:''}
+        <button data-authnode="${n.id}" title="Set Authorization for everything in here">🔐</button>
         <button data-addreq="${n.id}" title="Add request">+Req</button>
         ${n.type==='collection'?`<button data-addfld="${n.id}" title="Add folder">+Fld</button>`:''}
         <button data-rn="${n.id}" title="Rename">✎</button><button data-del="${n.id}" title="Delete">🗑</button>
@@ -2469,6 +2575,8 @@ function renderPmTree(){
   $all('[data-open]',wrap).forEach(el=>el.addEventListener('click',e=>{ if(e.target.closest('.pm-tree-actions')) return; pmLoadRequest(el.dataset.open); }));
   $all('[data-addreq]',wrap).forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); pmAddRequestTo(el.dataset.addreq); }));
   $all('[data-addfld]',wrap).forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); pmAddFolderTo(el.dataset.addfld); }));
+  $all('[data-runcol]',wrap).forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); pmRunCollection(el.dataset.runcol); }));
+  $all('[data-authnode]',wrap).forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); pmOpenAuthEditor(el.dataset.authnode); }));
   $all('[data-rn]',wrap).forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); pmRenameNode(el.dataset.rn); }));
   $all('[data-del]',wrap).forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); pmDeleteNode(el.dataset.del); }));
   const addCol=$('#pmAddColBtn'); if(addCol) addCol.addEventListener('click',()=>{
@@ -2505,16 +2613,157 @@ function pmDeleteNode(id){
     savePmCollections(); renderPostman($('#app'));
   });
 }
-function pmLoadRequest(id){
+function pmLoadRequest(id,silent){
   const n=pmFindNode(id); if(!n||n.type!=='req') return;
   pmState.method=n.method; pmState.url=n.url;
   pmState.params=(n.params&&n.params.length?JSON.parse(JSON.stringify(n.params)):[{k:'',v:''}]);
   pmState.headers=n.headers?JSON.parse(JSON.stringify(n.headers)):[];
   pmState.body=n.body||''; pmState.preRequestScript=n.preRequestScript||''; pmState.testsScript=n.testsScript||'';
   pmState.localVars=n.localVars?JSON.parse(JSON.stringify(n.localVars)):[];
-  pmState.auth=n.auth?JSON.parse(JSON.stringify(n.auth)):{type:'none',bearerToken:'',basicUser:'',basicPass:'',apiKeyName:'X-API-Key',apiKeyValue:'',apiKeyIn:'header'};
+  pmState.auth=n.auth?JSON.parse(JSON.stringify(n.auth)):{type:'inherit',bearerToken:'',basicUser:'',basicPass:'',apiKeyName:'X-API-Key',apiKeyValue:'',apiKeyIn:'header'};
   pmState.savedId=id; pmState.name=n.name;
+  if(!silent) renderPostman($('#app'));
+}
+function pmFlattenRequests(node,out){
+  out=out||[];
+  (node.items||[]).forEach(child=>{ if(child.type==='req') out.push(child); else if(child.items) pmFlattenRequests(child,out); });
+  return out;
+}
+async function pmRunCollection(colId){
+  const col=pmFindNode(colId); if(!col) return;
+  const reqs=pmFlattenRequests(col);
+  if(!reqs.length){ showToast('No requests in "'+col.name+'" to run.'); return; }
+  const snapshot=JSON.parse(JSON.stringify({method:pmState.method,url:pmState.url,headers:pmState.headers,body:pmState.body,params:pmState.params,preRequestScript:pmState.preRequestScript,testsScript:pmState.testsScript,localVars:pmState.localVars,auth:pmState.auth,name:pmState.name}));
+  const savedIdSnapshot=pmState.savedId;
+  const runResults=[];
+  pmConsoleLog.push({ts:Date.now(),type:'log',text:`▶ Running collection "${col.name}" (${reqs.length} request${reqs.length>1?'s':''})…`});
+  for(const r of reqs){
+    pmLoadRequest(r.id,true);
+    const outcome=sendPmRequest(true);
+    runResults.push({name:r.name,method:r.method,status:outcome.status,ms:outcome.ms,pass:outcome.pass,fail:outcome.fail,error:outcome.error});
+  }
+  Object.assign(pmState,snapshot); pmState.savedId=savedIdSnapshot;
+  const totalPass=runResults.reduce((s,r)=>s+r.pass,0), totalFail=runResults.reduce((s,r)=>s+r.fail,0);
+  pmConsoleLog.push({ts:Date.now(),type:'log',text:`✔ Run finished: ${runResults.length} requests, ${totalPass} tests passed, ${totalFail} failed.`});
+  if(pmConsoleLog.length>300) pmConsoleLog.shift();
   renderPostman($('#app'));
+  pmShowRunSummary(col.name,runResults);
+}
+function pmShowRunSummary(colName,runResults){
+  const rows=runResults.map(r=>{
+    const cls = !r.status ? 'status-5xx' : r.status>=500?'status-5xx':r.status>=400?'status-4xx':'status-2xx';
+    return `<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);">
+      <span style="font-family:var(--font-mono);font-size:0.7rem;font-weight:700;width:52px;">${esc(r.method)}</span>
+      <span style="flex:1;">${esc(r.name)}</span>
+      <span class="status-badge ${cls}" style="padding:1px 8px;font-size:0.7rem;">${r.status||'ERR'}</span>
+      <span style="font-size:0.76rem;color:${r.fail?'#ff9d92':'#7fd9b9'};">${r.error? 'script error' : (r.pass+r.fail)? r.pass+'/'+(r.pass+r.fail)+' passed' : '—'}</span>
+    </div>`;
+  }).join('');
+  const totalPass=runResults.reduce((s,r)=>s+r.pass,0), totalFail=runResults.reduce((s,r)=>s+r.fail,0);
+  $('#jsonViewTitle').textContent='Run results — '+colName;
+  $('#jsonViewBody').innerHTML=`<p class="sql-hint" style="margin-bottom:10px;">${runResults.length} requests run · ${totalPass} tests passed${totalFail? ' · '+totalFail+' failed':''}.</p>${rows}`;
+  openModal('jsonViewModal');
+}
+function renderConsoleEntries(){
+  if(!pmConsoleLog.length) return '<p class="sql-hint">Nothing logged yet. Sent requests and console.log() calls from your scripts will appear here.</p>';
+  return pmConsoleLog.slice().reverse().map(e=>{
+    const color = e.type==='error' ? '#ff9d92' : e.type==='request' ? '#93b8f7' : 'var(--purple-100)';
+    const t=new Date(e.ts).toLocaleTimeString();
+    return `<div style="font-family:var(--font-mono);font-size:0.76rem;color:${color};padding:3px 0;white-space:pre-wrap;word-break:break-word;"><span style="color:var(--purple-400);">${t}</span>  ${esc(e.text)}</div>`;
+  }).join('');
+}
+function renderIssueEntries(){
+  if(!pmIssues.length) return '<p class="sql-hint">No issues right now. Failed tests, 4xx/5xx responses, and script errors will show up here.</p>';
+  return pmIssues.slice().reverse().map(e=>{
+    const t=new Date(e.ts).toLocaleTimeString();
+    return `<div style="font-family:var(--font-mono);font-size:0.76rem;color:#ff9d92;padding:3px 0;white-space:pre-wrap;word-break:break-word;"><span style="color:var(--purple-400);">${t}</span>  ${esc(e.text)}</div>`;
+  }).join('');
+}
+function renderTerminalOutput(){
+  if(!pmTerminalLines.length) return '<span style="color:#7fd9b9;">Purple Cart API Terminal — type \'help\' for commands.</span>';
+  return pmTerminalLines.map(l=>{
+    if(l.type==='cmd') return '<span style="color:#fff;">$ '+esc(l.text)+'</span>';
+    if(l.type==='err') return '<span style="color:#ff9d92;">'+esc(l.text)+'</span>';
+    return '<span style="color:#7fd9b9;">'+esc(l.text)+'</span>';
+  }).join('\n');
+}
+function pmTerminalPrint(type,text){ pmTerminalLines.push({type,text}); if(pmTerminalLines.length>400) pmTerminalLines.shift(); }
+function pmTerminalExec(raw){
+  const cmd=(raw||'').trim(); if(!cmd) return;
+  pmTerminalCmdHistory.push(cmd); pmTerminalHistoryIdx=pmTerminalCmdHistory.length;
+  pmTerminalPrint('cmd',cmd);
+  const parts=cmd.split(/\s+/);
+  const verb=parts[0], rest=parts.slice(1), argStr=rest.join(' ');
+  const V=verb.toUpperCase();
+  try{
+    if(verb.toLowerCase()==='help'){
+      pmTerminalPrint('out','Commands:\n  help                          show this list\n  clear                         clear the terminal\n  echo <text>                   print text back\n  list                          list collections and saved requests\n  env                           show active environment variables\n  set <key> <value>             set a variable in the active environment\n  run <request name>            run a saved request by name\n  runcol <collection name>      run every request in a collection\n  GET/POST/PUT/PATCH/DELETE <url> [json]   send an ad-hoc request, e.g. GET /api/products');
+    }else if(verb.toLowerCase()==='clear'){
+      pmTerminalLines=[];
+    }else if(verb.toLowerCase()==='echo'){
+      pmTerminalPrint('out',argStr);
+    }else if(verb.toLowerCase()==='list'){
+      const lines=[];
+      pmCollections.forEach(col=>{ lines.push('📦 '+col.name); pmFlattenRequests(col).forEach(r=>lines.push('   '+r.method+'  '+r.name)); });
+      pmTerminalPrint('out',lines.join('\n')||'No collections yet.');
+    }else if(verb.toLowerCase()==='env'){
+      const env=pmActiveEnv();
+      pmTerminalPrint(env?'out':'err', env ? (env.vars.map(x=>x.k+' = '+x.v).join('\n')||'(no variables in "'+env.name+'")') : 'No environment selected.');
+    }else if(verb.toLowerCase()==='set'){
+      const key=rest[0], val=rest.slice(1).join(' ');
+      if(!key||!val){ pmTerminalPrint('err','usage: set <key> <value>'); }
+      else{
+        let env=pmActiveEnv();
+        if(!env){ const id=uid('env'); env={id,name:'Environment',vars:[]}; pmEnvironments.push(env); pmActiveEnvId=id; }
+        const existing=env.vars.find(e=>e.k===key); if(existing) existing.v=val; else env.vars.push({k:key,v:val});
+        saveEnvironments();
+        pmTerminalPrint('out','set '+key+' = '+val+'  (environment: '+env.name+')');
+      }
+    }else if(verb.toLowerCase()==='run'){
+      const all=[]; pmCollections.forEach(c=>pmFlattenRequests(c).forEach(r=>all.push(r)));
+      const match=all.find(r=>r.name.toLowerCase()===argStr.toLowerCase())||all.find(r=>r.name.toLowerCase().includes(argStr.toLowerCase()));
+      if(!match){ pmTerminalPrint('err','no saved request matching "'+argStr+'"'); }
+      else{
+        const snapshot=JSON.parse(JSON.stringify({method:pmState.method,url:pmState.url,headers:pmState.headers,body:pmState.body,params:pmState.params,preRequestScript:pmState.preRequestScript,testsScript:pmState.testsScript,localVars:pmState.localVars,auth:pmState.auth,name:pmState.name}));
+        const savedIdSnap=pmState.savedId;
+        pmLoadRequest(match.id,true);
+        const outcome=sendPmRequest(true);
+        Object.assign(pmState,snapshot); pmState.savedId=savedIdSnap;
+        pmTerminalPrint(outcome.status&&outcome.status<400?'out':'err', match.method+' '+match.name+' → '+(outcome.status||'ERROR')+((outcome.pass||outcome.fail)?' ('+outcome.pass+'/'+(outcome.pass+outcome.fail)+' tests passed)':''));
+      }
+    }else if(verb.toLowerCase()==='runcol'){
+      const col=pmCollections.find(c=>c.name.toLowerCase()===argStr.toLowerCase())||pmCollections.find(c=>c.name.toLowerCase().includes(argStr.toLowerCase()));
+      if(!col){ pmTerminalPrint('err','no collection matching "'+argStr+'"'); }
+      else{ pmTerminalPrint('out','running "'+col.name+'"… see the results popup when it finishes.'); pmRunCollection(col.id); }
+    }else if(['GET','POST','PUT','PATCH','DELETE','HEAD','OPTIONS'].includes(V)){
+      const method=V, url0=rest[0], bodyRaw=rest.slice(1).join(' ');
+      if(!url0){ pmTerminalPrint('err','usage: '+method+' <url>'+(['POST','PUT','PATCH'].includes(method)?' [json body]':'')); }
+      else{
+        let url=pmSubstituteVars(url0);
+        const reqHeaders={'Content-Type':'application/json'};
+        const authResult=pmComputeAuth(); Object.assign(reqHeaders,authResult.headers);
+        Object.entries(authResult.query).forEach(([k,v])=>{ url += (url.includes('?')?'&':'?') + encodeURIComponent(k)+'='+encodeURIComponent(v); });
+        const substituted=bodyRaw?pmSubstituteVars(bodyRaw):'';
+        let result;
+        if(['POST','PUT','PATCH'].includes(method) && substituted.trim()){
+          try{ JSON.parse(substituted); }catch(e){ result={status:400,body:{error:'Bad Request',message:'Body is not valid JSON: '+e.message}}; }
+        }
+        if(!result) result=mockApiRequest(method,url,substituted,undefined,reqHeaders);
+        pmConsoleLog.push({ts:Date.now(),type:'request',text:method+' '+url+' → '+result.status+' (terminal)'}); if(pmConsoleLog.length>300) pmConsoleLog.shift();
+        pmHistory.push({method,url,status:result.status,ts:Date.now()}); if(pmHistory.length>100) pmHistory.shift();
+        if(result.status>=400) pmIssues.push({ts:Date.now(),text:method+' '+url+' → '+result.status+' (terminal)'});
+        pmTerminalPrint(result.status<400?'out':'err', result.status+'\n'+JSON.stringify(result.body,null,2));
+      }
+    }else{
+      pmTerminalPrint('err','command not found: '+verb+'. Type help for a list.');
+    }
+  }catch(e){
+    pmTerminalPrint('err','error: '+e.message);
+  }
+  const out=$('#pmTerminalOutput'); if(out){ out.innerHTML=renderTerminalOutput(); out.scrollTop=out.scrollHeight; }
+  const hc=$('#pmHistoryList'); if(hc) hc.innerHTML=renderPmHistoryItems();
+  const cc=$('#pmConsoleList'); if(cc) cc.innerHTML=renderConsoleEntries();
+  const ic=$('#pmIssuesList'); if(ic) ic.innerHTML=renderIssueEntries();
 }
 function pmQuickSave(){
   if(pmState.savedId){
@@ -2528,7 +2777,7 @@ function pmOpenSaveModal(){
   function pickerHTML(nodes,depth){
     return nodes.filter(n=>n.type!=='req').map(n=>`
       <div class="pm-save-row" style="padding-left:${depth*16}px;">
-        <span>${n.type==='collection'?'📁':'📂'} ${esc(n.name)}</span>
+        <span>${n.type==='collection'?'📦':'📁'} ${esc(n.name)}</span>
         <button class="btn btn-secondary btn-sm" data-savehere="${n.id}">Save here</button>
       </div>${pickerHTML(n.items||[],depth+1)}`).join('');
   }
@@ -2555,35 +2804,95 @@ function pmOpenSaveModal(){
 }
 function renderAuthFields(){
   const wrap=$('#pmAuthFields'); if(!wrap) return;
-  pmState.auth=pmState.auth||{type:'none'};
+  pmState.auth=pmState.auth||{type:'inherit'};
   const a=pmState.auth;
-  if(a.type==='bearer'){
+  if(a.type==='inherit'){
+    const eff=pmResolveAuth();
+    wrap.innerHTML=`<p class="sql-hint">Inherits from the nearest parent folder or collection's Authorization setting${pmState.savedId?' — currently resolves to <b>'+({none:'No Auth',bearer:'Bearer Token',basic:'Basic Auth',apikey:'API Key'}[eff.type]||'No Auth')+'</b>.':' (save this request into a collection to inherit).'}</p>`;
+  }else if(a.type==='bearer'){
     wrap.innerHTML=`<div class="kv-row" style="grid-template-columns:1fr;">
-      <input placeholder="Token, e.g. {{authToken}}" value="${esc(a.bearerToken||'')}" oninput="pmState.auth.bearerToken=this.value">
+      <input placeholder="Demo token — type anything, or use {{authToken}}" value="${esc(a.bearerToken||'')}" oninput="pmState.auth.bearerToken=this.value">
     </div>
-    <p class="sql-hint" style="margin-top:8px;">Sent as header <code>Authorization: Bearer &lt;token&gt;</code>. Try <code>{{authToken}}</code> after running Login.</p>`;
+    <p class="sql-hint" style="margin-top:8px;">This is a demo/sandbox site, so any text works as a token here — try <code>{{authToken}}</code>, which Login's Tests script sets automatically after you run it. Sent as header <code>Authorization: Bearer &lt;token&gt;</code>.</p>`;
   }else if(a.type==='basic'){
     wrap.innerHTML=`<div class="kv-row" style="grid-template-columns:1fr 1fr;">
       <input placeholder="Username / email" value="${esc(a.basicUser||'')}" oninput="pmState.auth.basicUser=this.value">
       <input placeholder="Password" value="${esc(a.basicPass||'')}" oninput="pmState.auth.basicPass=this.value">
     </div>
-    <p class="sql-hint" style="margin-top:8px;">Sent as header <code>Authorization: Basic &lt;base64(user:pass)&gt;</code>. Try a customer's email/password, e.g. <code>priya@example.com</code> / <code>priya123</code>.</p>`;
+    <p class="sql-hint" style="margin-top:8px;">Demo credentials — use a real seeded customer's email/password to pass validation, e.g. <code>priya@example.com</code> / <code>priya123</code>. Sent as <code>Authorization: Basic &lt;base64(user:pass)&gt;</code>.</p>`;
   }else if(a.type==='apikey'){
     wrap.innerHTML=`<div class="kv-row" style="grid-template-columns:1fr 1fr;">
       <input placeholder="Key name (e.g. X-API-Key)" value="${esc(a.apiKeyName||'X-API-Key')}" oninput="pmState.auth.apiKeyName=this.value">
-      <input placeholder="Value" value="${esc(a.apiKeyValue||'')}" oninput="pmState.auth.apiKeyValue=this.value">
+      <input placeholder="Demo value — try sandbox-api-key-123" value="${esc(a.apiKeyValue||'')}" oninput="pmState.auth.apiKeyValue=this.value">
     </div>
     <select style="margin-top:8px;" onchange="pmState.auth.apiKeyIn=this.value">
       <option value="header" ${a.apiKeyIn!=='query'?'selected':''}>Add to Header</option>
       <option value="query" ${a.apiKeyIn==='query'?'selected':''}>Add to Query Params</option>
     </select>
-    <p class="sql-hint" style="margin-top:8px;">Sandbox key that always works: <code>sandbox-api-key-123</code></p>`;
+    <p class="sql-hint" style="margin-top:8px;">Demo/sandbox key that always works: <code>sandbox-api-key-123</code>.</p>`;
   }else{
     wrap.innerHTML='<p class="sql-hint">This request does not use authorization.</p>';
   }
 }
+function pmAuthEditorFieldsHTML(auth){
+  if(auth.type==='inherit') return '<p class="sql-hint">Uses the nearest parent folder or collection\'s Authorization setting.</p>';
+  if(auth.type==='bearer'){
+    return `<div class="kv-row" style="grid-template-columns:1fr;"><input placeholder="Demo token — type anything, or use {{authToken}}" value="${esc(auth.bearerToken||'')}" data-authfield="bearerToken"></div>
+    <p class="sql-hint" style="margin-top:8px;">This is a demo/sandbox site, so any text works — try <code>{{authToken}}</code>, set automatically by Login's Tests script.</p>`;
+  }
+  if(auth.type==='basic'){
+    return `<div class="kv-row" style="grid-template-columns:1fr 1fr;"><input placeholder="Username / email" value="${esc(auth.basicUser||'')}" data-authfield="basicUser"><input placeholder="Password" value="${esc(auth.basicPass||'')}" data-authfield="basicPass"></div>
+    <p class="sql-hint" style="margin-top:8px;">Demo credentials — try a seeded customer, e.g. <code>priya@example.com</code> / <code>priya123</code>.</p>`;
+  }
+  if(auth.type==='apikey'){
+    return `<div class="kv-row" style="grid-template-columns:1fr 1fr;"><input placeholder="Key name" value="${esc(auth.apiKeyName||'X-API-Key')}" data-authfield="apiKeyName"><input placeholder="Demo value — try sandbox-api-key-123" value="${esc(auth.apiKeyValue||'')}" data-authfield="apiKeyValue"></div>
+    <select style="margin-top:8px;" data-authfield="apiKeyIn"><option value="header" ${auth.apiKeyIn!=='query'?'selected':''}>Add to Header</option><option value="query" ${auth.apiKeyIn==='query'?'selected':''}>Add to Query Params</option></select>`;
+  }
+  return '<p class="sql-hint">No authorization — requests here send none unless they set their own.</p>';
+}
+function pmOpenAuthEditor(nodeId){
+  const node=pmFindNode(nodeId); if(!node) return;
+  node.auth=node.auth||{type:node.type==='collection'?'none':'inherit',bearerToken:'',basicUser:'',basicPass:'',apiKeyName:'X-API-Key',apiKeyValue:'',apiKeyIn:'header'};
+  const showInherit=node.type!=='collection';
+  function renderBody(){
+    $('#pmAuthEditorTitle').textContent='Authorization — '+node.name;
+    $('#pmAuthEditorBody').innerHTML=`
+      <p class="sql-hint" style="margin-bottom:10px;">Applies to every request inside <b>${esc(node.name)}</b> that's set to "Inherit from parent" in its own Authorization tab.</p>
+      <select id="pmAuthEditorType" class="pm-method" style="width:100%;margin-bottom:14px;">
+        ${showInherit?`<option value="inherit" ${node.auth.type==='inherit'?'selected':''}>Inherit from parent</option>`:''}
+        <option value="none" ${node.auth.type==='none'?'selected':''}>No Auth</option>
+        <option value="bearer" ${node.auth.type==='bearer'?'selected':''}>Bearer Token</option>
+        <option value="basic" ${node.auth.type==='basic'?'selected':''}>Basic Auth</option>
+        <option value="apikey" ${node.auth.type==='apikey'?'selected':''}>API Key</option>
+      </select>
+      <div id="pmAuthEditorFields">${pmAuthEditorFieldsHTML(node.auth)}</div>
+      <div class="modal-foot" style="justify-content:flex-end;gap:8px;margin-top:16px;">
+        <button class="btn btn-primary" onclick="closeModal('pmAuthEditorModal')">Done</button>
+      </div>`;
+    $('#pmAuthEditorType').addEventListener('change',e=>{ node.auth.type=e.target.value; savePmCollections(); renderBody(); });
+    $all('[data-authfield]').forEach(el=>el.addEventListener(el.tagName==='SELECT'?'change':'input',e=>{ node.auth[el.dataset.authfield]=e.target.value; savePmCollections(); }));
+  }
+  renderBody();
+  openModal('pmAuthEditorModal');
+}
+function pmInsertSnippet(textareaId,stateField,snippet){
+  const ta=document.getElementById(textareaId); if(!ta) return;
+  const start=ta.selectionStart||0, end=ta.selectionEnd||0;
+  const val=ta.value;
+  const insert=(start>0 && val[start-1]!=='\n' ? '\n' : '')+snippet+'\n';
+  const newVal=val.slice(0,start)+insert+val.slice(end);
+  ta.value=newVal;
+  pmState[stateField]=newVal;
+  const pos=start+insert.length;
+  ta.focus(); ta.setSelectionRange(pos,pos);
+}
+function pmApplyMethodColor(){
+  const sel=$('#pmMethod'); if(!sel) return;
+  const bg={GET:'#16321f',POST:'#3a2f12',PUT:'#122a3a',PATCH:'#1e2a3a',DELETE:'#3a1818',HEAD:'#241b3a',OPTIONS:'#241b3a'};
+  sel.style.background = bg[sel.value] || '';
+}
 function pmComputeAuth(){
-  const a=pmState.auth||{type:'none'};
+  const a=pmResolveAuth();
   if(a.type==='bearer'){
     const token=pmSubstituteVars(a.bearerToken||'');
     return token? {headers:{Authorization:'Bearer '+token},query:{}} : {headers:{},query:{}};
@@ -2839,27 +3148,40 @@ function pmBuildScriptScopes(){
     variables: pmScopeSandbox(()=>{ pmState.localVars=pmState.localVars||[]; return pmState.localVars; }, null),
   };
 }
+function pmConsoleShim(){
+  return {
+    log(...args){ pmConsoleLog.push({ts:Date.now(),type:'log',text:args.map(a=>(typeof a==='object'&&a!==null)?JSON.stringify(a):String(a)).join(' ')}); if(pmConsoleLog.length>300) pmConsoleLog.shift(); },
+    warn(...args){ this.log('⚠',...args); },
+    error(...args){ this.log('✖',...args); },
+  };
+}
 function runPmPreRequest(script){
   if(!script || !script.trim()) return {ok:true};
   const pmSandbox=pmBuildScriptScopes();
   try{
-    const runner=new Function('pm','"use strict";\n'+script);
-    runner(pmSandbox);
+    const runner=new Function('pm','console','"use strict";\n'+script);
+    runner(pmSandbox,pmConsoleShim());
     return {ok:true};
   }catch(e){
     return {ok:false,error:e.message};
   }
 }
-function sendPmRequest(){
+function sendPmRequest(headless){
   const pre=runPmPreRequest(pmState.preRequestScript);
   if(!pre.ok){
-    showToast('Pre-request script error: '+pre.error,'error');
-    $('#pmResponseWrap').innerHTML=`<div class="pm-empty-response" style="color:#ff9d92;">Pre-request script threw an error, so the request was not sent:<br><span style="font-family:var(--font-mono);">${esc(pre.error)}</span></div>`;
-    return;
+    pmConsoleLog.push({ts:Date.now(),type:'error',text:'Pre-request script error ('+pmState.name+'): '+pre.error});
+    if(pmConsoleLog.length>300) pmConsoleLog.shift();
+    pmIssues.push({ts:Date.now(),text:'Pre-request script error in "'+pmState.name+'": '+pre.error});
+    if(pmIssues.length>300) pmIssues.shift();
+    if(!headless){
+      showToast('Pre-request script error: '+pre.error,'error');
+      $('#pmResponseWrap').innerHTML=`<div class="pm-empty-response" style="color:#ff9d92;">Pre-request script threw an error, so the request was not sent:<br><span style="font-family:var(--font-mono);">${esc(pre.error)}</span></div>`;
+    }
+    return {status:null,ms:0,pass:0,fail:0,error:pre.error};
   }
-  if($('#envRows')) renderEnvRows();
+  if(!headless && $('#envRows')) renderEnvRows();
   const method=pmState.method, rawUrl=pmSubstituteVars(pmState.url.trim());
-  if(!rawUrl){ showToast('Enter a URL first.'); return; }
+  if(!rawUrl){ if(!headless) showToast('Enter a URL first.'); return {status:null,ms:0,pass:0,fail:0,error:'No URL'}; }
   let url=rawUrl;
   const extraParams=pmState.params.filter(p=>p.k).map(p=>`${encodeURIComponent(pmSubstituteVars(p.k))}=${encodeURIComponent(pmSubstituteVars(p.v))}`).join('&');
   if(extraParams) url += (url.includes('?')?'&':'?') + extraParams;
@@ -2884,13 +3206,23 @@ function sendPmRequest(){
   if(respHeaders['set-cookie']) pmUpsertCookie(respHeaders['set-cookie']);
   pmLastResponse={status:result.status,body:result.body===undefined?null:result.body,ms};
   pmLastTestResults=runPmTests(pmState.testsScript,result,ms,respHeaders);
-  if($('#envRows')) renderEnvRows();
+  if(!headless && $('#envRows')) renderEnvRows();
   const passCount=pmLastTestResults.filter(t=>t.pass).length;
   const failCount=pmLastTestResults.length-passCount;
   pmHistory.push({method,url,status:result.status,ts:Date.now()});
   if(pmHistory.length>100) pmHistory.shift();
+  pmConsoleLog.push({ts:Date.now(),type:'request',text:`${method} ${url} → ${result.status}${statusText?' '+statusText:''} (${ms}ms)`});
+  if(pmConsoleLog.length>300) pmConsoleLog.shift();
+  if(result.status>=400) pmIssues.push({ts:Date.now(),text:`${method} ${url} → ${result.status} ${statusText}`.trim()+' ("'+pmState.name+'")'});
+  if(failCount>0) pmIssues.push({ts:Date.now(),text:`${failCount} test${failCount>1?'s':''} failed for "${pmState.name}" (${method} ${url})`});
+  if(pmIssues.length>300) pmIssues.splice(0,pmIssues.length-300);
+  if(headless) return {status:result.status,ms,pass:passCount,fail:failCount,tests:pmLastTestResults};
   const histListEl=$('#pmHistoryList'); if(histListEl) histListEl.innerHTML=renderPmHistoryItems();
   const histCountEl=$('#pmHistoryCount'); if(histCountEl) histCountEl.textContent=pmHistory.length;
+  const consoleListEl=$('#pmConsoleList'); if(consoleListEl) consoleListEl.innerHTML=renderConsoleEntries();
+  const consoleCountEl=$('#pmConsoleCount'); if(consoleCountEl) consoleCountEl.textContent=pmConsoleLog.length;
+  const issuesListEl=$('#pmIssuesList'); if(issuesListEl) issuesListEl.innerHTML=renderIssueEntries();
+  const issuesCountEl=$('#pmIssuesCount'); if(issuesCountEl) issuesCountEl.textContent=pmIssues.length;
   $('#pmResponseWrap').innerHTML=`
     <div class="pm-response-head">
       <span class="status-badge ${statusClass}">${result.status} ${statusText}</span>
@@ -2923,6 +3255,7 @@ function sendPmRequest(){
     $('#pmRespCookies').classList.toggle('active', t.dataset.rt==='cookies');
     $('#pmRespTests').classList.toggle('active', t.dataset.rt==='tests');
   }));
+  return {status:result.status,ms,pass:passCount,fail:failCount,tests:pmLastTestResults};
 }
 
 /* ---- Postman-style test runner: pm.test() / pm.expect() sandboxed against the response ---- */
@@ -2981,8 +3314,8 @@ function runPmTests(script,result,ms,headers){
     expect,
   },scopes);
   try{
-    const runner=new Function('pm','"use strict";\n'+script);
-    runner(pmSandbox);
+    const runner=new Function('pm','console','"use strict";\n'+script);
+    runner(pmSandbox,pmConsoleShim());
   }catch(e){
     results.push({name:'Script error',pass:false,error:e.message});
   }
