@@ -8,27 +8,35 @@
 /* =====================================================================
    QA STORE SANDBOX – custom CSS (no frameworks). Purple + white palette.
    ===================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,380;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 :root{
-  --p:#6d28d9;--p2:#7c3aed;--pd:#4c1d95;--p-soft:#ede9fe;--p-bg:#faf8ff;--p-mid:#c4b5fd;
-  --ink:#1e1535;--mut:#6b6785;--line:#e6e1f3;--white:#fff;
+  --p:#6d28d9;--p2:#7c3aed;--p3:#a78bfa;--pd:#3b1478;--p-soft:#ede9fe;--p-bg:#faf8ff;--p-mid:#c4b5fd;
+  --grad:linear-gradient(135deg,#7c3aed 0%,#9333ea 50%,#c026d3 100%);
+  --grad-soft:linear-gradient(135deg,#f5f0ff 0%,#ede9fe 55%,#e0d4ff 100%);
+  --ink:#1c1330;--mut:#6b6785;--line:#e7e2f5;--white:#fff;
   --ok:#16a34a;--ok-bg:#dcfce7;--warn:#b45309;--warn-bg:#fef3c7;--err:#dc2626;--err-bg:#fee2e2;--info:#2563eb;--info-bg:#dbeafe;
-  --r:14px;--r-sm:8px;--sh:0 4px 18px rgba(76,29,149,.08);--sh2:0 14px 44px rgba(76,29,149,.18);
-  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
-  --sans:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
-  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --r:16px;--r-sm:10px;
+  --sh:0 2px 10px rgba(76,29,149,.06),0 1px 2px rgba(76,29,149,.05);
+  --sh2:0 20px 50px -12px rgba(76,29,149,.28),0 8px 20px -8px rgba(76,29,149,.15);
+  --sh-glow:0 8px 24px -6px rgba(124,58,237,.45);
+  --serif:"Fraunces","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:"Inter","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:var(--sans);color:var(--ink);background:#fff;line-height:1.55;font-size:15px;-webkit-font-smoothing:antialiased}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:#fff;line-height:1.6;font-size:15.5px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 body.modal-open{overflow:hidden}
 img{max-width:100%;display:block}
-a{color:var(--p);text-decoration:none}
-a:hover{text-decoration:underline}
-h1,h2,h3,h4{font-family:var(--serif);line-height:1.2;margin:0 0 .5em;color:var(--ink)}
-h1{font-size:clamp(2rem,4.5vw,3.4rem)}h2{font-size:clamp(1.5rem,3vw,2.1rem)}h3{font-size:1.15rem}
+a{color:var(--p);text-decoration:none;transition:color .15s}
+a:hover{color:var(--pd)}
+h1,h2,h3,h4{font-family:var(--serif);font-optical-sizing:auto;line-height:1.12;margin:0 0 .5em;color:var(--ink);letter-spacing:-0.01em}
+h1{font-size:clamp(2.1rem,4.6vw,3.6rem);font-weight:600;letter-spacing:-0.02em}
+h2{font-size:clamp(1.55rem,3vw,2.2rem);font-weight:600}
+h3{font-size:1.18rem;font-weight:600}
 p{margin:0 0 1em}
 button{font-family:inherit;cursor:pointer}
-:focus-visible{outline:3px solid var(--p-mid);outline-offset:2px}
+:focus-visible{outline:3px solid var(--p-mid);outline-offset:2px;border-radius:4px}
 .container{width:100%;max-width:1200px;margin:0 auto;padding:0 20px}
 .wide .container.tool{max-width:1500px}
 .muted{color:var(--mut)}.small{font-size:.85rem}.center{text-align:center}.right{text-align:right}
@@ -36,15 +44,17 @@ button{font-family:inherit;cursor:pointer}
 .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}
 .grow{flex:1}
 .mt{margin-top:16px}.mb{margin-bottom:16px}
+.text-grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 /* ---------- buttons ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-weight:600;font-size:.92rem;transition:.15s;text-decoration:none!important;white-space:nowrap}
-.btn:hover{border-color:var(--p);color:var(--p)}
-.btn-primary{background:var(--p);border-color:var(--p);color:#fff}
-.btn-primary:hover{background:var(--pd);border-color:var(--pd);color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-weight:600;font-size:.92rem;transition:transform .15s,box-shadow .15s,border-color .15s,background .15s,color .15s;text-decoration:none!important;white-space:nowrap}
+.btn:hover{border-color:var(--p3);color:var(--pd);transform:translateY(-1px);box-shadow:var(--sh)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:var(--grad);border-color:transparent;color:#fff;box-shadow:0 2px 8px -2px rgba(124,58,237,.5)}
+.btn-primary:hover{color:#fff;box-shadow:var(--sh-glow);filter:brightness(1.06);transform:translateY(-1.5px)}
 .btn-light{background:#fff;color:var(--p);border-color:#fff}
 .btn-light:hover{background:var(--p-soft);color:var(--pd);border-color:var(--p-soft)}
 .btn-danger{background:var(--err);border-color:var(--err);color:#fff}
-.btn-danger:hover{background:#b91c1c;border-color:#b91c1c;color:#fff}
+.btn-danger:hover{background:#b91c1c;border-color:#b91c1c;color:#fff;box-shadow:0 8px 20px -8px rgba(220,38,38,.5)}
 .btn-ghost{background:transparent}
 .btn-ok{background:var(--ok);border-color:var(--ok);color:#fff}.btn-ok:hover{background:#15803d;border-color:#15803d;color:#fff}
 .btn-sm{padding:6px 12px;font-size:.82rem;border-radius:8px}
@@ -66,7 +76,7 @@ textarea{min-height:100px;resize:vertical}
 .alert{padding:12px 14px;border-radius:10px;font-size:.9rem;margin-bottom:14px}
 .alert-info{background:var(--info-bg);color:#1e40af}.alert-warn{background:var(--warn-bg);color:var(--warn)}.alert-err{background:var(--err-bg);color:#991b1b}.alert-ok{background:var(--ok-bg);color:#166534}
 /* ---------- badges ---------- */
-.badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.75rem;font-weight:700;background:var(--p-soft);color:var(--pd)}
+.badge{display:inline-block;padding:3px 11px;border-radius:99px;font-size:.74rem;font-weight:700;background:var(--p-soft);color:var(--pd);letter-spacing:.01em}
 .b-ok{background:var(--ok-bg);color:#166534}.b-warn{background:var(--warn-bg);color:var(--warn)}.b-err{background:var(--err-bg);color:#991b1b}.b-info{background:var(--info-bg);color:#1e40af}.b-gray{background:#eee;color:#555}
 /* ---------- tables ---------- */
 .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:#fff}
@@ -98,9 +108,9 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem}
 .toast{background:var(--ink);color:#fff;padding:12px 16px;border-radius:12px;box-shadow:var(--sh2);font-size:.9rem;border-left:5px solid var(--p-mid);animation:pop .2s}
 .toast.ok{border-left-color:#4ade80}.toast.err{border-left-color:#f87171}.toast.warn{border-left-color:#fbbf24}
 /* ---------- header ---------- */
-.site-header{position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:100}
+.site-header{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:blur(12px) saturate(1.4);border-bottom:1px solid var(--line);z-index:100}
 .header-row{display:flex;align-items:center;gap:18px;padding-top:12px;padding-bottom:12px}
-.logo{display:flex;align-items:center;gap:9px;font-family:var(--serif);font-size:1.4rem;color:var(--ink)!important;text-decoration:none!important;font-weight:700}
+.logo{display:flex;align-items:center;gap:9px;font-family:var(--serif);font-size:1.5rem;font-weight:600;letter-spacing:-.01em;color:var(--ink)!important;text-decoration:none!important}
 .logo b{color:var(--p)}
 .logo-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--p),#a78bfa);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:800}
 .main-nav{display:flex;gap:6px;align-items:center}
@@ -108,9 +118,22 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem}
 .main-nav>a:hover,.dd-btn:hover,.main-nav>a.active{background:var(--p-soft);color:var(--p)}
 .dropdown{position:relative}
 .dd-menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh2);min-width:220px;padding:6px;z-index:50}
+.dropdown.dd-right .dd-menu{left:auto;right:0}
 .dropdown.open .dd-menu{display:block}
 .dd-menu a{display:block;padding:9px 12px;border-radius:8px;color:var(--ink);font-weight:500;text-decoration:none!important}
 .dd-menu a:hover{background:var(--p-soft);color:var(--p)}
+.mini-cart{width:340px;padding:16px;max-height:70vh;overflow:auto}
+.mini-cart h4{margin:0 0 10px;font-family:var(--sans);font-size:.95rem;display:flex;justify-content:space-between}
+.mc-item{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.mc-item img{width:48px;height:48px;border-radius:8px;object-fit:cover}
+.mc-item .mc-name{font-size:.85rem;font-weight:600;color:var(--ink);display:block}
+.mc-item .mc-meta{font-size:.78rem;color:var(--mut)}
+.mc-item .mc-del{background:none;border:0;color:var(--mut);font-size:.95rem;padding:2px}
+.mc-item .mc-del:hover{color:var(--err)}
+.mini-cart .mc-total{display:flex;justify-content:space-between;font-weight:800;padding:10px 0;border-top:2px solid var(--line);margin-top:4px}
+.mini-cart .mc-actions{display:flex;gap:8px;margin-top:8px}
+.mini-cart .mc-actions .btn{flex:1}
+.mc-empty{text-align:center;padding:20px 10px;color:var(--mut)}
 .header-search{margin-left:auto;display:flex;position:relative}
 .header-search input{width:230px;padding-right:38px;border-radius:99px;background:var(--p-bg)}
 .header-search button{position:absolute;right:4px;top:3px;border:0;background:none;font-size:1rem;padding:6px 8px}
@@ -122,20 +145,20 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem}
 #authLinks{display:flex;gap:6px;align-items:center;margin-left:4px}
 .burger{display:none;margin-left:auto;background:var(--p-soft);border:0;width:40px;height:40px;border-radius:10px;font-size:1.3rem;color:var(--p)}
 /* ---------- footer ---------- */
-.site-footer{background:var(--pd);color:#d9ccff;margin-top:60px;padding:44px 0 20px}
+.site-footer{background:linear-gradient(160deg,#2e1065 0%,#3b1478 55%,#4c1d95 100%);color:#d9ccff;margin-top:60px;padding:48px 0 22px}
 .site-footer h4{color:#fff;font-family:var(--sans);font-size:.95rem}
 .site-footer a{color:#d9ccff;display:block;padding:3px 0}
 .site-footer a:hover{color:#fff}
 .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px}
 .foot-bottom{border-top:1px solid rgba(255,255,255,.15);margin-top:28px;padding-top:16px;font-size:.82rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 /* ---------- hero ---------- */
-.hero{background:linear-gradient(120deg,#f5f0ff 0%,#ede9fe 55%,#ddd0ff 100%);overflow:hidden}
+.hero{background:radial-gradient(ellipse 90% 70% at 15% 20%,#efe6ff 0%,transparent 55%),radial-gradient(ellipse 80% 80% at 85% 80%,#e3d4ff 0%,transparent 55%),linear-gradient(135deg,#f7f4ff 0%,#f0e9ff 55%,#e6d9ff 100%);overflow:hidden}
 .hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:56px 20px}
 .hero h1{margin-bottom:.35em}
 .hero p.lead{font-size:1.1rem;color:#4a4368;max-width:520px}
-.hero-img{border-radius:28px;overflow:hidden;box-shadow:var(--sh2);aspect-ratio:5/4;background:var(--p-mid);transform:rotate(1.5deg)}
+.hero-img{border-radius:28px;overflow:hidden;box-shadow:var(--sh2);aspect-ratio:5/4;background:linear-gradient(135deg,var(--p3),var(--p));transform:rotate(1.5deg)}
 .hero-img img{width:100%;height:100%;object-fit:cover}
-.hero-tag{display:inline-block;background:#fff;color:var(--p);padding:5px 14px;border-radius:99px;font-weight:700;font-size:.82rem;margin-bottom:14px;box-shadow:var(--sh)}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:#fff;color:var(--p);padding:6px 15px;border-radius:99px;font-weight:700;font-size:.82rem;margin-bottom:16px;box-shadow:var(--sh)}
 /* ---------- sections ---------- */
 .section{padding:48px 0 0}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;gap:12px;flex-wrap:wrap}
@@ -172,14 +195,15 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem}
 .stars{font-size:1rem;letter-spacing:1px;background:linear-gradient(90deg,#f59e0b var(--r,0%),#dcd6ee var(--r,0%));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 .rating small{color:var(--mut)}
 .trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
-.trust-item{display:flex;gap:14px;align-items:center;padding:18px;border-radius:var(--r);background:var(--p-bg);border:1px solid var(--line)}
+.trust-item{display:flex;gap:14px;align-items:center;padding:18px;border-radius:var(--r);background:var(--p-bg);border:1px solid var(--line);transition:transform .2s,box-shadow .2s}
+.trust-item:hover{transform:translateY(-2px);box-shadow:var(--sh);border-color:var(--p-mid)}
 .trust-item .ic{font-size:1.7rem;width:52px;height:52px;border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh)}
 .trust-item b{display:block}
 .reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
 .review-card{padding:20px}
 .review-card .who{display:flex;align-items:center;gap:10px;margin-top:12px}
 .avatar{width:38px;height:38px;border-radius:50%;background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
-.banner{background:linear-gradient(120deg,var(--p),#a78bfa);color:#fff;border-radius:22px;padding:34px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.banner{background:var(--grad);color:#fff;border-radius:22px;padding:36px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;box-shadow:var(--sh-glow)}
 .banner h2{color:#fff;margin:0 0 4px}
 .page-title{padding:30px 0 6px}
 .crumbs{font-size:.85rem;color:var(--mut);margin-bottom:8px}
@@ -251,8 +275,9 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem}
 .admin-side button:hover{background:var(--p-soft)}.admin-side button.active{background:var(--p);color:#fff}
 .admin-main{padding:22px;min-width:0}
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px}
-.stat{padding:16px;border-radius:12px;background:var(--p-bg);border:1px solid var(--line)}
-.stat b{display:block;font-size:1.7rem;font-family:var(--serif);color:var(--pd)}
+.stat{padding:16px;border-radius:12px;background:var(--p-bg);border:1px solid var(--line);transition:transform .18s,box-shadow .18s}
+.stat:hover{transform:translateY(-2px);box-shadow:var(--sh)}
+.stat b{display:block;font-size:1.8rem;font-family:var(--serif);font-weight:600;color:var(--pd)}
 .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:14px}
 .toolbar input{max-width:280px}
 .pager{display:flex;gap:6px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
@@ -272,6 +297,8 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem}
 .db-name{padding:8px 16px;background:rgba(255,255,255,.08);font-weight:700;font-size:.88rem}
 .db-side ul{list-style:none;margin:0;padding:6px 0}
 .db-tbl{display:flex;align-items:center;gap:6px;padding:7px 16px;font-size:.88rem;cursor:pointer;color:#e9defc}
+.db-toggle{background:none;border:1px solid rgba(255,255,255,.3);color:#e9defc;width:16px;height:16px;border-radius:3px;font-size:.72rem;line-height:1;display:inline-flex;align-items:center;justify-content:center;margin-right:2px;flex-shrink:0;padding:0}
+.db-toggle:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5)}
 .db-tbl:hover{background:rgba(255,255,255,.1)}
 .db-tbl .n{margin-left:auto;font-size:.72rem;background:rgba(255,255,255,.15);padding:1px 8px;border-radius:99px}
 .db-tbl .car{background:none;border:0;color:#b9a5e8;padding:0 4px;font-size:.8rem}
@@ -366,6 +393,12 @@ pre.json{margin:0;font-family:var(--mono);font-size:.82rem;line-height:1.55;whit
 .pm-hist-item{padding:8px;border-radius:6px;cursor:pointer;font-size:.78rem;display:flex;gap:6px;align-items:center}
 .pm-hist-item:hover{background:#ececf3}
 .pm-hist-item .u{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.pm-side .tg{display:inline-block;width:16px;text-align:center;font-weight:800;color:#6d28d9}
+.pm-folder .f-head .run{margin-left:4px}.pm-folder .f-head .run:first-of-type{margin-left:auto}
+.pm-bottom{border-top:1px solid #e3e3ea;background:#fff;margin-top:12px;border:1px solid #d8d8e0;border-radius:14px;overflow:hidden}
+.pm-log{font-family:var(--mono);font-size:.78rem;max-height:200px;min-height:90px;overflow:auto;padding:8px 12px;background:#1e1b2e;color:#e9e4ff}
+.lg span{color:#8a84a8;margin-right:6px}.lg-error{color:#fca5a5}.lg-ok{color:#86efac}.lg-warn{color:#fcd34d}.lg-req{color:#93c5fd}
+#termIn{border:0;border-top:1px solid #333;border-radius:0;background:#12101c;color:#e9e4ff;font-family:var(--mono);font-size:.82rem}
 /* ---------- Performance tool ---------- */
 .perf-grid{display:grid;grid-template-columns:400px 1fr;gap:18px;align-items:start}
 .panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--sh)}
@@ -384,7 +417,34 @@ canvas.chart{width:100%;height:230px;display:block;background:#fff;border:1px so
 .progress>div{height:100%;background:linear-gradient(90deg,var(--p),#a78bfa);width:0;transition:width .3s}
 .verdict{padding:12px 14px;border-radius:10px;font-size:.9rem;margin-top:12px}
 .thr{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:.88rem}
-/* ---------- responsive ---------- */
+/* ---------- Performance testing (JMeter-style tree) ---------- */
+.jm-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 14px;background:#f6f3ff;border:1px solid var(--line);border-radius:12px 12px 0 0;border-bottom:0}
+.jm-wrap{display:grid;grid-template-columns:320px 1fr;border:1px solid var(--line);border-radius:0 0 12px 12px;overflow:hidden;background:#fff;min-height:640px}
+.jm-tree-pane{background:#2b1b4d;color:#e9defc;padding:8px;overflow:auto}
+.jm-config-pane{padding:22px;background:#fbfaff;overflow:auto;min-width:0}
+.jm-node{display:flex;align-items:center;gap:6px;padding:5px 6px;border-radius:6px;cursor:pointer;font-size:.86rem;white-space:nowrap;user-select:none}
+.jm-node:hover{background:rgba(255,255,255,.1)}
+.jm-node.selected{background:var(--p);color:#fff}
+.jm-caret{width:14px;text-align:center;font-size:.65rem;color:#b9a5e8;cursor:pointer;flex-shrink:0}
+.jm-node.selected .jm-caret{color:#fff}
+.jm-icon{font-size:.95rem;flex-shrink:0}
+.jm-name{overflow:hidden;text-overflow:ellipsis}
+.jm-config-pane h2{font-size:1.3rem;margin-bottom:2px}
+.jm-config-pane .jm-type-label{color:var(--mut);font-size:.82rem;margin-bottom:18px;display:block}
+.jm-section-title{font-weight:700;font-size:.85rem;color:var(--pd);margin:18px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.jm-section-title:first-of-type{margin-top:0}
+.jm-radio-row{display:flex;gap:18px;flex-wrap:wrap;margin:8px 0}
+.jm-radio-row label{display:flex;gap:6px;align-items:center;font-size:.9rem;cursor:pointer}
+.vrt-list{width:280px;max-height:520px;overflow:auto;border:1px solid var(--line);border-radius:10px;background:#fff;flex-shrink:0}
+.vrt-item{display:flex;gap:8px;align-items:center;padding:8px 10px;border-bottom:1px solid var(--line);cursor:pointer;font-size:.85rem}
+.vrt-item:hover{background:var(--p-bg)}
+.vrt-item.selected{background:var(--p-soft)}
+.vrt-item .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+@media (max-width:900px){
+  .jm-wrap{grid-template-columns:1fr}
+  .jm-tree-pane{max-height:260px}
+  .vrt-list{width:100%}
+}
 @media (max-width:1100px){
   .header-search input{width:150px}
   .perf-grid{grid-template-columns:1fr}
@@ -456,7 +516,10 @@ canvas.chart{width:100%;height:230px;display:block;background:#fff;border:1px so
     <div class="header-icons">
       <a href="#/account/wishlist" class="hicon" title="Wishlist" id="hWish">♥<span class="count" id="cntWish" data-n="0"></span></a>
       <a href="#/account/compare" class="hicon" title="Compare list" id="hCmp">⇄<span class="count" id="cntCmp" data-n="0"></span></a>
-      <a href="#/cart" class="hicon" title="Cart" id="hCart">🛒<span class="count" id="cntCart" data-n="0"></span></a>
+      <div class="dropdown dd-right" id="cartDd">
+        <button class="hicon" data-action="toggleDd" id="hCart" title="Cart" aria-haspopup="true" style="border:0">🛒<span class="count" id="cntCart" data-n="0"></span></button>
+        <div class="dd-menu mini-cart" id="miniCartBody"></div>
+      </div>
       <span id="authLinks"></span>
     </div>
   </div>
@@ -470,7 +533,7 @@ canvas.chart{width:100%;height:230px;display:block;background:#fff;border:1px so
 /* =====================================================================
    CORE: storage, helpers, schema, seed data, referential integrity
    ===================================================================== */
-const LS = {db:'qa_sbx_db_v3', session:'qa_sbx_session_v3', cart:'qa_sbx_cart_v3', checkout:'qa_sbx_checkout_v3', pm:'qa_sbx_pm_v3', sqlhist:'qa_sbx_sqlhist_v3'};
+const LS = {db:'qa_sbx_db_v3', session:'qa_sbx_session_v3', cart:'qa_sbx_cart_v3', checkout:'qa_sbx_checkout_v3', pm:'qa_sbx_pm_v3', sqlhist:'qa_sbx_sqlhist_v3', perftree:'qa_sbx_perftree_v1'};
 const store = {
   get(k, d){ try{ const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); }catch(e){ return d; } },
   set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
@@ -2024,6 +2087,7 @@ function renderHeaderFooter(){
       '<a href="#/account">My account</a><a href="#/account/orders">My orders</a>' + (u.role === 'admin' ? '<a href="#/admin">Admin panel</a>' : '') + '<a href="#" data-action="logout">Log out</a></div></div>'
     : '<a href="#/login" class="btn btn-sm">Log in</a><a href="#/register" class="btn btn-sm btn-primary">Sign up</a>';
   $('#cntCart').textContent = CART.items.reduce((s, i) => s + i.qty, 0); $('#cntCart').dataset.n = String(CART.items.reduce((s, i) => s + i.qty, 0));
+  renderMiniCart();
   const wc = u ? DB.wishlist.filter(w => w.customer_id === u.id).length : 0; $('#cntWish').textContent = wc; $('#cntWish').dataset.n = String(wc);
   const cc = u ? DB.compare_list.filter(w => w.customer_id === u.id).length : 0; $('#cntCmp').textContent = cc; $('#cntCmp').dataset.n = String(cc);
   $('#siteFooter').innerHTML =
@@ -2033,6 +2097,21 @@ function renderHeaderFooter(){
     '<div><h4>Company</h4><a href="#/page/about-us">About us</a><a href="#/page/contact-us">Contact us</a><a href="#/page/terms-and-conditions">Terms &amp; conditions</a><a href="#/page/privacy-policy">Privacy policy</a></div>' +
     '<div><h4>QA Tools</h4><a href="#/admin">Admin panel</a><a href="#/database">MySQL database</a><a href="#/postman">Postman API client</a><a href="#/performance">Performance lab</a><a href="#/guide">Testing guide</a></div>' +
     '</div><div class="foot-bottom"><span>© ' + new Date().getFullYear() + ' QA Store Sandbox — a fictional practice site, not a real store.</span><span>Built for manual &amp; QA testers</span></div></div>';
+}
+function renderMiniCart(){
+  const box = document.getElementById('miniCartBody');
+  if(!box) return;
+  const lines = cartLines();
+  if(!lines.length){ box.innerHTML = '<h4>Your cart</h4><div class="mc-empty">🛒<br>Your cart is empty.</div>'; return; }
+  const n = lines.reduce((s, l) => s + l.qty, 0);
+  const subtotal = lines.reduce((s, l) => s + l.price * l.qty, 0);
+  box.innerHTML = '<h4>Your cart <span class="muted small">(' + n + ' item' + (n === 1 ? '' : 's') + ')</span></h4>' +
+    lines.map(l => '<div class="mc-item">' + imgTag(l.product.image, l.product.name) +
+      '<div><span class="mc-name">' + esc(l.product.name) + '</span><span class="mc-meta">Qty ' + l.qty + ' × ' + money(l.price) + '</span></div>' +
+      '<button class="mc-del" data-action="removeMiniCart" data-id="' + l.product.id + '" title="Remove">🗑</button></div>').join('') +
+    '<div class="mc-total"><span>Subtotal</span><span>' + money(subtotal) + '</span></div>' +
+    '<div class="mc-actions"><a href="#/cart" class="btn btn-sm">View cart</a><a href="#/checkout" class="btn btn-sm btn-primary" id="miniCheckout">Checkout</a></div>';
+  box.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { const dd = document.getElementById('cartDd'); if(dd) dd.classList.remove('open'); }));
 }
 
 /* ---------- global delegated events ---------- */
@@ -2244,6 +2323,10 @@ document.addEventListener('click', e => {
   const c = e.target.closest('[data-action="addCart"]'); if(c){ addToCart(Number(c.dataset.id), 1); return; }
   const w = e.target.closest('[data-action="toggleWish"]'); if(w){ toggleWish(Number(w.dataset.id)); return; }
   const cp = e.target.closest('[data-action="toggleCompare"]'); if(cp){ toggleCompare(Number(cp.dataset.id)); return; }
+  const rm = e.target.closest('[data-action="removeMiniCart"]');
+  if(rm){ CART.items = CART.items.filter(i => i.product_id !== Number(rm.dataset.id)); saveCart(); toast('Item removed'); renderHeaderFooter(); if(parseHash().path === '/cart') render(); return; }
+  const mc = e.target.closest('#miniCheckout');
+  if(mc && !currentUser()){ e.preventDefault(); const dd = document.getElementById('cartDd'); if(dd) dd.classList.remove('open'); toast('Please log in to continue', 'warn'); navigate('/login?next=' + encodeURIComponent('/checkout')); }
 });
 
 route('/page/:slug', ({params}) => {
@@ -2704,7 +2787,7 @@ const SAMPLE_QUERIES = [
 route('/database', () => { renderDbTool(); });
 function renderDbTool(){
   $('#app').innerHTML = '<div class="container tool-page">' +
-  '<div class="tool-title"><h1>🗄 MySQL Workbench <span class="badge b-info">Sandbox</span></h1><div class="row"><button class="btn btn-sm" id="dbReset">↺ Reset demo data</button></div></div>' +
+  '<div class="tool-title"><h1>🗄 MySQL Workbench <span class="badge b-info">Sandbox</span></h1><div class="row"><button class="btn btn-sm" id="dbErDiagram">🗺 ER Diagram</button><button class="btn btn-sm" id="dbReset">↺ Reset demo data</button></div></div>' +
   '<div class="db">' +
   '<aside class="db-side"><div class="db-brand">🐬 MySQL 8.0</div><div class="db-name">qa_ecommerce</div><ul id="dbTableList"></ul></aside>' +
   '<main class="db-main">' +
@@ -2712,6 +2795,8 @@ function renderDbTool(){
   '<div class="db-toolbar">' +
   '<select id="dbSampleSel"><option value="">Insert a sample query…</option>' + SAMPLE_QUERIES.map((q, i) => '<option value="' + i + '">' + esc(q.split('\n')[0].slice(0, 60)) + '…</option>').join('') + '</select>' +
   '<button class="btn btn-sm" id="dbBrowse">🔎 Browse selected table</button>' +
+  '<button class="btn btn-sm" id="dbInsertRow">➕ Insert row…</button>' +
+  '<button class="btn btn-sm" id="dbExportCsv">⬇ Export last result (CSV)</button>' +
   '<button class="btn btn-sm" id="dbClear">🧹 Clear editor</button>' +
   '</div>' +
   '<textarea id="sqlEditor" spellcheck="false" placeholder="Type a SQL query, e.g. SELECT * FROM products;">SELECT * FROM products;</textarea>' +
@@ -2721,22 +2806,35 @@ function renderDbTool(){
   '</main></div></div><div style="height:40px"></div>';
 
   paintTableList(); paintHistory();
+  $('#dbErDiagram').addEventListener('click', openErDiagramModal);
   $('#dbReset').addEventListener('click', () => confirmDelete({title:'Reset the demo database?', body:'All changes made in the sandbox (in every tool) will be discarded and replaced with the original demo data.', onConfirm: () => { resetDB(); toast('Demo data has been reset', 'ok'); render(); }}));
-  $$('.db-tbl').forEach(el => el.addEventListener('click', () => { DB_ACTIVE_TABLE = el.dataset.t; paintTableList(); $('#dbCrumbTbl').textContent = DB_ACTIVE_TABLE; }));
   $('#dbBrowse').addEventListener('click', () => { $('#sqlEditor').value = 'SELECT * FROM ' + DB_ACTIVE_TABLE + ' LIMIT 50;'; runSqlEditor(); });
+  $('#dbInsertRow').addEventListener('click', openInsertRowModal);
+  $('#dbExportCsv').addEventListener('click', exportQueryCsv);
   $('#dbClear').addEventListener('click', () => { $('#sqlEditor').value = ''; $('#sqlEditor').focus(); });
   $('#dbSampleSel').addEventListener('change', e => { if(e.target.value === '') return; $('#sqlEditor').value = SAMPLE_QUERIES[e.target.value]; e.target.value = ''; });
   $('#dbExec').addEventListener('click', runSqlEditor);
   $('#sqlEditor').addEventListener('keydown', e => { if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){ e.preventDefault(); runSqlEditor(); } if(e.key === 'Tab'){ e.preventDefault(); document.execCommand('insertText', false, '  '); } });
 }
+let DB_TABLE_EXPANDED = {};
 function paintTableList(){
-  $('#dbTableList').innerHTML = TABLE_NAMES.map(t => '<li><div class="db-tbl' + (t === DB_ACTIVE_TABLE ? '' : '') + '" data-t="' + t + '" style="' + (t === DB_ACTIVE_TABLE ? 'background:rgba(255,255,255,.14)' : '') + '">📋 ' + t + '<span class="n">' + DB[t].length + '</span></div><div class="db-cols">' + SCHEMA[t].map(c => '<div><span' + (c.k === 'PRI' ? ' class="pk"' : '') + '>' + c.n + '</span><em>' + c.t.split('(')[0].toLowerCase() + '</em></div>').join('') + '</div></li>').join('');
-  $$('.db-tbl').forEach(el => el.addEventListener('click', () => { DB_ACTIVE_TABLE = el.dataset.t; paintTableList(); $('#dbCrumbTbl').textContent = DB_ACTIVE_TABLE; }));
+  if(!Object.keys(DB_TABLE_EXPANDED).length) TABLE_NAMES.forEach(t => { DB_TABLE_EXPANDED[t] = (t === DB_ACTIVE_TABLE); });
+  $('#dbTableList').innerHTML = TABLE_NAMES.map(t => {
+    const expanded = !!DB_TABLE_EXPANDED[t];
+    return '<li><div class="db-tbl" data-t="' + t + '" style="' + (t === DB_ACTIVE_TABLE ? 'background:rgba(255,255,255,.14)' : '') + '">' +
+      '<button class="db-toggle" data-toggle="' + t + '" title="' + (expanded ? 'Collapse columns' : 'Expand columns') + '">' + (expanded ? '−' : '+') + '</button>' +
+      '📋 ' + t + '<span class="n">' + DB[t].length + '</span></div>' +
+      (expanded ? '<div class="db-cols">' + SCHEMA[t].map(c => '<div><span' + (c.k === 'PRI' ? ' class="pk"' : '') + '>' + c.n + '</span><em>' + c.t.split('(')[0].toLowerCase() + '</em></div>').join('') + '</div>' : '') +
+      '</li>';
+  }).join('');
+  $$('.db-tbl').forEach(el => el.addEventListener('click', e => { if(e.target.closest('[data-toggle]')) return; DB_ACTIVE_TABLE = el.dataset.t; DB_TABLE_EXPANDED[DB_ACTIVE_TABLE] = true; paintTableList(); $('#dbCrumbTbl').textContent = DB_ACTIVE_TABLE; }));
+  $$('[data-toggle]').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); const t = btn.dataset.toggle; DB_TABLE_EXPANDED[t] = !DB_TABLE_EXPANDED[t]; paintTableList(); }));
 }
 function paintHistory(){
   $('#sqlHistList').innerHTML = SQL_HISTORY.length ? SQL_HISTORY.slice(0, 12).map((q, i) => '<div class="hist-item" data-h="' + i + '" title="' + esc(q) + '">' + esc(q.replace(/\s+/g, ' ')) + '</div>').join('') : '<p class="muted small">No queries run yet.</p>';
   $$('.hist-item').forEach(el => el.addEventListener('click', () => { $('#sqlEditor').value = SQL_HISTORY[Number(el.dataset.h)]; }));
 }
+let LAST_QUERY_RESULT = null;
 function runSqlEditor(){
   const sql = $('#sqlEditor').value;
   if(!sql.trim()) return;
@@ -2744,6 +2842,57 @@ function runSqlEditor(){
   store.set(LS.sqlhist, SQL_HISTORY); paintHistory();
   const results = execSQL(sql);
   $('#sqlRes').innerHTML = results.map(renderSqlResult).join('');
+  const lastRows = results.slice().reverse().find(r => r.type === 'rows' && r.rows.length);
+  if(lastRows) LAST_QUERY_RESULT = lastRows;
+}
+function exportQueryCsv(){
+  if(!LAST_QUERY_RESULT){ toast('Run a SELECT query with results first', 'warn'); return; }
+  const esc2 = v => v === null || v === undefined ? '' : '"' + String(v).replace(/"/g, '""') + '"';
+  const header = LAST_QUERY_RESULT.cols.map(esc2).join(',');
+  const body = LAST_QUERY_RESULT.rows.map(r => r.map(esc2).join(',')).join('\n');
+  const blob = new Blob([header + '\n' + body], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'query_result.csv'; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  toast('CSV exported', 'ok');
+}
+function openInsertRowModal(){
+  const tn = DB_ACTIVE_TABLE;
+  const cols = SCHEMA[tn].filter(c => c.ex !== 'auto_increment');
+  openModal(
+    '<div class="modal-head"><h3>Insert row into <code>' + esc(tn) + '</code></h3><button class="x-btn" data-action="closeModal">×</button></div>' +
+    '<form id="insertRowForm">' + cols.map(c => {
+      const isEnum = c.t.startsWith('ENUM'); let control;
+      if(isEnum){
+        const opts = c.t.match(/\(([^)]*)\)/)[1].split(',').map(s => s.trim().replace(/^'|'$/g, ''));
+        control = '<select name="' + c.n + '">' + opts.map(o => '<option value="' + esc(o) + '"' + (c.d === o ? ' selected' : '') + '>' + esc(o) + '</option>').join('') + '</select>';
+      } else if(c.d === 'NOW'){
+        control = '<input type="text" name="' + c.n + '" placeholder="leave blank for the current timestamp">';
+      } else {
+        control = '<input type="text" name="' + c.n + '" value="' + (c.d !== undefined && c.d !== 'NOW' ? esc(c.d) : '') + '" placeholder="' + esc(c.t.toLowerCase()) + (c.nn ? ' — required' : ' — optional') + '">';
+      }
+      return '<div class="field"><label>' + c.n + ' <span class="muted small">' + esc(c.t.toLowerCase()) + (c.k === 'MUL' ? (' · references ' + esc((FKS.find(f => f.t === tn && f.c === c.n) || {}).rt || '') + '.id') : '') + '</span></label>' + control + '</div>';
+    }).join('') +
+    '<div class="alert alert-info small">This builds a real <code>INSERT INTO ' + esc(tn) + ' (...) VALUES (...)</code> statement — the exact SQL will appear in the results panel, exactly like clicking "Show SQL" in phpMyAdmin.</div>' +
+    '<div class="modal-actions"><button type="button" class="btn" data-action="closeModal">Cancel</button><button class="btn btn-primary">Run INSERT</button></div></form>',
+    {cls:'modal-lg'}
+  );
+  $('#insertRowForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const colNames = [], vals = [];
+    cols.forEach(c => {
+      const raw = (fd.get(c.n) || '').toString();
+      if(raw === '') return;
+      colNames.push(c.n);
+      vals.push("'" + raw.replace(/'/g, "''") + "'");
+    });
+    if(!colNames.length){ toast('Fill in at least one field', 'warn'); return; }
+    const sql = 'INSERT INTO ' + tn + ' (' + colNames.join(', ') + ') VALUES (' + vals.join(', ') + ');';
+    $('#sqlEditor').value = sql;
+    closeModal();
+    runSqlEditor();
+  });
 }
 function renderSqlResult(res){
   if(res.type === 'error') return '<div class="sql-echo">' + esc(res.sql) + '</div><div class="sql-msg err">✖ ' + esc(res.msg) + '</div>';
@@ -2756,8 +2905,61 @@ function renderSqlResult(res){
     res.rows.map(r => '<tr>' + r.map((v, i) => v === null ? '<td class="null">NULL</td>' : '<td class="' + (typeof v === 'number' ? 'num' : '') + '">' + esc(String(v).length > 80 ? String(v).slice(0, 80) + '…' : v) + '</td>').join('') + '</tr>').join('') +
     '</tbody></table></div>';
 }
+
+/* ---------- ER Diagram ---------- */
+function erLayout(){
+  const cols = 3;
+  const boxW = 220, colGap = 70, rowGap = 46, headerH = 28, rowH = 17, pad = 12;
+  const heights = {}; TABLE_NAMES.forEach(t => { heights[t] = headerH + SCHEMA[t].length * rowH + pad; });
+  const positions = {}; const colY = new Array(cols).fill(20);
+  TABLE_NAMES.forEach((t, idx) => {
+    const c = idx % cols;
+    positions[t] = {x:20 + c * (boxW + colGap), y:colY[c], w:boxW, h:heights[t]};
+    colY[c] += heights[t] + rowGap;
+  });
+  return {positions, totalW:cols * (boxW + colGap) + 20, totalH:Math.max(...colY) + 20, boxW};
+}
+function renderErSvg(){
+  const {positions, totalW, totalH} = erLayout();
+  let boxesSvg = '', linesSvg = '';
+  FKS.forEach(fk => {
+    const from = positions[fk.t], to = positions[fk.rt];
+    if(!from || !to) return;
+    const x1 = from.x + from.w, y1 = from.y + 14, x2 = to.x, y2 = to.y + 14;
+    const midx = (x1 + x2) / 2, midy = (y1 + y2) / 2;
+    linesSvg += '<path d="M ' + x1 + ' ' + y1 + ' C ' + (x1 + 45) + ' ' + y1 + ', ' + (x2 - 45) + ' ' + y2 + ', ' + x2 + ' ' + y2 + '" fill="none" stroke="#a78bfa" stroke-width="2" marker-end="url(#erArrow)"/>' +
+      '<rect x="' + (midx - fk.c.length * 3 - 4) + '" y="' + (midy - 12) + '" width="' + (fk.c.length * 6 + 8) + '" height="14" rx="4" fill="#fff" stroke="#e6e1f3"/>' +
+      '<text x="' + midx + '" y="' + (midy - 2) + '" font-size="9" fill="#6d28d9" text-anchor="middle" font-family="monospace">' + esc(fk.c) + '</text>';
+  });
+  TABLE_NAMES.forEach(t => {
+    const p = positions[t]; const cols = SCHEMA[t];
+    boxesSvg += '<g>' +
+      '<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + p.h + '" rx="9" fill="#fff" stroke="#c4b5fd" stroke-width="1.5"/>' +
+      '<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="28" rx="9" fill="#6d28d9"/>' +
+      '<rect x="' + p.x + '" y="' + (p.y + 14) + '" width="' + p.w + '" height="14" fill="#6d28d9"/>' +
+      '<text x="' + (p.x + 10) + '" y="' + (p.y + 19) + '" fill="#fff" font-weight="700" font-size="12.5" font-family="monospace">' + esc(t) + '</text>' +
+      cols.map((c, i) => '<text x="' + (p.x + 10) + '" y="' + (p.y + 28 + 17 * (i + 1) - 4) + '" font-size="10.5" font-family="monospace" fill="' + (c.k === 'PRI' ? '#b45309' : c.k === 'MUL' ? '#6d28d9' : '#333') + '">' + (c.k === 'PRI' ? '🔑' : c.k === 'MUL' ? '↳' : '·') + ' ' + esc(c.n) + ' <tspan fill="#999">' + esc(c.t.split('(')[0].toLowerCase()) + '</tspan></text>').join('') +
+      '</g>';
+  });
+  return '<svg viewBox="0 0 ' + totalW + ' ' + totalH + '" width="100%" style="min-width:900px;height:auto;display:block;background:#faf8ff">' +
+    '<defs><marker id="erArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#a78bfa"/></marker></defs>' +
+    linesSvg + boxesSvg + '</svg>';
+}
+function openErDiagramModal(){
+  openModal(
+    '<div class="modal-head"><h3>Entity-Relationship Diagram</h3><button class="x-btn" data-action="closeModal">×</button></div>' +
+    '<p class="muted small">Every table in the qa_ecommerce schema and its foreign-key relationships. 🔑 marks a primary key, ↳ marks a foreign key column. Arrows point from a child table\'s foreign key to the parent table\'s primary key.</p>' +
+    '<div style="overflow:auto;max-height:65vh;border:1px solid var(--line);border-radius:10px">' + renderErSvg() + '</div>' +
+    '<div class="modal-actions"><button class="btn btn-primary" data-action="closeModal">Close</button></div>',
+    {cls:'modal-lg'}
+  );
+}
 /* =====================================================================
    POSTMAN-STYLE API CLIENT
+   Real-Postman features: multiple environments with {{variables}}, a
+   personal "My Collection" you build and save requests into, a
+   Pre-request Script tab, a Tests tab with ready-made snippets, request
+   history, and custom mock endpoints from Admin > API Mocks.
    ===================================================================== */
 const PM_COLLECTION = [
   {folder:'Auth', reqs:[
@@ -2801,40 +3003,89 @@ const PM_COLLECTION = [
     {name:'Echo request', method:'POST', url:'https://api.qasandbox.com/v1/debug/echo?sample=1', body:{hello:'world'}, auth:false}
   ]}
 ];
-const PM_TEST_SNIPPET = "pm.test('Status code is 200', () => pm.response.status === 200);\npm.test('Response has \"data\" field', () => pm.response.json.data !== undefined);\npm.test('Response time is below 1000ms', () => pm.response.time < 1000);";
-/* Ready-made assertion snippets for testers who have never written a test script before.
-   Shown in the Tests tab "Insert a ready-made test snippet…" dropdown. */
+const PM_TEST_SNIPPET = "pm.test('Status code is 200', () => pm.response.status === 200);\npm.test('Response has \"data\" field', () => pm.response.json() && pm.response.json().data !== undefined);\npm.test('Response time is below 1000ms', () => pm.response.time < 1000);";
 const PM_SNIPPETS = [
   {label:'Status code equals…', code:"pm.test('Status code is 200', () => pm.response.status === 200);"},
   {label:'Status code is in the 2xx range', code:"pm.test('Status code is successful (2xx)', () => pm.response.status >= 200 && pm.response.status < 300);"},
   {label:'Response time is below a limit', code:"pm.test('Response time is below 500ms', () => pm.response.time < 500);"},
-  {label:'Response body is valid JSON', code:"pm.test('Response body is valid JSON', () => pm.response.json !== null);"},
-  {label:'A field exists in the response', code:"pm.test('Response has \"data\" field', () => pm.response.json && pm.response.json.data !== undefined);"},
-  {label:'A field equals an expected value', code:"pm.test('id equals 1', () => pm.response.json && pm.response.json.id === 1);"},
-  {label:'\"data\" is an array', code:"pm.test('\"data\" is an array', () => pm.response.json && Array.isArray(pm.response.json.data));"},
-  {label:'Array is not empty', code:"pm.test('\"data\" array is not empty', () => pm.response.json && Array.isArray(pm.response.json.data) && pm.response.json.data.length > 0);"},
+  {label:'Response body is valid JSON', code:"pm.test('Response body is valid JSON', () => pm.response.json() !== null);"},
+  {label:'A field exists in the response', code:"pm.test('Response has \"data\" field', () => pm.response.json() && pm.response.json().data !== undefined);"},
+  {label:'A field equals an expected value', code:"pm.test('id equals 1', () => pm.response.json() && pm.response.json().id === 1);"},
+  {label:'"data" is an array', code:"pm.test('\"data\" is an array', () => pm.response.json() && Array.isArray(pm.response.json().data));"},
+  {label:'Array is not empty', code:"pm.test('\"data\" array is not empty', () => pm.response.json() && Array.isArray(pm.response.json().data) && pm.response.json().data.length > 0);"},
   {label:'A header is present', code:"pm.test('Content-Type header is present', () => pm.response.headers['Content-Type'] !== undefined);"},
-  {label:'Response contains an error message on failure', code:"pm.test('Error response has a message', () => pm.response.status >= 400 ? !!(pm.response.json && pm.response.json.message) : true);"}
+  {label:'Response contains an error message on failure', code:"pm.test('Error response has a message', () => pm.response.status >= 400 ? !!(pm.response.json() && pm.response.json().message) : true);"},
+  {label:'Chai: expect status via pm.expect', code:"pm.test('Status code is 200', () => {\n  pm.expect(pm.response.status).to.equal(200);\n});"},
+  {label:'Chai: pm.response.to.have.status()', code:"pm.test('Status code is 200', () => {\n  pm.response.to.have.status(200);\n});"},
+  {label:'Chai: header is present (pm.response.to.have.header)', code:"pm.test('Content-Type header is present', () => {\n  pm.response.to.have.header('Content-Type');\n});"},
+  {label:'Chai: field type checks', code:"const data = pm.response.json();\npm.test('Response has the expected types', () => {\n  pm.expect(data).to.be.an('object');\n  pm.expect(data.id).to.be.a('number');\n});"},
+  {label:'Chai: validate against a JSON schema', code:"const schema = {\n  type: 'object',\n  properties: { id: { type: 'integer' }, name: { type: 'string' } },\n  required: ['id', 'name']\n};\npm.test('Schema is valid', () => {\n  pm.response.to.have.jsonSchema(schema);\n});"}
 ];
 
+const PM_RAW_TYPES = [{k:'text', label:'Text', ct:'text/plain'}, {k:'javascript', label:'JavaScript', ct:'application/javascript'}, {k:'json', label:'JSON', ct:'application/json'}, {k:'html', label:'HTML', ct:'text/html'}, {k:'xml', label:'XML', ct:'application/xml'}];
 function freshTab(seed){
-  return Object.assign({
-    id: uid(), name:'Untitled request', method:'GET', url:'https://api.qasandbox.com/v1/products',
-    params:[], headers:[{key:'Content-Type', value:'application/json', on:true}], body:'{\n  \n}', bodyMode:'json', auth:false,
-    tests: PM_TEST_SNIPPET, activeReqTab:'params', response:null, saved:true
+  const t = Object.assign({
+    id: uid(), name:'Untitled request', method:'GET', url:'{{cl_url}}/products',
+    params:[], headers:[{key:'Content-Type', value:'application/json', on:true}], body:'{\n  \n}', bodyMode:'json', rawType:'json', auth:false, authType:'none', authData:{}, locals:[],
+    preRequest:'', tests: PM_TEST_SNIPPET, activeReqTab:'params', response:null, saved:true
   }, seed || {});
+  if(seed && seed.auth && !seed.authType){ t.authType = 'bearer'; t.authData = {token:'{{token}}'}; }
+  t.locals = JSON.parse(JSON.stringify(t.locals || [])); t.authData = JSON.parse(JSON.stringify(t.authData || {}));
+  return t;
 }
 function tabFromCollection(item){
   const t = freshTab({name:item.name, method:item.method, url:item.url, auth:!!item.auth, body: item.body ? JSON.stringify(item.body, null, 2) : '{\n  \n}'});
   const u = new URL(item.url);
   t.params = Array.from(u.searchParams.entries()).map(([k, v]) => ({key:k, value:v, on:true}));
-  if(item.auth) t.headers = [{key:'Content-Type', value:'application/json', on:true}, {key:'Authorization', value:'Bearer {{token}}', on:true}];
   return t;
 }
-let PM = {tabs:[], activeId:null, env:store.get(LS.pm, null), history: store.get(LS.pm + '_hist', [])};
-if(!PM.env) PM.env = {name:'Sandbox', token:''};
-function pmSaveEnv(){ store.set(LS.pm, PM.env); }
+
+/* ---------- environments (variables), My Collection, history ---------- */
+let PM = {
+  tabs:[], activeId:null,
+  environments: store.get(LS.pm + '_envs', null),
+  activeEnvId: store.get(LS.pm + '_activeEnv', null),
+  collections: store.get(LS.pm + '_cols', null), globals: store.get(LS.pm + '_globals', []), open: store.get(LS.pm + '_open', {}), logs:[], issues:[], term:[],
+  history: store.get(LS.pm + '_hist', [])
+};
+if(!PM.environments || !Array.isArray(PM.environments) || !PM.environments.length){
+  const legacy = store.get(LS.pm, null); /* migrate a token saved by an earlier version of this sandbox */
+  PM.environments = [{id:'env_sandbox', name:'Sandbox', vars:[
+    {key:'token', value: (legacy && legacy.token) || '', on:true},
+    {key:'baseUrl', value:'https://api.qasandbox.com/v1', on:true}
+  ]}];
+}
+if(!PM.activeEnvId || !PM.environments.find(e => e.id === PM.activeEnvId)) PM.activeEnvId = PM.environments[0].id;
+if(!PM.collections || !Array.isArray(PM.collections) || !PM.collections.length){
+  const old = store.get(LS.pm + '_mycol', null);
+  PM.collections = [{id:'col_default', name:'My Collection', vars:[{key:'cl_url', value:'https://api.qasandbox.com/v1', on:true}], folders:(Array.isArray(old) && old.length ? old : [{id:'fold_default', name:'My Requests', reqs:[]}]).map(f => Object.assign({vars:[]}, f))}];
+}
+function pmActiveEnv(){ return PM.environments.find(e => e.id === PM.activeEnvId) || PM.environments[0]; }
+function pmEnvVar(key){ const v = pmActiveEnv().vars.find(x => x.key === key && x.on !== false); return v ? v.value : undefined; }
+function pmSetEnvVar(key, value){ const env = pmActiveEnv(); const v = env.vars.find(x => x.key === key); if(v) v.value = value; else env.vars.push({key, value, on:true}); pmSaveEnvs(); }
+function pmSaveEnvs(){ store.set(LS.pm + '_envs', PM.environments); store.set(LS.pm + '_activeEnv', PM.activeEnvId); store.set(LS.pm + '_globals', PM.globals); }
+function pmSaveCollection(){ store.set(LS.pm + '_cols', PM.collections); store.set(LS.pm + '_open', PM.open); }
 function pmSaveHist(){ store.set(LS.pm + '_hist', PM.history.slice(0, 40)); }
+/* Variable scopes, highest priority first: local > folder > collection > environment > global */
+function pmScopes(t){ const c = t && PM.collections[t._ci], f = c && c.folders[t._fi]; return [t && t.locals, f && f.vars, c && c.vars, pmActiveEnv().vars, PM.globals]; }
+function pmSubstitute(str, t){
+  if(!str) return str;
+  const sc = pmScopes(t); let s = String(str);
+  for(let i = 0; i < 3; i++){
+    const n = s.replace(/\{\{\s*([\w.\-]+)\s*\}\}/g, (m, k) => { for(const a of sc){ const v = (a || []).find(x => x.key === k && x.on !== false && x.value !== ''); if(v) return v.value; } return m; });
+    if(n === s) break; s = n;
+  }
+  return s;
+}
+function pmUnresolved(s){ return String(s || '').match(/\{\{\s*[\w.\-]+\s*\}\}/g) || []; }
+function pmSetVar(scope, key, val, t){
+  const c = PM.collections[t && t._ci] || PM.collections[0];
+  const arr = scope === 'globals' ? PM.globals : scope === 'collection' ? c.vars : scope === 'local' ? (t.locals = t.locals || []) : pmActiveEnv().vars;
+  const v = arr.find(x => x.key === key); if(v) v.value = String(val); else arr.push({key, value:String(val), on:true});
+  pmSaveEnvs(); pmSaveCollection();
+}
+function pmLog(kind, msg){ PM.logs.push({t:new Date().toLocaleTimeString(), kind, msg:String(msg)}); if(PM.logs.length > 300) PM.logs.shift(); paintPmBottom(); }
+function pmIssue(msg){ if(!PM.issues.includes(msg)) PM.issues.push(msg); paintPmBottom(); }
 function activeTab(){ return PM.tabs.find(t => t.id === PM.activeId); }
 
 route('/postman', () => {
@@ -2846,13 +3097,14 @@ function renderPostman(){
   $('#app').innerHTML = '<div class="container tool-page wide"><div class="container tool">' +
   '<div class="tool-title"><h1>📮 API Client <span class="badge b-info">Sandbox</span></h1><div class="muted small">Base URL: https://api.qasandbox.com/v1 — see the <a href="#/guide">testing guide</a> for full endpoint docs</div></div>' +
   '<div class="pm">' +
-  '<aside class="pm-side"><div class="pm-side-tabs"><button class="active" data-st="col">Collections</button><button data-st="hist">History</button></div><div class="pm-side-body" id="pmSideBody"></div></aside>' +
+  '<aside class="pm-side"><div class="pm-side-tabs"><button class="active" data-st="col">Collections</button><button data-st="mycol">My Collection</button><button data-st="hist">History</button></div><div class="pm-side-body" id="pmSideBody"></div></aside>' +
   '<section class="pm-main" id="pmMain"></section>' +
-  '</div></div></div><div style="height:40px"></div>';
-  paintPmSide('col');
+  '</div><div class="pm-bottom" id="pmBottom"></div></div></div><div style="height:40px"></div>';
+  paintPmSide('col'); paintPmBottom();
   $$('.pm-side-tabs button').forEach(b => b.addEventListener('click', () => { $$('.pm-side-tabs button').forEach(x => x.classList.remove('active')); b.classList.add('active'); paintPmSide(b.dataset.st); }));
   paintPmMain();
 }
+
 function paintPmSide(mode){
   const body = $('#pmSideBody');
   if(mode === 'hist'){
@@ -2860,38 +3112,67 @@ function paintPmSide(mode){
     $$('[data-hi]').forEach(el => el.addEventListener('click', () => { const h = PM.history[Number(el.dataset.hi)]; const t = freshTab({name:h.method + ' ' + new URL(h.url).pathname, method:h.method, url:h.url, body:h.body || '{\n  \n}'}); PM.tabs.push(t); PM.activeId = t.id; paintPmMain(); }));
     return;
   }
+  if(mode === 'mycol'){
+    const op = k => PM.open[k] !== false;
+    const bt = (a, i, ti, l) => '<button class="run" data-a="' + a + '" data-i="' + i + '" title="' + ti + '">' + l + '</button>';
+    body.innerHTML = '<div style="padding:4px 8px"><button class="btn btn-sm btn-block" data-a="cnew" data-i="0">+ New collection</button></div>' +
+    PM.collections.map((c, ci) => '<div class="pm-folder"><div class="f-head" data-tg="c' + ci + '"><span class="tg">' + (op('c' + ci) ? '➖' : '➕') + '</span> 📚 ' + esc(c.name) + bt('crun', ci, 'Run whole collection', '▶') + bt('cfold', ci, 'Add folder', '+📁') + bt('cvars', ci, 'Collection variables', '{x}') + bt('cren', ci, 'Rename', '✏') + bt('cdel', ci, 'Delete', '🗑') + '</div>' +
+      (op('c' + ci) ? (c.folders.length ? c.folders.map((f, fi) => { const k = ci + ':' + fi; return '<div style="margin-left:14px"><div class="f-head" data-tg="f' + ci + '_' + fi + '"><span class="tg">' + (op('f' + ci + '_' + fi) ? '➖' : '➕') + '</span> 📁 ' + esc(f.name) + '<span class="run">' + f.reqs.length + '</span>' + bt('frun', k, 'Run folder', '▶') + bt('freq', k, 'Add request', '+Req') + bt('fvars', k, 'Folder variables', '{x}') + bt('fren', k, 'Rename', '✏') + bt('fdel', k, 'Delete', '🗑') + '</div>' +
+        (op('f' + ci + '_' + fi) ? f.reqs.map((r, ri) => '<div class="pm-req" data-a="rqopen" data-i="' + k + ':' + ri + '"><span class="mth m-' + r.method + '">' + r.method + '</span><span style="flex:1">' + esc(r.name) + '</span>' + bt('rqdel', k + ':' + ri, 'Delete request', '🗑') + '</div>').join('') || '<div class="muted small" style="padding:4px 8px 4px 24px">No requests yet</div>' : '') + '</div>'; }).join('') : '<div class="muted small" style="padding:4px 8px 4px 24px">No folders — click +📁</div>') : '') + '</div>').join('');
+    body.onclick = e => {
+      const b = e.target.closest('[data-a]'), h = e.target.closest('[data-tg]');
+      if(b){ e.stopPropagation(); pmColAction(b.dataset.a, b.dataset.i.split(':').map(Number)); }
+      else if(h){ const k = h.dataset.tg; PM.open[k] = PM.open[k] === false; pmSaveCollection(); paintPmSide('mycol'); }
+    };
+    return;
+  }
   const mocks = DB.api_mocks.filter(m => m.status === 'active');
   const mockFolder = {folder:'My Custom Mocks (Admin ▸ API Mocks)', reqs: mocks.map(m => ({name:m.path + ' → ' + m.status_code, method:m.method, url:'https://' + API_HOST + m.path, auth:m.requires_auth === 'yes'}))};
   const folders = mocks.length ? PM_COLLECTION.concat([mockFolder]) : PM_COLLECTION;
-  body.innerHTML = folders.map((f, fi) => '<div class="pm-folder"><div class="f-head" data-fold="' + fi + '">📁 ' + esc(f.folder) + '<span class="run">' + f.reqs.length + '</span></div><div class="f-body" data-foldbody="' + fi + '">' +
+  body.innerHTML = folders.map((f, fi) => '<div class="pm-folder"><div class="f-head" data-fold="' + fi + '"><span class="tg">➖</span> 📁 ' + esc(f.folder) + '<span class="run">' + f.reqs.length + '</span>' + (f.reqs.length ? '<button class="run" data-runcol="' + fi + '" title="Run this folder">▶</button>' : '') + '</div><div class="f-body" data-foldbody="' + fi + '">' +
     (f.reqs.length ? f.reqs.map((r, ri) => '<div class="pm-req" data-fold-item="' + fi + ':' + ri + '"><span class="mth m-' + r.method + '">' + r.method + '</span><span>' + esc(r.name) + '</span></div>').join('') : '<div class="muted small" style="padding:6px 8px 6px 24px">No custom mocks yet — add one in Admin ▸ API Mocks.</div>') + '</div></div>').join('');
-  $$('.f-head').forEach(h => h.addEventListener('click', () => { const b = $('[data-foldbody="' + h.dataset.fold + '"]'); b.style.display = b.style.display === 'none' ? 'block' : 'none'; }));
+  $$('.f-head[data-fold]').forEach(h => h.addEventListener('click', e => { if(e.target.closest('button')) return; const b = $('[data-foldbody="' + h.dataset.fold + '"]'); const hide = b.style.display !== 'none'; b.style.display = hide ? 'none' : 'block'; h.querySelector('.tg').textContent = hide ? '➕' : '➖'; }));
   $$('[data-fold-item]').forEach(el => el.addEventListener('click', () => {
     const [fi, ri] = el.dataset.foldItem.split(':').map(Number); const item = folders[fi].reqs[ri];
     const t = tabFromCollection(item); PM.tabs.push(t); PM.activeId = t.id; paintPmMain();
   }));
+  $$('[data-runcol]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); const f = folders[Number(b.dataset.runcol)]; runCollectionFolder(f.folder, f.reqs.map(tabFromCollection)); }));
 }
 function paintPmMain(){
   const main = $('#pmMain'); const t = activeTab();
   if(!t){ main.innerHTML = '<div class="pm-empty"><div class="big">📮</div><h3>No request open</h3><p>Pick one from Collections or start a new one.</p><button class="btn btn-primary" id="pmNewEmpty">+ New request</button></div>'; $('#pmNewEmpty').addEventListener('click', () => { const nt = freshTab(); PM.tabs.push(nt); PM.activeId = nt.id; paintPmMain(); }); return; }
   main.innerHTML =
   '<div class="pm-tabbar" id="pmTabbar"></div>' +
-  '<div class="pm-envbar"><span>Environment:</span><b>' + esc(PM.env.name) + '</b><span class="muted">token:</span><input type="text" id="pmTokenShow" value="' + esc(PM.env.token ? PM.env.token.slice(0, 24) + '…' : '(none — log in via Auth folder)') + '" readonly style="max-width:260px;background:#fafafa">' + (PM.env.token ? '<button class="btn btn-sm" id="pmClearToken">Clear token</button>' : '') + '<span class="muted small" style="margin-left:auto">Use <code>{{token}}</code> in headers to auto-fill</span></div>' +
+  '<div class="pm-envbar">' +
+  '<span>Environment:</span><select id="pmEnvSelect">' + PM.environments.map(e => '<option value="' + e.id + '"' + (e.id === PM.activeEnvId ? ' selected' : '') + '>' + esc(e.name) + '</option>').join('') + '</select>' +
+  '<button class="btn btn-sm" id="pmManageEnv">⚙ Variables</button>' +
+  '<span class="muted small" style="margin-left:auto">Use <code>{{variableName}}</code> in the URL, headers or body — try <code>{{cl_url}}/products/1</code></span>' +
+  '</div>' +
   '<div class="pm-urlbar">' +
   '<select id="pmMethod">' + ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].map(m => '<option' + (t.method === m ? ' selected' : '') + '>' + m + '</option>').join('') + '</select>' +
   '<input type="text" id="pmUrl" value="' + esc(t.url) + '" spellcheck="false">' +
   '<button class="pm-send" id="pmSend">Send</button>' +
   '<button class="pm-save" id="pmSaveName">Rename</button>' +
+  '<button class="pm-save" id="pmSaveToCollection">💾 Save</button>' +
+  '<button class="pm-save" id="pmCodeGen">&lt;/&gt; Code</button>' +
   '</div>' +
-  '<div class="pm-rtabs" id="pmReqTabs"></div>' +
+  '<div class="pm-hint" id="pmResolved" style="padding:0 14px"></div>' + '<div class="pm-rtabs" id="pmReqTabs"></div>' +
   '<div class="pm-panel" id="pmReqPanel"></div>' +
   '<div class="pm-split" id="pmRespWrap"></div>';
-  paintPmTabbar(); paintPmReqTabs(); paintPmReqPanel(); paintPmResponse();
-  $('#pmMethod').addEventListener('change', e => { t.method = e.target.value; t.saved = false; paintPmTabbar(); });
-  $('#pmUrl').addEventListener('input', e => { t.url = e.target.value; t.saved = false; paintPmTabbar(); syncParamsFromUrl(t); if(t.activeReqTab === 'params') paintPmReqPanel(); });
+  paintPmTabbar(); paintPmReqTabs(); paintPmReqPanel(); paintPmResponse(); pmShowResolved(t);
+  $('#pmMethod').addEventListener('change', e => { t.method = e.target.value; t.saved = false; paintPmTabbar(); paintPmReqTabs(); });
+  $('#pmUrl').addEventListener('input', e => { t.url = e.target.value; t.saved = false; pmShowResolved(t); paintPmTabbar(); syncParamsFromUrl(t); if(t.activeReqTab === 'params') paintPmReqPanel(); });
   $('#pmSend').addEventListener('click', () => sendPmRequest(t));
   $('#pmSaveName').addEventListener('click', () => { const n = prompt('Request name', t.name); if(n){ t.name = n; paintPmTabbar(); } });
-  const ct = $('#pmClearToken'); if(ct) ct.addEventListener('click', () => { PM.env.token = ''; pmSaveEnv(); paintPmMain(); });
+  $('#pmSaveToCollection').addEventListener('click', () => openSaveToCollectionModal(t));
+  $('#pmCodeGen').addEventListener('click', () => openCodeGenModal(t));
+  $('#pmEnvSelect').addEventListener('change', e => { PM.activeEnvId = e.target.value; pmSaveEnvs(); paintPmMain(); });
+  $('#pmManageEnv').addEventListener('click', () => openVarsHub());
+}
+function pmShowResolved(t){
+  const el = $('#pmResolved'); if(!el) return;
+  const r = pmSubstitute(t.url, t), u = pmUnresolved(r);
+  el.innerHTML = (r !== t.url ? 'Resolved: <code>' + esc(r) + '</code> ' : '') + (u.length ? '<span style="color:#b91c1c">⚠ undefined variable: ' + esc(u.join(', ')) + '</span>' : '');
 }
 function syncParamsFromUrl(t){
   try{ const u = new URL(t.url); t.params = Array.from(u.searchParams.entries()).map(([k, v]) => ({key:k, value:v, on:true})); }catch(e){}
@@ -2904,7 +3185,7 @@ function paintPmTabbar(){
 }
 function paintPmReqTabs(){
   const t = activeTab();
-  const tabs = [['params', 'Params', t.params.length], ['headers', 'Headers', t.headers.filter(h => h.on).length], ['body', 'Body', ['POST', 'PUT', 'PATCH'].includes(t.method) ? 1 : 0], ['auth', 'Authorization', t.auth ? 1 : 0], ['tests', 'Tests', 0]];
+  const tabs = [['params', 'Params', t.params.length], ['headers', 'Headers', t.headers.filter(h => h.on).length], ['body', 'Body', ['POST', 'PUT', 'PATCH'].includes(t.method) ? 1 : 0], ['auth', 'Authorization', t.authType && t.authType !== 'none' ? 1 : 0], ['vars', 'Variables', (t.locals || []).length], ['prereq', 'Pre-request Script', t.preRequest && t.preRequest.trim() ? 1 : 0], ['tests', 'Tests', 0]];
   $('#pmReqTabs').innerHTML = tabs.map(([k, l, n]) => '<button class="' + (t.activeReqTab === k ? 'active' : '') + '" data-rtab="' + k + '">' + l + (n ? ' <span class="dot">●</span>' : '') + '</button>').join('');
   $$('[data-rtab]').forEach(b => b.addEventListener('click', () => { t.activeReqTab = b.dataset.rtab; paintPmReqTabs(); paintPmReqPanel(); }));
 }
@@ -2919,28 +3200,52 @@ function paintPmReqPanel(){
     p.innerHTML = kvTable(t.params);
     wireKv(p, t.params, () => { t.url = t.url.split('?')[0] + (t.params.filter(r => r.key).length ? '?' + t.params.filter(r => r.key).map(r => encodeURIComponent(r.key) + '=' + encodeURIComponent(r.value)).join('&') : ''); $('#pmUrl').value = t.url; paintPmTabbar(); });
   } else if(t.activeReqTab === 'headers'){
-    const authHeaders = t.auth ? [{key:'Authorization', value:'Bearer ' + (PM.env.token ? '{{token}}' : '<log in first>'), on:true, auto:true}] : [];
+    const authHeaders = Object.entries(pmAuthHeader(t)).map(([k, v]) => ({key:k, value:v, on:true, auto:true}));
     p.innerHTML = kvTable(authHeaders.concat(t.headers));
     wireKv(p, t.headers, null, authHeaders.length);
   } else if(t.activeReqTab === 'body'){
     if(!['POST', 'PUT', 'PATCH'].includes(t.method)){ p.innerHTML = '<p class="muted">' + t.method + ' requests do not send a body.</p>'; return; }
-    p.innerHTML = '<div class="pm-mode"><label><input type="radio" name="bm" value="json" ' + (t.bodyMode === 'json' ? 'checked' : '') + '> raw JSON</label><label><input type="radio" name="bm" value="none" ' + (t.bodyMode === 'none' ? 'checked' : '') + '> none</label>' +
+    p.innerHTML = '<div class="pm-mode"><label><input type="radio" name="bm" value="json" ' + (t.bodyMode === 'json' ? 'checked' : '') + '> raw</label>' +
+    (t.bodyMode === 'json' ? '<select id="pmRawType" style="width:auto;padding:4px 8px;font-size:.82rem">' + PM_RAW_TYPES.map(rt => '<option value="' + rt.k + '"' + (t.rawType === rt.k ? ' selected' : '') + '>' + rt.label + '</option>').join('') + '</select>' : '') +
+    '<label><input type="radio" name="bm" value="none" ' + (t.bodyMode === 'none' ? 'checked' : '') + '> none</label>' +
     '<button class="btn btn-sm" id="pmFormatJson" style="margin-left:auto">✨ Beautify</button></div>' +
     '<textarea class="code-area" id="pmBody" spellcheck="false" style="min-height:260px" ' + (t.bodyMode === 'none' ? 'disabled' : '') + '>' + esc(t.body) + '</textarea><div class="pm-hint" id="pmBodyErr"></div>';
     $('#pmBody').addEventListener('input', e => { t.body = e.target.value; t.saved = false; validateBodyLive(); });
     $$('input[name="bm"]').forEach(r => r.addEventListener('change', () => { t.bodyMode = r.value; paintPmReqPanel(); }));
+    const rawTypeSel = $('#pmRawType');
+    if(rawTypeSel) rawTypeSel.addEventListener('change', e => {
+      t.rawType = e.target.value;
+      const ct = PM_RAW_TYPES.find(rt => rt.k === e.target.value).ct;
+      const ctRow = t.headers.find(h => h.key.toLowerCase() === 'content-type');
+      if(ctRow) ctRow.value = ct;
+      paintPmReqPanel();
+    });
     $('#pmFormatJson').addEventListener('click', () => { try{ t.body = JSON.stringify(JSON.parse($('#pmBody').value), null, 2); paintPmReqPanel(); }catch(e){ toast('Body is not valid JSON', 'err'); } });
     validateBodyLive();
-    function validateBodyLive(){ if(t.bodyMode !== 'json') return; try{ if($('#pmBody').value.trim()) JSON.parse($('#pmBody').value); $('#pmBodyErr').textContent = ''; }catch(e){ $('#pmBodyErr').innerHTML = '<span style="color:#b91c1c">⚠ Invalid JSON — ' + esc(e.message) + '</span>'; } }
+    function validateBodyLive(){ if(t.bodyMode !== 'json' || t.rawType !== 'json') { $('#pmBodyErr').textContent = ''; return; } try{ if($('#pmBody').value.trim()) JSON.parse($('#pmBody').value); $('#pmBodyErr').textContent = ''; }catch(e){ $('#pmBodyErr').innerHTML = '<span style="color:#b91c1c">⚠ Invalid JSON — ' + esc(e.message) + '</span>'; } }
   } else if(t.activeReqTab === 'auth'){
-    p.innerHTML = '<div class="check"><input type="checkbox" id="pmAuthOn" ' + (t.auth ? 'checked' : '') + '><label for="pmAuthOn">Bearer Token — send <code>Authorization: Bearer {{token}}</code> using the token from your last successful login</label></div>' +
-    (PM.env.token ? '<div class="alert alert-ok mt small">Logged-in token is available and will be substituted automatically.</div>' : '<div class="alert alert-warn mt small">No token yet — run "Login" under the Auth folder first, or this request will get a 401.</div>');
-    $('#pmAuthOn').addEventListener('change', e => { t.auth = e.target.checked; paintPmReqTabs(); });
+    const d = t.authData = t.authData || {};
+    const F = (k, l, ph) => '<div class="field"><label>' + l + '</label><input type="text" data-ad="' + k + '" value="' + esc(d[k] || '') + '" placeholder="' + esc(ph || '') + '"></div>';
+    const T = {none:'No Auth', bearer:'Bearer Token', basic:'Basic Auth', apikey:'API Key', jwt:'JWT Bearer', oauth2:'OAuth 2.0 (access token)'};
+    const form = {none:'<p class="muted small">No Authorization is sent.</p>', bearer:F('token', 'Token', '{{token}}'), oauth2:F('token', 'Access token', '{{token}}'), jwt:F('prefix', 'Header prefix', 'Bearer') + F('token', 'JWT', '{{token}}'), basic:F('user', 'Username') + F('pass', 'Password'),
+      apikey:F('key', 'Key', 'X-API-Key') + F('value', 'Value') + '<div class="field"><label>Add to</label><select data-ad="in"><option value="header"' + (d.in !== 'query' ? ' selected' : '') + '>Header</option><option value="query"' + (d.in === 'query' ? ' selected' : '') + '>Query params</option></select></div>'}[t.authType || 'none'];
+    p.innerHTML = '<div class="field"><label>Auth type</label><select id="pmAuthType" style="max-width:260px">' + Object.entries(T).map(([k, l]) => '<option value="' + k + '"' + (t.authType === k ? ' selected' : '') + '>' + l + '</option>').join('') + '</select></div>' + form +
+      '<div class="pm-hint">All fields accept <code>{{variables}}</code>. The sandbox API only accepts Bearer tokens — Basic and API Key are for practising 401 responses and header handling.</div>';
+    $('#pmAuthType').addEventListener('change', e => { t.authType = e.target.value; if(['bearer', 'oauth2', 'jwt'].includes(t.authType) && !d.token) d.token = '{{token}}'; t.saved = false; paintPmReqTabs(); paintPmReqPanel(); });
+    $$('[data-ad]', p).forEach(el => el.addEventListener('input', () => { d[el.dataset.ad] = el.value; t.saved = false; }));
+  } else if(t.activeReqTab === 'vars'){
+    p.innerHTML = '<p class="muted small">Local variables belong to this request only and override folder, collection, environment and global variables. Use them as <code>{{name}}</code>.</p>' + kvTable(t.locals);
+    wireKv(p, t.locals, () => { t.saved = false; });
+  } else if(t.activeReqTab === 'prereq'){
+    p.innerHTML = '<p class="muted small">Runs right before the request is sent — just like Postman\'s Pre-request Script. Use it to compute or set an environment variable dynamically.</p>' +
+    '<textarea class="code-area" id="pmPrereq" spellcheck="false" placeholder="pm.environment.set(&#39;requestId&#39;, Date.now());">' + esc(t.preRequest || '') + '</textarea>' +
+    '<div class="pm-hint">Available: <code>pm.environment.set(key, value)</code> and <code>pm.environment.get(key)</code>.</div>';
+    $('#pmPrereq').addEventListener('input', e => { t.preRequest = e.target.value; });
   } else if(t.activeReqTab === 'tests'){
     p.innerHTML = '<p class="muted small">Never written a test script before? Pick a ready-made snippet below — it gets added to the box for you. You can also write your own using <code>pm.test(name, fn)</code>: <code>fn</code> should return <code>true</code> for pass.</p>' +
     '<div class="row" style="margin-bottom:8px"><select id="pmSnippetSel" style="max-width:340px"><option value="">Insert a ready-made test snippet…</option>' + PM_SNIPPETS.map((s, i) => '<option value="' + i + '">' + esc(s.label) + '</option>').join('') + '</select></div>' +
     '<textarea class="code-area" id="pmTests" spellcheck="false">' + esc(t.tests) + '</textarea>' +
-    '<div class="pm-hint">Available in every script: <code>pm.response.status</code> (number), <code>pm.response.time</code> (ms), <code>pm.response.json</code> (parsed body, or null if not JSON), <code>pm.response.headers</code>, <code>pm.response.text</code> (raw body string).</div>';
+    '<div class="pm-hint">Real Postman/Chai syntax works here: <code>pm.expect(x).to.eql(y)</code>, <code>.to.be.a(\'string\')</code>, <code>.to.include(item)</code>, <code>.to.have.property(\'id\')</code>, <code>pm.response.to.have.status(200)</code>, <code>.to.have.header(\'X\')</code>, <code>.to.have.jsonSchema(schema)</code>. Available on <code>pm.response</code>: <code>.status</code>/<code>.code</code> (number), <code>.time</code>/<code>.responseTime</code> (ms), <code>.json()</code> (call it — parsed body, or null), <code>.text()</code> (call it — raw body string), <code>.headers</code> (also supports <code>.get(name)</code> / <code>.has(name)</code>).</div>';
     $('#pmTests').addEventListener('input', e => { t.tests = e.target.value; });
     $('#pmSnippetSel').addEventListener('change', e => {
       if(e.target.value === '') return;
@@ -2950,14 +3255,153 @@ function paintPmReqPanel(){
     });
   }
 }
-function wireKv(container, arr, onParamChange, offset = 0){
+function wireKv(container, arr, onParamChange){
   container.querySelectorAll('[data-krow]').forEach(el => el.addEventListener('change', () => { arr[Number(el.dataset.krow)].on = el.checked; if(onParamChange) onParamChange(); }));
   container.querySelectorAll('[data-kkey]').forEach(el => el.addEventListener('input', () => { arr[Number(el.dataset.kkey)].key = el.value; if(onParamChange) onParamChange(); }));
   container.querySelectorAll('[data-kval]').forEach(el => el.addEventListener('input', () => { arr[Number(el.dataset.kval)].value = el.value; if(onParamChange) onParamChange(); }));
   container.querySelectorAll('[data-kdel]').forEach(el => el.addEventListener('click', () => { arr.splice(Number(el.dataset.kdel), 1); if(onParamChange) onParamChange(); paintPmReqPanel(); }));
   const nk = container.querySelector('[data-knew="key"]'), nv = container.querySelector('[data-knew="value"]');
-  const addIfNeeded = () => { if(nk.value.trim() || nv.value.trim()){ arr.push({key:nk.value.trim(), value:nv.value.trim(), on:true}); if(onParamChange) onParamChange(); paintPmReqPanel(); } };
-  if(nk) nk.addEventListener('change', addIfNeeded); if(nv) nv.addEventListener('change', addIfNeeded);
+  const maybeCommit = () => setTimeout(() => {
+    const active = document.activeElement;
+    if(active === nk || active === nv) return; /* still filling this row — don't commit yet */
+    if((nk.value && nk.value.trim()) || (nv.value && nv.value.trim())){
+      arr.push({key:nk.value.trim(), value:nv.value.trim(), on:true});
+      if(onParamChange) onParamChange();
+      paintPmReqPanel();
+    }
+  }, 0);
+  if(nk) nk.addEventListener('blur', maybeCommit); if(nv) nv.addEventListener('blur', maybeCommit);
+}
+/* Lightweight kv wiring for modals that aren't the request panel (Environments manager) */
+function wireKvModal(container, arr, rerender, save = pmSaveEnvs){
+  container.querySelectorAll('[data-krow]').forEach(el => el.addEventListener('change', () => { arr[Number(el.dataset.krow)].on = el.checked; save(); }));
+  container.querySelectorAll('[data-kkey]').forEach(el => el.addEventListener('input', () => { arr[Number(el.dataset.kkey)].key = el.value; save(); }));
+  container.querySelectorAll('[data-kval]').forEach(el => el.addEventListener('input', () => { arr[Number(el.dataset.kval)].value = el.value; save(); }));
+  container.querySelectorAll('[data-kdel]').forEach(el => el.addEventListener('click', () => { arr.splice(Number(el.dataset.kdel), 1); save(); rerender(); }));
+  const nk = container.querySelector('[data-knew="key"]'), nv = container.querySelector('[data-knew="value"]');
+  const maybeCommit = () => setTimeout(() => {
+    const active = document.activeElement;
+    if(active === nk || active === nv) return;
+    if((nk.value && nk.value.trim()) || (nv.value && nv.value.trim())){
+      arr.push({key:nk.value.trim(), value:nv.value.trim(), on:true});
+      save(); rerender();
+    }
+  }, 0);
+  if(nk) nk.addEventListener('blur', maybeCommit); if(nv) nv.addEventListener('blur', maybeCommit);
+}
+function openVarsHub(scope, ci, fi){
+  const t = activeTab(); scope = scope || 'globals';
+  ci = ci !== undefined ? ci : (t && t._ci !== undefined ? t._ci : 0); fi = fi !== undefined ? fi : (t && t._fi !== undefined ? t._fi : 0);
+  const S = {globals:'Global', env:'Environment', collection:'Collection', folder:'Folder', local:'Local'};
+  const target = () => { const c = PM.collections[ci], f = c && c.folders[fi]; return scope === 'globals' ? PM.globals : scope === 'env' ? pmActiveEnv().vars : scope === 'collection' ? (c && c.vars) : scope === 'folder' ? (f && f.vars) : (t && t.locals); };
+  const save = () => { pmSaveEnvs(); pmSaveCollection(); if(t) pmShowResolved(t); };
+  const body = () => {
+    const arr = target();
+    return '<div class="modal-head"><h3>Variables</h3><button class="x-btn" data-action="closeModal">×</button></div>' +
+    '<div class="pm-rtabs" id="hubTabs">' + Object.entries(S).map(([k, l]) => '<button class="' + (scope === k ? 'active' : '') + '" data-hs="' + k + '">' + l + '</button>').join('') + '</div><div style="height:10px"></div>' +
+    (scope === 'collection' ? '<select id="hubCol" style="max-width:300px;margin-bottom:8px">' + PM.collections.map((c, i) => '<option value="' + i + '"' + (i === ci ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('') + '</select>' : '') +
+    (scope === 'folder' ? '<select id="hubFold" style="max-width:360px;margin-bottom:8px">' + PM.collections.map((c, i) => c.folders.map((f, j) => '<option value="' + i + ':' + j + '"' + (i === ci && j === fi ? ' selected' : '') + '>' + esc(c.name) + ' / ' + esc(f.name) + '</option>').join('')).join('') + '</select>' : '') +
+    (scope === 'env' ? '<div class="row" style="margin-bottom:8px"><b class="small">' + esc(pmActiveEnv().name) + '</b><button class="btn btn-sm" id="hubEnvMgr">Manage environments…</button></div>' : '') +
+    (arr ? kvTable(arr) : '<p class="muted">' + (scope === 'local' ? 'Open a request tab first — local variables belong to a request.' : 'Create a collection / folder first (My Collection tab).') + '</p>') +
+    '<p class="muted small mt">Priority when names clash: Local → Folder → Collection → Environment → Global. Edit, add (bottom row) or 🗑 delete — changes save instantly.</p>' +
+    '<div class="modal-actions"><button class="btn btn-primary" data-action="closeModal">Done</button></div>';
+  };
+  const bd = openModal(body(), {cls:'modal-lg'}); wire();
+  function wire(){
+    $$('[data-hs]', bd).forEach(b => b.addEventListener('click', () => { scope = b.dataset.hs; rerender(); }));
+    const hc = $('#hubCol', bd); if(hc) hc.addEventListener('change', e => { ci = Number(e.target.value); rerender(); });
+    const hf = $('#hubFold', bd); if(hf) hf.addEventListener('change', e => { [ci, fi] = e.target.value.split(':').map(Number); rerender(); });
+    const he = $('#hubEnvMgr', bd); if(he) he.addEventListener('click', openEnvManagerModal);
+    const arr = target(); if(arr) wireKvModal(bd, arr, rerender, save);
+  }
+  function rerender(){ bd.querySelector('.modal').innerHTML = body(); wire(); }
+}
+function openEnvManagerModal(){
+  let editingId = PM.activeEnvId;
+  const body = () => {
+    const env = PM.environments.find(e => e.id === editingId) || PM.environments[0];
+    return '<div class="modal-head"><h3>Manage environments &amp; variables</h3><button class="x-btn" data-action="closeModal">×</button></div>' +
+    '<div class="row" style="margin-bottom:12px">' +
+      '<select id="envPick" style="max-width:220px">' + PM.environments.map(e => '<option value="' + e.id + '"' + (e.id === env.id ? ' selected' : '') + '>' + esc(e.name) + '</option>').join('') + '</select>' +
+      '<button class="btn btn-sm" id="envAddNew">+ New environment</button>' +
+      (PM.environments.length > 1 ? '<button class="btn btn-sm btn-danger" id="envDelete">🗑 Delete this one</button>' : '') +
+    '</div>' +
+    '<div class="field"><label>Environment name</label><input type="text" id="envName" value="' + esc(env.name) + '"></div>' +
+    '<label class="small" style="font-weight:700">Variables</label>' +
+    kvTable(env.vars) +
+    '<p class="muted small mt">Reference any variable anywhere in a request as <code>{{key}}</code>. The built-in <code>token</code> variable is filled in automatically the first time you run a Login request.</p>' +
+    '<div class="modal-actions"><button class="btn btn-primary" data-action="closeModal">Done</button></div>';
+  };
+  const bd = openModal(body(), {cls:'modal-lg'});
+  wire(bd);
+  function wire(bd){
+    const env = PM.environments.find(e => e.id === editingId) || PM.environments[0];
+    $('#envPick', bd).addEventListener('change', e => { editingId = e.target.value; PM.activeEnvId = editingId; pmSaveEnvs(); rerender(); });
+    $('#envAddNew', bd).addEventListener('click', () => { const ne = {id:'env_' + uid(), name:'New Environment', vars:[]}; PM.environments.push(ne); editingId = ne.id; PM.activeEnvId = ne.id; pmSaveEnvs(); rerender(); });
+    const delBtn = $('#envDelete', bd); if(delBtn) delBtn.addEventListener('click', () => { if(PM.environments.length <= 1) return; PM.environments = PM.environments.filter(e => e.id !== editingId); editingId = PM.environments[0].id; PM.activeEnvId = editingId; pmSaveEnvs(); rerender(); });
+    $('#envName', bd).addEventListener('input', e => { env.name = e.target.value; pmSaveEnvs(); });
+    wireKvModal(bd, env.vars, rerender);
+  }
+  function rerender(){ bd.querySelector('.modal').innerHTML = body(); wire(bd); paintPmMain(); }
+}
+function pmTabsOf(c, only){
+  const ci = PM.collections.indexOf(c), out = [];
+  c.folders.forEach((f, fi) => { if(only === undefined || only === fi) f.reqs.forEach((r, ri) => out.push(freshTab(Object.assign({}, r, {params:(r.params || []).slice(), headers:(r.headers || []).slice(), _ci:ci, _fi:fi, _ri:ri})))); });
+  return out;
+}
+function pmColAction(a, [ci, fi, ri]){
+  const c = PM.collections[ci], f = c && c.folders[fi], done = () => { pmSaveCollection(); paintPmSide('mycol'); };
+  const ask = (m, d) => { const n = prompt(m, d); return n && n.trim() ? n.trim() : null; };
+  const del = (title, fn) => confirmDelete({title, onConfirm(){ fn(); done(); }});
+  if(a === 'cnew'){ const n = ask('Collection name', 'New Collection'); if(n){ PM.collections.push({id:'col_' + uid(), name:n, vars:[], folders:[]}); done(); } }
+  else if(a === 'cren'){ const n = ask('Collection name', c.name); if(n){ c.name = n; done(); } }
+  else if(a === 'cdel') del('Delete collection "' + c.name + '"?', () => PM.collections.splice(ci, 1));
+  else if(a === 'cfold'){ const n = ask('Folder name', 'New Folder'); if(n){ c.folders.push({id:'fold_' + uid(), name:n, vars:[], reqs:[]}); PM.open['c' + ci] = true; done(); } }
+  else if(a === 'fren'){ const n = ask('Folder name', f.name); if(n){ f.name = n; done(); } }
+  else if(a === 'fdel') del('Delete folder "' + f.name + '" and its requests?', () => c.folders.splice(fi, 1));
+  else if(a === 'freq'){ const t = freshTab({name:'New Request', _ci:ci, _fi:fi}); PM.tabs.push(t); PM.activeId = t.id; paintPmMain(); toast('Configure the request, then click 💾 Save', 'ok'); }
+  else if(a === 'cvars') openVarsHub('collection', ci);
+  else if(a === 'fvars') openVarsHub('folder', ci, fi);
+  else if(a === 'crun') runCollectionFolder(c.name, pmTabsOf(c));
+  else if(a === 'frun') runCollectionFolder(c.name + ' / ' + f.name, pmTabsOf(c, fi));
+  else if(a === 'rqdel') del('Delete request "' + f.reqs[ri].name + '"?', () => f.reqs.splice(ri, 1));
+  else if(a === 'rqopen'){ const r = f.reqs[ri]; const t = freshTab(Object.assign({}, r, {params:(r.params || []).slice(), headers:(r.headers || []).slice(), _ci:ci, _fi:fi, _ri:ri})); PM.tabs.push(t); PM.activeId = t.id; paintPmMain(); }
+}
+function openSaveToCollectionModal(t){
+  const cc = PM.collections[t._ci], upd = cc && cc.folders[t._fi] && cc.folders[t._fi].reqs[t._ri];
+  const ci0 = t._ci !== undefined && cc ? t._ci : 0;
+  const bd = openModal('<div class="modal-head"><h3>Save request</h3><button class="x-btn" data-action="closeModal">×</button></div>' +
+    (upd ? '<div class="check mb"><input type="checkbox" id="updateInPlace" checked><label for="updateInPlace">Update the existing "' + esc(upd.name) + '" instead of saving a copy</label></div>' : '') +
+    '<form id="saveColForm"><div class="field"><label>Request name</label><input type="text" name="name" value="' + esc(t.name) + '" required></div>' +
+    '<div class="field"><label>Collection</label><select name="col">' + PM.collections.map((c, i) => '<option value="' + i + '"' + (i === ci0 ? ' selected' : '') + '>' + esc(c.name) + '</option>').join('') + '<option value="__new__">+ New collection…</option></select></div>' +
+    '<div class="field" id="ncF" style="display:none"><label>New collection name</label><input type="text" name="newCol" placeholder="e.g. Order flow"></div>' +
+    '<div class="field"><label>Folder</label><select name="folder"></select></div>' +
+    '<div class="field" id="nfF" style="display:none"><label>New folder name</label><input type="text" name="newFolder" placeholder="e.g. Checkout"></div>' +
+    '<div class="modal-actions"><button type="button" class="btn" data-action="closeModal">Cancel</button><button class="btn btn-primary">Save</button></div></form>', {cls:'modal-sm'});
+  const colSel = $('[name="col"]', bd), folSel = $('[name="folder"]', bd);
+  const fillFolders = () => {
+    const c = PM.collections[Number(colSel.value)];
+    folSel.innerHTML = (c ? c.folders.map((f, i) => '<option value="' + i + '"' + (i === t._fi && Number(colSel.value) === t._ci ? ' selected' : '') + '>' + esc(f.name) + '</option>').join('') : '') + '<option value="__new__">+ New folder…</option>';
+    $('#ncF', bd).style.display = colSel.value === '__new__' ? 'block' : 'none';
+    if(!c || !c.folders.length) folSel.value = '__new__';
+    $('#nfF', bd).style.display = folSel.value === '__new__' ? 'block' : 'none';
+  };
+  colSel.addEventListener('change', fillFolders); folSel.addEventListener('change', () => { $('#nfF', bd).style.display = folSel.value === '__new__' ? 'block' : 'none'; }); fillFolders();
+  const box = $('#updateInPlace', bd);
+  if(box) box.addEventListener('change', e => { colSel.closest('.field').style.display = folSel.closest('.field').style.display = e.target.checked ? 'none' : 'block'; if(e.target.checked){ $('#ncF', bd).style.display = $('#nfF', bd).style.display = 'none'; } });
+  if(box){ colSel.closest('.field').style.display = folSel.closest('.field').style.display = 'none'; $('#ncF', bd).style.display = $('#nfF', bd).style.display = 'none'; }
+  $('#saveColForm', bd).addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(e.target), name = fd.get('name').trim() || 'Untitled request';
+    const shape = JSON.parse(JSON.stringify({name, method:t.method, url:t.url, params:t.params, headers:t.headers, body:t.body, bodyMode:t.bodyMode, rawType:t.rawType, authType:t.authType, authData:t.authData, locals:t.locals, tests:t.tests, preRequest:t.preRequest}));
+    if(upd && box && box.checked){ cc.folders[t._fi].reqs[t._ri] = shape; pmSaveCollection(); t.name = name; t.saved = true; paintPmTabbar(); closeModal(); toast('Updated "' + name + '"', 'ok'); return; }
+    let ci = fd.get('col');
+    if(ci === '__new__'){ PM.collections.push({id:'col_' + uid(), name:(fd.get('newCol') || '').trim() || 'New Collection', vars:[], folders:[]}); ci = PM.collections.length - 1; } else ci = Number(ci);
+    const c = PM.collections[ci]; let fi = fd.get('folder');
+    if(fi === '__new__' || !c.folders.length){ c.folders.push({id:'fold_' + uid(), name:(fd.get('newFolder') || '').trim() || 'New Folder', vars:[], reqs:[]}); fi = c.folders.length - 1; } else fi = Number(fi);
+    c.folders[fi].reqs.push(shape); t._ci = ci; t._fi = fi; t._ri = c.folders[fi].reqs.length - 1;
+    pmSaveCollection(); t.name = name; t.saved = true; paintPmTabbar(); closeModal(); toast('Saved to "' + c.name + ' / ' + c.folders[fi].name + '"', 'ok');
+  });
 }
 function paintPmResponse(){
   const t = activeTab(); const wrap = $('#pmRespWrap');
@@ -2965,9 +3409,16 @@ function paintPmResponse(){
   const r = t.response;
   if(r.network){ wrap.innerHTML = '<div class="pm-panel"><div class="pm-err">Could not send request:<br>' + esc(r.network) + '</div></div>'; return; }
   const stCls = r.status < 300 ? 'st-2' : r.status < 400 ? 'st-3' : r.status < 500 ? 'st-4' : 'st-5';
-  wrap.innerHTML = '<div class="pm-res-bar"><span class="st ' + stCls + '">' + r.status + ' ' + esc(r.statusText) + '</span><span>Time: <b>' + r.ms + ' ms</b></span><span>Size: <b>' + (r.size < 1024 ? r.size + ' B' : (r.size / 1024).toFixed(1) + ' KB') + '</b></span></div>' +
-  '<div class="pm-rtabs" id="pmResTabs"><button class="active" data-rres="body">Body</button><button data-rres="headers">Headers (' + Object.keys(r.headers).length + ')</button><button data-rres="tests">Test Results</button></div>' +
+  wrap.innerHTML = '<div class="pm-res-bar"><span class="st ' + stCls + '">' + r.status + ' ' + esc(r.statusText) + '</span><span>Time: <b>' + r.ms + ' ms</b></span><span>Size: <b>' + (r.size < 1024 ? r.size + ' B' : (r.size / 1024).toFixed(1) + ' KB') + '</b></span><button class="btn btn-sm" id="pmSaveResponse">💾 Save Response</button></div>' +
+  '<div class="pm-rtabs" id="pmResTabs"><button class="active" data-rres="body">Body</button><button data-rres="cookies">Cookies</button><button data-rres="headers">Headers (' + Object.keys(r.headers).length + ')</button><button data-rres="tests">Test Results</button></div>' +
   '<div class="pm-panel" id="pmResPanel"></div>';
+  $('#pmSaveResponse').addEventListener('click', () => {
+    const blob = new Blob([r.text || ''], {type:'application/json;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'response.json'; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    toast('Response saved', 'ok');
+  });
   $$('[data-rres]').forEach(b => b.addEventListener('click', () => { $$('#pmResTabs button').forEach(x => x.classList.remove('active')); b.classList.add('active'); paintResPanel(b.dataset.rres); }));
   paintResPanel('body');
   function paintResPanel(which){
@@ -2976,6 +3427,8 @@ function paintPmResponse(){
       let pretty = r.text;
       try{ pretty = JSON.stringify(JSON.parse(r.text || 'null'), null, 2); }catch(e){}
       p.innerHTML = '<pre class="json">' + syntaxJson(pretty) + '</pre>';
+    } else if(which === 'cookies'){
+      p.innerHTML = '<p class="muted">No cookies were set by this response. This sandbox API is stateless and authenticates with a Bearer token instead of cookies — see the Authorization tab.</p>';
     } else if(which === 'headers'){
       p.innerHTML = '<table class="kvt" style="border:1px solid #e3e3ea"><thead><tr><th>Header</th><th>Value</th></tr></thead><tbody>' + Object.entries(r.headers).map(([k, v]) => '<tr><td style="padding:8px;border:1px solid #e3e3ea;font-weight:600">' + esc(k) + '</td><td style="padding:8px;border:1px solid #e3e3ea;font-family:var(--mono)">' + esc(v) + '</td></tr>').join('') + '</tbody></table>';
     } else {
@@ -2993,162 +3446,837 @@ function syntaxJson(str){
     return '<span class="' + cls + '">' + m + '</span>';
   });
 }
+function pmApi(t){
+  const mk = (sc, get) => ({set:(k, v) => pmSetVar(sc, String(k), v, t), get:k => get(String(k))});
+  const col = () => PM.collections[t && t._ci] || PM.collections[0];
+  return {environment:mk('env', k => pmEnvVar(k)), globals:mk('globals', k => (PM.globals.find(x => x.key === k) || {}).value),
+    collectionVariables:mk('collection', k => (col().vars.find(x => x.key === k) || {}).value), variables:mk('local', k => ((t && t.locals || []).find(x => x.key === k) || {}).value)};
+}
+const pmConsole = {log:(...a) => pmLog('log', a.map(x => typeof x === 'object' ? JSON.stringify(x) : x).join(' ')), warn:(...a) => pmLog('warn', a.join(' ')), error:(...a) => pmLog('error', a.join(' '))};
+function runPmPreRequest(code, t){
+  if(!code || !code.trim()) return;
+  try{ (new Function('pm', 'console', code))(pmApi(t), pmConsole); }catch(e){ toast('Pre-request script error: ' + e.message, 'err'); pmIssue('Pre-request script error in "' + t.name + '": ' + e.message); }
+}
+function pmAuthHeader(t){
+  const d = t.authData || {}, s = x => pmSubstitute(x, t);
+  switch(t.authType){
+    case 'bearer': case 'oauth2': return {Authorization:'Bearer ' + s(d.token || '')};
+    case 'jwt': return {Authorization:(d.prefix || 'Bearer') + ' ' + s(d.token || '')};
+    case 'basic': return {Authorization:'Basic ' + btoa(s(d.user || '') + ':' + s(d.pass || ''))};
+    case 'apikey': return d.in === 'query' ? {} : {[s(d.key || 'X-API-Key')]:s(d.value || '')};
+  }
+  return {};
+}
+function pmBuildEffective(t){
+  let url = pmSubstitute(t.url, t); const d = t.authData || {};
+  if(t.authType === 'apikey' && d.in === 'query') url += (url.includes('?') ? '&' : '?') + encodeURIComponent(pmSubstitute(d.key || 'api_key', t)) + '=' + encodeURIComponent(pmSubstitute(d.value || '', t));
+  const headers = {};
+  t.headers.filter(h => h.on && h.key).forEach(h => headers[h.key] = pmSubstitute(h.value, t));
+  Object.assign(headers, pmAuthHeader(t));
+  const bodyText = (['POST', 'PUT', 'PATCH'].includes(t.method) && t.bodyMode === 'json') ? pmSubstitute(t.body, t) : undefined;
+  return {method:t.method, url, headers, body:bodyText};
+}
+function pmAfter(t, eff, res){
+  pmLog(res.network || res.status >= 400 ? 'error' : 'ok', (res.network ? 'NETWORK ERROR ' + res.network : res.status + ' ' + res.statusText + ' · ' + res.ms + ' ms') + '  ←  ' + t.method + ' ' + eff.url);
+  pmUnresolved(eff.url + JSON.stringify(eff.headers) + (eff.body || '')).forEach(v => pmIssue('Undefined variable ' + v + ' in "' + t.name + '"'));
+  if(res.network) pmIssue('"' + t.name + '": ' + res.network); else if(res.status >= 400) pmIssue('"' + t.name + '" returned ' + res.status + ' ' + res.statusText);
+  (res.testResults || []).filter(x => !x.pass).forEach(x => pmIssue('Test failed in "' + t.name + '": ' + x.name + (x.error ? ' — ' + x.error : '')));
+}
+let PM_BTAB = 'console';
+function paintPmBottom(){
+  const el = $('#pmBottom'); if(!el) return;
+  const tabs = [['console', 'Console', PM.logs.length], ['terminal', 'Terminal', 0], ['issues', 'Issues', PM.issues.length]];
+  const typing = document.activeElement && document.activeElement.id === 'termIn';
+  const inner = PM_BTAB === 'console' ? '<div class="pm-log">' + (PM.logs.length ? PM.logs.map(l => '<div class="lg lg-' + l.kind + '"><span>' + l.t + '</span>' + esc(l.msg) + '</div>').join('') : '<span style="color:#8a84a8">Console is empty — send a request or call console.log() in a script.</span>') + '</div>'
+    : PM_BTAB === 'terminal' ? '<div class="pm-log">' + (PM.term.length ? PM.term.map(esc).join('<br>') : '<span style="color:#8a84a8">Type <b>help</b> to see commands.</span>') + '</div><input type="text" id="termIn" placeholder="$ help" spellcheck="false">'
+    : '<div class="pm-log">' + (PM.issues.length ? PM.issues.map(i => '<div class="lg lg-error">⚠ ' + esc(i) + '</div>').join('') : '<span style="color:#86efac">No issues found.</span>') + '</div>';
+  el.innerHTML = '<div class="pm-rtabs">' + tabs.map(([k, l, n]) => '<button class="' + (PM_BTAB === k ? 'active' : '') + '" data-bt="' + k + '">' + l + (n ? ' (' + n + ')' : '') + '</button>').join('') + '<button id="bClear" style="margin-left:auto">Clear</button></div>' + inner;
+  $$('[data-bt]', el).forEach(b => b.addEventListener('click', () => { PM_BTAB = b.dataset.bt; paintPmBottom(); }));
+  $('#bClear', el).addEventListener('click', () => { if(PM_BTAB === 'console') PM.logs = []; else if(PM_BTAB === 'terminal') PM.term = []; else PM.issues = []; paintPmBottom(); });
+  const lg = $('.pm-log', el); if(lg) lg.scrollTop = lg.scrollHeight;
+  const ti = $('#termIn', el); if(ti){ ti.addEventListener('keydown', async e => { if(e.key === 'Enter' && ti.value.trim()){ const v = ti.value; ti.value = ''; await pmTerm(v); } }); if(typing || PM_BTAB === 'terminal') ti.focus(); }
+}
+async function pmTerm(line){
+  PM.term.push('$ ' + line); const [c, ...a] = line.trim().split(/\s+/), out = x => PM.term.push(x), t = activeTab();
+  try{
+    if(c === 'help') out('help | vars | set <globals|collection|env|local> key=value | collections | run <collection name> | send <METHOD> <url> | clear');
+    else if(c === 'clear'){ PM.term = []; }
+    else if(c === 'collections') PM.collections.forEach(x => out('📚 ' + x.name + ' (' + x.folders.length + ' folders, ' + x.folders.reduce((s, f) => s + f.reqs.length, 0) + ' requests)'));
+    else if(c === 'vars'){ pmScopes(t).forEach((arr, i) => out(['local', 'folder', 'collection', 'environment', 'global'][i] + ': ' + ((arr || []).map(v => v.key + '=' + v.value).join(', ') || '—'))); }
+    else if(c === 'set'){ const m = /^(\w+)=(.*)$/.exec(a.slice(1).join(' ')); const sc = a[0] === 'global' ? 'globals' : a[0]; if(!m || !['globals', 'collection', 'env', 'local'].includes(sc)) out('usage: set <globals|collection|env|local> key=value'); else { pmSetVar(sc, m[1], m[2], t); out('ok — ' + m[1] + ' set in ' + sc); if(t) pmShowResolved(t); } }
+    else if(c === 'run'){ const col = PM.collections.find(x => x.name.toLowerCase() === a.join(' ').toLowerCase()); if(!col) out('collection not found — try: collections'); else { out('running "' + col.name + '"…'); runCollectionFolder(col.name, pmTabsOf(col)); } }
+    else if(c === 'send'){ const tt = freshTab({method:(a[0] || 'GET').toUpperCase(), url:a.slice(1).join(' '), _ci:t && t._ci, _fi:t && t._fi}); const eff = pmBuildEffective(tt); const r = await apiHandle(eff.method, eff.url, eff.headers, eff.body); out(r.network ? 'ERROR ' + r.network : r.status + ' ' + r.statusText + ' (' + r.ms + ' ms)\n' + r.text.slice(0, 400)); }
+    else out('unknown command — type help');
+  }catch(e){ out('error: ' + e.message); }
+  paintPmBottom();
+}
 async function sendPmRequest(t){
   const btn = $('#pmSend'); btn.disabled = true; btn.textContent = 'Sending…';
   try{
-    const headers = {};
-    t.headers.filter(h => h.on && h.key).forEach(h => headers[h.key] = h.value.replace('{{token}}', PM.env.token || ''));
-    if(t.auth) headers['Authorization'] = 'Bearer ' + (PM.env.token || '');
-    const bodyText = (['POST', 'PUT', 'PATCH'].includes(t.method) && t.bodyMode === 'json') ? t.body : undefined;
-    const res = await apiHandle(t.method, t.url, headers, bodyText);
+    runPmPreRequest(t.preRequest, t);
+    const eff = pmBuildEffective(t);
+    const res = await apiHandle(eff.method, eff.url, eff.headers, eff.body);
     if(!res.network){
-      res.testResults = runPmTests(t.tests, res);
+      res.testResults = runPmTests(t.tests, res, t);
       try{
         const j = JSON.parse(res.text || 'null');
-        if(t.url.includes('/auth/login') && res.status === 200 && j && j.token){ PM.env.token = j.token; pmSaveEnv(); toast('Login token captured for {{token}}', 'ok'); }
+        if(eff.url.includes('/auth/login') && res.status === 200 && j && j.token){ pmSetEnvVar('token', j.token); toast('Login token saved to {{token}} in "' + pmActiveEnv().name + '"', 'ok'); }
       }catch(e){}
     }
-    t.response = res;
-    PM.history.unshift({method:t.method, url:t.url, status:res.network ? 0 : res.status, body:bodyText, time:Date.now()}); pmSaveHist();
+    t.response = res; pmAfter(t, eff, res);
+    PM.history.unshift({method:t.method, url:eff.url, status:res.network ? 0 : res.status, body:eff.body, time:Date.now()}); pmSaveHist();
   }catch(e){ t.response = {network:e.message}; }
   btn.disabled = false; btn.textContent = 'Send'; paintPmResponse();
 }
-function runPmTests(code, res){
+/* =====================================================================
+   pm.test() / pm.expect() / pm.response — a real, Chai-compatible test
+   engine so scripts written for real Postman work here unmodified:
+   pm.expect(x).to.eql(y), .to.be.a('string'), .to.include(item),
+   .to.have.members([...]), .to.have.property('id'), .to.be.above(n),
+   pm.response.to.have.status(200), pm.response.to.have.header('X'),
+   pm.response.to.have.jsonSchema(schema), pm.response.json() (a
+   function, exactly like real Postman), pm.response.headers.get('X').
+   ===================================================================== */
+function pmDeepEqual(a, b){
+  if(a === b) return true;
+  if(typeof a !== typeof b) return false;
+  if(a === null || b === null) return a === b;
+  if(Array.isArray(a) || Array.isArray(b)){
+    if(!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) return false;
+    return a.every((v, i) => pmDeepEqual(v, b[i]));
+  }
+  if(typeof a === 'object'){
+    const ka = Object.keys(a), kb = Object.keys(b);
+    if(ka.length !== kb.length) return false;
+    return ka.every(k => Object.prototype.hasOwnProperty.call(b, k) && pmDeepEqual(a[k], b[k]));
+  }
+  return a === b;
+}
+function pmStringify(v){ try{ return typeof v === 'string' ? '"' + v + '"' : JSON.stringify(v); }catch(e){ return String(v); } }
+function pmTypeOf(v){ if(v === null) return 'null'; if(Array.isArray(v)) return 'array'; return typeof v; }
+function pmAssert(pass, negate, msg){ const ok = negate ? !pass : pass; if(!ok) throw new Error(msg()); return true; }
+/** A minimal Chai `expect` chain: chain words are no-op getters, terminal
+    methods/getters throw a descriptive Error on failure (caught by pm.test). */
+function pmChain(actual){
+  const self = {
+    get to(){ return self; }, get be(){ return self; }, get been(){ return self; }, get is(){ return self; },
+    get that(){ return self; }, get which(){ return self; }, get and(){ return self; }, get has(){ return self; },
+    get have(){ return self; }, get with(){ return self; }, get at(){ return self; }, get of(){ return self; },
+    get same(){ return self; }, get deep(){ return self; }, get own(){ return self; },
+    get not(){ return pmChain2(actual, true); },
+    get true(){ return pmAssert(actual === true, false, () => 'expected ' + pmStringify(actual) + ' to be true'); },
+    get false(){ return pmAssert(actual === false, false, () => 'expected ' + pmStringify(actual) + ' to be false'); },
+    get null(){ return pmAssert(actual === null, false, () => 'expected ' + pmStringify(actual) + ' to be null'); },
+    get undefined(){ return pmAssert(actual === undefined, false, () => 'expected ' + pmStringify(actual) + ' to be undefined'); },
+    get exist(){ return pmAssert(actual !== null && actual !== undefined, false, () => 'expected value to exist'); },
+    get ok(){ return pmAssert(!!actual, false, () => 'expected ' + pmStringify(actual) + ' to be truthy'); },
+    get empty(){ const len = actual == null ? -1 : (actual.length !== undefined ? actual.length : Object.keys(actual).length); return pmAssert(len === 0, false, () => 'expected ' + pmStringify(actual) + ' to be empty'); },
+    eql(exp){ return pmAssert(pmDeepEqual(actual, exp), false, () => 'expected ' + pmStringify(actual) + ' to deeply equal ' + pmStringify(exp)); },
+    equal(exp){ return pmAssert(actual === exp, false, () => 'expected ' + pmStringify(actual) + ' to equal ' + pmStringify(exp)); },
+    a(type){ const t = pmTypeOf(actual); const norm = String(type).toLowerCase(); const pass = norm === 'integer' ? (typeof actual === 'number' && Number.isInteger(actual)) : norm === t; return pmAssert(pass, false, () => 'expected ' + pmStringify(actual) + ' to be a `' + type + '` (got `' + t + '`)'); },
+    an(type){ return self.a(type); },
+    above(n){ return pmAssert(actual > n, false, () => 'expected ' + actual + ' to be above ' + n); },
+    below(n){ return pmAssert(actual < n, false, () => 'expected ' + actual + ' to be below ' + n); },
+    least(n){ return pmAssert(actual >= n, false, () => 'expected ' + actual + ' to be at least ' + n); },
+    most(n){ return pmAssert(actual <= n, false, () => 'expected ' + actual + ' to be at most ' + n); },
+    within(a, b){ return pmAssert(actual >= a && actual <= b, false, () => 'expected ' + actual + ' to be within ' + a + '..' + b); },
+    include(item){
+      let pass;
+      if(Array.isArray(actual)) pass = actual.some(x => pmDeepEqual(x, item));
+      else if(typeof actual === 'string') pass = actual.includes(item);
+      else if(actual && typeof actual === 'object') pass = Object.prototype.hasOwnProperty.call(actual, item) || Object.values(actual).some(x => pmDeepEqual(x, item));
+      else pass = false;
+      return pmAssert(pass, false, () => 'expected ' + pmStringify(actual) + ' to include ' + pmStringify(item));
+    },
+    members(exp){ const pass = Array.isArray(actual) && Array.isArray(exp) && actual.length === exp.length && exp.every(e => actual.some(a => pmDeepEqual(a, e))); return pmAssert(pass, false, () => 'expected ' + pmStringify(actual) + ' to have the same members as ' + pmStringify(exp)); },
+    property(name, val){
+      const has = actual && typeof actual === 'object' && Object.prototype.hasOwnProperty.call(actual, name);
+      if(!has) return pmAssert(false, false, () => 'expected object to have property `' + name + '`');
+      if(val !== undefined) return pmAssert(pmDeepEqual(actual[name], val), false, () => 'expected property `' + name + '` to equal ' + pmStringify(val) + ' (got ' + pmStringify(actual[name]) + ')');
+      return true;
+    },
+    length(n){ const len = actual && actual.length !== undefined ? actual.length : (actual && typeof actual === 'object' ? Object.keys(actual).length : undefined); return pmAssert(len === n, false, () => 'expected length ' + len + ' to equal ' + n); },
+    lengthOf(n){ return self.length(n); },
+    match(re){ return pmAssert(re.test(actual), false, () => 'expected ' + pmStringify(actual) + ' to match ' + re); },
+    status(code){ pmRequireResponse(actual); return pmAssert(actual.code === code, false, () => 'expected response to have status code ' + code + ' but got ' + actual.code); },
+    header(name){ pmRequireResponse(actual); return pmAssert(actual.headers.has(name), false, () => 'expected response to have header "' + name + '"'); },
+    jsonSchema(schema){ pmRequireResponse(actual); const errs = pmValidateSchema(actual.json(), schema, ''); return pmAssert(errs.length === 0, false, () => 'expected response body to match schema' + (errs.length ? ': ' + errs.join('; ') : '')); }
+  };
+  return self;
+}
+/* separate builder for the negated (`.not`) branch, sharing the same terminal logic with inverted pass/fail */
+function pmChain2(actual, negate){
+  const self = {
+    get to(){ return self; }, get be(){ return self; }, get been(){ return self; }, get is(){ return self; },
+    get that(){ return self; }, get which(){ return self; }, get and(){ return self; }, get has(){ return self; },
+    get have(){ return self; }, get with(){ return self; }, get at(){ return self; }, get of(){ return self; },
+    get same(){ return self; }, get deep(){ return self; }, get own(){ return self; },
+    get true(){ return pmAssert(actual === true, negate, () => 'expected ' + pmStringify(actual) + ' to not be true'); },
+    get false(){ return pmAssert(actual === false, negate, () => 'expected ' + pmStringify(actual) + ' to not be false'); },
+    get null(){ return pmAssert(actual === null, negate, () => 'expected ' + pmStringify(actual) + ' to not be null'); },
+    get undefined(){ return pmAssert(actual === undefined, negate, () => 'expected ' + pmStringify(actual) + ' to not be undefined'); },
+    get exist(){ return pmAssert(actual !== null && actual !== undefined, negate, () => 'expected value to not exist'); },
+    get ok(){ return pmAssert(!!actual, negate, () => 'expected ' + pmStringify(actual) + ' to not be truthy'); },
+    get empty(){ const len = actual == null ? -1 : (actual.length !== undefined ? actual.length : Object.keys(actual).length); return pmAssert(len === 0, negate, () => 'expected ' + pmStringify(actual) + ' to not be empty'); },
+    eql(exp){ return pmAssert(pmDeepEqual(actual, exp), negate, () => 'expected ' + pmStringify(actual) + ' to not deeply equal ' + pmStringify(exp)); },
+    equal(exp){ return pmAssert(actual === exp, negate, () => 'expected ' + pmStringify(actual) + ' to not equal ' + pmStringify(exp)); },
+    a(type){ const t = pmTypeOf(actual); const norm = String(type).toLowerCase(); const pass = norm === 'integer' ? (typeof actual === 'number' && Number.isInteger(actual)) : norm === t; return pmAssert(pass, negate, () => 'expected ' + pmStringify(actual) + ' to not be a `' + type + '`'); },
+    an(type){ return self.a(type); },
+    above(n){ return pmAssert(actual > n, negate, () => 'expected ' + actual + ' to not be above ' + n); },
+    below(n){ return pmAssert(actual < n, negate, () => 'expected ' + actual + ' to not be below ' + n); },
+    include(item){
+      let pass;
+      if(Array.isArray(actual)) pass = actual.some(x => pmDeepEqual(x, item));
+      else if(typeof actual === 'string') pass = actual.includes(item);
+      else if(actual && typeof actual === 'object') pass = Object.prototype.hasOwnProperty.call(actual, item) || Object.values(actual).some(x => pmDeepEqual(x, item));
+      else pass = false;
+      return pmAssert(pass, negate, () => 'expected ' + pmStringify(actual) + ' to not include ' + pmStringify(item));
+    },
+    property(name){ const has = actual && typeof actual === 'object' && Object.prototype.hasOwnProperty.call(actual, name); return pmAssert(has, negate, () => 'expected object to not have property `' + name + '`'); }
+  };
+  return self;
+}
+function pmRequireResponse(actual){ if(!actual || !actual._isPmResponse) throw new Error('.status()/.header()/.jsonSchema() are only supported on pm.response'); }
+function pmSchemaTypeMatches(data, type){
+  if(type === 'integer') return typeof data === 'number' && Number.isInteger(data);
+  if(type === 'number') return typeof data === 'number';
+  if(type === 'string') return typeof data === 'string';
+  if(type === 'boolean') return typeof data === 'boolean';
+  if(type === 'array') return Array.isArray(data);
+  if(type === 'object') return data !== null && typeof data === 'object' && !Array.isArray(data);
+  if(type === 'null') return data === null;
+  return false;
+}
+function pmValidateSchema(data, schema, path){
+  const errors = [];
+  const label = path || 'root';
+  if(schema.type){
+    const allowed = Array.isArray(schema.type) ? schema.type : [schema.type];
+    if(!allowed.some(t => pmSchemaTypeMatches(data, t))) errors.push(label + ' should be ' + allowed.join('/') + ' but is ' + pmTypeOf(data));
+  }
+  if((schema.type === 'object') && data && typeof data === 'object' && !Array.isArray(data)){
+    (schema.required || []).forEach(k => { if(!(k in data)) errors.push(label + '.' + k + ' is required'); });
+    if(schema.properties) Object.keys(schema.properties).forEach(k => { if(k in data) errors.push.apply(errors, pmValidateSchema(data[k], schema.properties[k], label + '.' + k)); });
+  }
+  if(schema.type === 'array' && Array.isArray(data) && schema.items){
+    data.forEach((item, i) => errors.push.apply(errors, pmValidateSchema(item, schema.items, label + '[' + i + ']')));
+  }
+  return errors;
+}
+function pmMakeHeaders(headers){
+  const h = Object.assign({}, headers || {});
+  Object.defineProperty(h, 'get', {value:(name) => { const k = Object.keys(h).find(k => k.toLowerCase() === String(name).toLowerCase()); return k ? h[k] : null; }, enumerable:false});
+  Object.defineProperty(h, 'has', {value:(name) => Object.keys(h).some(k => k.toLowerCase() === String(name).toLowerCase()), enumerable:false});
+  return h;
+}
+function runPmTests(code, res, t){
   if(!code || !code.trim()) return [];
-  let json = null; try{ json = JSON.parse(res.text || 'null'); }catch(e){}
-  const pmCtx = {response:{status:res.status, time:res.ms, json, text:res.text, headers:res.headers}};
+  const parsedJson = (() => { try{ return JSON.parse(res.text || 'null'); }catch(e){ return null; } })();
+  const response = {
+    status:res.status, code:res.status, time:res.ms, responseTime:res.ms,
+    json:() => parsedJson, text:() => res.text || '',
+    headers:pmMakeHeaders(res.headers), _isPmResponse:true
+  };
+  response.to = pmChain(response);
   const results = [];
-  const pm = {test:(name, fn) => { try{ results.push({name, pass: !!fn(), error:null}); }catch(e){ results.push({name, pass:false, error:e.message}); } }, response:pmCtx.response};
-  try{ new Function('pm', code); (new Function('pm', code))(pm); }catch(e){ results.push({name:'Test script error', pass:false, error:e.message}); }
+  const pm = {
+    ...pmApi(t), test:(name, fn) => { try{ const r = fn(); results.push({name, pass:r !== false, error:null}); }catch(e){ results.push({name, pass:false, error:e.message}); } },
+    expect:(actual) => pmChain(actual),
+    response
+  };
+  try{ (new Function('pm', 'console', code))(pm, pmConsole); }
+  catch(e){ results.push({name:'Test script error', pass:false, error:e.message}); }
   return results;
 }
+
+/* ---------- code snippet generator ---------- */
+function pmGenCurl(eff){
+  let s = 'curl --location \'' + eff.url + '\'';
+  Object.entries(eff.headers).forEach(([k, v]) => { s += ' \\\n  --header \'' + k + ': ' + v + '\''; });
+  if(eff.body) s += ' \\\n  --data \'' + eff.body.replace(/'/g, "'\\''") + '\'';
+  if(eff.method !== 'GET') s = s.replace('curl --location', 'curl --location --request ' + eff.method);
+  return s;
+}
+function pmGenJs(eff){
+  const headerLines = Object.entries(eff.headers).map(([k, v]) => '    "' + k + '": "' + v.replace(/"/g, '\\"') + '"').join(',\n');
+  return 'const response = await fetch("' + eff.url + '", {\n  method: "' + eff.method + '",\n  headers: {\n' + headerLines + '\n  }' + (eff.body ? ',\n  body: JSON.stringify(' + (() => { try{ return JSON.stringify(JSON.parse(eff.body)); }catch(e){ return JSON.stringify(eff.body); } })() + ')' : '') + '\n});\nconst data = await response.json();\nconsole.log(response.status, data);';
+}
+function pmGenPython(eff){
+  const headerLines = Object.entries(eff.headers).map(([k, v]) => '    "' + k + '": "' + v.replace(/"/g, '\\"') + '"').join(',\n');
+  return 'import requests\n\nresponse = requests.request(\n  "' + eff.method + '",\n  "' + eff.url + '",\n  headers={\n' + headerLines + '\n  }' + (eff.body ? ',\n  data=\'\'\'' + eff.body + '\'\'\'' : '') + '\n)\n\nprint(response.status_code)\nprint(response.json())';
+}
+const PM_CODE_LANGS = [{k:'curl', label:'cURL', gen:pmGenCurl}, {k:'js', label:'JavaScript (fetch)', gen:pmGenJs}, {k:'python', label:'Python (requests)', gen:pmGenPython}];
+function openCodeGenModal(t){
+  const eff = pmBuildEffective(t);
+  let active = 'curl';
+  const body = () => '<div class="modal-head"><h3>Generate code</h3><button class="x-btn" data-action="closeModal">×</button></div>' +
+    '<div class="pm-rtabs" id="codeLangTabs">' + PM_CODE_LANGS.map(l => '<button class="' + (active === l.k ? 'active' : '') + '" data-lang="' + l.k + '">' + l.label + '</button>').join('') + '</div>' +
+    '<pre class="json" id="codeOut" style="margin-top:12px;max-height:400px">' + esc(PM_CODE_LANGS.find(l => l.k === active).gen(eff)) + '</pre>' +
+    '<div class="modal-actions"><button class="btn" data-action="closeModal">Close</button><button class="btn btn-primary" id="codeCopyBtn">📋 Copy to clipboard</button></div>';
+  const bd = openModal(body(), {cls:'modal-lg'});
+  wire(bd);
+  function wire(bd){
+    $$('#codeLangTabs button', bd).forEach(b => b.addEventListener('click', () => { active = b.dataset.lang; bd.querySelector('.modal').innerHTML = body(); wire(bd); }));
+    $('#codeCopyBtn', bd).addEventListener('click', () => {
+      const text = PM_CODE_LANGS.find(l => l.k === active).gen(eff);
+      if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => toast('Copied to clipboard', 'ok')).catch(() => toast('Could not copy — select and copy manually', 'warn'));
+      else toast('Clipboard not available — select and copy manually', 'warn');
+    });
+  }
+}
+
+/* ---------- Collection Runner ---------- */
+async function runCollectionFolder(folderName, tabs){
+  if(!tabs.length) return toast('This folder is empty', 'warn');
+  const results = tabs.map(t => ({name:t.name, method:t.method, status:null, ms:null, tests:null, running:false}));
+  const bodyHtml = () => '<div class="modal-head"><h3>Collection Runner — ' + esc(folderName) + '</h3><button class="x-btn" data-action="closeModal">×</button></div>' +
+    '<div class="table-wrap"><table class="tbl"><thead><tr><th>#</th><th>Request</th><th>Status</th><th>Time</th><th>Tests</th></tr></thead><tbody>' +
+    results.map((r, i) => '<tr><td>' + (i + 1) + '</td><td><span class="mth m-' + r.method + '">' + r.method + '</span> ' + esc(r.name) + '</td><td>' + (r.status === null ? (r.running ? '⏳ Running…' : '—') : (r.status === 0 ? '<span class="badge b-err">Network error</span>' : '<span class="badge ' + (r.status < 400 ? 'b-ok' : 'b-err') + '">' + r.status + '</span>')) + '</td><td>' + (r.ms === null ? '—' : r.ms + ' ms') + '</td><td>' + (r.tests === null ? '—' : (r.tests.total ? '<span class="' + (r.tests.failed ? 'fail' : 'pass') + '">' + r.tests.passed + '/' + r.tests.total + '</span>' : '—')) + '</td></tr>').join('') +
+    '</tbody></table></div>' +
+    '<div class="mt" id="runnerSummary"></div>' +
+    '<div class="modal-actions"><button class="btn btn-primary" data-action="closeModal">Close</button></div>';
+  const bd = openModal(bodyHtml(), {cls:'modal-lg', dismissible:false});
+  for(let i = 0; i < tabs.length; i++){
+    results[i].running = true;
+    bd.querySelector('.modal').innerHTML = bodyHtml();
+    const t = tabs[i];
+    try{
+      runPmPreRequest(t.preRequest, t);
+      const eff = pmBuildEffective(t);
+      const res = await apiHandle(eff.method, eff.url, eff.headers, eff.body);
+      results[i].status = res.network ? 0 : res.status; results[i].ms = res.ms; setTimeout(() => pmAfter(t, eff, res), 0);
+      if(!res.network){
+        const tr = runPmTests(t.tests, res, t);
+        res.testResults = tr; results[i].tests = {total:tr.length, passed:tr.filter(x => x.pass).length, failed:tr.some(x => !x.pass)};
+        try{ const j = JSON.parse(res.text || 'null'); if(eff.url.includes('/auth/login') && res.status === 200 && j && j.token) pmSetEnvVar('token', j.token); }catch(e){}
+      }
+    }catch(e){ results[i].status = 0; results[i].ms = 0; }
+    results[i].running = false;
+    bd.querySelector('.modal').innerHTML = bodyHtml();
+  }
+  const totalTests = results.reduce((s, r) => s + (r.tests ? r.tests.total : 0), 0);
+  const passedTests = results.reduce((s, r) => s + (r.tests ? r.tests.passed : 0), 0);
+  const failedReqs = results.filter(r => r.status === 0 || r.status >= 400).length;
+  const summaryEl = $('#runnerSummary', bd);
+  if(summaryEl) summaryEl.innerHTML = '<div class="alert ' + (failedReqs ? 'alert-err' : 'alert-ok') + '">' + (failedReqs ? failedReqs + ' of ' + results.length + ' request(s) failed' : 'All ' + results.length + ' request(s) succeeded') + (totalTests ? ' · ' + passedTests + '/' + totalTests + ' test assertions passed' : '') + '</div>';
+}
 /* =====================================================================
-   PERFORMANCE LAB – simulated load test against the mock API
+   PERFORMANCE LAB – a real JMeter-style Test Plan tree.
+   Build a tree (Test Plan > Thread Group > HTTP Request / Timer /
+   Config Element / Listener) exactly like desktop JMeter: use "+ Add" to
+   add children valid for whatever is selected, configure each element in
+   the panel on the right, then Run. Listeners (View Results Tree,
+   Aggregate Report, Summary Report) collect results from samplers in
+   their scope (their own Thread Group, or every group if attached to the
+   Test Plan root) — the same scoping rule real JMeter uses.
    ===================================================================== */
-const PERF_ENDPOINTS = [
-  {label:'GET /products (list)', method:'GET', url:'https://api.qasandbox.com/v1/products?page=1&limit=10'},
-  {label:'GET /products/:id', method:'GET', url:'https://api.qasandbox.com/v1/products/1'},
-  {label:'GET /categories', method:'GET', url:'https://api.qasandbox.com/v1/categories'},
-  {label:'POST /auth/login', method:'POST', url:'https://api.qasandbox.com/v1/auth/login', body:'{"email":"john@example.com","password":"Test@123"}'},
-  {label:'GET /debug/delay/300 (slow endpoint)', method:'GET', url:'https://api.qasandbox.com/v1/debug/delay/300'},
-  {label:'GET /debug/flaky (30% errors)', method:'GET', url:'https://api.qasandbox.com/v1/debug/flaky'}
-];
-let PERF_STATE = {running:false, results:[], steps:[{endpoint:0, users:5, ramp:2, hold:6}]};
+const PERF_MAX_OPS = 400;
+const JM_ICON = {TestPlan:'🧪', ThreadGroup:'⚙️', HTTPRequest:'🌐', HTTPRequestDefaults:'🧰', HTTPHeaderManager:'📑', UserDefinedVariables:'📋', UniformRandomTimer:'⏱️', ResponseAssertion:'🎯', ViewResultsTree:'🌳', AggregateReport:'📊', SummaryReport:'📈'};
+const JM_LABEL = {TestPlan:'Test Plan', ThreadGroup:'Thread Group', HTTPRequest:'HTTP Request', HTTPRequestDefaults:'HTTP Request Defaults', HTTPHeaderManager:'HTTP Header Manager', UserDefinedVariables:'User Defined Variables', UniformRandomTimer:'Uniform Random Timer', ResponseAssertion:'Response Assertion', ViewResultsTree:'View Results Tree', AggregateReport:'Aggregate Report', SummaryReport:'Summary Report'};
+const JM_ALLOWED_CHILDREN = {
+  TestPlan: ['ThreadGroup', 'HTTPRequestDefaults', 'HTTPHeaderManager', 'UserDefinedVariables', 'ViewResultsTree', 'AggregateReport', 'SummaryReport'],
+  ThreadGroup: ['HTTPRequest', 'HTTPRequestDefaults', 'HTTPHeaderManager', 'UserDefinedVariables', 'UniformRandomTimer', 'ResponseAssertion', 'ViewResultsTree', 'AggregateReport', 'SummaryReport'],
+  HTTPRequest: [], HTTPRequestDefaults: [], HTTPHeaderManager: [], UserDefinedVariables: [], UniformRandomTimer: [], ResponseAssertion: [], ViewResultsTree: [], AggregateReport: [], SummaryReport: []
+};
+const JM_LISTENER_TYPES = ['ViewResultsTree', 'AggregateReport', 'SummaryReport'];
+const JM_CONFIG_TYPES = ['HTTPRequestDefaults', 'HTTPHeaderManager', 'UserDefinedVariables'];
+
+function jmNewNode(type, extra){ return Object.assign({id:'n_' + uid(), type, name:JM_LABEL[type], children:[]}, extra || {}); }
+function jmNewThreadGroup(kind){
+  const names = {normal:'Thread Group', setUp:'setUp Thread Group', tearDown:'tearDown Thread Group'};
+  return jmNewNode('ThreadGroup', {name:names[kind] || 'Thread Group', kind:kind || 'normal', users:5, rampup:2, loops:1, infinite:false, sameUser:true, specifyLifetime:false, duration:60, startupDelay:0, errorAction:'continue'});
+}
+function jmNewHttpRequest(){ return jmNewNode('HTTPRequest', {protocol:'https', server:'api.qasandbox.com', port:'', method:'GET', path:'/v1/products', params:[{key:'page', value:'1', on:true}, {key:'limit', value:'10', on:true}], bodyMode:'params', body:'{\n  \n}'}); }
+function jmNewHttpDefaults(){ return jmNewNode('HTTPRequestDefaults', {protocol:'https', server:'api.qasandbox.com', port:''}); }
+function jmNewHeaderManager(){ return jmNewNode('HTTPHeaderManager', {headers:[{key:'Content-Type', value:'application/json', on:true}]}); }
+function jmNewUdv(){ return jmNewNode('UserDefinedVariables', {vars:[{key:'baseVar', value:'demo', on:true}]}); }
+function jmNewTimer(){ return jmNewNode('UniformRandomTimer', {delay:100, randomDelay:300}); }
+function jmNewAssertion(){ return jmNewNode('ResponseAssertion', {field:'code', mode:'equals', pattern:'200'}); }
+function jmNewListener(type){ return jmNewNode(type, {results:[]}); }
+
+function seedPerfTree(){
+  const httpReq = jmNewHttpRequest();
+  const vrt = jmNewListener('ViewResultsTree');
+  const agg = jmNewListener('AggregateReport');
+  const tg = jmNewThreadGroup('normal');
+  tg.children = [httpReq, vrt, agg];
+  return jmNewNode('TestPlan', {id:'testplan', children:[tg]});
+}
+function jmStrip(n){ const c = Object.assign({}, n); delete c._collapsed; if(c.results) c.results = []; if(c.children) c.children = c.children.map(jmStrip); return c; }
+function savePerfTree(){ store.set(LS.perftree, jmStrip(PERF_TREE)); }
+function jmFindNode(node, id){ if(node.id === id) return node; for(const c of (node.children || [])){ const f = jmFindNode(c, id); if(f) return f; } return null; }
+function jmFindParent(node, id, parent){ if(node.id === id) return parent; for(const c of (node.children || [])){ const f = jmFindParent(c, id, node); if(f) return f; } return null; }
+function jmEnsureResults(node){ (node.children || []).forEach(jmEnsureResults); if(JM_LISTENER_TYPES.includes(node.type) && !Array.isArray(node.results)) node.results = []; }
+
+let PERF_TREE = store.get(LS.perftree, null);
+if(!PERF_TREE || !PERF_TREE.children) PERF_TREE = seedPerfTree();
+jmEnsureResults(PERF_TREE);
+let SELECTED_NODE_ID = PERF_TREE.children[0] ? PERF_TREE.children[0].id : PERF_TREE.id;
+let PERF_RUN = {running:false, stopFlag:false, startTs:0};
+let VRT_SELECTED = {}; /* per-listener-node selected sample index */
 
 route('/performance', () => { renderPerf(); });
 function renderPerf(){
-  const s = PERF_STATE;
   $('#app').innerHTML = '<div class="container tool-page">' +
-  '<div class="tool-title"><h1>⚡ Performance Lab <span class="badge b-info">Sandbox</span></h1><div class="muted small">Simulates concurrent virtual users hitting the mock API so you can practise reading load-test results.</div></div>' +
-  '<div class="perf-grid">' +
-  '<div class="panel"><h3>Test plan</h3><div id="perfSteps"></div><button class="btn btn-sm" id="perfAddStep">+ Add stage</button>' +
-  '<div class="row mt"><button class="btn btn-primary grow" id="perfRun">▶ Run load test</button><button class="btn" id="perfStop" disabled>■ Stop</button></div>' +
-  '<div class="progress mt"><div id="perfProgress"></div></div><div class="muted small mt" id="perfProgLabel">Idle</div>' +
-  '<h3 class="mt">Pass / fail thresholds</h3>' +
-  '<div class="thr"><span>Avg response time</span><b>&lt; 400 ms</b></div><div class="thr"><span>95th percentile</span><b>&lt; 800 ms</b></div><div class="thr"><span>Error rate</span><b>&lt; 5%</b></div>' +
-  '<div id="perfVerdict"></div>' +
+  '<div class="tool-title"><h1>⚡ Performance Lab <span class="badge b-info">Sandbox</span></h1><div class="muted small">A working clone of Apache JMeter\'s Test Plan tree. Build it exactly like desktop JMeter: select an element, click "+ Add" for whatever is valid there, configure it on the right, then Run.</div></div>' +
+  '<div class="alert alert-info small">📘 <b>How this maps to real JMeter:</b> <b>Thread Group</b> = a set of virtual users ("threads"). <b>HTTP Request</b> = the sampler each thread fires — protocol/server/port/path/method/parameters, same as JMeter\'s HTTP Request panel. <b>Config Elements</b> (HTTP Request Defaults, HTTP Header Manager, User Defined Variables) supply shared settings to every sampler in their scope — use <code>${variableName}</code> anywhere to reference a variable. A <b>Timer</b> adds think-time before each sampler. <b>Listeners</b> (View Results Tree, Aggregate Report, Summary Report) collect results from samplers in their scope: attach one inside a Thread Group to see just that group, or at the Test Plan root to see everything.</div>' +
+  '<div class="jm-toolbar">' +
+  '<div class="dropdown" id="jmAddDd"><button class="btn btn-sm btn-primary" data-action="toggleDd">+ Add ▾</button><div class="dd-menu" id="jmAddMenu" style="min-width:240px"></div></div>' +
+  '<button class="btn btn-sm" id="jmRemove">🗑 Remove</button>' +
+  '<span class="grow"></span>' +
+  '<button class="btn btn-sm btn-primary" id="jmRun">▶ Run</button>' +
+  '<button class="btn btn-sm" id="jmStop" disabled>■ Stop</button>' +
+  '<button class="btn btn-sm" id="jmClear">🧹 Clear results</button>' +
+  '<button class="btn btn-sm" id="jmReset">↺ Reset test plan</button>' +
   '</div>' +
-  '<div class="panel"><h3>Live results</h3>' +
-  '<div class="kpis" id="perfKpis"></div>' +
-  '<div class="legend"><span><i style="background:#7c3aed"></i>Response time (ms)</span><span><i style="background:#ef4444"></i>Errors</span></div>' +
-  '<canvas class="chart" id="perfChart" width="900" height="230"></canvas>' +
-  '<h3 class="mt">Request log</h3><div class="table-wrap" style="max-height:260px;overflow:auto"><table class="tbl" id="perfLog"><thead><tr><th>#</th><th>Endpoint</th><th>Status</th><th>Time (ms)</th></tr></thead><tbody></tbody></table></div>' +
-  '</div></div></div><div style="height:40px"></div>';
-  paintPerfSteps(); paintPerfKpis(); drawPerfChart();
-  $('#perfAddStep').addEventListener('click', () => { PERF_STATE.steps.push({endpoint:0, users:5, ramp:2, hold:6}); paintPerfSteps(); });
-  $('#perfRun').addEventListener('click', runLoadTest);
-  $('#perfStop').addEventListener('click', () => { PERF_STATE.stopFlag = true; });
+  '<div class="jm-wrap">' +
+  '<div class="jm-tree-pane" id="jmTree"></div>' +
+  '<div class="jm-config-pane" id="jmConfig"></div>' +
+  '</div><div class="progress mt"><div id="perfProgress"></div></div><div class="muted small mt" id="perfProgLabel">Idle</div>' +
+  '</div><div style="height:40px"></div>';
+  paintJmTree(); paintConfigPanel();
+  $('#jmRemove').addEventListener('click', jmRemoveSelected);
+  $('#jmRun').addEventListener('click', runTestPlan);
+  $('#jmStop').addEventListener('click', () => { PERF_RUN.stopFlag = true; });
+  $('#jmClear').addEventListener('click', () => { jmClearResults(PERF_TREE); savePerfTree(); paintConfigPanel(); toast('Results cleared'); });
+  $('#jmReset').addEventListener('click', () => confirmDelete({title:'Reset the test plan?', body:'This replaces your current Test Plan tree with the default starter plan. This cannot be undone.', onConfirm: () => { PERF_TREE = seedPerfTree(); SELECTED_NODE_ID = PERF_TREE.children[0].id; savePerfTree(); paintJmTree(); paintConfigPanel(); toast('Test plan reset', 'ok'); }}));
+  $('#jmAddDd').addEventListener('click', paintAddMenu);
 }
-function paintPerfSteps(){
-  $('#perfSteps').innerHTML = PERF_STATE.steps.map((st, i) =>
-    '<div class="step-row" data-step="' + i + '">' +
-    '<select data-sf="users">' + [1, 2, 5, 10, 20, 30, 50].map(n => '<option value="' + n + '"' + (st.users === n ? ' selected' : '') + '>' + n + ' users</option>').join('') + '</select>' +
-    '<select data-sf="endpoint">' + PERF_ENDPOINTS.map((e, ei) => '<option value="' + ei + '"' + (st.endpoint === ei ? ' selected' : '') + '>' + esc(e.label) + '</option>').join('') + '</select>' +
-    '<button data-sdel="' + i + '">🗑</button></div>'
-  ).join('');
-  $$('[data-step]').forEach(row => {
-    const i = Number(row.dataset.step);
-    row.querySelector('[data-sf="users"]').addEventListener('change', e => PERF_STATE.steps[i].users = Number(e.target.value));
-    row.querySelector('[data-sf="endpoint"]').addEventListener('change', e => PERF_STATE.steps[i].endpoint = Number(e.target.value));
+function jmClearResults(node){ if(JM_LISTENER_TYPES.includes(node.type)) node.results = []; (node.children || []).forEach(jmClearResults); }
+
+/* ---------- tree rendering ---------- */
+function paintJmTree(){
+  const root = $('#jmTree'); if(!root) return;
+  root.innerHTML = jmRenderNode(PERF_TREE, 0);
+  $$('.jm-node', root).forEach(el => el.addEventListener('click', e => { e.stopPropagation(); selectNode(el.dataset.id); }));
+  $$('.jm-caret', root).forEach(el => el.addEventListener('click', e => { e.stopPropagation(); const node = jmFindNode(PERF_TREE, el.closest('.jm-node').dataset.id); node._collapsed = !node._collapsed; paintJmTree(); }));
+}
+function jmRenderNode(node, depth){
+  const hasChildren = node.children && node.children.length;
+  const collapsed = !!node._collapsed;
+  let html = '<div class="jm-node' + (node.id === SELECTED_NODE_ID ? ' selected' : '') + '" data-id="' + node.id + '" style="padding-left:' + (depth * 16 + 6) + 'px" title="' + esc(JM_LABEL[node.type]) + '">' +
+    (hasChildren ? '<span class="jm-caret">' + (collapsed ? '▶' : '▼') + '</span>' : '<span class="jm-caret" style="visibility:hidden">▶</span>') +
+    '<span class="jm-icon">' + JM_ICON[node.type] + '</span><span class="jm-name">' + esc(node.name) + '</span>' +
+    '</div>';
+  if(hasChildren && !collapsed) html += node.children.map(c => jmRenderNode(c, depth + 1)).join('');
+  return html;
+}
+function selectNode(id){ SELECTED_NODE_ID = id; paintJmTree(); paintConfigPanel(); }
+
+/* ---------- add / remove ---------- */
+function paintAddMenu(){
+  const node = jmFindNode(PERF_TREE, SELECTED_NODE_ID) || PERF_TREE;
+  const allowed = JM_ALLOWED_CHILDREN[node.type] || [];
+  const menu = $('#jmAddMenu');
+  if(!allowed.length){ menu.innerHTML = '<div class="muted small" style="padding:8px 12px">"' + esc(node.name) + '" can\'t contain child elements. Select the Test Plan or a Thread Group first.</div>'; return; }
+  const items = [];
+  allowed.forEach(t => {
+    if(t === 'ThreadGroup') items.push({t:'ThreadGroup:normal', label:JM_ICON.ThreadGroup + ' Thread Group'}, {t:'ThreadGroup:setUp', label:JM_ICON.ThreadGroup + ' setUp Thread Group'}, {t:'ThreadGroup:tearDown', label:JM_ICON.ThreadGroup + ' tearDown Thread Group'});
+    else items.push({t, label:JM_ICON[t] + ' ' + JM_LABEL[t]});
   });
-  $$('[data-sdel]').forEach(b => b.addEventListener('click', () => { if(PERF_STATE.steps.length > 1){ PERF_STATE.steps.splice(Number(b.dataset.sdel), 1); paintPerfSteps(); } else toast('Keep at least one stage', 'warn'); }));
+  menu.innerHTML = items.map(it => '<a href="#" data-add="' + it.t + '">' + it.label + '</a>').join('');
+  $$('[data-add]', menu).forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    const [type, kind] = a.dataset.add.split(':');
+    let child;
+    if(type === 'ThreadGroup') child = jmNewThreadGroup(kind);
+    else if(type === 'HTTPRequest') child = jmNewHttpRequest();
+    else if(type === 'HTTPRequestDefaults') child = jmNewHttpDefaults();
+    else if(type === 'HTTPHeaderManager') child = jmNewHeaderManager();
+    else if(type === 'UserDefinedVariables') child = jmNewUdv();
+    else if(type === 'UniformRandomTimer') child = jmNewTimer();
+    else if(type === 'ResponseAssertion') child = jmNewAssertion();
+    else child = jmNewListener(type);
+    node.children.push(child); node._collapsed = false;
+    SELECTED_NODE_ID = child.id;
+    savePerfTree(); paintJmTree(); paintConfigPanel();
+    $$('.dropdown.open').forEach(d => d.classList.remove('open'));
+  }));
 }
-function paintPerfKpis(){
-  const r = PERF_STATE.results;
-  const n = r.length; const errs = r.filter(x => x.status === 0 || x.status >= 400).length;
-  const times = r.map(x => x.ms).sort((a, b) => a - b);
-  const avg = n ? Math.round(times.reduce((a, b) => a + b, 0) / n) : 0;
-  const p95 = n ? times[Math.min(times.length - 1, Math.floor(times.length * 0.95))] : 0;
-  const errRate = n ? Math.round(errs / n * 1000) / 10 : 0;
-  $('#perfKpis').innerHTML =
-  '<div class="kpi"><small>Total requests</small><b>' + n + '</b></div>' +
-  '<div class="kpi ' + (avg > 400 ? 'bad' : 'good') + '"><small>Avg response</small><b>' + avg + ' ms</b></div>' +
-  '<div class="kpi ' + (p95 > 800 ? 'bad' : 'good') + '"><small>95th percentile</small><b>' + p95 + ' ms</b></div>' +
-  '<div class="kpi ' + (errRate > 5 ? 'bad' : 'good') + '"><small>Error rate</small><b>' + errRate + '%</b></div>';
+function jmRemoveSelected(){
+  if(SELECTED_NODE_ID === PERF_TREE.id) return toast('The Test Plan root cannot be removed', 'warn');
+  const parent = jmFindParent(PERF_TREE, SELECTED_NODE_ID, null);
+  if(!parent) return;
+  const node = jmFindNode(PERF_TREE, SELECTED_NODE_ID);
+  confirmDelete({title:'Remove "' + node.name + '"?', body:'This also removes everything inside it. This cannot be undone.', onConfirm: () => {
+    parent.children = parent.children.filter(c => c.id !== SELECTED_NODE_ID);
+    SELECTED_NODE_ID = parent.id;
+    savePerfTree(); paintJmTree(); paintConfigPanel(); toast('Removed', 'ok');
+  }});
 }
-function drawPerfChart(){
-  const c = $('#perfChart'); if(!c) return; const ctx = c.getContext('2d');
-  const W = c.width, H = c.height; ctx.clearRect(0, 0, W, H);
-  ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H);
-  const r = PERF_STATE.results.slice(-120);
-  ctx.strokeStyle = '#e6e1f3'; ctx.lineWidth = 1;
-  for(let i = 0; i <= 4; i++){ const y = 16 + (H - 32) * i / 4; ctx.beginPath(); ctx.moveTo(40, y); ctx.lineTo(W - 10, y); ctx.stroke(); }
-  if(!r.length){ ctx.fillStyle = '#9992b8'; ctx.font = '13px sans-serif'; ctx.fillText('Run a load test to see the response-time chart', 50, H / 2); return; }
-  const maxMs = Math.max(200, ...r.map(x => x.ms)) * 1.15;
-  ctx.fillStyle = '#8a84a8'; ctx.font = '11px sans-serif'; ctx.textAlign = 'right';
-  for(let i = 0; i <= 4; i++){ const y = 16 + (H - 32) * i / 4; ctx.fillText(Math.round(maxMs * (1 - i / 4)) + 'ms', 36, y + 4); }
-  ctx.textAlign = 'left';
-  const stepX = (W - 50) / Math.max(1, r.length - 1);
-  ctx.beginPath(); ctx.strokeStyle = '#7c3aed'; ctx.lineWidth = 2;
-  r.forEach((pt, i) => { const x = 40 + i * stepX, y = 16 + (H - 32) * (1 - Math.min(1, pt.ms / maxMs)); if(i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); });
-  ctx.stroke();
-  r.forEach((pt, i) => { if(pt.status === 0 || pt.status >= 400){ const x = 40 + i * stepX, y = 16 + (H - 32) * (1 - Math.min(1, pt.ms / maxMs)); ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(x, y, 3, 0, 7); ctx.fill(); } });
+
+/* ---------- config panel dispatch ---------- */
+function paintConfigPanel(){
+  const node = jmFindNode(PERF_TREE, SELECTED_NODE_ID) || PERF_TREE;
+  const p = $('#jmConfig'); if(!p) return;
+  const head = '<h2>' + esc(node.name) + '</h2><span class="jm-type-label">' + JM_ICON[node.type] + ' ' + JM_LABEL[node.type] + '</span>';
+  if(node.type === 'TestPlan'){ p.innerHTML = head + '<p class="muted">The root of your Test Plan. Select "+ Add" above to add a Thread Group, or a Test-Plan-wide Config Element or Listener that applies to every Thread Group.</p>' + jmTreeSummary(); return; }
+  if(node.type === 'ThreadGroup'){ paintThreadGroupConfig(node, head); return; }
+  if(node.type === 'HTTPRequest'){ paintHttpRequestConfig(node, head); return; }
+  if(node.type === 'HTTPRequestDefaults'){ paintHttpDefaultsConfig(node, head); return; }
+  if(node.type === 'HTTPHeaderManager'){ paintHeaderManagerConfig(node, head); return; }
+  if(node.type === 'UserDefinedVariables'){ paintUdvConfig(node, head); return; }
+  if(node.type === 'UniformRandomTimer'){ paintTimerConfig(node, head); return; }
+  if(node.type === 'ResponseAssertion'){ paintAssertionConfig(node, head); return; }
+  if(JM_LISTENER_TYPES.includes(node.type)){ paintListenerConfig(node, head); return; }
+  p.innerHTML = head;
 }
-function logRow(i, label, status, ms){
-  const tb = $('#perfLog tbody'); if(!tb) return;
-  const tr = document.createElement('tr');
-  tr.innerHTML = '<td>' + i + '</td><td>' + esc(label) + '</td><td>' + (status === 0 ? '<span class="badge b-err">Network error</span>' : '<span class="badge ' + (status < 400 ? 'b-ok' : 'b-err') + '">' + status + '</span>') + '</td><td>' + ms + '</td>';
-  tb.prepend(tr); while(tb.children.length > 200) tb.removeChild(tb.lastChild);
+function jmTreeSummary(){
+  const groups = PERF_TREE.children.filter(c => c.type === 'ThreadGroup');
+  if(!groups.length) return '<div class="alert alert-warn small mt">No Thread Groups yet — add one to build a runnable test.</div>';
+  return '<table class="kv mt">' + groups.map(g => '<tr><td>' + esc(g.name) + '</td><td>' + g.users + ' users · ' + g.rampup + 's ramp-up · ' + (g.infinite ? 'infinite loops' : g.loops + ' loop(s)') + ' · ' + g.children.filter(c => c.type === 'HTTPRequest').length + ' sampler(s)</td></tr>').join('') + '</table>';
 }
-async function runLoadTest(){
-  if(PERF_STATE.running) return;
-  PERF_STATE.running = true; PERF_STATE.stopFlag = false; PERF_STATE.results = [];
-  $('#perfLog tbody').innerHTML = ''; $('#perfVerdict').innerHTML = '';
-  $('#perfRun').disabled = true; $('#perfStop').disabled = false;
-  const totalUsers = PERF_STATE.steps.reduce((s, st) => s + st.users, 0);
-  let done = 0, counter = 0;
-  for(const st of PERF_STATE.steps){
-    if(PERF_STATE.stopFlag) break;
-    const ep = PERF_ENDPOINTS[st.endpoint];
-    $('#perfProgLabel').textContent = 'Running: ' + ep.label + ' — ' + st.users + ' virtual users';
-    const batch = Array.from({length: st.users}, (_, i) => i);
-    await Promise.all(batch.map(async (i) => {
-      if(PERF_STATE.stopFlag) return;
-      await sleep(rand(0, 300));
-      const t0 = performance.now();
-      let res;
-      try{ res = await apiHandle(ep.method, ep.url, ep.body ? {'Content-Type':'application/json'} : {}, ep.body); }catch(e){ res = {network:e.message, ms: Math.round(performance.now() - t0)}; }
-      counter++;
-      const status = res.network ? 0 : res.status;
-      PERF_STATE.results.push({ms: res.ms, status});
-      logRow(counter, ep.label, status, res.ms);
-      done++; $('#perfProgress').style.width = Math.round(done / totalUsers * 100) + '%';
-      paintPerfKpis(); drawPerfChart();
-    }));
+function nameField(node, extra){
+  return '<div class="field"><label>Name</label><input type="text" id="cfgName" value="' + esc(node.name) + '"></div>' + (extra || '');
+}
+function wireName(node){ $('#cfgName').addEventListener('input', e => { node.name = e.target.value; savePerfTree(); paintJmTree(); }); }
+
+/* ---------- Thread Group config (matches the setUp Thread Group screenshot) ---------- */
+function paintThreadGroupConfig(node, head){
+  const p = $('#jmConfig');
+  p.innerHTML = head + nameField(node) +
+  '<div class="field"><label>Comments</label><input type="text" id="cfgComments" value="' + esc(node.comments || '') + '"></div>' +
+  '<div class="jm-section-title">Action to be taken after a Sampler error</div>' +
+  '<div class="jm-radio-row">' + [['continue', 'Continue'], ['startNextLoop', 'Start Next Thread Loop'], ['stopThread', 'Stop Thread'], ['stopTest', 'Stop Test'], ['stopTestNow', 'Stop Test Now']].map(([v, l]) => '<label><input type="radio" name="errAction" value="' + v + '" ' + (node.errorAction === v ? 'checked' : '') + '> ' + l + '</label>').join('') + '</div>' +
+  '<div class="jm-section-title">Thread Properties</div>' +
+  '<div class="grid-2"><div class="field"><label>Number of Threads (users)</label><input type="number" id="cfgUsers" min="1" max="300" value="' + node.users + '"></div>' +
+  '<div class="field"><label>Ramp-up period (seconds)</label><input type="number" id="cfgRampup" min="0" max="120" value="' + node.rampup + '"></div></div>' +
+  '<div class="field"><label>Loop Count</label><div class="row"><label class="check" style="flex:0"><input type="checkbox" id="cfgInfinite" ' + (node.infinite ? 'checked' : '') + '> Infinite</label><input type="number" id="cfgLoops" min="1" max="20" value="' + node.loops + '" ' + (node.infinite ? 'disabled' : '') + ' style="max-width:120px"></div></div>' +
+  '<div class="check mt"><input type="checkbox" id="cfgSameUser" ' + (node.sameUser ? 'checked' : '') + '><label for="cfgSameUser">Same user on each iteration</label></div>' +
+  '<div class="check mt"><input type="checkbox" id="cfgLifetime" ' + (node.specifyLifetime ? 'checked' : '') + '><label for="cfgLifetime">Specify Thread lifetime</label></div>' +
+  '<div class="grid-2" id="cfgLifetimeFields" style="display:' + (node.specifyLifetime ? 'grid' : 'none') + '">' +
+  '<div class="field"><label>Duration (seconds)</label><input type="number" id="cfgDuration" min="1" value="' + node.duration + '"></div>' +
+  '<div class="field"><label>Startup delay (seconds)</label><input type="number" id="cfgStartupDelay" min="0" value="' + node.startupDelay + '"></div></div>' +
+  '<div class="alert alert-info small mt">' + node.children.filter(c => c.type === 'HTTPRequest').length + ' HTTP Request sampler(s) inside this group. Use "+ Add" above (with this Thread Group selected) to add samplers, timers, config elements or listeners.</div>';
+  wireName(node);
+  $('#cfgComments').addEventListener('input', e => { node.comments = e.target.value; savePerfTree(); });
+  $$('input[name="errAction"]').forEach(r => r.addEventListener('change', e => { node.errorAction = e.target.value; savePerfTree(); }));
+  $('#cfgUsers').addEventListener('input', e => { node.users = Math.max(1, Math.min(300, Number(e.target.value) || 1)); savePerfTree(); });
+  $('#cfgRampup').addEventListener('input', e => { node.rampup = Math.max(0, Number(e.target.value) || 0); savePerfTree(); });
+  $('#cfgInfinite').addEventListener('change', e => { node.infinite = e.target.checked; $('#cfgLoops').disabled = node.infinite; savePerfTree(); });
+  $('#cfgLoops').addEventListener('input', e => { node.loops = Math.max(1, Math.min(20, Number(e.target.value) || 1)); savePerfTree(); });
+  $('#cfgSameUser').addEventListener('change', e => { node.sameUser = e.target.checked; savePerfTree(); });
+  $('#cfgLifetime').addEventListener('change', e => { node.specifyLifetime = e.target.checked; $('#cfgLifetimeFields').style.display = node.specifyLifetime ? 'grid' : 'none'; savePerfTree(); });
+  $('#cfgDuration').addEventListener('input', e => { node.duration = Math.max(1, Number(e.target.value) || 60); savePerfTree(); });
+  $('#cfgStartupDelay').addEventListener('input', e => { node.startupDelay = Math.max(0, Number(e.target.value) || 0); savePerfTree(); });
+}
+
+/* ---------- HTTP Request config (matches the "get access token" screenshot) ---------- */
+function jmKvTable(rows, prefix){
+  return '<table class="kvt"><thead><tr><th style="width:34px"></th><th>Name</th><th>Value</th><th style="width:34px"></th></tr></thead><tbody>' +
+  rows.map((r, i) => '<tr><td class="ck"><input type="checkbox" data-' + prefix + 'row="' + i + '" ' + (r.on ? 'checked' : '') + '></td><td><input type="text" data-' + prefix + 'key="' + i + '" value="' + esc(r.key) + '" placeholder="name"></td><td><input type="text" data-' + prefix + 'val="' + i + '" value="' + esc(r.value) + '" placeholder="value"></td><td class="dl"><button data-' + prefix + 'del="' + i + '">🗑</button></td></tr>').join('') +
+  '<tr><td></td><td><input type="text" data-' + prefix + 'newkey placeholder="name"></td><td><input type="text" data-' + prefix + 'newval placeholder="value"></td><td></td></tr></tbody></table>';
+}
+function wireJmKv(container, arr, prefix, onChange){
+  container.querySelectorAll('[data-' + prefix + 'row]').forEach(el => el.addEventListener('change', () => { arr[Number(el.dataset[prefix + 'row'])].on = el.checked; onChange(); }));
+  container.querySelectorAll('[data-' + prefix + 'key]').forEach(el => el.addEventListener('input', () => { arr[Number(el.dataset[prefix + 'key'])].key = el.value; onChange(); }));
+  container.querySelectorAll('[data-' + prefix + 'val]').forEach(el => el.addEventListener('input', () => { arr[Number(el.dataset[prefix + 'val'])].value = el.value; onChange(); }));
+  container.querySelectorAll('[data-' + prefix + 'del]').forEach(el => el.addEventListener('click', () => { arr.splice(Number(el.dataset[prefix + 'del']), 1); onChange(); paintConfigPanel(); }));
+  const nk = container.querySelector('[data-' + prefix + 'newkey]'), nv = container.querySelector('[data-' + prefix + 'newval]');
+  const maybeCommit = () => setTimeout(() => {
+    const active = document.activeElement;
+    if(active === nk || active === nv) return;
+    if((nk.value && nk.value.trim()) || (nv.value && nv.value.trim())){ arr.push({key:nk.value.trim(), value:nv.value.trim(), on:true}); onChange(); paintConfigPanel(); }
+  }, 0);
+  if(nk) nk.addEventListener('blur', maybeCommit); if(nv) nv.addEventListener('blur', maybeCommit);
+}
+function paintHttpRequestConfig(node, head){
+  const p = $('#jmConfig');
+  const isBody = ['POST', 'PUT', 'PATCH'].includes(node.method);
+  p.innerHTML = head + nameField(node) +
+  '<div class="jm-section-title">Web Server</div>' +
+  '<div class="grid-3"><div class="field"><label>Protocol</label><select id="cfgProtocol"><option value="https"' + (node.protocol === 'https' ? ' selected' : '') + '>https</option><option value="http"' + (node.protocol === 'http' ? ' selected' : '') + '>http</option></select></div>' +
+  '<div class="field"><label>Server Name or IP</label><input type="text" id="cfgServer" value="' + esc(node.server) + '" placeholder="inherits from HTTP Request Defaults if blank"></div>' +
+  '<div class="field"><label>Port Number</label><input type="text" id="cfgPort" value="' + esc(node.port) + '" placeholder="optional"></div></div>' +
+  '<div class="jm-section-title">HTTP Request</div>' +
+  '<div class="grid-2"><div class="field"><label>Method</label><select id="cfgMethod">' + ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].map(m => '<option' + (node.method === m ? ' selected' : '') + '>' + m + '</option>').join('') + '</select></div>' +
+  '<div class="field"><label>Path</label><input type="text" id="cfgPath" value="' + esc(node.path) + '" placeholder="/v1/products"></div></div>' +
+  '<div class="jm-section-title">Parameters <span class="muted small" style="font-weight:400">(query string for GET/DELETE; JSON body for POST/PUT/PATCH unless raw Body Data is used)</span></div>' +
+  jmKvTable(node.params, 'p') +
+  (isBody ? '<div class="pm-mode mt"><label><input type="radio" name="cfgBodyMode" value="params" ' + (node.bodyMode !== 'raw' ? 'checked' : '') + '> Send Parameters as JSON body</label><label><input type="radio" name="cfgBodyMode" value="raw" ' + (node.bodyMode === 'raw' ? 'checked' : '') + '> Use raw Body Data</label></div>' +
+    '<div id="cfgBodyWrap" style="display:' + (node.bodyMode === 'raw' ? 'block' : 'none') + '"><label class="small" style="font-weight:700">Body Data</label><textarea class="code-area" id="cfgBody" style="min-height:120px">' + esc(node.body) + '</textarea></div>' : '') +
+  '<div class="alert alert-info small mt">Effective request (headers come from any HTTP Header Manager in scope; server/port fall back to HTTP Request Defaults in scope): <b><span id="cfgPreviewMethod"></span> <span id="cfgPreviewUrl"></span></b></div>';
+  wireName(node);
+  const update = () => { savePerfTree(); updatePreview(); };
+  $('#cfgProtocol').addEventListener('change', e => { node.protocol = e.target.value; update(); });
+  $('#cfgServer').addEventListener('input', e => { node.server = e.target.value; update(); });
+  $('#cfgPort').addEventListener('input', e => { node.port = e.target.value; update(); });
+  $('#cfgMethod').addEventListener('change', e => { node.method = e.target.value; savePerfTree(); paintConfigPanel(); });
+  $('#cfgPath').addEventListener('input', e => { node.path = e.target.value; update(); });
+  wireJmKv(p, node.params, 'p', () => { savePerfTree(); updatePreview(); });
+  $$('input[name="cfgBodyMode"]').forEach(r => r.addEventListener('change', e => { node.bodyMode = e.target.value; const w = $('#cfgBodyWrap'); if(w) w.style.display = e.target.value === 'raw' ? 'block' : 'none'; update(); }));
+  const bodyTa = $('#cfgBody'); if(bodyTa) bodyTa.addEventListener('input', e => { node.body = e.target.value; update(); });
+  function updatePreview(){
+    const parentTg = jmFindThreadGroupAncestor(PERF_TREE, node.id);
+    const {defaults, headers, vars} = jmCollectScope(parentTg);
+    const eff = jmEffectiveRequest(node, defaults, headers, vars);
+    $('#cfgPreviewMethod').textContent = eff.method; $('#cfgPreviewUrl').textContent = eff.url;
   }
-  PERF_STATE.running = false; $('#perfRun').disabled = false; $('#perfStop').disabled = true;
-  $('#perfProgLabel').textContent = PERF_STATE.stopFlag ? 'Stopped by user' : 'Completed';
-  paintVerdict();
+  updatePreview();
 }
-function paintVerdict(){
-  const r = PERF_STATE.results; if(!r.length) return;
-  const n = r.length; const errs = r.filter(x => x.status === 0 || x.status >= 400).length;
-  const times = r.map(x => x.ms).sort((a, b) => a - b);
-  const avg = Math.round(times.reduce((a, b) => a + b, 0) / n);
-  const p95 = times[Math.min(times.length - 1, Math.floor(times.length * 0.95))];
-  const errRate = Math.round(errs / n * 1000) / 10;
-  const pass = avg < 400 && p95 < 800 && errRate < 5;
-  $('#perfVerdict').innerHTML = '<div class="verdict ' + (pass ? 'alert-ok' : 'alert-err') + '">' + (pass ? '✅ PASS' : '❌ FAIL') + ' — avg ' + avg + 'ms, p95 ' + p95 + 'ms, error rate ' + errRate + '%</div>';
+
+/* ---------- HTTP Request Defaults ---------- */
+function paintHttpDefaultsConfig(node, head){
+  const p = $('#jmConfig');
+  p.innerHTML = head + nameField(node) +
+  '<p class="muted small">Supplies a default protocol / server / port to every HTTP Request sampler in scope (this Thread Group, or every group if placed at the Test Plan root) that leaves its own field blank.</p>' +
+  '<div class="grid-3"><div class="field"><label>Protocol</label><select id="cfgProtocol"><option value="https"' + (node.protocol === 'https' ? ' selected' : '') + '>https</option><option value="http"' + (node.protocol === 'http' ? ' selected' : '') + '>http</option></select></div>' +
+  '<div class="field"><label>Server Name or IP</label><input type="text" id="cfgServer" value="' + esc(node.server) + '"></div>' +
+  '<div class="field"><label>Port Number</label><input type="text" id="cfgPort" value="' + esc(node.port) + '" placeholder="optional"></div></div>';
+  wireName(node);
+  $('#cfgProtocol').addEventListener('change', e => { node.protocol = e.target.value; savePerfTree(); });
+  $('#cfgServer').addEventListener('input', e => { node.server = e.target.value; savePerfTree(); });
+  $('#cfgPort').addEventListener('input', e => { node.port = e.target.value; savePerfTree(); });
+}
+/* ---------- HTTP Header Manager ---------- */
+function paintHeaderManagerConfig(node, head){
+  const p = $('#jmConfig');
+  p.innerHTML = head + nameField(node) +
+  '<p class="muted small">Adds these headers to every HTTP Request sampler in scope.</p>' +
+  jmKvTable(node.headers, 'h');
+  wireName(node);
+  wireJmKv(p, node.headers, 'h', savePerfTree);
+}
+/* ---------- User Defined Variables ---------- */
+function paintUdvConfig(node, head){
+  const p = $('#jmConfig');
+  p.innerHTML = head + nameField(node) +
+  '<p class="muted small">Reference these anywhere in an HTTP Request sampler (server, path, parameter values, body) in scope as <code>${name}</code>.</p>' +
+  jmKvTable(node.vars, 'u');
+  wireName(node);
+  wireJmKv(p, node.vars, 'u', savePerfTree);
+}
+/* ---------- Uniform Random Timer ---------- */
+function paintTimerConfig(node, head){
+  const p = $('#jmConfig');
+  p.innerHTML = head + nameField(node) +
+  '<p class="muted small">Adds a pause before each sampler in this Thread Group: a fixed delay, plus a random amount up to the maximum below.</p>' +
+  '<div class="grid-2"><div class="field"><label>Constant Delay Offset (ms)</label><input type="number" id="cfgDelay" min="0" value="' + node.delay + '"></div>' +
+  '<div class="field"><label>Random Delay Maximum (ms)</label><input type="number" id="cfgRandDelay" min="0" value="' + node.randomDelay + '"></div></div>';
+  wireName(node);
+  $('#cfgDelay').addEventListener('input', e => { node.delay = Math.max(0, Number(e.target.value) || 0); savePerfTree(); });
+  $('#cfgRandDelay').addEventListener('input', e => { node.randomDelay = Math.max(0, Number(e.target.value) || 0); savePerfTree(); });
+}
+
+/* ---------- Response Assertion ---------- */
+function paintAssertionConfig(node, head){
+  const p = $('#jmConfig');
+  p.innerHTML = head + nameField(node) +
+  '<p class="muted small">Checked against every sample in this Thread Group after it completes. A failed assertion marks that sample as an error, even if the HTTP status itself was 2xx — the same way real JMeter\'s Response Assertion works.</p>' +
+  '<div class="jm-section-title">Response Field to Test</div>' +
+  '<div class="jm-radio-row"><label><input type="radio" name="assertField" value="code" ' + (node.field === 'code' ? 'checked' : '') + '> Response Code</label><label><input type="radio" name="assertField" value="body" ' + (node.field === 'body' ? 'checked' : '') + '> Response Body (text)</label></div>' +
+  '<div class="jm-section-title">Pattern Matching Rule</div>' +
+  '<div class="jm-radio-row"><label><input type="radio" name="assertMode" value="equals" ' + (node.mode === 'equals' ? 'checked' : '') + '> Equals</label><label><input type="radio" name="assertMode" value="contains" ' + (node.mode === 'contains' ? 'checked' : '') + '> Contains</label></div>' +
+  '<div class="field"><label>Pattern to test</label><input type="text" id="cfgPattern" value="' + esc(node.pattern) + '" placeholder="' + (node.field === 'code' ? 'e.g. 200' : 'e.g. \"success\":true') + '"></div>';
+  wireName(node);
+  $$('input[name="assertField"]').forEach(r => r.addEventListener('change', e => { node.field = e.target.value; savePerfTree(); paintConfigPanel(); }));
+  $$('input[name="assertMode"]').forEach(r => r.addEventListener('change', e => { node.mode = e.target.value; savePerfTree(); }));
+  $('#cfgPattern').addEventListener('input', e => { node.pattern = e.target.value; savePerfTree(); });
+}
+
+
+function paintListenerConfig(node, head){
+  const p = $('#jmConfig');
+  const results = node.results || [];
+  const exportBtn = '<button class="btn btn-sm" id="cfgExportCsv">⬇ Export (CSV)</button>';
+  if(node.type === 'ViewResultsTree'){
+    p.innerHTML = head + '<p class="muted small">Shows every sample this listener\'s scope has recorded, most recent first. Click a row to inspect its request and response, exactly like JMeter\'s View Results Tree.</p>' +
+    '<div class="row mt" style="margin-bottom:10px">' + exportBtn + '<span class="muted small">' + results.length + ' sample(s)</span></div>' +
+    '<div class="row" style="align-items:flex-start;gap:14px">' +
+    '<div class="vrt-list" id="vrtList"></div>' +
+    '<div style="flex:1;min-width:0" id="vrtDetail"></div>' +
+    '</div>';
+    paintVrtList(node);
+    $('#cfgExportCsv').addEventListener('click', () => exportListenerCsv(node));
+    return;
+  }
+  /* AggregateReport & SummaryReport share the same table, SummaryReport shows fewer columns like real JMeter */
+  const full = node.type === 'AggregateReport';
+  const byLabel = {};
+  results.forEach(r => { (byLabel[r.label] = byLabel[r.label] || []).push(r); });
+  const labels = Object.keys(byLabel);
+  const cols = full ? ['Label', '# Samples', 'Average', 'Min', 'Max', 'Std. Dev.', 'p95', 'Error %', 'Throughput'] : ['Label', '# Samples', 'Average', 'Min', 'Max', 'Error %', 'Throughput'];
+  const rows = labels.map(label => {
+    const arr = byLabel[label]; const times = arr.map(r => r.ms).slice().sort((a, b) => a - b);
+    const avg = times.reduce((a, b) => a + b, 0) / times.length;
+    const errs = arr.filter(r => r.error).length;
+    const durSec = Math.max(0.001, (arr[arr.length - 1].ts - arr[0].ts) / 1000);
+    const throughput = Math.round((arr.length / (durSec || (times[0] / 1000) || 1)) * 10) / 10;
+    const cells = [esc(label), arr.length, Math.round(avg), times[0], times[times.length - 1]];
+    if(full){ const variance = times.reduce((a, b) => a + (b - avg) * (b - avg), 0) / times.length; cells.push(Math.round(Math.sqrt(variance)), percentileOf(times, 95)); }
+    cells.push((errs ? Math.round(errs / arr.length * 1000) / 10 : 0) + '%', throughput + '/s');
+    return '<tr>' + cells.map(c => '<td>' + c + '</td>').join('') + '</tr>';
+  }).join('');
+  p.innerHTML = head + '<p class="muted small">' + (full ? 'The full Aggregate Report — samples, average, min, max, standard deviation, p95, error rate and throughput per sampler label.' : 'A condensed Summary Report — the same idea as the Aggregate Report with fewer columns.') + '</p>' +
+  '<div class="row mt" style="margin-bottom:10px">' + exportBtn + '<span class="muted small">' + results.length + ' sample(s) total</span></div>' +
+  (labels.length ? '<div class="table-wrap"><table class="tbl"><thead><tr>' + cols.map(c => '<th>' + c + '</th>').join('') + '</tr></thead><tbody>' + rows + '</tbody></table></div>' : '<p class="muted">No results yet — run the test plan.</p>');
+  $('#cfgExportCsv').addEventListener('click', () => exportListenerCsv(node));
+}
+function paintVrtList(node){
+  const results = node.results || [];
+  $('#vrtList').innerHTML = results.length ? results.slice().reverse().map((r, ri) => { const i = results.length - 1 - ri; return '<div class="vrt-item' + (VRT_SELECTED[node.id] === i ? ' selected' : '') + '" data-vi="' + i + '">' + (r.error ? '❌' : '✅') + '<span class="t">' + esc(r.label) + '</span><span class="muted">' + r.ms + 'ms</span></div>'; }).join('') : '<p class="muted small" style="padding:10px">No samples yet — run the test plan.</p>';
+  $$('.vrt-item', $('#vrtList')).forEach(el => el.addEventListener('click', () => { VRT_SELECTED[node.id] = Number(el.dataset.vi); paintVrtList(node); paintVrtDetail(node, Number(el.dataset.vi)); }));
+  const sel = VRT_SELECTED[node.id];
+  if(sel !== undefined && results[sel]) paintVrtDetail(node, sel);
+  else $('#vrtDetail').innerHTML = '<p class="muted">Select a sample on the left to inspect it.</p>';
+}
+function paintVrtDetail(node, i){
+  const r = node.results[i]; if(!r) return;
+  let pretty = r.text || '';
+  try{ pretty = JSON.stringify(JSON.parse(r.text || 'null'), null, 2); }catch(e){}
+  $('#vrtDetail').innerHTML = '<table class="kv"><tr><td>Sampler</td><td>' + esc(r.label) + '</td></tr><tr><td>Method &amp; URL</td><td style="word-break:break-all">' + esc(r.method) + ' ' + esc(r.url) + '</td></tr><tr><td>Status</td><td>' + (r.status === 0 ? 'Network error' : r.status) + '</td></tr><tr><td>Response time</td><td>' + r.ms + ' ms</td></tr>' +
+  (r.assertionDetail !== undefined ? '<tr><td>Assertion</td><td>' + (r.assertionFailed ? '<span class="badge b-err">FAILED</span> ' + esc(r.assertionDetail || '') : '<span class="badge b-ok">PASSED</span>') + '</td></tr>' : '') +
+  '</table>' +
+  '<h3 class="mt" style="font-size:1rem">Response body</h3><pre class="json">' + syntaxJson(pretty || '(no body)') + '</pre>';
+}
+function exportListenerCsv(node){
+  const results = node.results || [];
+  if(!results.length) return toast('No results yet — run the test plan first', 'warn');
+  const header = 'sample,timestamp_ms,label,method,status,response_time_ms,success\n';
+  const body = results.map((r, i) => [i + 1, Math.round(r.ts), '"' + r.label.replace(/"/g, '""') + '"', r.method, r.status, r.ms, r.error ? 'false' : 'true'].join(',')).join('\n');
+  const blob = new Blob([header + body], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'jmeter_results.csv'; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  toast('CSV exported', 'ok');
+}
+function percentileOf(sorted, p){ if(!sorted.length) return 0; const idx = Math.min(sorted.length - 1, Math.max(0, Math.ceil(p / 100 * sorted.length) - 1)); return sorted[idx]; }
+
+/* ---------- scope resolution & request building ---------- */
+function jmFindThreadGroupAncestor(root, id){
+  function walk(node, ancestorGroup){
+    if(node.id === id) return node.type === 'ThreadGroup' ? node : ancestorGroup;
+    const nextAncestor = node.type === 'ThreadGroup' ? node : ancestorGroup;
+    for(const c of (node.children || [])){ const f = walk(c, nextAncestor); if(f !== undefined) return f; }
+    return undefined;
+  }
+  return walk(root, null) || null;
+}
+function jmCollectScope(threadGroup){
+  const rootConfigs = PERF_TREE.children.filter(c => JM_CONFIG_TYPES.includes(c.type));
+  const groupConfigs = threadGroup ? threadGroup.children.filter(c => JM_CONFIG_TYPES.includes(c.type)) : [];
+  const defaults = {}; const headers = {}; const vars = {};
+  rootConfigs.concat(groupConfigs).forEach(c => {
+    if(c.type === 'HTTPRequestDefaults'){ if(c.protocol) defaults.protocol = c.protocol; if(c.server) defaults.server = c.server; if(c.port) defaults.port = c.port; }
+    if(c.type === 'HTTPHeaderManager'){ (c.headers || []).filter(h => h.on && h.key).forEach(h => headers[h.key] = h.value); }
+    if(c.type === 'UserDefinedVariables'){ (c.vars || []).filter(v => v.on && v.key).forEach(v => vars[v.key] = v.value); }
+  });
+  return {defaults, headers, vars};
+}
+function jmSubstitute(str, vars){
+  if(!str) return str;
+  return String(str).replace(/\$\{([\w.]+)\}/g, (m, k) => (vars && vars[k] !== undefined && vars[k] !== '') ? vars[k] : m);
+}
+function jmEffectiveRequest(node, defaults, scopeHeaders, vars){
+  const protocol = node.protocol || defaults.protocol || 'https';
+  const server = jmSubstitute(node.server || defaults.server || 'api.qasandbox.com', vars);
+  const port = node.port || defaults.port || '';
+  const portPart = port ? ':' + String(port).trim() : '';
+  let path = jmSubstitute(node.path || '/', vars);
+  if(!path.startsWith('/')) path = '/' + path;
+  const headers = Object.assign({}, scopeHeaders);
+  const enabledParams = (node.params || []).filter(p => p.on && p.key);
+  let url = protocol + '://' + server + portPart + path;
+  let body;
+  if(['GET', 'DELETE'].includes(node.method)){
+    if(enabledParams.length) url += '?' + enabledParams.map(p => encodeURIComponent(jmSubstitute(p.key, vars)) + '=' + encodeURIComponent(jmSubstitute(p.value, vars))).join('&');
+  } else if(node.bodyMode === 'raw'){
+    body = jmSubstitute(node.body, vars);
+    if(body && !headers['Content-Type']) headers['Content-Type'] = 'application/json';
+  } else if(enabledParams.length){
+    const obj = {}; enabledParams.forEach(p => obj[jmSubstitute(p.key, vars)] = jmSubstitute(p.value, vars));
+    body = JSON.stringify(obj);
+    if(!headers['Content-Type']) headers['Content-Type'] = 'application/json';
+  }
+  return {method:node.method, url, headers, body, label:node.name || (node.method + ' ' + path)};
+}
+
+/* ---------- execution engine ---------- */
+function jmCountOps(g){
+  const reqCount = g.children.filter(c => c.type === 'HTTPRequest').length || 1;
+  const loops = g.infinite ? (g.specifyLifetime ? 20 : 10) : g.loops;
+  return g.users * loops * reqCount;
+}
+async function runTestPlan(){
+  if(PERF_RUN.running) return;
+  const groups = PERF_TREE.children.filter(c => c.type === 'ThreadGroup');
+  if(!groups.length) return toast('Add at least one Thread Group first (select the Test Plan, then "+ Add")', 'warn');
+  const withSamplers = groups.filter(g => g.children.some(c => c.type === 'HTTPRequest'));
+  if(!withSamplers.length) return toast('Add an HTTP Request sampler inside a Thread Group first', 'warn');
+  const total = groups.reduce((s, g) => s + jmCountOps(g), 0);
+  if(total > PERF_MAX_OPS) return toast('This plan could send about ' + total + ' requests — reduce users/loops to stay under ' + PERF_MAX_OPS, 'err');
+  PERF_RUN = {running:true, stopFlag:false, startTs:performance.now()};
+  jmClearResults(PERF_TREE); savePerfTree();
+  $('#jmRun').disabled = true; $('#jmStop').disabled = false; $('#perfProgress').style.width = '0%';
+  let done = 0;
+  const tick = () => { done++; $('#perfProgress').style.width = Math.min(100, Math.round(done / total * 100)) + '%'; };
+  const setupGs = groups.filter(g => g.kind === 'setUp');
+  const normalGs = groups.filter(g => g.kind !== 'setUp' && g.kind !== 'tearDown');
+  const teardownGs = groups.filter(g => g.kind === 'tearDown');
+  $('#perfProgLabel').textContent = 'Running setUp thread group(s)…';
+  for(const g of setupGs){ if(PERF_RUN.stopFlag) break; await runThreadGroup(g, tick); }
+  if(!PERF_RUN.stopFlag){ $('#perfProgLabel').textContent = 'Running…'; await Promise.all(normalGs.map(g => runThreadGroup(g, tick))); }
+  if(!PERF_RUN.stopFlag){ $('#perfProgLabel').textContent = 'Running tearDown thread group(s)…'; for(const g of teardownGs){ if(PERF_RUN.stopFlag) break; await runThreadGroup(g, tick); } }
+  PERF_RUN.running = false; $('#jmRun').disabled = false; $('#jmStop').disabled = true;
+  $('#perfProgLabel').textContent = PERF_RUN.stopFlag ? 'Stopped by user' : 'Completed — ' + done + ' request(s) sent';
+  savePerfTree();
+  toast(PERF_RUN.stopFlag ? 'Test plan stopped' : 'Test plan completed', PERF_RUN.stopFlag ? 'warn' : 'ok');
+  paintConfigPanel();
+}
+async function runThreadGroup(g, tick){
+  const httpReqs = g.children.filter(c => c.type === 'HTTPRequest');
+  if(!httpReqs.length) return;
+  const timer = g.children.find(c => c.type === 'UniformRandomTimer');
+  const {defaults, headers, vars} = jmCollectScope(g);
+  if(g.startupDelay) await sleep(g.startupDelay * 1000);
+  const perUserDelayMs = g.users > 1 ? (g.rampup * 1000) / g.users : 0;
+  const loopLimit = g.infinite ? (g.specifyLifetime ? Infinity : 10) : g.loops;
+  const groupStart = performance.now();
+  const threadPromises = Array.from({length:g.users}, async (_, ui) => {
+    if(perUserDelayMs) await sleep(Math.round(ui * perUserDelayMs));
+    let loop = 0;
+    outer: while(loop < loopLimit){
+      if(PERF_RUN.stopFlag) return;
+      if(g.specifyLifetime && (performance.now() - groupStart) > g.duration * 1000) return;
+      for(const reqNode of httpReqs){
+        if(PERF_RUN.stopFlag) return;
+        if(timer){ const d = Number(timer.delay || 0) + (timer.randomDelay ? rand(0, Number(timer.randomDelay)) : 0); if(d > 0) await sleep(d); }
+        const eff = jmEffectiveRequest(reqNode, defaults, headers, vars);
+        const t0 = performance.now();
+        let res;
+        try{ res = await apiHandle(eff.method, eff.url, eff.headers, eff.body); }
+        catch(e){ res = {network:e.message, ms:Math.round(performance.now() - t0), text:'', headers:{}}; }
+        const status = res.network ? 0 : res.status;
+        const sample = {label:eff.label, method:eff.method, url:eff.url, ms:res.ms, status, error: status === 0 || status >= 400, ts: performance.now() - PERF_RUN.startTs, text:res.text || '', headers:res.headers || {}};
+        const assertions = g.children.filter(c => c.type === 'ResponseAssertion');
+        if(assertions.length){
+          const failMsgs = [];
+          assertions.forEach(a => {
+            const subject = a.field === 'code' ? String(status) : (sample.text || '');
+            const pass = a.mode === 'equals' ? subject === (a.pattern || '') : subject.includes(a.pattern || '');
+            if(!pass) failMsgs.push((a.name || 'Response Assertion') + ': expected ' + (a.field === 'code' ? 'code' : 'body') + ' ' + (a.mode === 'equals' ? '=' : 'to contain') + ' "' + a.pattern + '"');
+          });
+          sample.assertionFailed = failMsgs.length > 0;
+          sample.assertionDetail = failMsgs.join('; ') || null;
+          if(sample.assertionFailed) sample.error = true;
+        }
+        recordSample(g, sample);
+        tick();
+        if(sample.error && g.errorAction && g.errorAction !== 'continue'){
+          if(g.errorAction === 'stopThread') return;
+          if(g.errorAction === 'stopTest' || g.errorAction === 'stopTestNow'){ PERF_RUN.stopFlag = true; return; }
+          if(g.errorAction === 'startNextLoop'){ loop++; continue outer; }
+        }
+      }
+      loop++;
+    }
+  });
+  await Promise.all(threadPromises);
+}
+function recordSample(g, sample){
+  const listeners = g.children.filter(c => JM_LISTENER_TYPES.includes(c.type)).concat(PERF_TREE.children.filter(c => JM_LISTENER_TYPES.includes(c.type)));
+  listeners.forEach(l => { if(!l.results) l.results = []; l.results.push(sample); });
+  if(listeners.some(l => l.id === SELECTED_NODE_ID)) paintConfigPanel();
 }
 /* =====================================================================
    TESTING GUIDE PAGE (in-app quick reference; full guide is the
@@ -3172,6 +4300,15 @@ route('/guide', () => {
     'Practice status codes: 200/201 success, 400/422 validation errors, 401/403 auth errors, 404 not found, 409 conflicts, 429 rate limiting (see the Negative &amp; Debug folder).',
     'Write assertions in the Tests tab, e.g. <code>pm.test(\'status is 200\', () => pm.response.status === 200)</code>.',
     'Try sending broken JSON, missing required fields, and wrong data types to see validation responses.'
+  ]) +
+  guideSection('📚 API Client manual — collections, variables & chaining', [
+    '<b>Collections:</b> open the <b>My Collection</b> tab → <b>+ New collection</b>. Each collection holds folders, each folder holds requests. Use the row buttons: ▶ run, +📁 add folder, <code>+Req</code> add request, <code>{x}</code> variables, ✏ rename, 🗑 delete. Click ➖ / ➕ to collapse or expand a collection or folder. Open a request to edit it, then 💾 Save (tick "Update the existing" to overwrite).',
+    '<b>Variables — 5 scopes:</b> click <b>⚙ Variables</b> (or <code>{x}</code> on a collection/folder) and pick Global, Environment, Collection, Folder or Local (this request). Add rows at the bottom, edit inline, 🗑 to delete. If a name exists in several scopes the closest wins: <b>Local → Folder → Collection → Environment → Global</b>.',
+    '<b>Using variables:</b> write <code>{{name}}</code> in the URL, headers, body or auth fields. Example: set collection variable <code>cl_url = https://api.qasandbox.com/v1</code>, then send <code>{{cl_url}}/products/1</code>. The line under the URL bar shows the resolved URL and warns about undefined variables. Only the sandbox host <code>api.qasandbox.com</code> is reachable.',
+    '<b>API chaining:</b> in the <b>Tests</b> tab save values from a response, e.g. <code>pm.collectionVariables.set(\'order_id\', pm.response.json().id)</code>, then call <code>{{cl_url}}/orders/{{order_id}}</code> in the next request. Also available: <code>pm.globals</code>, <code>pm.environment</code>, <code>pm.variables</code> (local), each with <code>.set(k, v)</code> / <code>.get(k)</code>. Login responses still auto-save <code>{{token}}</code>.',
+    '<b>Run a collection:</b> press ▶ on a collection (all folders, in order) or on one folder. Requests run one after another, so variables set by an earlier request are available to the next.',
+    '<b>Authorization tab:</b> No Auth, Bearer Token, Basic Auth, API Key (header or query), JWT Bearer, OAuth 2.0 access token. Fields accept variables. The sandbox only validates Bearer tokens, so Basic/API Key are for practising 401 cases.',
+    '<b>Bottom panels:</b> <b>Console</b> shows every request/response and <code>console.log()</code> output from scripts. <b>Terminal</b> runs commands: <code>help</code>, <code>vars</code>, <code>set collection cl_url=…</code>, <code>collections</code>, <code>run &lt;collection name&gt;</code>, <code>send GET {{cl_url}}/products</code>. <b>Issues</b> lists undefined variables, 4xx/5xx responses, failed tests and script errors.'
   ]) +
   guideSection('⚡ Performance testing', [
     'Open <a href="#/performance">Performance Lab</a> and build a simple test plan: pick an endpoint and a number of virtual users.',
