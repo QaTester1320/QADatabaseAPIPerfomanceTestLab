@@ -399,6 +399,74 @@ pre.json{margin:0;font-family:var(--mono);font-size:.82rem;line-height:1.55;whit
 .pm-log{font-family:var(--mono);font-size:.78rem;max-height:200px;min-height:90px;overflow:auto;padding:8px 12px;background:#1e1b2e;color:#e9e4ff}
 .lg span{color:#8a84a8;margin-right:6px}.lg-error{color:#fca5a5}.lg-ok{color:#86efac}.lg-warn{color:#fcd34d}.lg-req{color:#93c5fd}
 #termIn{border:0;border-top:1px solid #333;border-radius:0;background:#12101c;color:#e9e4ff;font-family:var(--mono);font-size:.82rem}
+/* ---- API client polish: SVG icons, hover actions, runner ---- */
+.ic{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;flex:none}
+.ic.fill{fill:currentColor;stroke:none}
+.pm .btn,.rn .btn,.pm-save{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.pm .btn-block{display:flex;width:100%}
+.tgl{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border:1px solid #c4c4d2;border-radius:4px;color:#555;background:#fff;flex:none}
+.fi{display:inline-flex;color:#7c7c92;flex:none}.fi.col{color:#4f46e5}
+.f-head .nm,.pm-req .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cnt{font-size:.7rem;color:#8a8aa0;font-weight:600;padding:0 4px}
+.acts{display:none;gap:1px;flex:none}
+.f-head:hover .acts,.pm-req:hover .acts,.f-head:focus-within .acts,.pm-req:focus-within .acts{display:inline-flex}
+.f-head:hover .cnt{display:none}
+@media (hover:none){.acts{display:inline-flex}.f-head .cnt{display:none}}
+.ib{border:0;background:none;width:24px;height:24px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;color:#6b6b80;cursor:pointer;padding:0}
+.ib:hover{background:#dcdce8;color:#111}.ib.danger:hover{background:#fde8e8;color:#b91c1c}
+.pm-empty .big{display:flex;justify-content:center;color:#b5b5c6;margin-bottom:8px}
+.rn{padding:14px;display:flex;flex-direction:column;gap:12px}
+.rn-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.rn-title{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.rn-title .sub{font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:#8a8aa0;font-weight:700}
+.rn-title b{font-size:1.05rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rn-actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.rn-cfg{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;padding:12px;border:1px solid #e3e3ea;border-radius:10px;background:#fafafd}
+.rn-cfg label{display:flex;flex-direction:column;gap:4px;font-size:.74rem;font-weight:600;color:#555}
+.rn-cfg input[type=number]{width:96px;padding:6px 8px;border:1px solid #d0d0da;border-radius:6px;font:inherit}
+.rn-cfg label.chk{flex-direction:row;align-items:center;gap:6px;font-weight:500;padding-bottom:6px;font-size:.82rem}
+.rn-data{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.rn-file{display:flex;align-items:center;gap:8px;padding:4px 6px 4px 10px;border:1px solid #cfe3d6;background:#f0faf4;border-radius:8px;font-size:.82rem;color:#166534}
+.rn-prev{overflow:auto;border:1px solid #e3e3ea;border-radius:8px;max-height:170px}
+.rn-prev table{border-collapse:collapse;width:100%;font-size:.78rem}
+.rn-prev th,.rn-prev td{padding:5px 10px;border-bottom:1px solid #eee;text-align:left;white-space:nowrap}
+.rn-prev th{background:#f5f5fa;position:sticky;top:0;font-family:var(--mono);font-weight:600}
+.rn-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}
+.rc{border:1px solid #e3e3ea;border-radius:10px;padding:8px 12px;background:#fff}
+.rc span{display:block;font-size:.66rem;color:#8a8aa0;text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+.rc b{font-size:1.15rem}.rc.ok b{color:#15803d}.rc.bad b{color:#b91c1c}
+.rn-bar{height:5px;background:#ececf3;border-radius:3px;overflow:hidden}
+.rn-bar i{display:block;height:100%;background:#4f46e5;transition:width .2s}
+.rn-body{display:grid;grid-template-columns:minmax(270px,38%) 1fr;gap:12px;min-height:340px}
+.rn-list{border:1px solid #e3e3ea;border-radius:10px;overflow:auto;max-height:600px;background:#fff}
+.rn-filter{display:flex;gap:4px;padding:8px;border-bottom:1px solid #eee;position:sticky;top:0;background:#fff;z-index:1}
+.rn-filter button{border:1px solid #d8d8e2;background:#fff;border-radius:999px;padding:3px 11px;font-size:.76rem;font-weight:600;color:#555;cursor:pointer}
+.rn-filter button.active{background:#1f2937;color:#fff;border-color:#1f2937}
+.rn-iter{padding:6px 10px;background:#f5f5fa;font-size:.72rem;font-weight:700;color:#555;border-bottom:1px solid #eee;display:flex;gap:8px;justify-content:space-between}
+.rn-iter span{font-weight:500;color:#888;font-family:var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rn-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid #f0f0f5;cursor:pointer;font-size:.82rem}
+.rn-item:hover{background:#f7f7fb}.rn-item.sel{background:#eef2ff;box-shadow:inset 3px 0 0 #4f46e5}.rn-item.plan{cursor:default;color:#666}
+.st-ic{flex:none;width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff}
+.st-ic.ok{background:#16a34a}.st-ic.bad{background:#dc2626}.st-ic.wait{background:#d4d4dd}.st-ic.run{background:#4f46e5}
+.rn-item .meta{font-size:.72rem;color:#777;white-space:nowrap;text-align:right}
+.rn-detail{border:1px solid #e3e3ea;border-radius:10px;background:#fff;min-width:0;display:flex;flex-direction:column}
+.rd-head{padding:12px 14px;border-bottom:1px solid #eee}
+.rd-url{font-family:var(--mono);font-size:.78rem;color:#555;word-break:break-all;margin-top:4px}
+.rd-body{padding:12px;overflow:auto;max-height:480px}
+.rd-body table{border-collapse:collapse;width:100%;font-size:.8rem}
+.rd-body td,.rd-body th{padding:6px 8px;border:1px solid #e3e3ea;text-align:left;vertical-align:top}
+.rd-body td:first-child{font-weight:600;white-space:nowrap}.rd-body td:last-child{font-family:var(--mono);word-break:break-all}
+.chip{display:inline-block;font-family:var(--mono);font-size:.72rem;background:#eef0f6;border-radius:5px;padding:1px 7px;margin:4px 4px 0 0}
+@keyframes rnspin{to{transform:rotate(360deg)}}.spin{animation:rnspin .8s linear infinite}
+@media(max-width:900px){.rn-body{grid-template-columns:1fr}}
+.fd select,.fd input[type=text]{width:100%}
+.fd td{vertical-align:middle}
+.fpick{cursor:pointer;white-space:nowrap}
+.fchip{display:inline-flex;align-items:center;gap:6px;margin:2px 6px 2px 0;padding:3px 4px 3px 8px;border:1px solid #d8d8e6;background:#f4f4fa;border-radius:6px;font-size:.78rem;max-width:260px}
+.fchip span.n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fchip small{color:#8a8aa0}
+.fchip button{border:0;background:none;cursor:pointer;color:#888;display:inline-flex;padding:2px;border-radius:4px}.fchip button:hover{background:#e3e3ef;color:#b91c1c}
+.bin-box{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:18px;border:1px dashed #c9c9d8;border-radius:10px;background:#fafafd}
+.gql label{display:block;margin:10px 0 4px}
 /* ---------- Performance tool ---------- */
 .perf-grid{display:grid;grid-template-columns:400px 1fr;gap:18px;align-items:start}
 .panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--sh)}
@@ -1576,17 +1644,17 @@ const prodOut = p => { const rt = ratingOf(p.id); return Object.assign({}, p, {c
 
 /* ---------- routing table ---------- */
 const API_ROUTES = [];
-function api(method, pat, fn, auth){
+function api(method, pat, fn, auth, opts){
   const keys = [];
   const re = new RegExp('^' + pat.replace(/:(\w+)/g, (_, k) => { keys.push(k); return '([^/]+)'; }) + '/?$');
-  API_ROUTES.push({method, re, keys, fn, auth});
+  API_ROUTES.push({method, re, keys, fn, auth, raw:!!(opts && opts.raw)});
 }
 const R = (status, data, headers) => ({status, data, headers: headers || {}});
 const E = (status, message, extra) => R(status, Object.assign({status, error: statusText(status), message}, extra || {}));
 let API_RL = [];
 
 /* ---- meta ---- */
-api('GET', '/', () => R(200, {name:'QA Store Sandbox API', version:'1.0.0', docs:'See the QA guide text file', endpoints:['/health','/auth/register','/auth/login','/products','/categories','/orders','/wishlist','/reviews','/customers','/cms-pages','/debug/*']}));
+api('GET', '/', () => R(200, {name:'QA Store Sandbox API', version:'1.0.0', docs:'See the QA guide text file', endpoints:['/health','/auth/register','/auth/login','/products','/categories','/orders','/wishlist','/reviews','/customers','/cms-pages','/uploadFile','/uploadFiles','/files','/graphql','/debug/*']}));
 api('GET', '/health', () => R(200, {status:'UP', database:'connected', time:new Date().toISOString()}));
 /* ---- auth ---- */
 api('POST', '/auth/register', ({body}) => {
@@ -1749,14 +1817,159 @@ api('GET', '/debug/rate-limit', () => {
   if(API_RL.length > 5) return R(429, {status:429, error:'Too Many Requests', message:'Limit is 5 requests per 10 seconds'}, {'Retry-After':'10'});
   return R(200, {message:'Request ' + API_RL.length + ' of 5 allowed in this 10 second window'});
 });
-['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].forEach(m => api(m, '/debug/echo', ({query, body, headers, method}) => R(200, {method, query, headers, body})));
+function echoBody(raw){
+  if(raw.parts) return {contentType:'multipart/form-data', fields:upFields(raw.parts), files:raw.parts.filter(p => p.type === 'file').map(p => ({field:p.key, fileName:p.name, size:p.size, type:p.mime}))};
+  if(raw.bin) return {contentType:raw.ct, binary:{fileName:raw.bin.name, size:raw.bin.size, type:raw.bin.type}};
+  const t = raw.text; if(!t.trim()) return {};
+  if(/json/i.test(raw.ct)) return JSON.parse(t);
+  if(/x-www-form-urlencoded/i.test(raw.ct)) return Object.fromEntries(new URLSearchParams(t));
+  return t;
+}
+['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].forEach(m => api(m, '/debug/echo', ({query, raw, headers, method}) => {
+  let body; try{ body = echoBody(raw); }catch(e){ return E(400, 'Malformed JSON in request body: ' + e.message); }
+  return R(200, {method, query, headers, body});
+}, undefined, {raw:true}));
+
+/* ---- file upload (multipart/form-data): single file key = "file", several files key = "files" ---- */
+const UP_ALLOWED = ['txt', 'csv', 'json', 'xml', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'docx', 'xlsx', 'zip'], UP_MAX = 1024 * 1024;
+let API_UPLOADS = [], API_UP_ID = 0;
+const upExt = n => { const p = String(n).split('.'); return p.length > 1 ? p.pop().toLowerCase() : ''; };
+const upSize = n => n < 1024 ? n + ' B' : n < 1048576 ? (n / 1024).toFixed(1) + ' KB' : (n / 1048576).toFixed(1) + ' MB';
+function upCheck(f){
+  if(!f.size) return {status:400, msg:'File "' + f.name + '" is empty (0 bytes)'};
+  if(f.size > UP_MAX) return {status:413, msg:'File "' + f.name + '" is too large (' + upSize(f.size) + '). Maximum size is 1 MB'};
+  if(!UP_ALLOWED.includes(upExt(f.name))) return {status:415, msg:'File type ".' + upExt(f.name) + '" is not allowed for "' + f.name + '". Allowed: ' + UP_ALLOWED.join(', ')};
+  return null;
+}
+function upSave(f, field){
+  const id = ++API_UP_ID;
+  const rec = {id, fileName:f.name, fileDownloadUri:'https://' + API_HOST + API_PREFIX + '/files/' + id, fileType:f.mime || 'application/octet-stream', size:f.size, field, uploaded_at:new Date().toISOString()};
+  API_UPLOADS.push(rec); return rec;
+}
+const upFields = parts => Object.fromEntries(parts.filter(p => p.type !== 'file').map(p => [p.key, p.value]));
+function upPrecheck(raw, key, other){
+  if(!raw.parts) return E(415, 'Content type "' + (raw.ct.split(';')[0] || 'none') + '" is not supported. Send multipart/form-data (Body > form-data)');
+  const files = raw.parts.filter(p => p.type === 'file');
+  const wrong = files.find(f => f.key !== key);
+  if(wrong) return E(400, 'Unexpected field "' + wrong.key + '". This endpoint only accepts files under the key "' + key + '"' + (other ? ' (' + other + ')' : ''), {field:wrong.key});
+  if(!files.length && raw.parts.some(p => p.key === key)) return E(400, 'Field "' + key + '" must be a file but a text value was sent. Change the Type dropdown from Text to File and choose a file', {field:key});
+  if(!files.length) return E(400, 'Required part "' + key + '" is not present. In Body > form-data add the key "' + key + '", set Type to File and choose a file');
+  return null;
+}
+api('POST', '/uploadFile', ({raw}) => {
+  const bad = upPrecheck(raw, 'file', 'to upload several files use POST /uploadFiles with the key "files"'); if(bad) return bad;
+  const files = raw.parts.filter(p => p.type === 'file');
+  if(files.length > 1) return E(400, 'Only one file is allowed on this endpoint but ' + files.length + ' were sent. To upload several files use POST /uploadFiles with the key "files"');
+  const err = upCheck(files[0]); if(err) return E(err.status, err.msg);
+  return R(200, Object.assign({message:'File uploaded successfully'}, upSave(files[0], 'file'), {fields:upFields(raw.parts)}));
+}, undefined, {raw:true});
+api('POST', '/uploadFiles', ({raw}) => {
+  const bad = upPrecheck(raw, 'files', 'every file must use the key "files"; for a single file use POST /uploadFile with the key "file"'); if(bad) return bad;
+  const files = raw.parts.filter(p => p.type === 'file');
+  if(files.length > 5) return E(400, 'Too many files: the maximum is 5 per request (received ' + files.length + ')');
+  const errs = files.map(f => ({f, e:upCheck(f)})).filter(x => x.e);
+  if(errs.length) return E(errs[0].e.status, errs[0].e.msg, {errors:errs.map(x => ({fileName:x.f.name, message:x.e.msg}))});
+  const recs = files.map(f => upSave(f, 'files'));
+  return R(200, {message:recs.length + ' file' + (recs.length > 1 ? 's' : '') + ' uploaded successfully', count:recs.length, totalSize:recs.reduce((s, r) => s + r.size, 0), files:recs, fields:upFields(raw.parts)});
+}, undefined, {raw:true});
+api('GET', '/files', () => R(200, {total:API_UPLOADS.length, data:API_UPLOADS}));
+api('GET', '/files/:id', ({params}) => { const f = API_UPLOADS.find(x => x.id === Number(params.id)); return f ? R(200, f) : E(404, 'File with id ' + params.id + ' not found'); });
+api('DELETE', '/files/:id', ({params}) => { const i = API_UPLOADS.findIndex(x => x.id === Number(params.id)); if(i < 0) return E(404, 'File with id ' + params.id + ' not found'); API_UPLOADS.splice(i, 1); return R(200, {message:'File deleted', id:Number(params.id)}); });
+
+/* ---- GraphQL (read-only demo schema) -------------------------------------------------
+   type Query { products(limit,category_id,search): [Product]  product(id): Product
+                categories: [Category]  category(id): Category }                         */
+class GqlErr extends Error {}
+const GQL_TYPES = {
+  Product:['id', 'name', 'sku', 'price', 'old_price', 'stock', 'description', 'image', 'tags', 'status', 'category_id', 'rating_avg', 'review_count', 'category'],
+  Category:['id', 'name', 'slug', 'description', 'image', 'status', 'products']
+};
+function gqlParse(src){
+  const T = [], re = /\s+|#[^\n]*|,|(\.\.\.)|([A-Za-z_]\w*)|(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)|"((?:[^"\\]|\\.)*)"|([{}()\[\]:$!=@])|([\s\S])/y;
+  let m; while(re.lastIndex < src.length){
+    m = re.exec(src); if(!m) break;
+    if(m[2]) T.push({t:'name', v:m[2]}); else if(m[3]) T.push({t:'num', v:m[3]}); else if(m[4] !== undefined) T.push({t:'str', v:JSON.parse('"' + m[4] + '"')});
+    else if(m[5]) T.push({t:'p', v:m[5]}); else if(m[6]) throw new GqlErr('Syntax Error: Unexpected character "' + m[6] + '"'); else if(m[1]) throw new GqlErr('Syntax Error: Fragments are not supported by this sandbox');
+  }
+  let i = 0;
+  const is = (t, v) => T[i] && T[i].t === t && (v === undefined || T[i].v === v);
+  const found = () => T[i] ? '"' + T[i].v + '"' : '<EOF>';
+  const take = (t, v) => { if(!is(t, v)) throw new GqlErr('Syntax Error: Expected ' + (v ? '"' + v + '"' : t === 'name' ? 'Name' : t) + ', found ' + found()); return T[i++]; };
+  const value = () => {
+    if(is('p', '$')){ i++; return {$var:take('name').v}; }
+    if(is('num')) return Number(T[i++].v);
+    if(is('str')) return T[i++].v;
+    if(is('name')){ const n = T[i++].v; return n === 'true' ? true : n === 'false' ? false : n === 'null' ? null : n; }
+    if(is('p', '[')){ i++; const a = []; while(!is('p', ']')){ if(!T[i]) throw new GqlErr('Syntax Error: Expected "]", found <EOF>'); a.push(value()); } i++; return a; }
+    if(is('p', '{')){ i++; const o = {}; while(!is('p', '}')){ const k = take('name').v; take('p', ':'); o[k] = value(); } i++; return o; }
+    throw new GqlErr('Syntax Error: Unexpected ' + found());
+  };
+  const args = () => { const a = {}; if(is('p', '(')){ i++; while(!is('p', ')')){ const k = take('name').v; take('p', ':'); a[k] = value(); } i++; } return a; };
+  const sel = () => {
+    take('p', '{'); const out = [];
+    if(is('p', '}')) throw new GqlErr('Syntax Error: Expected Name, found "}"');
+    while(!is('p', '}')){ let name = take('name').v, alias = name; if(is('p', ':')){ i++; name = take('name').v; } const f = {alias, name, args:args(), sel:null}; if(is('p', '{')) f.sel = sel(); out.push(f); }
+    i++; return out;
+  };
+  const vars = [];
+  if(is('name', 'query') || is('name', 'mutation')){
+    if(T[i++].v === 'mutation') throw new GqlErr('Mutations are not supported by this sandbox (read-only schema)');
+    if(is('name')) i++;
+    if(is('p', '(')){ i++; while(!is('p', ')')){ take('p', '$'); const n = take('name').v; take('p', ':'); while(T[i] && !is('p', '=') && !is('p', ')') && !is('p', '$')) i++; let def; if(is('p', '=')){ i++; def = value(); } vars.push({n, def}); } i++; }
+  }
+  const root = sel(); if(i < T.length) throw new GqlErr('Syntax Error: Unexpected ' + found());
+  return {root, vars};
+}
+function gqlRun(doc, variables){
+  const errors = [], data = {};
+  const val = v => Array.isArray(v) ? v.map(val) : v && typeof v === 'object' ? ('$var' in v ? (variables[v.$var] !== undefined ? variables[v.$var] : (doc.vars.find(x => x.n === v.$var) || {}).def) : Object.fromEntries(Object.entries(v).map(([k, x]) => [k, val(x)]))) : v;
+  const argv = f => Object.fromEntries(Object.entries(f.args).map(([k, v]) => [k, val(v)]));
+  const prod = p => Object.assign({}, prodOut(p), {category:byId('categories', p.category_id) || null});
+  const active = () => DB.products.filter(p => p.status === 'active');
+  const need = (f, type) => { if(!f.sel) throw new GqlErr('Field "' + f.name + '" of type "' + type + '" must have a selection of subfields. Did you mean "' + f.name + ' { ... }"?'); };
+  const obj = (type, o, sels) => {
+    const out = {};
+    sels.forEach(f => {
+      if(f.name === '__typename'){ out[f.alias] = type; return; }
+      if(!GQL_TYPES[type].includes(f.name)) throw new GqlErr('Cannot query field "' + f.name + '" on type "' + type + '". Available fields: ' + GQL_TYPES[type].join(', '));
+      let v = o[f.name];
+      if(type === 'Product' && f.name === 'category'){ need(f, 'Category'); v = v ? obj('Category', v, f.sel) : null; }
+      else if(type === 'Category' && f.name === 'products'){ need(f, '[Product]'); const a = argv(f); let l = active().filter(p => p.category_id === o.id); if(a.limit !== undefined) l = l.slice(0, Math.max(0, Number(a.limit))); v = l.map(p => obj('Product', prod(p), f.sel)); }
+      else if(f.sel) throw new GqlErr('Field "' + f.name + '" must not have a selection since type "' + (typeof v) + '" has no subfields');
+      out[f.alias] = v === undefined ? null : v;
+    });
+    return out;
+  };
+  doc.root.forEach(f => {
+    const a = argv(f);
+    if(f.name === '__typename'){ data[f.alias] = 'Query'; return; }
+    if(f.name === 'products'){ need(f, '[Product]'); let l = active(); if(a.category_id !== undefined) l = l.filter(p => p.category_id === Number(a.category_id)); if(a.search) l = l.filter(p => p.name.toLowerCase().includes(String(a.search).toLowerCase())); if(a.limit !== undefined) l = l.slice(0, Math.max(0, Number(a.limit))); data[f.alias] = l.map(p => obj('Product', prod(p), f.sel)); }
+    else if(f.name === 'product'){ need(f, 'Product'); if(a.id === undefined || a.id === null) throw new GqlErr('Field "product" argument "id" of type "Int!" is required, but it was not provided.'); const p = active().find(x => x.id === Number(a.id)); data[f.alias] = p ? obj('Product', prod(p), f.sel) : null; if(!p) errors.push({message:'Product with id ' + a.id + ' not found', path:[f.alias]}); }
+    else if(f.name === 'categories'){ need(f, '[Category]'); data[f.alias] = DB.categories.map(c => obj('Category', c, f.sel)); }
+    else if(f.name === 'category'){ need(f, 'Category'); if(a.id === undefined || a.id === null) throw new GqlErr('Field "category" argument "id" of type "Int!" is required, but it was not provided.'); const c = byId('categories', a.id); data[f.alias] = c ? obj('Category', c, f.sel) : null; if(!c) errors.push({message:'Category with id ' + a.id + ' not found', path:[f.alias]}); }
+    else throw new GqlErr('Cannot query field "' + f.name + '" on type "Query". Available fields: products, product, categories, category');
+  });
+  return {data, errors};
+}
+api('POST', '/graphql', ({raw}) => {
+  const bad = m => R(400, {errors:[{message:m}]});
+  if(!/json/i.test(raw.ct)) return bad('POST body missing, invalid Content-Type, or JSON object has no keys. Use Body > GraphQL (or raw JSON with Content-Type: application/json)');
+  let j; try{ j = JSON.parse(raw.text || 'null'); }catch(e){ return bad('Malformed JSON in request body: ' + e.message); }
+  if(!j || typeof j.query !== 'string' || !j.query.trim()) return bad('Must provide query string.');
+  let vars = j.variables;
+  if(typeof vars === 'string'){ try{ vars = JSON.parse(vars); }catch(e){ return bad('Variables are invalid JSON: ' + e.message); } }
+  if(vars === undefined || vars === null) vars = {};
+  if(typeof vars !== 'object' || Array.isArray(vars)) return bad('Variables must be a JSON object');
+  try{ const r = gqlRun(gqlParse(j.query), vars); return R(200, r.errors.length ? {data:r.data, errors:r.errors} : {data:r.data}); }
+  catch(e){ if(e instanceof GqlErr) return bad(e.message); throw e; }
+}, undefined, {raw:true});
 
 /* ---------- request dispatcher (no artificial latency) ---------- */
 async function apiCore(method, urlStr, headers, bodyText){
   let u;
   try{ u = new URL(urlStr); }catch(e){ return {network:'Invalid URL'}; }
   if(!/^https?:$/.test(u.protocol)) return {network:'Unsupported protocol "' + u.protocol + '"'};
-  if(u.hostname !== API_HOST) return {network:'getaddrinfo ENOTFOUND ' + u.hostname};
+  if(u.hostname !== API_HOST) return {network:'getaddrinfo ENOTFOUND ' + u.hostname + ' (only api.qasandbox.com is reachable while "Real internet requests" is switched off in the API Client)'};
   const hl = {}; Object.keys(headers || {}).forEach(k => { hl[k.toLowerCase()] = headers[k]; });
   const path = u.pathname.replace(/\/+$/, '') || '/';
   const base = {'Content-Type':'application/json; charset=utf-8', 'X-Request-Id':uid() + uid(), 'X-Powered-By':'QA-Sandbox/1.0', 'Cache-Control':'no-store', 'Date':new Date().toUTCString(), 'X-RateLimit-Limit':'1000', 'X-RateLimit-Remaining':String(rand(900, 999))};
@@ -1806,21 +2019,45 @@ async function apiCore(method, urlStr, headers, bodyText){
     if(route.auth === 'admin' && user.role !== 'admin') return done(E(403, 'Admin role required for this endpoint'));
   }
   let body = {};
-  if(['POST', 'PUT', 'PATCH'].includes(method) && bodyText && String(bodyText).trim() !== ''){
-    if(!/json/i.test(hl['content-type'] || '')) return done(E(415, 'Unsupported Media Type. Send the body as JSON with header "Content-Type: application/json"'));
-    try{ body = JSON.parse(bodyText); }catch(e){ return done(E(400, 'Malformed JSON in request body: ' + e.message)); }
+  const rawIn = {text:'', parts:null, bin:null, ct:hl['content-type'] || ''};
+  if(bodyText && typeof bodyText === 'object'){ if(bodyText.multipart) rawIn.parts = bodyText.multipart; else if(bodyText.binary) rawIn.bin = bodyText.binary; bodyText = ''; }
+  else rawIn.text = bodyText === undefined || bodyText === null ? '' : String(bodyText);
+  if(!route.raw && ['POST', 'PUT', 'PATCH'].includes(method) && (rawIn.parts || rawIn.bin || rawIn.text.trim() !== '')){
+    if(rawIn.parts || rawIn.bin || !/json/i.test(rawIn.ct)) return done(E(415, 'Unsupported Media Type. Send the body as JSON with header "Content-Type: application/json"'));
+    try{ body = JSON.parse(rawIn.text); }catch(e){ return done(E(400, 'Malformed JSON in request body: ' + e.message)); }
     if(body === null || typeof body !== 'object' || Array.isArray(body)) return done(E(400, 'Request body must be a JSON object'));
   }
   const params = {}; const mm = route.re.exec(rel); route.keys.forEach((k, i) => { params[k] = decodeURIComponent(mm[i + 1]); });
   try{
-    const res = await route.fn({params, query:Object.fromEntries(u.searchParams), body, user, headers:hl, method});
+    const res = await route.fn({params, query:Object.fromEntries(u.searchParams), body, user, headers:hl, method, raw:rawIn});
     return done(res);
   }catch(e){
     return done(E(500, 'Unexpected server error: ' + (e && e.message ? e.message : e)));
   }
 }
 /* Postman-facing wrapper with realistic network latency */
-async function apiHandle(method, url, headers, body){
+const HTTP_TEXT = {200:'OK', 201:'Created', 202:'Accepted', 204:'No Content', 301:'Moved Permanently', 302:'Found', 304:'Not Modified', 400:'Bad Request', 401:'Unauthorized', 403:'Forbidden', 404:'Not Found', 405:'Method Not Allowed', 409:'Conflict', 415:'Unsupported Media Type', 422:'Unprocessable Entity', 429:'Too Many Requests', 500:'Internal Server Error', 502:'Bad Gateway', 503:'Service Unavailable'};
+/* Real HTTP call made by the browser itself (used by the API Client for any host other than the sandbox). */
+async function apiReal(method, url, headers, body){
+  const t0 = performance.now(), ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 30000);
+  let host = ''; try{ host = new URL(url).host; }catch(e){}
+  try{
+    const h = new Headers(); Object.entries(headers || {}).forEach(([k, v]) => { try{ h.set(k, v); }catch(e){} });
+    let payload;
+    if(body && typeof body === 'object'){
+      if(body.multipart){ const fd = new FormData(); for(const p of body.multipart){ if(p.type === 'file') fd.append(p.key, await (await fetch(p.data)).blob(), p.name); else fd.append(p.key, p.value); } payload = fd; h.delete('Content-Type'); }
+      else if(body.binary) payload = await (await fetch(body.binary.data)).blob();
+    } else if(body !== undefined && body !== '' && !['GET', 'HEAD'].includes(method)) payload = body;
+    const r = await fetch(url, {method, headers:h, body:payload, signal:ctl.signal, credentials:'omit', redirect:'follow'});
+    const text = await r.text(), hd = {}; r.headers.forEach((v, k) => { hd[k] = v; });
+    return {status:r.status, statusText:r.statusText || HTTP_TEXT[r.status] || '', headers:hd, text, ms:Math.round(performance.now() - t0), size:text.length};
+  }catch(e){
+    return {network:e.name === 'AbortError' ? 'Request to ' + host + ' timed out after 30 seconds' : 'Could not get a response from ' + host + '. Possible reasons: the browser blocked it because the server does not allow cross-origin (CORS) calls, the server is offline or the name does not exist, or the URL is a mixed http/https request.', ms:Math.round(performance.now() - t0)};
+  }finally{ clearTimeout(timer); }
+}
+async function apiHandle(method, url, headers, body, opts){
+  let host = ''; try{ host = new URL(url).hostname; }catch(e){}
+  if(opts && opts.real && host && host !== API_HOST) return await apiReal(method, url, headers, body);
   const t0 = performance.now();
   await sleep(rand(60, 220));
   const r = await apiCore(method, url, headers, body);
@@ -2961,46 +3198,199 @@ function openErDiagramModal(){
    Pre-request Script tab, a Tests tab with ready-made snippets, request
    history, and custom mock endpoints from Admin > API Mocks.
    ===================================================================== */
+const PM_BASE = 'https://api.qasandbox.com/v1';
+/* Every built-in request carries its OWN expected result (status code, fields, headers).
+   `auth:true` = needs a customer token ({{token}}); `admin:true` = needs an admin token ({{admin_token}}).
+   Unique values use dynamic variables ({{$timestamp}}, {{$randomEmail}}) and ids are chained
+   between requests, so the whole collection can be run again and again and still pass. */
+const pmSample = (name, text, type) => ({name, size:text.length, type:type || 'text/plain', data:'data:' + (type || 'text/plain') + ';base64,' + btoa(text)});
 const PM_COLLECTION = [
   {folder:'Auth', reqs:[
-    {name:'Register', method:'POST', url:'https://api.qasandbox.com/v1/auth/register', body:{name:'Jane Doe', email:'jane.doe@example.com', phone:'9123456780', password:'Passw0rd1'}, auth:false},
-    {name:'Login (customer)', method:'POST', url:'https://api.qasandbox.com/v1/auth/login', body:{email:'john@example.com', password:'Test@123'}, auth:false},
-    {name:'Login (admin)', method:'POST', url:'https://api.qasandbox.com/v1/auth/login', body:{email:'admin@qa.com', password:'Admin@123'}, auth:false},
-    {name:'Get my profile', method:'GET', url:'https://api.qasandbox.com/v1/me', auth:true}
+    {name:'Register', method:'POST', url:PM_BASE + '/auth/register', body:{name:'Jane Doe', email:'{{$randomEmail}}', phone:'9123456780', password:'Passw0rd1'}, auth:false,
+      tests:`pm.test('Status code is 201 Created', () => pm.response.status === 201);
+pm.test('Registered user has an id', () => typeof pm.response.json().user.id === 'number');
+pm.test('Password is never returned', () => pm.response.json().user.password === undefined);
+pm.test('Location header points to the new user', () => pm.response.headers.has('Location'));`},
+    {name:'Login (customer)', method:'POST', url:PM_BASE + '/auth/login', body:{email:'john@example.com', password:'Test@123'}, auth:false,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('A JWT token is returned', () => typeof pm.response.json().token === 'string' && pm.response.json().token.split('.').length === 3);
+pm.environment.set('token', pm.response.json().token);`},
+    {name:'Login (admin)', method:'POST', url:PM_BASE + '/auth/login', body:{email:'admin@qa.com', password:'Admin@123'}, auth:false, noAutoToken:true,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('A JWT token is returned', () => typeof pm.response.json().token === 'string');
+pm.environment.set('admin_token', pm.response.json().token);`},
+    {name:'Get my profile', method:'GET', url:PM_BASE + '/me', auth:true,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Profile has an email', () => typeof pm.response.json().email === 'string');
+pm.test('Logged in as a customer', () => pm.response.json().role === 'customer');`}
   ]},
   {folder:'Products', reqs:[
-    {name:'List products', method:'GET', url:'https://api.qasandbox.com/v1/products?page=1&limit=10', auth:false},
-    {name:'Filter by category & price', method:'GET', url:'https://api.qasandbox.com/v1/products?category_id=1&min_price=50&max_price=500&sort=price_asc', auth:false},
-    {name:'Get product by id', method:'GET', url:'https://api.qasandbox.com/v1/products/1', auth:false},
-    {name:'Get product (not found)', method:'GET', url:'https://api.qasandbox.com/v1/products/9999', auth:false},
-    {name:'Create product', method:'POST', url:'https://api.qasandbox.com/v1/products', body:{name:'Sample Speaker', category_id:1, price:49.99, stock:20, sku:'EL-SP-999', description:'Portable Bluetooth speaker.'}, auth:true},
-    {name:'Update product', method:'PUT', url:'https://api.qasandbox.com/v1/products/1', body:{price:119.99, stock:30}, auth:true},
-    {name:'Delete product', method:'DELETE', url:'https://api.qasandbox.com/v1/products/12', auth:true}
+    {name:'List products', method:'GET', url:PM_BASE + '/products?page=1&limit=10', auth:false,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('"data" is a non-empty array', () => Array.isArray(pm.response.json().data) && pm.response.json().data.length > 0);
+pm.test('Pagination: page 1, at most 10 items', () => pm.response.json().page === 1 && pm.response.json().data.length <= 10);`},
+    {name:'Filter by category & price', method:'GET', url:PM_BASE + '/products?category_id=1&min_price=50&max_price=500&sort=price_asc', auth:false,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+const d = pm.response.json().data;
+pm.test('Every product is in category 1 and costs 50-500', () => d.every(p => p.category_id === 1 && p.price >= 50 && p.price <= 500));
+pm.test('Sorted by price, lowest first', () => d.every((p, i) => i === 0 || d[i - 1].price <= p.price));`},
+    {name:'Get product by id', method:'GET', url:PM_BASE + '/products/1', auth:false,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Returns product id 1', () => pm.response.json().id === 1);
+pm.test('Product has a name and a price', () => typeof pm.response.json().name === 'string' && typeof pm.response.json().price === 'number');`},
+    {name:'Get product (not found)', method:'GET', url:PM_BASE + '/products/9999', auth:false,
+      tests:`pm.test('Status code is 404 Not Found', () => pm.response.status === 404);
+pm.test('Error message says it was not found', () => /not found/i.test(pm.response.json().message));`},
+    {name:'Create product', method:'POST', url:PM_BASE + '/products', admin:true,
+      body:{name:'Sample Speaker {{$timestamp}}', category_id:1, price:49.99, stock:20, sku:'EL-SP-{{$timestamp}}', description:'Portable Bluetooth speaker.'},
+      tests:`pm.test('Status code is 201 Created', () => pm.response.status === 201);
+pm.test('New product has an id', () => typeof pm.response.json().data.id === 'number');
+pm.test('Price was saved as 49.99', () => pm.response.json().data.price === 49.99);
+pm.test('Location header is present', () => pm.response.headers.has('Location'));
+// API chaining: remember the id so "Delete product" removes exactly this product
+pm.environment.set('new_product_id', pm.response.json().data.id);`},
+    {name:'Update product', method:'PUT', url:PM_BASE + '/products/1', body:{price:119.99, stock:30}, admin:true,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Price is now 119.99', () => pm.response.json().data.price === 119.99);
+pm.test('Stock is now 30', () => pm.response.json().data.stock === 30);`},
+    {name:'Delete product', method:'DELETE', url:PM_BASE + '/products/{{new_product_id}}', admin:true,
+      pre:`if(!pm.environment.get('new_product_id')) console.warn('Run "Create product" first - it saves {{new_product_id}} for this request.');`,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Confirms the product was deleted', () => pm.response.json().message === 'Product deleted');
+pm.test('Deleted the product created earlier', () => String(pm.response.json().id) === String(pm.environment.get('new_product_id')));`}
   ]},
   {folder:'Categories', reqs:[
-    {name:'List categories', method:'GET', url:'https://api.qasandbox.com/v1/categories', auth:false},
-    {name:'Create category', method:'POST', url:'https://api.qasandbox.com/v1/categories', body:{name:'Toys & Games', slug:'toys-games'}, auth:true},
-    {name:'Delete category (in use)', method:'DELETE', url:'https://api.qasandbox.com/v1/categories/1', auth:true}
+    {name:'List categories', method:'GET', url:PM_BASE + '/categories', auth:false,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('"data" is a non-empty array', () => Array.isArray(pm.response.json().data) && pm.response.json().data.length > 0);
+pm.test('"total" matches the number of items', () => pm.response.json().total === pm.response.json().data.length);`},
+    {name:'Create category', method:'POST', url:PM_BASE + '/categories', body:{name:'Toys & Games {{$timestamp}}', slug:'toys-games-{{$timestamp}}'}, admin:true,
+      tests:`pm.test('Status code is 201 Created', () => pm.response.status === 201);
+pm.test('New category has an id', () => typeof pm.response.json().id === 'number');
+pm.test('Slug was saved', () => pm.response.json().slug.indexOf('toys-games-') === 0);
+pm.environment.set('new_category_id', pm.response.json().id);`},
+    {name:'Delete category (in use)', method:'DELETE', url:PM_BASE + '/categories/1', admin:true,
+      tests:`pm.test('Status code is 409 Conflict', () => pm.response.status === 409);
+pm.test('Message explains why it cannot be deleted', () => /cannot be deleted/i.test(pm.response.json().message));`},
+    {name:'Delete category (unused)', method:'DELETE', url:PM_BASE + '/categories/{{new_category_id}}', admin:true,
+      pre:`if(!pm.environment.get('new_category_id')) console.warn('Run "Create category" first - it saves {{new_category_id}} for this request.');`,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Confirms the category was deleted', () => pm.response.json().message === 'Category deleted');`}
   ]},
   {folder:'Orders', reqs:[
-    {name:'List my orders', method:'GET', url:'https://api.qasandbox.com/v1/orders', auth:true},
-    {name:'Place an order', method:'POST', url:'https://api.qasandbox.com/v1/orders', body:{items:[{product_id:3, quantity:1}], shipping_address:'123 QA Street, Austin, TX 73301', payment_method:'cod'}, auth:true},
-    {name:'Update order status (admin)', method:'PUT', url:'https://api.qasandbox.com/v1/orders/1', body:{status:'Shipped'}, auth:true}
+    {name:'List my orders', method:'GET', url:PM_BASE + '/orders', auth:true,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('"data" is an array', () => Array.isArray(pm.response.json().data));
+pm.test('"total" matches the number of orders', () => pm.response.json().total === pm.response.json().data.length);`},
+    {name:'Place an order', method:'POST', url:PM_BASE + '/orders', auth:true,
+      body:{items:[{product_id:1, quantity:1}], shipping_address:'123 QA Street, Austin, TX 73301', payment_method:'cod'},
+      tests:`pm.test('Status code is 201 Created', () => pm.response.status === 201);
+pm.test('Order has an id', () => typeof pm.response.json().order.id === 'number');
+pm.test('Totals are returned', () => pm.response.json().totals !== undefined);
+pm.test('Location header is present', () => pm.response.headers.has('Location'));
+pm.environment.set('new_order_id', pm.response.json().order.id);`},
+    {name:'Update order status (admin)', method:'PUT', url:PM_BASE + '/orders/1', body:{status:'Shipped'}, admin:true,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Order status is now Shipped', () => pm.response.json().data.status === 'Shipped');`}
   ]},
   {folder:'Wishlist & Reviews', reqs:[
-    {name:'Get wishlist', method:'GET', url:'https://api.qasandbox.com/v1/wishlist', auth:true},
-    {name:'Add to wishlist', method:'POST', url:'https://api.qasandbox.com/v1/wishlist', body:{product_id:6}, auth:true},
-    {name:'Submit a review', method:'POST', url:'https://api.qasandbox.com/v1/reviews', body:{product_id:1, rating:5, comment:'Excellent build quality!'}, auth:true}
+    {name:'Get wishlist', method:'GET', url:PM_BASE + '/wishlist', auth:true,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('"data" is an array', () => Array.isArray(pm.response.json().data));
+pm.test('"total" matches the number of items', () => pm.response.json().total === pm.response.json().data.length);`},
+    {name:'Add to wishlist', method:'POST', url:PM_BASE + '/wishlist', body:{product_id:6}, auth:true,
+      tests:`pm.test('201 Created (added) or 409 Conflict (already in wishlist)', () => pm.response.status === 201 || pm.response.status === 409);
+pm.test('Response has a message', () => typeof pm.response.json().message === 'string');`},
+    {name:'Remove from wishlist', method:'DELETE', url:PM_BASE + '/wishlist/6', auth:true,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Confirms the removal', () => pm.response.json().message === 'Removed from wishlist');`},
+    {name:'Submit a review', method:'POST', url:PM_BASE + '/reviews', body:{product_id:1, rating:5, comment:'Excellent build quality!'}, auth:true,
+      tests:`pm.test('Status code is 201 Created', () => pm.response.status === 201);
+pm.test('Review waits for approval (pending)', () => pm.response.json().data.status === 'pending');
+pm.test('Rating was saved as 5', () => pm.response.json().data.rating === 5);`}
   ]},
   {folder:'Negative & Debug', reqs:[
-    {name:'Missing auth header', method:'GET', url:'https://api.qasandbox.com/v1/orders', auth:false},
-    {name:'Wrong method (405)', method:'DELETE', url:'https://api.qasandbox.com/v1/', auth:false},
-    {name:'Unknown route (404)', method:'GET', url:'https://api.qasandbox.com/v1/unknown-route', auth:false},
-    {name:'Simulate any status code', method:'GET', url:'https://api.qasandbox.com/v1/debug/status/418', auth:false},
-    {name:'Simulate slow response', method:'GET', url:'https://api.qasandbox.com/v1/debug/delay/1500', auth:false},
-    {name:'Flaky endpoint (30% fail)', method:'GET', url:'https://api.qasandbox.com/v1/debug/flaky', auth:false},
-    {name:'Rate limit demo', method:'GET', url:'https://api.qasandbox.com/v1/debug/rate-limit', auth:false},
-    {name:'Echo request', method:'POST', url:'https://api.qasandbox.com/v1/debug/echo?sample=1', body:{hello:'world'}, auth:false}
+    {name:'Missing auth header', method:'GET', url:PM_BASE + '/orders', auth:false,
+      tests:`pm.test('Status code is 401 Unauthorized', () => pm.response.status === 401);
+pm.test('Message mentions the Authorization header', () => /Authorization/.test(pm.response.json().message));`},
+    {name:'Wrong method (405)', method:'DELETE', url:PM_BASE + '/', auth:false,
+      tests:`pm.test('Status code is 405 Method Not Allowed', () => pm.response.status === 405);
+pm.test('Allow header lists the permitted methods', () => (pm.response.headers.get('Allow') || '').indexOf('GET') !== -1);`},
+    {name:'Unknown route (404)', method:'GET', url:PM_BASE + '/unknown-route', auth:false,
+      tests:`pm.test('Status code is 404 Not Found', () => pm.response.status === 404);
+pm.test('Message says the route was not found', () => /not found/i.test(pm.response.json().message));`},
+    {name:'Simulate any status code', method:'GET', url:PM_BASE + '/debug/status/418', auth:false,
+      tests:`pm.test("Status code is 418 I'm a teapot", () => pm.response.status === 418);
+pm.test('Body repeats the simulated status', () => pm.response.json().status === 418);`},
+    {name:'Simulate slow response', method:'GET', url:PM_BASE + '/debug/delay/1500', auth:false,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Response really was slow (at least 1400 ms)', () => pm.response.time >= 1400);`},
+    {name:'Flaky endpoint (30% fail)', method:'GET', url:PM_BASE + '/debug/flaky', auth:false,
+      tests:`pm.test('200 OK, or a simulated 500/503 failure', () => [200, 500, 503].indexOf(pm.response.status) !== -1);
+pm.test('Response has a message', () => typeof pm.response.json().message === 'string');`},
+    {name:'Rate limit demo', method:'GET', url:PM_BASE + '/debug/rate-limit', auth:false,
+      tests:`pm.test('200 OK, or 429 once the 5-per-10-seconds limit is hit', () => pm.response.status === 200 || pm.response.status === 429);
+pm.test('A 429 response carries a Retry-After header', () => pm.response.status !== 429 || pm.response.headers.has('Retry-After'));`},
+    {name:'Echo request (form-data)', method:'POST', url:PM_BASE + '/debug/echo', auth:false, formData:[{key:'name', type:'text', value:'Jane', on:true}, {key:'avatar', type:'file', files:[pmSample('avatar.txt', 'sample avatar bytes')], on:true}],
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Text field is echoed', () => pm.response.json().body.fields.name === 'Jane');
+pm.test('File is described (name, size, type)', () => pm.response.json().body.files[0].fileName === 'avatar.txt' && pm.response.json().body.files[0].size > 0);`},
+    {name:'Echo request (x-www-form-urlencoded)', method:'POST', url:PM_BASE + '/debug/echo', auth:false, urlenc:[{key:'city', value:'Austin', on:true}, {key:'zip', value:'73301', on:true}],
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Form fields are echoed as an object', () => pm.response.json().body.city === 'Austin' && pm.response.json().body.zip === '73301');`},
+    {name:'Echo request', method:'POST', url:PM_BASE + '/debug/echo?sample=1', body:{hello:'world'}, auth:false,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Echoes the HTTP method', () => pm.response.json().method === 'POST');
+pm.test('Echoes the query string', () => pm.response.json().query.sample === '1');
+pm.test('Echoes the JSON body', () => pm.response.json().body.hello === 'world');`}
+  ]},
+  {folder:'File Upload & GraphQL', reqs:[
+    {name:'Upload single file (key: file)', method:'POST', url:PM_BASE + '/uploadFile', auth:false,
+      formData:[{key:'file', type:'file', files:[pmSample('test.txt', 'Hello from the QA sandbox.\n')], on:true}, {key:'description', type:'text', value:'Sample upload', on:true}],
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Upload confirmed', () => /uploaded successfully/i.test(pm.response.json().message));
+pm.test('File name, type and size are returned', () => pm.response.json().fileName === 'test.txt' && pm.response.json().fileType === 'text/plain' && pm.response.json().size > 0);
+pm.test('Text field is returned', () => pm.response.json().fields.description === 'Sample upload');
+pm.environment.set('new_file_id', pm.response.json().id);`},
+    {name:'Upload multiple files (key: files)', method:'POST', url:PM_BASE + '/uploadFiles', auth:false,
+      formData:[{key:'files', type:'file', files:[pmSample('test1.txt', 'First file\n')], on:true}, {key:'files', type:'file', files:[pmSample('test2.txt', 'Second file\n')], on:true}],
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Two files were uploaded', () => pm.response.json().count === 2 && pm.response.json().files.length === 2);
+pm.test('Both files used the key "files"', () => pm.response.json().files.every(f => f.field === 'files'));`},
+    {name:'List uploaded files', method:'GET', url:PM_BASE + '/files', auth:false,
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('At least one uploaded file is listed', () => pm.response.json().total >= 1);`},
+    {name:'Wrong key on single upload (400)', method:'POST', url:PM_BASE + '/uploadFile', auth:false,
+      formData:[{key:'files', type:'file', files:[pmSample('test.txt', 'Hello\n')], on:true}],
+      tests:`pm.test('Status code is 400 Bad Request', () => pm.response.status === 400);
+pm.test('Message explains the key must be "file"', () => /Unexpected field "files"/.test(pm.response.json().message));`},
+    {name:'Two files on single upload (400)', method:'POST', url:PM_BASE + '/uploadFile', auth:false,
+      formData:[{key:'file', type:'file', files:[pmSample('a.txt', 'A\n')], on:true}, {key:'file', type:'file', files:[pmSample('b.txt', 'B\n')], on:true}],
+      tests:`pm.test('Status code is 400 Bad Request', () => pm.response.status === 400);
+pm.test('Message says to use /uploadFiles with the key "files"', () => /uploadFiles/.test(pm.response.json().message) && /"files"/.test(pm.response.json().message));`},
+    {name:'Key "file" sent as Text, not File (400)', method:'POST', url:PM_BASE + '/uploadFile', auth:false,
+      formData:[{key:'file', type:'text', value:'test.txt', on:true}],
+      tests:`pm.test('Status code is 400 Bad Request', () => pm.response.status === 400);
+pm.test('Message says the field must be a file', () => /must be a file/.test(pm.response.json().message));`},
+    {name:'Disallowed file type (415)', method:'POST', url:PM_BASE + '/uploadFile', auth:false,
+      formData:[{key:'file', type:'file', files:[pmSample('setup.exe', 'MZ fake binary', 'application/octet-stream')], on:true}],
+      tests:`pm.test('Status code is 415 Unsupported Media Type', () => pm.response.status === 415);
+pm.test('Message lists the allowed types', () => /not allowed/.test(pm.response.json().message));`},
+    {name:'GraphQL - list products', method:'POST', url:PM_BASE + '/graphql', auth:false,
+      gql:{query:'query {\n  products(limit: 3) {\n    id\n    name\n    price\n  }\n}'},
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Exactly 3 products returned', () => pm.response.json().data.products.length === 3);
+pm.test('Only the requested fields are returned', () => Object.keys(pm.response.json().data.products[0]).join() === 'id,name,price');
+pm.test('No errors', () => pm.response.json().errors === undefined);`},
+    {name:'GraphQL - product by id (variables)', method:'POST', url:PM_BASE + '/graphql', auth:false,
+      gql:{query:'query ($id: Int!) {\n  product(id: $id) {\n    id\n    name\n    category {\n      name\n    }\n  }\n}', vars:'{ "id": 1 }'},
+      tests:`pm.test('Status code is 200', () => pm.response.status === 200);
+pm.test('Returns product 1', () => pm.response.json().data.product.id === 1);
+pm.test('Nested category is resolved', () => typeof pm.response.json().data.product.category.name === 'string');`},
+    {name:'GraphQL - unknown field (400)', method:'POST', url:PM_BASE + '/graphql', auth:false,
+      gql:{query:'query {\n  products(limit: 1) {\n    id\n    colour\n  }\n}'},
+      tests:`pm.test('Status code is 400 Bad Request', () => pm.response.status === 400);
+pm.test('Error names the unknown field', () => /Cannot query field "colour"/.test(pm.response.json().errors[0].message));`}
   ]}
 ];
 const PM_TEST_SNIPPET = "pm.test('Status code is 200', () => pm.response.status === 200);\npm.test('Response has \"data\" field', () => pm.response.json() && pm.response.json().data !== undefined);\npm.test('Response time is below 1000ms', () => pm.response.time < 1000);";
@@ -3022,20 +3412,28 @@ const PM_SNIPPETS = [
   {label:'Chai: validate against a JSON schema', code:"const schema = {\n  type: 'object',\n  properties: { id: { type: 'integer' }, name: { type: 'string' } },\n  required: ['id', 'name']\n};\npm.test('Schema is valid', () => {\n  pm.response.to.have.jsonSchema(schema);\n});"}
 ];
 
+const PM_GQL_SAMPLE = 'query {\n  products(limit: 3) {\n    id\n    name\n    price\n  }\n}';
 const PM_RAW_TYPES = [{k:'text', label:'Text', ct:'text/plain'}, {k:'javascript', label:'JavaScript', ct:'application/javascript'}, {k:'json', label:'JSON', ct:'application/json'}, {k:'html', label:'HTML', ct:'text/html'}, {k:'xml', label:'XML', ct:'application/xml'}];
 function freshTab(seed){
   const t = Object.assign({
     id: uid(), name:'Untitled request', method:'GET', url:'{{cl_url}}/products',
-    params:[], headers:[{key:'Content-Type', value:'application/json', on:true}], body:'{\n  \n}', bodyMode:'json', rawType:'json', auth:false, authType:'none', authData:{}, locals:[],
+    params:[], headers:[], body:'{\n  \n}', bodyMode:'none', rawType:'json', formData:[], urlenc:[], gqlQuery:PM_GQL_SAMPLE, gqlVars:'', binFile:null, auth:false, authType:'none', authData:{}, locals:[],
     preRequest:'', tests: PM_TEST_SNIPPET, activeReqTab:'params', response:null, saved:true
   }, seed || {});
   if(seed && seed.auth && !seed.authType){ t.authType = 'bearer'; t.authData = {token:'{{token}}'}; }
   t.locals = JSON.parse(JSON.stringify(t.locals || [])); t.authData = JSON.parse(JSON.stringify(t.authData || {}));
+  if(t.bodyMode === 'json') t.bodyMode = 'raw';
+  if(!['none', 'form-data', 'urlenc', 'raw', 'binary', 'graphql'].includes(t.bodyMode)) t.bodyMode = 'none';
+  ['formData', 'urlenc'].forEach(k => { t[k] = JSON.parse(JSON.stringify(t[k] || [])); });
+  t.binFile = t.binFile ? JSON.parse(JSON.stringify(t.binFile)) : null;
   return t;
 }
 function tabFromCollection(item){
-  const t = freshTab({name:item.name, method:item.method, url:item.url, auth:!!item.auth, body: item.body ? JSON.stringify(item.body, null, 2) : '{\n  \n}'});
-  const u = new URL(item.url);
+  const seed = {name:item.name, method:item.method, url:item.url, body:item.body ? JSON.stringify(item.body, null, 2) : '{\n  \n}', bodyMode:item.formData ? 'form-data' : item.urlenc ? 'urlenc' : item.gql ? 'graphql' : item.body ? 'raw' : 'none', formData:item.formData || [], urlenc:item.urlenc || [], gqlQuery:item.gql ? item.gql.query : PM_GQL_SAMPLE, gqlVars:item.gql ? (item.gql.vars || '') : '',
+    tests:item.tests !== undefined ? item.tests : PM_TEST_SNIPPET, preRequest:item.pre || '', noAutoToken:!!item.noAutoToken};
+  if(item.auth || item.admin){ seed.authType = 'bearer'; seed.authData = {token:item.admin ? '{{admin_token}}' : '{{token}}'}; seed.need = item.admin ? 'admin' : 'customer'; }
+  const t = freshTab(seed);
+  const u = new URL(item.url.replace(/\{\{[^}]*\}\}/g, 'x'));
   t.params = Array.from(u.searchParams.entries()).map(([k, v]) => ({key:k, value:v, on:true}));
   return t;
 }
@@ -3060,24 +3458,55 @@ if(!PM.collections || !Array.isArray(PM.collections) || !PM.collections.length){
   const old = store.get(LS.pm + '_mycol', null);
   PM.collections = [{id:'col_default', name:'My Collection', vars:[{key:'cl_url', value:'https://api.qasandbox.com/v1', on:true}], folders:(Array.isArray(old) && old.length ? old : [{id:'fold_default', name:'My Requests', reqs:[]}]).map(f => Object.assign({vars:[]}, f))}];
 }
+pmMigrateSaved();
+PM.real = store.get(LS.pm + '_real', true) !== false;
 function pmActiveEnv(){ return PM.environments.find(e => e.id === PM.activeEnvId) || PM.environments[0]; }
 function pmEnvVar(key){ const v = pmActiveEnv().vars.find(x => x.key === key && x.on !== false); return v ? v.value : undefined; }
 function pmSetEnvVar(key, value){ const env = pmActiveEnv(); const v = env.vars.find(x => x.key === key); if(v) v.value = value; else env.vars.push({key, value, on:true}); pmSaveEnvs(); }
 function pmSaveEnvs(){ store.set(LS.pm + '_envs', PM.environments); store.set(LS.pm + '_activeEnv', PM.activeEnvId); store.set(LS.pm + '_globals', PM.globals); }
-function pmSaveCollection(){ store.set(LS.pm + '_cols', PM.collections); store.set(LS.pm + '_open', PM.open); }
+/* Requests copied from the built-in collection before this update still carry the generic "status is 200" tests.
+   Bring the untouched ones up to date (never touches tests you edited). */
+function pmMigrateSaved(){
+  if(store.get(LS.pm + '_mig3', false)) return;
+  const OLD = {'Register':{body:{name:'Jane Doe', email:'jane.doe@example.com', phone:'9123456780', password:'Passw0rd1'}}, 'Create product':{body:{name:'Sample Speaker', category_id:1, price:49.99, stock:20, sku:'EL-SP-999', description:'Portable Bluetooth speaker.'}},
+    'Delete product':{url:PM_BASE + '/products/12'}, 'Create category':{body:{name:'Toys & Games', slug:'toys-games'}}, 'Place an order':{body:{items:[{product_id:3, quantity:1}], shipping_address:'123 QA Street, Austin, TX 73301', payment_method:'cod'}}};
+  let n = 0;
+  PM.collections.forEach(c => c.folders.forEach(f => f.reqs.forEach(r => {
+    const b = PM_COLLECTION.flatMap(x => x.reqs).find(x => x.name === r.name && x.method === r.method); if(!b || r.tests !== PM_TEST_SNIPPET) return;
+    r.tests = b.tests; r.preRequest = b.pre || r.preRequest || ''; r.noAutoToken = !!b.noAutoToken;
+    if(b.auth || b.admin){ r.need = b.admin ? 'admin' : 'customer'; r.authType = 'bearer'; r.authData = {token:b.admin ? '{{admin_token}}' : '{{token}}'}; }
+    const o = OLD[r.name];
+    if(o && o.url && r.url === o.url) r.url = b.url;
+    if(o && o.body){ try{ if(JSON.stringify(JSON.parse(r.body)) === JSON.stringify(o.body)) r.body = JSON.stringify(b.body, null, 2); }catch(e){} }
+    n++;
+  })));
+  store.set(LS.pm + '_mig3', true); if(n) pmSaveCollection();
+}
+function pmSaveCollection(){ try{ store.set(LS.pm + '_cols', PM.collections); store.set(LS.pm + '_open', PM.open); }catch(e){ toast('Browser storage is full - remove large files from saved requests', 'err'); } }
 function pmSaveHist(){ store.set(LS.pm + '_hist', PM.history.slice(0, 40)); }
 /* Variable scopes, highest priority first: local > folder > collection > environment > global */
-function pmScopes(t){ const c = t && PM.collections[t._ci], f = c && c.folders[t._fi]; return [t && t.locals, f && f.vars, c && c.vars, pmActiveEnv().vars, PM.globals]; }
+function pmScopes(t){ const own = t && PM.collections[t._ci], c = own || PM.collections[0], f = own && own.folders[t._fi]; return [t && t.locals, f && f.vars, c && c.vars, pmActiveEnv().vars, PM.globals]; }
+const PM_FIRST = ['Aarav', 'Maya', 'Liam', 'Noah', 'Emma', 'Olivia', 'Ravi', 'Sofia', 'Ethan', 'Zara'], PM_LAST = ['Patel', 'Smith', 'Khan', 'Garcia', 'Brown', 'Shah', 'Lopez', 'Miller', 'Nair', 'Wilson'];
+const PM_PICK = a => a[Math.floor(Math.random() * a.length)];
+/* Postman-style dynamic variables: new value every time they are used. */
+const PM_DYN = {
+  '$timestamp':() => String(Date.now()), '$isoTimestamp':() => new Date().toISOString(),
+  '$randomInt':() => String(Math.floor(Math.random() * 1000)), '$guid':() => (crypto.randomUUID ? crypto.randomUUID() : uid() + uid()),
+  '$randomEmail':() => (PM_PICK(PM_FIRST) + PM_PICK(PM_LAST) + Date.now().toString(36) + Math.floor(Math.random() * 1000)).toLowerCase() + '@example.com',
+  '$randomFirstName':() => PM_PICK(PM_FIRST), '$randomLastName':() => PM_PICK(PM_LAST), '$randomFullName':() => PM_PICK(PM_FIRST) + ' ' + PM_PICK(PM_LAST),
+  '$randomPhone':() => '9' + String(Math.floor(Math.random() * 1e9)).padStart(9, '0'),
+  '$randomAlphaNumeric':() => Math.random().toString(36).slice(2, 10)
+};
 function pmSubstitute(str, t){
   if(!str) return str;
   const sc = pmScopes(t); let s = String(str);
   for(let i = 0; i < 3; i++){
-    const n = s.replace(/\{\{\s*([\w.\-]+)\s*\}\}/g, (m, k) => { for(const a of sc){ const v = (a || []).find(x => x.key === k && x.on !== false && x.value !== ''); if(v) return v.value; } return m; });
+    const n = s.replace(/\{\{\s*([\w.\-$]+)\s*\}\}/g, (m, k) => { if(k[0] === '$') return PM_DYN[k] ? PM_DYN[k]() : m; const dr = PM.dataRow; if(dr && Object.prototype.hasOwnProperty.call(dr, k)) return dr[k]; for(const a of sc){ const v = (a || []).find(x => x.key === k && x.on !== false && x.value !== ''); if(v) return v.value; } return m; });
     if(n === s) break; s = n;
   }
   return s;
 }
-function pmUnresolved(s){ return String(s || '').match(/\{\{\s*[\w.\-]+\s*\}\}/g) || []; }
+function pmUnresolved(s){ return (String(s || '').match(/\{\{\s*[\w.\-$]+\s*\}\}/g) || []).filter(m => !PM_DYN[m.replace(/[{}\s]/g, '')]); }
 function pmSetVar(scope, key, val, t){
   const c = PM.collections[t && t._ci] || PM.collections[0];
   const arr = scope === 'globals' ? PM.globals : scope === 'collection' ? c.vars : scope === 'local' ? (t.locals = t.locals || []) : pmActiveEnv().vars;
@@ -3088,6 +3517,56 @@ function pmLog(kind, msg){ PM.logs.push({t:new Date().toLocaleTimeString(), kind
 function pmIssue(msg){ if(!PM.issues.includes(msg)) PM.issues.push(msg); paintPmBottom(); }
 function activeTab(){ return PM.tabs.find(t => t.id === PM.activeId); }
 
+const ICONS = {
+  folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  folderplus:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M12 10.5v5M9.5 13h5"/>',
+  fileplus:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M12 12v5M9.5 14.5h5"/>',
+  layers:'<path d="M12 3 3 8l9 5 9-5z"/><path d="M3 13l9 5 9-5"/>',
+  play:'<path d="M7 4.5v15l12-7.5z"/>',
+  stop:'<rect x="6" y="6" width="12" height="12" rx="1.5"/>',
+  edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+  trash:'<path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>', minus:'<path d="M5 12h14"/>',
+  braces:'<path d="M8 4c-2 0-3 1-3 3v2c0 1-1 3-2 3 1 0 2 2 2 3v2c0 2 1 3 3 3"/><path d="M16 4c2 0 3 1 3 3v2c0 1 1 3 2 3-1 0-2 2-2 3v2c0 2-1 3-3 3"/>',
+  save:'<path d="M5 3h11l4 4v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3"/><path d="M7 21v-7h10v7"/>',
+  code:'<path d="M8 8l-5 4 5 4M16 8l5 4-5 4"/>',
+  upload:'<path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>',
+  download:'<path d="M12 4v12M7 11l5 5 5-5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>',
+  check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>', x:'<path d="M6 6l12 12M18 6 6 18"/>',
+  back:'<path d="M19 12H5M11 6l-6 6 6 6"/>',
+  table:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>',
+  alert:'<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/>',
+  wand:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',
+  copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/>',
+  send:'<path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4z"/>',
+  loader:'<path d="M12 3a9 9 0 1 0 9 9"/>'
+};
+function ic(n, s, cls){ s = s || 15; return '<svg class="ic' + (n === 'play' || n === 'stop' ? ' fill' : '') + (cls ? ' ' + cls : '') + '" width="' + s + '" height="' + s + '" viewBox="0 0 24 24" aria-hidden="true">' + (ICONS[n] || '') + '</svg>'; }
+function tgl(open){ return '<span class="tgl">' + ic(open ? 'minus' : 'plus', 11) + '</span>'; }
+
+/* Custom text-input dialog (replaces the browser's prompt box) */
+function askText({title, label, value, ok, placeholder}){
+  return new Promise(resolve => {
+    let settled = false; const fin = v => { if(!settled){ settled = true; resolve(v); } };
+    const bd = openModal('<form id="askForm" autocomplete="off"><div class="modal-head"><h3>' + esc(title) + '</h3><button type="button" class="x-btn" data-action="closeModal">×</button></div>' +
+      '<div class="field"><label>' + esc(label || 'Name') + '</label><input type="text" name="v" value="' + esc(value || '') + '" placeholder="' + esc(placeholder || '') + '" maxlength="120"></div>' +
+      '<div class="small" id="askErr" style="color:#b91c1c;min-height:18px"></div>' +
+      '<div class="modal-actions"><button type="button" class="btn" data-action="closeModal">Cancel</button><button class="btn btn-primary">' + esc(ok || 'Save') + '</button></div></form>', {cls:'modal-sm'});
+    const inp = bd.querySelector('[name=v]'); inp.focus(); inp.select();
+    bd.querySelector('form').addEventListener('submit', e => {
+      e.preventDefault(); const v = inp.value.trim();
+      if(!v){ bd.querySelector('#askErr').textContent = 'Please enter a name.'; return; }
+      closeModal(); fin(v);
+    });
+    const root = $('#modalRoot');
+    new MutationObserver((_, ob) => { if(!root.contains(bd)){ ob.disconnect(); fin(null); } }).observe(root, {childList:true});
+  });
+}
+function pmDownload(name, text, mime){
+  const url = URL.createObjectURL(new Blob([text], {type:mime || 'text/plain'}));
+  const a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
 route('/postman', () => {
   if(!PM.tabs.length){ const t = tabFromCollection(PM_COLLECTION[1].reqs[0]); PM.tabs.push(t); PM.activeId = t.id; }
   renderPostman();
@@ -3095,7 +3574,7 @@ route('/postman', () => {
 
 function renderPostman(){
   $('#app').innerHTML = '<div class="container tool-page wide"><div class="container tool">' +
-  '<div class="tool-title"><h1>📮 API Client <span class="badge b-info">Sandbox</span></h1><div class="muted small">Base URL: https://api.qasandbox.com/v1 — see the <a href="#/guide">testing guide</a> for full endpoint docs</div></div>' +
+  '<div class="tool-title"><h1>' + ic('send', 22) + ' API Client <span class="badge b-info">Sandbox</span></h1><div class="muted small">Base URL: https://api.qasandbox.com/v1 — see the <a href="#/guide">testing guide</a> for full endpoint docs</div></div>' +
   '<div class="pm">' +
   '<aside class="pm-side"><div class="pm-side-tabs"><button class="active" data-st="col">Collections</button><button data-st="mycol">My Collection</button><button data-st="hist">History</button></div><div class="pm-side-body" id="pmSideBody"></div></aside>' +
   '<section class="pm-main" id="pmMain"></section>' +
@@ -3109,16 +3588,16 @@ function paintPmSide(mode){
   const body = $('#pmSideBody');
   if(mode === 'hist'){
     body.innerHTML = PM.history.length ? PM.history.map((h, i) => '<div class="pm-hist-item" data-hi="' + i + '"><span class="mth m-' + h.method + '">' + h.method + '</span><span class="u">' + esc(h.url.replace('https://' + API_HOST, '')) + '</span><span class="badge ' + (h.status < 300 ? 'b-ok' : h.status < 400 ? 'b-info' : 'b-err') + '">' + h.status + '</span></div>').join('') : '<p class="muted small" style="padding:10px">No requests sent yet.</p>';
-    $$('[data-hi]').forEach(el => el.addEventListener('click', () => { const h = PM.history[Number(el.dataset.hi)]; const t = freshTab({name:h.method + ' ' + new URL(h.url).pathname, method:h.method, url:h.url, body:h.body || '{\n  \n}'}); PM.tabs.push(t); PM.activeId = t.id; paintPmMain(); }));
+    $$('[data-hi]').forEach(el => el.addEventListener('click', () => { const h = PM.history[Number(el.dataset.hi)]; const t = freshTab({name:h.method + ' ' + new URL(h.url).pathname, method:h.method, url:h.url, body:h.body || '{\n  \n}', bodyMode:h.body ? 'raw' : 'none', rawType:(PM_RAW_TYPES.find(r => h.ct && h.ct.indexOf(r.ct) === 0) || PM_RAW_TYPES[2]).k}); PM.tabs.push(t); PM.activeId = t.id; paintPmMain(); }));
     return;
   }
   if(mode === 'mycol'){
     const op = k => PM.open[k] !== false;
-    const bt = (a, i, ti, l) => '<button class="run" data-a="' + a + '" data-i="' + i + '" title="' + ti + '">' + l + '</button>';
-    body.innerHTML = '<div style="padding:4px 8px"><button class="btn btn-sm btn-block" data-a="cnew" data-i="0">+ New collection</button></div>' +
-    PM.collections.map((c, ci) => '<div class="pm-folder"><div class="f-head" data-tg="c' + ci + '"><span class="tg">' + (op('c' + ci) ? '➖' : '➕') + '</span> 📚 ' + esc(c.name) + bt('crun', ci, 'Run whole collection', '▶') + bt('cfold', ci, 'Add folder', '+📁') + bt('cvars', ci, 'Collection variables', '{x}') + bt('cren', ci, 'Rename', '✏') + bt('cdel', ci, 'Delete', '🗑') + '</div>' +
-      (op('c' + ci) ? (c.folders.length ? c.folders.map((f, fi) => { const k = ci + ':' + fi; return '<div style="margin-left:14px"><div class="f-head" data-tg="f' + ci + '_' + fi + '"><span class="tg">' + (op('f' + ci + '_' + fi) ? '➖' : '➕') + '</span> 📁 ' + esc(f.name) + '<span class="run">' + f.reqs.length + '</span>' + bt('frun', k, 'Run folder', '▶') + bt('freq', k, 'Add request', '+Req') + bt('fvars', k, 'Folder variables', '{x}') + bt('fren', k, 'Rename', '✏') + bt('fdel', k, 'Delete', '🗑') + '</div>' +
-        (op('f' + ci + '_' + fi) ? f.reqs.map((r, ri) => '<div class="pm-req" data-a="rqopen" data-i="' + k + ':' + ri + '"><span class="mth m-' + r.method + '">' + r.method + '</span><span style="flex:1">' + esc(r.name) + '</span>' + bt('rqdel', k + ':' + ri, 'Delete request', '🗑') + '</div>').join('') || '<div class="muted small" style="padding:4px 8px 4px 24px">No requests yet</div>' : '') + '</div>'; }).join('') : '<div class="muted small" style="padding:4px 8px 4px 24px">No folders — click +📁</div>') : '') + '</div>').join('');
+    const ab = (a, i, ti, n, cls) => '<button class="ib' + (cls ? ' ' + cls : '') + '" data-a="' + a + '" data-i="' + i + '" title="' + ti + '" aria-label="' + ti + '">' + ic(n, 14) + '</button>';
+    body.innerHTML = '<div style="padding:2px 2px 8px"><button class="btn btn-sm btn-block" data-a="cnew" data-i="0">' + ic('plus', 13) + ' New collection</button></div>' +
+    PM.collections.map((c, ci) => '<div class="pm-folder"><div class="f-head" data-tg="c' + ci + '">' + tgl(op('c' + ci)) + '<span class="fi col">' + ic('layers') + '</span><span class="nm">' + esc(c.name) + '</span><span class="acts">' + ab('crun', ci, 'Run collection', 'play') + ab('cfold', ci, 'Add folder', 'folderplus') + ab('cvars', ci, 'Collection variables', 'braces') + ab('cren', ci, 'Rename', 'edit') + ab('cdel', ci, 'Delete', 'trash', 'danger') + '</span></div>' +
+      (op('c' + ci) ? (c.folders.length ? c.folders.map((f, fi) => { const k = ci + ':' + fi; return '<div class="pm-folder" style="margin-left:14px"><div class="f-head" data-tg="f' + ci + '_' + fi + '">' + tgl(op('f' + ci + '_' + fi)) + '<span class="fi">' + ic('folder') + '</span><span class="nm">' + esc(f.name) + '</span><span class="cnt">' + f.reqs.length + '</span><span class="acts">' + ab('frun', k, 'Run folder', 'play') + ab('freq', k, 'Add request', 'fileplus') + ab('fvars', k, 'Folder variables', 'braces') + ab('fren', k, 'Rename', 'edit') + ab('fdel', k, 'Delete', 'trash', 'danger') + '</span></div>' +
+        (op('f' + ci + '_' + fi) ? f.reqs.map((r, ri) => '<div class="pm-req" data-a="rqopen" data-i="' + k + ':' + ri + '"><span class="mth m-' + r.method + '">' + r.method + '</span><span class="nm">' + esc(r.name) + '</span><span class="acts">' + ab('rqren', k + ':' + ri, 'Rename', 'edit') + ab('rqdel', k + ':' + ri, 'Delete', 'trash', 'danger') + '</span></div>').join('') || '<div class="muted small" style="padding:4px 8px 4px 30px">No requests yet</div>' : '') + '</div>'; }).join('') : '<div class="muted small" style="padding:4px 8px 4px 30px">No folders yet — use the add-folder icon</div>') : '') + '</div>').join('');
     body.onclick = e => {
       const b = e.target.closest('[data-a]'), h = e.target.closest('[data-tg]');
       if(b){ e.stopPropagation(); pmColAction(b.dataset.a, b.dataset.i.split(':').map(Number)); }
@@ -3127,11 +3606,13 @@ function paintPmSide(mode){
     return;
   }
   const mocks = DB.api_mocks.filter(m => m.status === 'active');
-  const mockFolder = {folder:'My Custom Mocks (Admin ▸ API Mocks)', reqs: mocks.map(m => ({name:m.path + ' → ' + m.status_code, method:m.method, url:'https://' + API_HOST + m.path, auth:m.requires_auth === 'yes'}))};
+  const mockFolder = {folder:'My Custom Mocks (Admin ▸ API Mocks)', reqs: mocks.map(m => ({name:m.path + ' → ' + m.status_code, method:m.method, url:'https://' + API_HOST + m.path, auth:m.requires_auth === 'yes', tests:"pm.test('Status code is " + Number(m.status_code) + "', () => pm.response.status === " + Number(m.status_code) + ");"}))};
   const folders = mocks.length ? PM_COLLECTION.concat([mockFolder]) : PM_COLLECTION;
-  body.innerHTML = folders.map((f, fi) => '<div class="pm-folder"><div class="f-head" data-fold="' + fi + '"><span class="tg">➖</span> 📁 ' + esc(f.folder) + '<span class="run">' + f.reqs.length + '</span>' + (f.reqs.length ? '<button class="run" data-runcol="' + fi + '" title="Run this folder">▶</button>' : '') + '</div><div class="f-body" data-foldbody="' + fi + '">' +
-    (f.reqs.length ? f.reqs.map((r, ri) => '<div class="pm-req" data-fold-item="' + fi + ':' + ri + '"><span class="mth m-' + r.method + '">' + r.method + '</span><span>' + esc(r.name) + '</span></div>').join('') : '<div class="muted small" style="padding:6px 8px 6px 24px">No custom mocks yet — add one in Admin ▸ API Mocks.</div>') + '</div></div>').join('');
-  $$('.f-head[data-fold]').forEach(h => h.addEventListener('click', e => { if(e.target.closest('button')) return; const b = $('[data-foldbody="' + h.dataset.fold + '"]'); const hide = b.style.display !== 'none'; b.style.display = hide ? 'none' : 'block'; h.querySelector('.tg').textContent = hide ? '➕' : '➖'; }));
+  const nAll = folders.reduce((s, f) => s + f.reqs.length, 0);
+  body.innerHTML = '<div style="padding:2px 2px 8px"><button class="btn btn-sm btn-block" id="pmRunAll">' + ic('play', 13) + ' Run all folders (' + nAll + ' requests)</button></div>' + folders.map((f, fi) => '<div class="pm-folder"><div class="f-head" data-fold="' + fi + '">' + tgl(true) + '<span class="fi">' + ic('folder') + '</span><span class="nm">' + esc(f.folder) + '</span><span class="cnt">' + f.reqs.length + '</span>' + (f.reqs.length ? '<span class="acts" style="display:inline-flex"><button class="ib" data-runcol="' + fi + '" title="Run this folder" aria-label="Run this folder">' + ic('play', 14) + '</button></span>' : '') + '</div><div class="f-body" data-foldbody="' + fi + '">' +
+    (f.reqs.length ? f.reqs.map((r, ri) => '<div class="pm-req" data-fold-item="' + fi + ':' + ri + '"><span class="mth m-' + r.method + '">' + r.method + '</span><span class="nm">' + esc(r.name) + '</span></div>').join('') : '<div class="muted small" style="padding:6px 8px 6px 24px">No custom mocks yet — add one in Admin ▸ API Mocks.</div>') + '</div></div>').join('');
+  $('#pmRunAll').addEventListener('click', () => runCollectionFolder('Store API \u2014 all folders', folders.flatMap(f => f.reqs.map(tabFromCollection))));
+  $$('.f-head[data-fold]').forEach(h => h.addEventListener('click', e => { if(e.target.closest('button')) return; const b = $('[data-foldbody="' + h.dataset.fold + '"]'); const hide = b.style.display !== 'none'; b.style.display = hide ? 'none' : 'block'; h.querySelector('.tgl').innerHTML = ic(hide ? 'plus' : 'minus', 11); }));
   $$('[data-fold-item]').forEach(el => el.addEventListener('click', () => {
     const [fi, ri] = el.dataset.foldItem.split(':').map(Number); const item = folders[fi].reqs[ri];
     const t = tabFromCollection(item); PM.tabs.push(t); PM.activeId = t.id; paintPmMain();
@@ -3139,22 +3620,24 @@ function paintPmSide(mode){
   $$('[data-runcol]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); const f = folders[Number(b.dataset.runcol)]; runCollectionFolder(f.folder, f.reqs.map(tabFromCollection)); }));
 }
 function paintPmMain(){
+  if(PM.runnerOpen && PM.activeId !== PM.runnerFor) PM.runnerOpen = false;
+  if(PM.runnerOpen && PM.runner){ paintRunner(); return; }
   const main = $('#pmMain'); const t = activeTab();
-  if(!t){ main.innerHTML = '<div class="pm-empty"><div class="big">📮</div><h3>No request open</h3><p>Pick one from Collections or start a new one.</p><button class="btn btn-primary" id="pmNewEmpty">+ New request</button></div>'; $('#pmNewEmpty').addEventListener('click', () => { const nt = freshTab(); PM.tabs.push(nt); PM.activeId = nt.id; paintPmMain(); }); return; }
+  if(!t){ main.innerHTML = '<div class="pm-empty"><div class="big">' + ic('send', 40) + '</div><h3>No request open</h3><p>Pick one from Collections or start a new one.</p><button class="btn btn-primary" id="pmNewEmpty">+ New request</button></div>'; $('#pmNewEmpty').addEventListener('click', () => { const nt = freshTab(); PM.tabs.push(nt); PM.activeId = nt.id; paintPmMain(); }); return; }
   main.innerHTML =
   '<div class="pm-tabbar" id="pmTabbar"></div>' +
   '<div class="pm-envbar">' +
   '<span>Environment:</span><select id="pmEnvSelect">' + PM.environments.map(e => '<option value="' + e.id + '"' + (e.id === PM.activeEnvId ? ' selected' : '') + '>' + esc(e.name) + '</option>').join('') + '</select>' +
-  '<button class="btn btn-sm" id="pmManageEnv">⚙ Variables</button>' +
+  '<button class="btn btn-sm" id="pmManageEnv">' + ic('braces', 14) + ' Variables</button><label class="small" style="display:inline-flex;gap:6px;align-items:center;cursor:pointer" title="When on, URLs outside api.qasandbox.com are called for real by your browser (the other server must allow CORS)"><input type="checkbox" id="pmReal"' + (PM.real ? ' checked' : '') + '> Real internet requests</label>' + (PM.runner ? '<button class="btn btn-sm" id="pmLastRun">' + ic('play', 13) + ' Runner results</button>' : '') +
   '<span class="muted small" style="margin-left:auto">Use <code>{{variableName}}</code> in the URL, headers or body — try <code>{{cl_url}}/products/1</code></span>' +
   '</div>' +
   '<div class="pm-urlbar">' +
   '<select id="pmMethod">' + ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].map(m => '<option' + (t.method === m ? ' selected' : '') + '>' + m + '</option>').join('') + '</select>' +
   '<input type="text" id="pmUrl" value="' + esc(t.url) + '" spellcheck="false">' +
   '<button class="pm-send" id="pmSend">Send</button>' +
-  '<button class="pm-save" id="pmSaveName">Rename</button>' +
-  '<button class="pm-save" id="pmSaveToCollection">💾 Save</button>' +
-  '<button class="pm-save" id="pmCodeGen">&lt;/&gt; Code</button>' +
+  '<button class="pm-save" id="pmSaveName">' + ic('edit', 14) + ' Rename</button>' +
+  '<button class="pm-save" id="pmSaveToCollection">' + ic('save', 14) + ' Save</button>' +
+  '<button class="pm-save" id="pmCodeGen">' + ic('code', 14) + ' Code</button>' +
   '</div>' +
   '<div class="pm-hint" id="pmResolved" style="padding:0 14px"></div>' + '<div class="pm-rtabs" id="pmReqTabs"></div>' +
   '<div class="pm-panel" id="pmReqPanel"></div>' +
@@ -3163,16 +3646,19 @@ function paintPmMain(){
   $('#pmMethod').addEventListener('change', e => { t.method = e.target.value; t.saved = false; paintPmTabbar(); paintPmReqTabs(); });
   $('#pmUrl').addEventListener('input', e => { t.url = e.target.value; t.saved = false; pmShowResolved(t); paintPmTabbar(); syncParamsFromUrl(t); if(t.activeReqTab === 'params') paintPmReqPanel(); });
   $('#pmSend').addEventListener('click', () => sendPmRequest(t));
-  $('#pmSaveName').addEventListener('click', () => { const n = prompt('Request name', t.name); if(n){ t.name = n; paintPmTabbar(); } });
+  $('#pmSaveName').addEventListener('click', async () => { const n = await askText({title:'Rename request', label:'Request name', value:t.name, ok:'Rename'}); if(n){ t.name = n; paintPmTabbar(); } });
   $('#pmSaveToCollection').addEventListener('click', () => openSaveToCollectionModal(t));
   $('#pmCodeGen').addEventListener('click', () => openCodeGenModal(t));
   $('#pmEnvSelect').addEventListener('change', e => { PM.activeEnvId = e.target.value; pmSaveEnvs(); paintPmMain(); });
   $('#pmManageEnv').addEventListener('click', () => openVarsHub());
+  $('#pmReal').addEventListener('change', e => { PM.real = e.target.checked; store.set(LS.pm + '_real', PM.real); pmShowResolved(activeTab()); toast(PM.real ? 'Real internet requests are ON - other hosts are called by your browser' : 'Real internet requests are OFF - only api.qasandbox.com works', 'ok'); });
+  const lastRun = $('#pmLastRun'); if(lastRun) lastRun.addEventListener('click', () => { PM.runnerOpen = true; PM.runnerFor = PM.activeId; paintPmMain(); });
 }
 function pmShowResolved(t){
   const el = $('#pmResolved'); if(!el) return;
   const r = pmSubstitute(t.url, t), u = pmUnresolved(r);
-  el.innerHTML = (r !== t.url ? 'Resolved: <code>' + esc(r) + '</code> ' : '') + (u.length ? '<span style="color:#b91c1c">⚠ undefined variable: ' + esc(u.join(', ')) + '</span>' : '');
+  let off = ''; try{ if(!PM.real && new URL(r).hostname !== API_HOST) off = ' <span style="color:#b45309">' + ic('alert', 13) + ' Real internet requests are off - tick the checkbox above to call this host.</span>'; }catch(e){}
+  el.innerHTML = off + (r !== t.url ? 'Resolved: <code>' + esc(r) + '</code> ' : '') + (u.length ? '<span style="color:#b91c1c">' + ic('alert', 13) + ' undefined variable: ' + esc(u.join(', ')) + '</span>' : '');
 }
 function syncParamsFromUrl(t){
   try{ const u = new URL(t.url); t.params = Array.from(u.searchParams.entries()).map(([k, v]) => ({key:k, value:v, on:true})); }catch(e){}
@@ -3185,14 +3671,83 @@ function paintPmTabbar(){
 }
 function paintPmReqTabs(){
   const t = activeTab();
-  const tabs = [['params', 'Params', t.params.length], ['headers', 'Headers', t.headers.filter(h => h.on).length], ['body', 'Body', ['POST', 'PUT', 'PATCH'].includes(t.method) ? 1 : 0], ['auth', 'Authorization', t.authType && t.authType !== 'none' ? 1 : 0], ['vars', 'Variables', (t.locals || []).length], ['prereq', 'Pre-request Script', t.preRequest && t.preRequest.trim() ? 1 : 0], ['tests', 'Tests', 0]];
+  const tabs = [['params', 'Params', t.params.length], ['headers', 'Headers', t.headers.filter(h => h.on).length], ['body', 'Body', t.bodyMode && t.bodyMode !== 'none' ? 1 : 0], ['auth', 'Authorization', t.authType && t.authType !== 'none' ? 1 : 0], ['vars', 'Variables', (t.locals || []).length], ['prereq', 'Pre-request Script', t.preRequest && t.preRequest.trim() ? 1 : 0], ['tests', 'Tests', 0]];
   $('#pmReqTabs').innerHTML = tabs.map(([k, l, n]) => '<button class="' + (t.activeReqTab === k ? 'active' : '') + '" data-rtab="' + k + '">' + l + (n ? ' <span class="dot">●</span>' : '') + '</button>').join('');
   $$('[data-rtab]').forEach(b => b.addEventListener('click', () => { t.activeReqTab = b.dataset.rtab; paintPmReqTabs(); paintPmReqPanel(); }));
 }
 function kvTable(rows, opts = {}){
   return '<table class="kvt"><thead><tr>' + (opts.checkable !== false ? '<th style="width:34px"></th>' : '') + '<th>Key</th><th>Value</th><th style="width:34px"></th></tr></thead><tbody>' +
-  rows.map((r, i) => '<tr' + (r.auto ? ' class="auto"' : '') + '><td class="ck">' + (opts.checkable !== false ? '<input type="checkbox" data-krow="' + i + '" ' + (r.on ? 'checked' : '') + (r.auto ? ' disabled' : '') + '>' : '') + '</td><td><input type="text" data-kkey="' + i + '" value="' + esc(r.key) + '" placeholder="key" ' + (r.auto ? 'readonly' : '') + '></td><td><input type="text" data-kval="' + i + '" value="' + esc(r.value) + '" placeholder="value" ' + (r.auto ? 'readonly' : '') + '></td><td class="dl">' + (r.auto ? '' : '<button data-kdel="' + i + '">🗑</button>') + '</td></tr>').join('') +
+  rows.map((r, i) => '<tr' + (r.auto ? ' class="auto"' : '') + '><td class="ck">' + (opts.checkable !== false ? '<input type="checkbox" data-krow="' + i + '" ' + (r.on ? 'checked' : '') + (r.auto ? ' disabled' : '') + '>' : '') + '</td><td><input type="text" data-kkey="' + i + '" value="' + esc(r.key) + '" placeholder="key" ' + (r.auto ? 'readonly' : '') + '></td><td><input type="text" data-kval="' + i + '" value="' + esc(r.value) + '" placeholder="value" ' + (r.auto ? 'readonly' : '') + '></td><td class="dl">' + (r.auto ? '' : '<button data-kdel="' + i + '">' + ic('trash', 14) + '</button>') + '</td></tr>').join('') +
   '<tr><td></td><td><input type="text" data-knew="key" placeholder="key"></td><td><input type="text" data-knew="value" placeholder="value"></td><td></td></tr></tbody></table>';
+}
+ICONS.file = '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/>';
+const pmFmtSize = n => n < 1024 ? n + ' B' : n < 1048576 ? (n / 1024).toFixed(1) + ' KB' : (n / 1048576).toFixed(1) + ' MB';
+async function pmReadFiles(list){
+  const out = [];
+  for(const f of Array.from(list)){
+    if(f.size > 5 * 1024 * 1024){ toast('"' + f.name + '" is larger than 5 MB - pick a smaller file', 'warn'); continue; }
+    const data = await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = () => rej(r.error); r.readAsDataURL(f); });
+    out.push({name:f.name, size:f.size, type:f.type || 'application/octet-stream', data});
+    if(f.size > 512 * 1024) toast('"' + f.name + '" is over 512 KB: it works for this session but is not stored when you save the request', 'warn');
+  }
+  return out;
+}
+function pmStripBig(s){
+  let n = 0; const cut = f => { if(f && f.size > 512 * 1024 && f.data){ f.data = ''; n++; } };
+  (s.formData || []).forEach(r => (r.files || []).forEach(cut)); cut(s.binFile);
+  if(n) toast(n + ' file(s) over 512 KB were not stored with the saved request - select them again before running it', 'warn');
+}
+const pmChip = (f, attr) => '<span class="fchip" title="' + esc(f.name) + '">' + ic('file', 13) + '<span class="n">' + esc(f.name) + '</span><small>' + pmFmtSize(f.size) + '</small><button type="button" ' + attr + ' title="Remove" aria-label="Remove file">' + ic('x', 12) + '</button></span>';
+function paintPmBody(t, p){
+  const M = [['none', 'none'], ['form-data', 'form-data'], ['urlenc', 'x-www-form-urlencoded'], ['raw', 'raw'], ['binary', 'binary'], ['graphql', 'GraphQL']], m = t.bodyMode;
+  let h = '<div class="pm-mode">' + M.map(([k, l]) => '<label><input type="radio" name="bm" value="' + k + '"' + (m === k ? ' checked' : '') + '> ' + l + '</label>' +
+    (k === 'raw' && m === 'raw' ? '<select id="pmRawType">' + PM_RAW_TYPES.map(rt => '<option value="' + rt.k + '"' + (t.rawType === rt.k ? ' selected' : '') + '>' + rt.label + '</option>').join('') + '</select>' : '')).join('') +
+    (m === 'raw' && t.rawType === 'json' ? '<button class="btn btn-sm" id="pmFormatJson" style="margin-left:auto">' + ic('wand', 14) + ' Beautify</button>' : '') + '</div>';
+  if(['GET', 'HEAD'].includes(t.method) && m !== 'none') h += '<div class="pm-hint" style="margin-bottom:8px">' + ic('alert', 13) + ' ' + t.method + ' requests do not send a body in this sandbox. Change the method to POST, PUT or PATCH to send it.</div>';
+  if(m === 'none') h += '<p class="muted">This request does not have a body.</p>';
+  else if(m === 'form-data'){
+    h += '<div style="display:flex;gap:8px;margin-bottom:8px"><button class="btn btn-sm" id="fdAddText">' + ic('plus', 13) + ' Text field</button><button class="btn btn-sm btn-primary" id="fdAddFile">' + ic('upload', 13) + ' File upload field</button></div><table class="kvt fd"><thead><tr><th style="width:34px"></th><th style="width:26%">Key</th><th style="width:96px">Type</th><th>Value</th><th style="width:34px"></th></tr></thead><tbody>' +
+      t.formData.map((r, i) => '<tr><td class="ck"><input type="checkbox" data-fon="' + i + '"' + (r.on !== false ? ' checked' : '') + '></td><td><input type="text" data-fkey="' + i + '" value="' + esc(r.key) + '" placeholder="key"></td>' +
+        '<td><select data-ftype="' + i + '"><option value="text"' + (r.type !== 'file' ? ' selected' : '') + '>Text</option><option value="file"' + (r.type === 'file' ? ' selected' : '') + '>File</option></select></td><td>' +
+        (r.type === 'file' ? '<label class="btn btn-sm fpick">' + ic('upload', 14) + ' ' + ((r.files || []).length ? 'Add files' : 'Select files') + '<input type="file" multiple hidden data-ffile="' + i + '"></label> ' + (r.files || []).map((f, j) => pmChip(f, 'data-frm="' + i + ':' + j + '"')).join('') : '<input type="text" data-fval="' + i + '" value="' + esc(r.value || '') + '" placeholder="value">') +
+        '</td><td class="dl"><button data-fdel="' + i + '" title="Delete row">' + ic('trash', 14) + '</button></td></tr>').join('') +
+      '<tr><td></td><td><input type="text" data-fnew placeholder="key"></td><td><select data-fnewtype><option value="text">Text</option><option value="file">File</option></select></td><td class="muted small" style="padding-left:10px">Type a key to add a row. Choose <b>File</b> to upload a file from your computer.</td><td></td></tr></tbody></table>' +
+      '<div class="pm-hint">Upload practice: <code>POST {{cl_url}}/uploadFile</code> needs one file under the key <code>file</code>; <code>POST {{cl_url}}/uploadFiles</code> needs the key <code>files</code> for every file (max 5, 1 MB each).</div>';
+  }
+  else if(m === 'urlenc') h += kvTable(t.urlenc) + '<div class="pm-hint">Sent as <code>key=value&amp;key2=value2</code> with <code>Content-Type: application/x-www-form-urlencoded</code>.</div>';
+  else if(m === 'raw') h += '<textarea class="code-area" id="pmBody" spellcheck="false" style="min-height:260px">' + esc(t.body) + '</textarea><div class="pm-hint" id="pmBodyErr"></div>';
+  else if(m === 'binary') h += '<div class="bin-box"><label class="btn btn-sm fpick">' + ic('upload', 14) + ' ' + (t.binFile ? 'Choose another file' : 'Select file') + '<input type="file" hidden id="pmBinFile"></label>' + (t.binFile ? pmChip(t.binFile, 'id="pmBinRm"') : '<span class="muted small">No file selected</span>') + '</div><div class="pm-hint">The chosen file is sent as the raw request body. <code>Content-Type</code> is set from the file type unless you add your own header.</div>';
+  else h += '<div class="gql"><label class="small"><b>Query</b></label><textarea class="code-area" id="pmGql" spellcheck="false" style="min-height:200px">' + esc(t.gqlQuery) + '</textarea><label class="small"><b>Variables</b> (JSON, optional)</label><textarea class="code-area" id="pmGqlVars" spellcheck="false" style="min-height:90px" placeholder="{ &quot;id&quot;: 1 }">' + esc(t.gqlVars) + '</textarea><div class="pm-hint" id="pmBodyErr"></div></div><div class="pm-hint">Sent as <code>POST</code> JSON <code>{"query": ..., "variables": ...}</code>. Practice endpoint: <code>{{cl_url}}/graphql</code> with <code>products</code>, <code>product(id)</code>, <code>categories</code>, <code>category(id)</code>.</div>';
+  p.innerHTML = h;
+  const dirty = () => { t.saved = false; };
+  $$('input[name="bm"]', p).forEach(r => r.addEventListener('change', () => { t.bodyMode = r.value; dirty(); paintPmReqTabs(); paintPmReqPanel(); }));
+  const rt = $('#pmRawType', p); if(rt) rt.addEventListener('change', e => { t.rawType = e.target.value; dirty(); paintPmReqPanel(); });
+  const fj = $('#pmFormatJson', p); if(fj) fj.addEventListener('click', () => { try{ t.body = JSON.stringify(JSON.parse($('#pmBody').value), null, 2); paintPmReqPanel(); }catch(e){ toast('Body is not valid JSON', 'err'); } });
+  const jsonCheck = (el, label) => { const err = $('#pmBodyErr'); if(!err) return; try{ if(el.value.trim()) JSON.parse(el.value); err.textContent = ''; }catch(e){ err.innerHTML = '<span style="color:#b91c1c">' + ic('alert', 13) + ' Invalid JSON' + label + ' - ' + esc(e.message) + '</span>'; } };
+  const raw = $('#pmBody', p); if(raw){ raw.addEventListener('input', e => { t.body = e.target.value; dirty(); if(t.rawType === 'json') jsonCheck(raw, ''); }); if(t.rawType === 'json') jsonCheck(raw, ''); }
+  const gq = $('#pmGql', p); if(gq) gq.addEventListener('input', e => { t.gqlQuery = e.target.value; dirty(); });
+  const gv = $('#pmGqlVars', p); if(gv){ gv.addEventListener('input', e => { t.gqlVars = e.target.value; dirty(); jsonCheck(gv, ' in variables'); }); jsonCheck(gv, ' in variables'); }
+  if(m === 'urlenc') wireKv(p, t.urlenc, dirty);
+  const bf = $('#pmBinFile', p); if(bf) bf.addEventListener('change', async e => { const f = await pmReadFiles(e.target.files); if(f[0]){ t.binFile = f[0]; dirty(); paintPmReqTabs(); paintPmReqPanel(); } });
+  const br = $('#pmBinRm', p); if(br) br.addEventListener('click', () => { t.binFile = null; dirty(); paintPmReqPanel(); });
+  if(m === 'form-data'){
+    $$('[data-fon]', p).forEach(el => el.addEventListener('change', () => { t.formData[Number(el.dataset.fon)].on = el.checked; dirty(); }));
+    $$('[data-fkey]', p).forEach(el => el.addEventListener('input', () => { t.formData[Number(el.dataset.fkey)].key = el.value; dirty(); }));
+    $$('[data-fval]', p).forEach(el => el.addEventListener('input', () => { t.formData[Number(el.dataset.fval)].value = el.value; dirty(); }));
+    $$('[data-ftype]', p).forEach(el => el.addEventListener('change', () => { const r = t.formData[Number(el.dataset.ftype)]; r.type = el.value; if(r.type === 'file') r.files = r.files || []; dirty(); paintPmReqPanel(); }));
+    $$('[data-fdel]', p).forEach(el => el.addEventListener('click', () => { t.formData.splice(Number(el.dataset.fdel), 1); dirty(); paintPmReqPanel(); }));
+    $$('[data-ffile]', p).forEach(el => el.addEventListener('change', async () => { const r = t.formData[Number(el.dataset.ffile)]; const f = await pmReadFiles(el.files); r.files = (r.files || []).concat(f); dirty(); paintPmReqPanel(); }));
+    $$('[data-frm]', p).forEach(el => el.addEventListener('click', () => { const [i, j] = el.dataset.frm.split(':').map(Number); t.formData[i].files.splice(j, 1); dirty(); paintPmReqPanel(); }));
+    const addRow = (type, key) => { t.formData.push({key:key || '', type, value:'', files:[], on:true}); dirty(); const idx = t.formData.length - 1; paintPmReqPanel(); const el = $('[data-fkey="' + idx + '"]'); if(el){ el.focus(); el.setSelectionRange(el.value.length, el.value.length); } };
+    $('#fdAddText', p).addEventListener('click', () => addRow('text', ''));
+    $('#fdAddFile', p).addEventListener('click', () => addRow('file', 'file'));
+    const nk = $('[data-fnew]', p), nt = $('[data-fnewtype]', p);
+    nt.addEventListener('change', () => addRow(nt.value, nt.value === 'file' ? 'file' : ''));
+    nk.addEventListener('input', () => {
+      t.formData.push({key:nk.value, type:nt.value, value:'', files:[], on:true}); dirty(); const idx = t.formData.length - 1; paintPmReqPanel();
+      const el = $('[data-fkey="' + idx + '"]'); if(el){ el.focus(); el.setSelectionRange(el.value.length, el.value.length); }
+    });
+  }
 }
 function paintPmReqPanel(){
   const t = activeTab(); const p = $('#pmReqPanel');
@@ -3201,38 +3756,26 @@ function paintPmReqPanel(){
     wireKv(p, t.params, () => { t.url = t.url.split('?')[0] + (t.params.filter(r => r.key).length ? '?' + t.params.filter(r => r.key).map(r => encodeURIComponent(r.key) + '=' + encodeURIComponent(r.value)).join('&') : ''); $('#pmUrl').value = t.url; paintPmTabbar(); });
   } else if(t.activeReqTab === 'headers'){
     const authHeaders = Object.entries(pmAuthHeader(t)).map(([k, v]) => ({key:k, value:v, on:true, auto:true}));
+    if(pmNeedsSigning(t)) authHeaders.push({key:'Authorization', value:'<calculated when request is sent>', on:true, auto:true});
+    const autoCt = pmAutoCt(t); if(autoCt) authHeaders.push({key:'Content-Type', value:autoCt, on:true, auto:true});
     p.innerHTML = kvTable(authHeaders.concat(t.headers));
     wireKv(p, t.headers, null, authHeaders.length);
   } else if(t.activeReqTab === 'body'){
-    if(!['POST', 'PUT', 'PATCH'].includes(t.method)){ p.innerHTML = '<p class="muted">' + t.method + ' requests do not send a body.</p>'; return; }
-    p.innerHTML = '<div class="pm-mode"><label><input type="radio" name="bm" value="json" ' + (t.bodyMode === 'json' ? 'checked' : '') + '> raw</label>' +
-    (t.bodyMode === 'json' ? '<select id="pmRawType" style="width:auto;padding:4px 8px;font-size:.82rem">' + PM_RAW_TYPES.map(rt => '<option value="' + rt.k + '"' + (t.rawType === rt.k ? ' selected' : '') + '>' + rt.label + '</option>').join('') + '</select>' : '') +
-    '<label><input type="radio" name="bm" value="none" ' + (t.bodyMode === 'none' ? 'checked' : '') + '> none</label>' +
-    '<button class="btn btn-sm" id="pmFormatJson" style="margin-left:auto">✨ Beautify</button></div>' +
-    '<textarea class="code-area" id="pmBody" spellcheck="false" style="min-height:260px" ' + (t.bodyMode === 'none' ? 'disabled' : '') + '>' + esc(t.body) + '</textarea><div class="pm-hint" id="pmBodyErr"></div>';
-    $('#pmBody').addEventListener('input', e => { t.body = e.target.value; t.saved = false; validateBodyLive(); });
-    $$('input[name="bm"]').forEach(r => r.addEventListener('change', () => { t.bodyMode = r.value; paintPmReqPanel(); }));
-    const rawTypeSel = $('#pmRawType');
-    if(rawTypeSel) rawTypeSel.addEventListener('change', e => {
-      t.rawType = e.target.value;
-      const ct = PM_RAW_TYPES.find(rt => rt.k === e.target.value).ct;
-      const ctRow = t.headers.find(h => h.key.toLowerCase() === 'content-type');
-      if(ctRow) ctRow.value = ct;
-      paintPmReqPanel();
-    });
-    $('#pmFormatJson').addEventListener('click', () => { try{ t.body = JSON.stringify(JSON.parse($('#pmBody').value), null, 2); paintPmReqPanel(); }catch(e){ toast('Body is not valid JSON', 'err'); } });
-    validateBodyLive();
-    function validateBodyLive(){ if(t.bodyMode !== 'json' || t.rawType !== 'json') { $('#pmBodyErr').textContent = ''; return; } try{ if($('#pmBody').value.trim()) JSON.parse($('#pmBody').value); $('#pmBodyErr').textContent = ''; }catch(e){ $('#pmBodyErr').innerHTML = '<span style="color:#b91c1c">⚠ Invalid JSON — ' + esc(e.message) + '</span>'; } }
+    paintPmBody(t, p);
   } else if(t.activeReqTab === 'auth'){
-    const d = t.authData = t.authData || {};
-    const F = (k, l, ph) => '<div class="field"><label>' + l + '</label><input type="text" data-ad="' + k + '" value="' + esc(d[k] || '') + '" placeholder="' + esc(ph || '') + '"></div>';
-    const T = {none:'No Auth', bearer:'Bearer Token', basic:'Basic Auth', apikey:'API Key', jwt:'JWT Bearer', oauth2:'OAuth 2.0 (access token)'};
-    const form = {none:'<p class="muted small">No Authorization is sent.</p>', bearer:F('token', 'Token', '{{token}}'), oauth2:F('token', 'Access token', '{{token}}'), jwt:F('prefix', 'Header prefix', 'Bearer') + F('token', 'JWT', '{{token}}'), basic:F('user', 'Username') + F('pass', 'Password'),
-      apikey:F('key', 'Key', 'X-API-Key') + F('value', 'Value') + '<div class="field"><label>Add to</label><select data-ad="in"><option value="header"' + (d.in !== 'query' ? ' selected' : '') + '>Header</option><option value="query"' + (d.in === 'query' ? ' selected' : '') + '>Query params</option></select></div>'}[t.authType || 'none'];
-    p.innerHTML = '<div class="field"><label>Auth type</label><select id="pmAuthType" style="max-width:260px">' + Object.entries(T).map(([k, l]) => '<option value="' + k + '"' + (t.authType === k ? ' selected' : '') + '>' + l + '</option>').join('') + '</select></div>' + form +
-      '<div class="pm-hint">All fields accept <code>{{variables}}</code>. The sandbox API only accepts Bearer tokens — Basic and API Key are for practising 401 responses and header handling.</div>';
-    $('#pmAuthType').addEventListener('change', e => { t.authType = e.target.value; if(['bearer', 'oauth2', 'jwt'].includes(t.authType) && !d.token) d.token = '{{token}}'; t.saved = false; paintPmReqTabs(); paintPmReqPanel(); });
-    $$('[data-ad]', p).forEach(el => el.addEventListener('input', () => { d[el.dataset.ad] = el.value; t.saved = false; }));
+    const d = t.authData = t.authData || {}, cfg = PM_AUTH[t.authType || 'none'] || PM_AUTH.none;
+    cfg.fields.forEach(f => { if(d[f.k] === undefined && f.d !== undefined) d[f.k] = f.d; });
+    const fld = f => {
+      const v = d[f.k] !== undefined ? d[f.k] : '', at = ' data-ad="' + f.k + '"';
+      if(f.t === 'select') return '<div class="field"><label>' + f.l + '</label><select' + at + '>' + f.o.map(([k, l]) => '<option value="' + k + '"' + (v === k ? ' selected' : '') + '>' + l + '</option>').join('') + '</select></div>';
+      if(f.t === 'textarea') return '<div class="field"><label>' + f.l + '</label><textarea class="code-area"' + at + ' spellcheck="false" style="min-height:' + (f.h || 90) + 'px" placeholder="' + esc(f.ph || '') + '">' + esc(v) + '</textarea></div>';
+      return '<div class="field"><label>' + f.l + '</label><input type="' + (f.t === 'password' ? 'password' : 'text') + '"' + at + ' value="' + esc(v) + '" placeholder="' + esc(f.ph || '') + '" autocomplete="off"></div>';
+    };
+    p.innerHTML = '<div class="field"><label>Auth type</label><select id="pmAuthType" style="max-width:300px">' + PM_AUTH_GROUPS.map(([g, ks]) => '<optgroup label="' + g + '">' + ks.map(k => '<option value="' + k + '"' + ((t.authType || 'none') === k ? ' selected' : '') + '>' + PM_AUTH[k].label + '</option>').join('') + '</optgroup>').join('') + '</select></div>' +
+      (cfg.note ? '<div class="pm-hint" style="margin:0 0 10px">' + cfg.note + '</div>' : '') + '<div style="max-width:620px">' + cfg.fields.map(fld).join('') + '</div>' +
+      (cfg.fields.length ? '<div class="pm-hint">Every field accepts <code>{{variables}}</code>. Sandbox endpoints only validate Bearer tokens; the other types are for real APIs and for practising header handling.</div>' : '');
+    $('#pmAuthType').addEventListener('change', e => { t.authType = e.target.value; if(['bearer', 'oauth2'].includes(t.authType) && !d.token) d.token = '{{token}}'; t.saved = false; paintPmReqTabs(); paintPmReqPanel(); });
+    $$('[data-ad]', p).forEach(el => ['input', 'change'].forEach(ev => el.addEventListener(ev, () => { d[el.dataset.ad] = el.value; t.saved = false; })));
   } else if(t.activeReqTab === 'vars'){
     p.innerHTML = '<p class="muted small">Local variables belong to this request only and override folder, collection, environment and global variables. Use them as <code>{{name}}</code>.</p>' + kvTable(t.locals);
     wireKv(p, t.locals, () => { t.saved = false; });
@@ -3255,11 +3798,11 @@ function paintPmReqPanel(){
     });
   }
 }
-function wireKv(container, arr, onParamChange){
-  container.querySelectorAll('[data-krow]').forEach(el => el.addEventListener('change', () => { arr[Number(el.dataset.krow)].on = el.checked; if(onParamChange) onParamChange(); }));
-  container.querySelectorAll('[data-kkey]').forEach(el => el.addEventListener('input', () => { arr[Number(el.dataset.kkey)].key = el.value; if(onParamChange) onParamChange(); }));
-  container.querySelectorAll('[data-kval]').forEach(el => el.addEventListener('input', () => { arr[Number(el.dataset.kval)].value = el.value; if(onParamChange) onParamChange(); }));
-  container.querySelectorAll('[data-kdel]').forEach(el => el.addEventListener('click', () => { arr.splice(Number(el.dataset.kdel), 1); if(onParamChange) onParamChange(); paintPmReqPanel(); }));
+function wireKv(container, arr, onParamChange, off = 0){
+  container.querySelectorAll('[data-krow]').forEach(el => el.addEventListener('change', () => { arr[Number(el.dataset.krow) - off].on = el.checked; if(onParamChange) onParamChange(); }));
+  container.querySelectorAll('[data-kkey]').forEach(el => el.addEventListener('input', () => { arr[Number(el.dataset.kkey) - off].key = el.value; if(onParamChange) onParamChange(); }));
+  container.querySelectorAll('[data-kval]').forEach(el => el.addEventListener('input', () => { arr[Number(el.dataset.kval) - off].value = el.value; if(onParamChange) onParamChange(); }));
+  container.querySelectorAll('[data-kdel]').forEach(el => el.addEventListener('click', () => { arr.splice(Number(el.dataset.kdel) - off, 1); if(onParamChange) onParamChange(); paintPmReqPanel(); }));
   const nk = container.querySelector('[data-knew="key"]'), nv = container.querySelector('[data-knew="value"]');
   const maybeCommit = () => setTimeout(() => {
     const active = document.activeElement;
@@ -3303,7 +3846,7 @@ function openVarsHub(scope, ci, fi){
     (scope === 'folder' ? '<select id="hubFold" style="max-width:360px;margin-bottom:8px">' + PM.collections.map((c, i) => c.folders.map((f, j) => '<option value="' + i + ':' + j + '"' + (i === ci && j === fi ? ' selected' : '') + '>' + esc(c.name) + ' / ' + esc(f.name) + '</option>').join('')).join('') + '</select>' : '') +
     (scope === 'env' ? '<div class="row" style="margin-bottom:8px"><b class="small">' + esc(pmActiveEnv().name) + '</b><button class="btn btn-sm" id="hubEnvMgr">Manage environments…</button></div>' : '') +
     (arr ? kvTable(arr) : '<p class="muted">' + (scope === 'local' ? 'Open a request tab first — local variables belong to a request.' : 'Create a collection / folder first (My Collection tab).') + '</p>') +
-    '<p class="muted small mt">Priority when names clash: Local → Folder → Collection → Environment → Global. Edit, add (bottom row) or 🗑 delete — changes save instantly.</p>' +
+    '<p class="muted small mt">Priority when names clash: Local → Folder → Collection → Environment → Global. Edit, add (bottom row) or the trash icon to delete — changes save instantly.</p>' +
     '<div class="modal-actions"><button class="btn btn-primary" data-action="closeModal">Done</button></div>';
   };
   const bd = openModal(body(), {cls:'modal-lg'}); wire();
@@ -3324,7 +3867,7 @@ function openEnvManagerModal(){
     '<div class="row" style="margin-bottom:12px">' +
       '<select id="envPick" style="max-width:220px">' + PM.environments.map(e => '<option value="' + e.id + '"' + (e.id === env.id ? ' selected' : '') + '>' + esc(e.name) + '</option>').join('') + '</select>' +
       '<button class="btn btn-sm" id="envAddNew">+ New environment</button>' +
-      (PM.environments.length > 1 ? '<button class="btn btn-sm btn-danger" id="envDelete">🗑 Delete this one</button>' : '') +
+      (PM.environments.length > 1 ? '<button class="btn btn-sm btn-danger" id="envDelete">' + ic('trash', 14) + ' Delete this one</button>' : '') +
     '</div>' +
     '<div class="field"><label>Environment name</label><input type="text" id="envName" value="' + esc(env.name) + '"></div>' +
     '<label class="small" style="font-weight:700">Variables</label>' +
@@ -3349,22 +3892,30 @@ function pmTabsOf(c, only){
   c.folders.forEach((f, fi) => { if(only === undefined || only === fi) f.reqs.forEach((r, ri) => out.push(freshTab(Object.assign({}, r, {params:(r.params || []).slice(), headers:(r.headers || []).slice(), _ci:ci, _fi:fi, _ri:ri})))); });
   return out;
 }
-function pmColAction(a, [ci, fi, ri]){
+function pmFixLinks(ci, fi, ri){
+  PM.tabs.forEach(tb => {
+    if(tb._ci === undefined) return;
+    if(fi === undefined){ if(tb._ci === ci){ delete tb._ci; delete tb._fi; delete tb._ri; } else if(tb._ci > ci) tb._ci--; }
+    else if(ri === undefined){ if(tb._ci === ci){ if(tb._fi === fi){ delete tb._fi; delete tb._ri; } else if(tb._fi > fi) tb._fi--; } }
+    else if(tb._ci === ci && tb._fi === fi){ if(tb._ri === ri) delete tb._ri; else if(tb._ri > ri) tb._ri--; }
+  });
+}
+async function pmColAction(a, [ci, fi, ri]){
   const c = PM.collections[ci], f = c && c.folders[fi], done = () => { pmSaveCollection(); paintPmSide('mycol'); };
-  const ask = (m, d) => { const n = prompt(m, d); return n && n.trim() ? n.trim() : null; };
-  const del = (title, fn) => confirmDelete({title, onConfirm(){ fn(); done(); }});
-  if(a === 'cnew'){ const n = ask('Collection name', 'New Collection'); if(n){ PM.collections.push({id:'col_' + uid(), name:n, vars:[], folders:[]}); done(); } }
-  else if(a === 'cren'){ const n = ask('Collection name', c.name); if(n){ c.name = n; done(); } }
-  else if(a === 'cdel') del('Delete collection "' + c.name + '"?', () => PM.collections.splice(ci, 1));
-  else if(a === 'cfold'){ const n = ask('Folder name', 'New Folder'); if(n){ c.folders.push({id:'fold_' + uid(), name:n, vars:[], reqs:[]}); PM.open['c' + ci] = true; done(); } }
-  else if(a === 'fren'){ const n = ask('Folder name', f.name); if(n){ f.name = n; done(); } }
-  else if(a === 'fdel') del('Delete folder "' + f.name + '" and its requests?', () => c.folders.splice(fi, 1));
-  else if(a === 'freq'){ const t = freshTab({name:'New Request', _ci:ci, _fi:fi}); PM.tabs.push(t); PM.activeId = t.id; paintPmMain(); toast('Configure the request, then click 💾 Save', 'ok'); }
+  const del = (title, body, fn) => confirmDelete({title, body, onConfirm(){ fn(); done(); }});
+  if(a === 'cnew'){ const n = await askText({title:'New collection', label:'Collection name', value:'New Collection', ok:'Create'}); if(n){ PM.collections.push({id:'col_' + uid(), name:n, vars:[], folders:[]}); done(); } }
+  else if(a === 'cren'){ const n = await askText({title:'Rename collection', label:'Collection name', value:c.name, ok:'Rename'}); if(n){ c.name = n; done(); } }
+  else if(a === 'cdel') del('Delete collection "' + esc(c.name) + '"?', 'This removes the collection with all its folders, requests and variables.', () => { PM.collections.splice(ci, 1); pmFixLinks(ci); });
+  else if(a === 'cfold'){ const n = await askText({title:'New folder', label:'Folder name in "' + c.name + '"', value:'New Folder', ok:'Create'}); if(n){ c.folders.push({id:'fold_' + uid(), name:n, vars:[], reqs:[]}); PM.open['c' + ci] = true; done(); } }
+  else if(a === 'fren'){ const n = await askText({title:'Rename folder', label:'Folder name', value:f.name, ok:'Rename'}); if(n){ f.name = n; done(); } }
+  else if(a === 'fdel') del('Delete folder "' + esc(f.name) + '"?', 'This removes the folder with all its requests and variables.', () => { c.folders.splice(fi, 1); pmFixLinks(ci, fi); });
+  else if(a === 'freq'){ const n = await askText({title:'New request', label:'Request name', value:'New Request', ok:'Create'}); if(n){ const t = freshTab({name:n, _ci:ci, _fi:fi, saved:false}); PM.tabs.push(t); PM.activeId = t.id; PM.open['f' + ci + '_' + fi] = true; paintPmMain(); toast('Set up the request, then press Save to add it to the folder', 'ok'); } }
   else if(a === 'cvars') openVarsHub('collection', ci);
   else if(a === 'fvars') openVarsHub('folder', ci, fi);
   else if(a === 'crun') runCollectionFolder(c.name, pmTabsOf(c));
   else if(a === 'frun') runCollectionFolder(c.name + ' / ' + f.name, pmTabsOf(c, fi));
-  else if(a === 'rqdel') del('Delete request "' + f.reqs[ri].name + '"?', () => f.reqs.splice(ri, 1));
+  else if(a === 'rqdel') del('Delete request "' + esc(f.reqs[ri].name) + '"?', 'This cannot be undone.', () => { f.reqs.splice(ri, 1); pmFixLinks(ci, fi, ri); });
+  else if(a === 'rqren'){ const n = await askText({title:'Rename request', label:'Request name', value:f.reqs[ri].name, ok:'Rename'}); if(n){ f.reqs[ri].name = n; PM.tabs.forEach(tb => { if(tb._ci === ci && tb._fi === fi && tb._ri === ri) tb.name = n; }); done(); if($('#pmTabbar')) paintPmTabbar(); } }
   else if(a === 'rqopen'){ const r = f.reqs[ri]; const t = freshTab(Object.assign({}, r, {params:(r.params || []).slice(), headers:(r.headers || []).slice(), _ci:ci, _fi:fi, _ri:ri})); PM.tabs.push(t); PM.activeId = t.id; paintPmMain(); }
 }
 function openSaveToCollectionModal(t){
@@ -3393,7 +3944,7 @@ function openSaveToCollectionModal(t){
   $('#saveColForm', bd).addEventListener('submit', e => {
     e.preventDefault();
     const fd = new FormData(e.target), name = fd.get('name').trim() || 'Untitled request';
-    const shape = JSON.parse(JSON.stringify({name, method:t.method, url:t.url, params:t.params, headers:t.headers, body:t.body, bodyMode:t.bodyMode, rawType:t.rawType, authType:t.authType, authData:t.authData, locals:t.locals, tests:t.tests, preRequest:t.preRequest}));
+    const shape = JSON.parse(JSON.stringify({name, method:t.method, url:t.url, params:t.params, headers:t.headers, body:t.body, bodyMode:t.bodyMode, rawType:t.rawType, formData:t.formData, urlenc:t.urlenc, gqlQuery:t.gqlQuery, gqlVars:t.gqlVars, binFile:t.binFile, authType:t.authType, authData:t.authData, locals:t.locals, tests:t.tests, preRequest:t.preRequest, need:t.need || null, noAutoToken:!!t.noAutoToken})); pmStripBig(shape);
     if(upd && box && box.checked){ cc.folders[t._fi].reqs[t._ri] = shape; pmSaveCollection(); t.name = name; t.saved = true; paintPmTabbar(); closeModal(); toast('Updated "' + name + '"', 'ok'); return; }
     let ci = fd.get('col');
     if(ci === '__new__'){ PM.collections.push({id:'col_' + uid(), name:(fd.get('newCol') || '').trim() || 'New Collection', vars:[], folders:[]}); ci = PM.collections.length - 1; } else ci = Number(ci);
@@ -3405,11 +3956,11 @@ function openSaveToCollectionModal(t){
 }
 function paintPmResponse(){
   const t = activeTab(); const wrap = $('#pmRespWrap');
-  if(!t.response){ wrap.innerHTML = '<div class="pm-empty"><div class="big">🚀</div><p>Click <b>Send</b> to get a response.</p></div>'; return; }
+  if(!t.response){ wrap.innerHTML = '<div class="pm-empty"><div class="big">' + ic('send', 40) + '</div><p>Click <b>Send</b> to get a response.</p></div>'; return; }
   const r = t.response;
   if(r.network){ wrap.innerHTML = '<div class="pm-panel"><div class="pm-err">Could not send request:<br>' + esc(r.network) + '</div></div>'; return; }
   const stCls = r.status < 300 ? 'st-2' : r.status < 400 ? 'st-3' : r.status < 500 ? 'st-4' : 'st-5';
-  wrap.innerHTML = '<div class="pm-res-bar"><span class="st ' + stCls + '">' + r.status + ' ' + esc(r.statusText) + '</span><span>Time: <b>' + r.ms + ' ms</b></span><span>Size: <b>' + (r.size < 1024 ? r.size + ' B' : (r.size / 1024).toFixed(1) + ' KB') + '</b></span><button class="btn btn-sm" id="pmSaveResponse">💾 Save Response</button></div>' +
+  wrap.innerHTML = '<div class="pm-res-bar"><span class="st ' + stCls + '">' + r.status + ' ' + esc(r.statusText) + '</span><span>Time: <b>' + r.ms + ' ms</b></span><span>Size: <b>' + (r.size < 1024 ? r.size + ' B' : (r.size / 1024).toFixed(1) + ' KB') + '</b></span><button class="btn btn-sm" id="pmSaveResponse">' + ic('download', 14) + ' Save Response</button></div>' +
   '<div class="pm-rtabs" id="pmResTabs"><button class="active" data-rres="body">Body</button><button data-rres="cookies">Cookies</button><button data-rres="headers">Headers (' + Object.keys(r.headers).length + ')</button><button data-rres="tests">Test Results</button></div>' +
   '<div class="pm-panel" id="pmResPanel"></div>';
   $('#pmSaveResponse').addEventListener('click', () => {
@@ -3450,35 +4001,257 @@ function pmApi(t){
   const mk = (sc, get) => ({set:(k, v) => pmSetVar(sc, String(k), v, t), get:k => get(String(k))});
   const col = () => PM.collections[t && t._ci] || PM.collections[0];
   return {environment:mk('env', k => pmEnvVar(k)), globals:mk('globals', k => (PM.globals.find(x => x.key === k) || {}).value),
-    collectionVariables:mk('collection', k => (col().vars.find(x => x.key === k) || {}).value), variables:mk('local', k => ((t && t.locals || []).find(x => x.key === k) || {}).value)};
+    collectionVariables:mk('collection', k => (col().vars.find(x => x.key === k) || {}).value), variables:mk('local', k => ((t && t.locals || []).find(x => x.key === k) || {}).value),
+    iterationData:{get:k => PM.dataRow ? PM.dataRow[k] : undefined, toObject:() => Object.assign({}, PM.dataRow || {})},
+    info:{iteration:PM.iter ? PM.iter.i : 0, iterationCount:PM.iter ? PM.iter.n : 1, requestName:t && t.name}};
 }
 const pmConsole = {log:(...a) => pmLog('log', a.map(x => typeof x === 'object' ? JSON.stringify(x) : x).join(' ')), warn:(...a) => pmLog('warn', a.join(' ')), error:(...a) => pmLog('error', a.join(' '))};
 function runPmPreRequest(code, t){
   if(!code || !code.trim()) return;
   try{ (new Function('pm', 'console', code))(pmApi(t), pmConsole); }catch(e){ toast('Pre-request script error: ' + e.message, 'err'); pmIssue('Pre-request script error in "' + t.name + '": ' + e.message); }
 }
+const PM_AUTH = (() => {
+  const T = (k, l, o) => Object.assign({k, l}, o || {});
+  const IN = T('in', 'Add to', {t:'select', o:[['header', 'Header'], ['query', 'Query Params']], d:'header'});
+  return {
+    none:{label:'No Auth', fields:[], note:'This request does not send any authorization.'},
+    apikey:{label:'API Key', fields:[T('key', 'Key', {ph:'X-API-Key'}), T('value', 'Value'), IN]},
+    basic:{label:'Basic Auth', fields:[T('user', 'Username'), T('pass', 'Password', {t:'password'})], note:'Sends <code>Authorization: Basic base64(username:password)</code>.'},
+    bearer:{label:'Bearer Token', fields:[T('token', 'Token', {ph:'{{token}}'})], note:'Sends <code>Authorization: Bearer &lt;token&gt;</code>.'},
+    digest:{label:'Digest Auth', fields:[T('user', 'Username'), T('pass', 'Password', {t:'password'}), T('realm', 'Realm (optional)'), T('nonce', 'Nonce (optional)'), T('alg', 'Algorithm', {t:'select', o:[['MD5', 'MD5'], ['MD5-sess', 'MD5-sess'], ['SHA-256', 'SHA-256'], ['SHA-256-sess', 'SHA-256-sess']], d:'MD5'}), T('qop', 'Quality of protection (optional)', {ph:'auth'}), T('nc', 'Nonce count (optional)', {ph:'00000001'}), T('cnonce', 'Client nonce (optional)'), T('opaque', 'Opaque (optional)')],
+      note:'The request is sent first; if the server answers <code>401</code> with a <code>WWW-Authenticate: Digest</code> challenge, the response is calculated and the request is repeated automatically. The browser can only read that header if the server exposes it (CORS). Fill in Realm and Nonce to send the Authorization header straight away.'},
+    hawk:{label:'Hawk Authentication', fields:[T('id', 'Hawk Auth ID'), T('key', 'Hawk Auth Key', {t:'password'}), T('alg', 'Algorithm', {t:'select', o:[['sha256', 'sha256'], ['sha1', 'sha1']], d:'sha256'}), T('ext', 'ext (optional)'), T('app', 'app (optional)'), T('dlg', 'dlg (optional)'), T('nonce', 'Nonce (optional)'), T('ts', 'Timestamp, seconds (optional)')], note:'Generates <code>Authorization: Hawk id=…, ts=…, nonce=…, mac=…</code> (payload hash is not included).'},
+    jwt:{label:'JWT Bearer', fields:[T('alg', 'Algorithm', {t:'select', o:[['HS256', 'HS256'], ['HS384', 'HS384'], ['HS512', 'HS512']], d:'HS256'}), T('secret', 'Secret', {t:'password'}), T('payload', 'Payload (JSON)', {t:'textarea', d:'{\n  "sub": "1234567890",\n  "name": "QA Tester"\n}', h:110}), T('prefix', 'Header prefix', {d:'Bearer'}), IN, T('qname', 'Query param name', {d:'token'}), T('token', 'Existing token (optional, used when Secret is empty)', {ph:'{{token}}'})], note:'Builds and signs the JWT for you with the secret. Leave Secret empty to send an existing token instead.'},
+    oauth1:{label:'OAuth 1.0', fields:[T('sm', 'Signature method', {t:'select', o:[['HMAC-SHA1', 'HMAC-SHA1'], ['HMAC-SHA256', 'HMAC-SHA256'], ['PLAINTEXT', 'PLAINTEXT']], d:'HMAC-SHA1'}), T('ck', 'Consumer key'), T('cs', 'Consumer secret', {t:'password'}), T('tk', 'Access token'), T('tsec', 'Token secret', {t:'password'}), T('realm', 'Realm (optional)'), T('ver', 'Version', {d:'1.0'}), T('ts', 'Timestamp (optional)'), T('nonce', 'Nonce (optional)'), IN], note:'Signs the request (method, URL, query and form parameters) and sends an <code>OAuth …</code> Authorization header.'},
+    oauth2:{label:'OAuth 2.0', fields:[T('token', 'Access token', {ph:'{{token}}'}), T('prefix', 'Header prefix', {d:'Bearer'}), IN], note:'Paste an access token. Query mode sends it as <code>?access_token=</code>.'},
+    akamai:{label:'Akamai EdgeGrid', fields:[T('at', 'Access token'), T('ct', 'Client token'), T('cs', 'Client secret', {t:'password'}), T('nonce', 'Nonce (optional)'), T('ts', 'Timestamp (optional)'), T('base', 'Base URL (optional)', {ph:'https://akab-xxxx.luna.akamaiapis.net'}), T('hs', 'Headers to sign (comma separated, optional)')], note:'Generates <code>EG1-HMAC-SHA256</code> Authorization.'},
+    asap:{label:'ASAP (Atlassian)', fields:[T('alg', 'Algorithm', {t:'select', o:[['RS256', 'RS256'], ['RS384', 'RS384'], ['RS512', 'RS512']], d:'RS256'}), T('iss', 'Issuer'), T('aud', 'Audience'), T('kid', 'Key ID'), T('sub', 'Subject (optional)'), T('exp', 'Expiry in seconds', {d:'3600'}), T('claims', 'Additional claims (JSON, optional)', {t:'textarea', h:70}), T('key', 'Private key (PKCS#8 PEM)', {t:'textarea', h:120, ph:'-----BEGIN PRIVATE KEY-----'})], note:'Signs a short-lived JWT with your RSA private key and sends it as a Bearer token.'},
+    aws:{label:'AWS Signature', fields:[T('ak', 'Access key'), T('sk', 'Secret key', {t:'password'}), T('region', 'AWS region', {d:'us-east-1'}), T('service', 'Service name', {ph:'execute-api'}), T('st', 'Session token (optional)', {t:'password'})], note:'Generates an <code>AWS4-HMAC-SHA256</code> (Signature V4) Authorization header plus <code>X-Amz-Date</code>.'},
+    ntlm:{label:'NTLM Authentication', fields:[T('username', 'Username'), T('password', 'Password', {t:'password'}), T('domain', 'Domain'), T('workstation', 'Workstation')], note:'<b>Not supported in the browser.</b> NTLM is a multi-step handshake that must stay on one connection, which browser JavaScript cannot do. You can keep the details here, but no Authorization header is generated. Use Postman desktop or <code>curl --ntlm</code> for NTLM.'}
+  };
+})();
+const PM_AUTH_GROUPS = [['Standard', ['apikey', 'basic', 'bearer', 'digest', 'hawk', 'jwt', 'oauth1', 'oauth2']], ['Signed / enterprise', ['akamai', 'asap', 'aws', 'ntlm']], ['No auth', ['none']]];
+const PM_SIGNED_TYPES = ['digest', 'hawk', 'oauth1', 'akamai', 'asap', 'aws'];
+const pmNeedsSigning = t => PM_SIGNED_TYPES.includes(t.authType) || (t.authType === 'jwt' && t.authData && t.authData.secret && t.authData.in !== 'query');
+
 function pmAuthHeader(t){
   const d = t.authData || {}, s = x => pmSubstitute(x, t);
   switch(t.authType){
-    case 'bearer': case 'oauth2': return {Authorization:'Bearer ' + s(d.token || '')};
-    case 'jwt': return {Authorization:(d.prefix || 'Bearer') + ' ' + s(d.token || '')};
-    case 'basic': return {Authorization:'Basic ' + btoa(s(d.user || '') + ':' + s(d.pass || ''))};
+    case 'bearer': return {Authorization:'Bearer ' + s(d.token || '')};
+    case 'oauth2': return d.in === 'query' ? {} : {Authorization:(d.prefix !== undefined ? s(d.prefix) : 'Bearer') + ' ' + s(d.token || '')};
+    case 'jwt': return !d.secret && d.token && d.in !== 'query' ? {Authorization:(d.prefix !== undefined ? s(d.prefix) : 'Bearer') + ' ' + s(d.token)} : {};
+    case 'basic': return {Authorization:'Basic ' + btoa(unescape(encodeURIComponent(s(d.user || '') + ':' + s(d.pass || ''))))};
     case 'apikey': return d.in === 'query' ? {} : {[s(d.key || 'X-API-Key')]:s(d.value || '')};
   }
   return {};
 }
+function pmAuthQuery(t){
+  const d = t.authData || {}, s = x => pmSubstitute(x, t);
+  if(t.authType === 'apikey' && d.in === 'query') return [[s(d.key || 'api_key'), s(d.value || '')]];
+  if(t.authType === 'oauth2' && d.in === 'query') return [['access_token', s(d.token || '')]];
+  if(t.authType === 'jwt' && !d.secret && d.token && d.in === 'query') return [[s(d.qname || 'token'), s(d.token)]];
+  return [];
+}
+
+/* ---- crypto helpers (Web Crypto) ---- */
+const PM_ENC = new TextEncoder();
+const pmBuf = x => typeof x === 'string' ? PM_ENC.encode(x) : x;
+const pmHex = b => Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2, '0')).join('');
+const pmB64 = b => { let s = ''; new Uint8Array(b).forEach(x => { s += String.fromCharCode(x); }); return btoa(s); };
+const pmB64Url = x => (typeof x === 'string' ? btoa(unescape(encodeURIComponent(x))) : pmB64(x)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const pmRfc3986 = s => encodeURIComponent(s).replace(/[!'()*]/g, c => '%' + c.charCodeAt(0).toString(16).toUpperCase());
+function pmSubtle(){ if(!(window.crypto && crypto.subtle)) throw new Error('your browser blocks the Web Crypto API on this page (open the file from disk or over https)'); return crypto.subtle; }
+async function pmHmac(hash, key, data){ const k = await pmSubtle().importKey('raw', pmBuf(key), {name:'HMAC', hash}, false, ['sign']); return await pmSubtle().sign('HMAC', k, pmBuf(data)); }
+async function pmSha(hash, data){ return await pmSubtle().digest(hash, pmBuf(data)); }
+function pmMd5(str){
+  const b = Array.from(PM_ENC.encode(str)), len = b.length;
+  const K = Array.from({length:64}, (_, i) => Math.floor(Math.abs(Math.sin(i + 1)) * 4294967296) >>> 0);
+  const S = [7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21];
+  b.push(0x80); while(b.length % 64 !== 56) b.push(0);
+  const bits = len * 8; for(let i = 0; i < 8; i++) b.push(i < 4 ? (bits >>> (8 * i)) & 255 : (Math.floor(bits / 4294967296) >>> (8 * (i - 4))) & 255);
+  let a0 = 0x67452301, b0 = 0xefcdab89 | 0, c0 = 0x98badcfe | 0, d0 = 0x10325476;
+  for(let o = 0; o < b.length; o += 64){
+    const M = []; for(let i = 0; i < 16; i++) M[i] = b[o + 4 * i] | (b[o + 4 * i + 1] << 8) | (b[o + 4 * i + 2] << 16) | (b[o + 4 * i + 3] << 24);
+    let A = a0, B = b0, C = c0, D = d0;
+    for(let i = 0; i < 64; i++){
+      let F, g;
+      if(i < 16){ F = (B & C) | (~B & D); g = i; } else if(i < 32){ F = (D & B) | (~D & C); g = (5 * i + 1) % 16; } else if(i < 48){ F = B ^ C ^ D; g = (3 * i + 5) % 16; } else { F = C ^ (B | ~D); g = (7 * i) % 16; }
+      F = (F + A + K[i] + M[g]) | 0; A = D; D = C; C = B; B = (B + ((F << S[i]) | (F >>> (32 - S[i])))) | 0;
+    }
+    a0 = (a0 + A) | 0; b0 = (b0 + B) | 0; c0 = (c0 + C) | 0; d0 = (d0 + D) | 0;
+  }
+  return [a0, b0, c0, d0].map(v => [0, 1, 2, 3].map(i => ((v >>> (8 * i)) & 255).toString(16).padStart(2, '0')).join('')).join('');
+}
+async function pmAwsAuth(p){
+  const u = new URL(p.url), now = p.date || new Date(), iso = now.toISOString().replace(/[:\-]|\.\d{3}/g, ''), day = iso.slice(0, 8);
+  const hdr = {}; Object.entries(p.headers || {}).forEach(([k, v]) => { hdr[k.toLowerCase()] = String(v).trim().replace(/\s+/g, ' '); });
+  hdr.host = u.host; hdr['x-amz-date'] = iso; if(p.token) hdr['x-amz-security-token'] = p.token;
+  const signed = ['content-type', 'host', 'x-amz-date', 'x-amz-security-token'].filter(k => k in hdr);
+  const q = []; u.searchParams.forEach((v, k) => q.push([pmRfc3986(k), pmRfc3986(v)])); q.sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : a[1] < b[1] ? -1 : a[1] > b[1] ? 1 : 0);
+  const canon = [p.method.toUpperCase(), u.pathname.split('/').map(x => pmRfc3986(decodeURIComponent(x))).join('/') || '/', q.map(x => x.join('=')).join('&'), signed.map(k => k + ':' + hdr[k] + '\n').join(''), signed.join(';'), pmHex(await pmSha('SHA-256', p.body || ''))].join('\n');
+  const scope = day + '/' + p.region + '/' + p.service + '/aws4_request';
+  const sts = 'AWS4-HMAC-SHA256\n' + iso + '\n' + scope + '\n' + pmHex(await pmSha('SHA-256', canon));
+  let k = await pmHmac('SHA-256', 'AWS4' + p.secretKey, day); k = await pmHmac('SHA-256', k, p.region); k = await pmHmac('SHA-256', k, p.service); k = await pmHmac('SHA-256', k, 'aws4_request');
+  const out = {'X-Amz-Date':iso, Authorization:'AWS4-HMAC-SHA256 Credential=' + p.accessKey + '/' + scope + ', SignedHeaders=' + signed.join(';') + ', Signature=' + pmHex(await pmHmac('SHA-256', k, sts))};
+  if(p.token) out['X-Amz-Security-Token'] = p.token;
+  return out;
+}
+const pmAddQuery = (url, pairs) => url + pairs.map(([k, v], i) => (i === 0 && !url.includes('?') ? '?' : '&') + encodeURIComponent(k) + '=' + encodeURIComponent(v)).join('');
+const pmHeaderOf = (h, n) => { const k = Object.keys(h).find(x => x.toLowerCase() === n); return k ? h[k] : ''; };
+
+/* Calculates Authorization for the signed auth types, just before sending. */
+async function pmSignAuth(t, eff){
+  const ty = t.authType, d = t.authData || {}, s = x => pmSubstitute(x == null ? '' : String(x), t);
+  if(ty === 'ntlm'){ pmLog('warn', 'NTLM Authentication cannot be performed from a browser - the request was sent without Authorization.'); pmIssue('"' + t.name + '": NTLM needs a connection handshake that browsers cannot do (use Postman desktop or curl --ntlm)'); return; }
+  if(!(PM_SIGNED_TYPES.includes(ty) || ty === 'jwt') || ty === 'digest') return;
+  if(ty === 'jwt' && !d.secret) return;
+  const label = PM_AUTH[ty].label, u = new URL(eff.url), bodyText = typeof eff.body === 'string' ? eff.body : '', m = eff.method.toUpperCase();
+  try{
+    if(ty === 'jwt'){
+      const alg = d.alg || 'HS256', map = {HS256:'SHA-256', HS384:'SHA-384', HS512:'SHA-512'}; let payload;
+      try{ payload = JSON.parse(s(d.payload !== undefined ? d.payload : '{}') || '{}'); }catch(e){ throw new Error('the payload is not valid JSON (' + e.message + ')'); }
+      const input = pmB64Url(JSON.stringify({alg, typ:'JWT'})) + '.' + pmB64Url(JSON.stringify(payload)), token = input + '.' + pmB64Url(await pmHmac(map[alg] || 'SHA-256', s(d.secret), input));
+      if(d.in === 'query') eff.url = pmAddQuery(eff.url, [[s(d.qname || 'token'), token]]);
+      else eff.headers.Authorization = ((d.prefix !== undefined ? s(d.prefix) : 'Bearer') + ' ' + token).trim();
+    }
+    else if(ty === 'hawk'){
+      const id = s(d.id), key = s(d.key); if(!id || !key) throw new Error('Auth ID and Auth Key are required');
+      const ts = s(d.ts) || String(Math.floor(Date.now() / 1000)), nonce = s(d.nonce) || Math.random().toString(36).slice(2, 8), ext = s(d.ext), app = s(d.app), dlg = s(d.dlg);
+      let norm = 'hawk.1.header\n' + ts + '\n' + nonce + '\n' + m + '\n' + u.pathname + u.search + '\n' + u.hostname.toLowerCase() + '\n' + (u.port || (u.protocol === 'https:' ? '443' : '80')) + '\n\n' + ext + '\n';
+      if(app) norm += app + '\n' + dlg + '\n';
+      const mac = pmB64(await pmHmac(d.alg === 'sha1' ? 'SHA-1' : 'SHA-256', key, norm)), q = x => x.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+      eff.headers.Authorization = 'Hawk id="' + q(id) + '", ts="' + ts + '", nonce="' + nonce + '"' + (ext ? ', ext="' + q(ext) + '"' : '') + ', mac="' + mac + '"' + (app ? ', app="' + q(app) + '"' + (dlg ? ', dlg="' + q(dlg) + '"' : '') : '');
+    }
+    else if(ty === 'oauth1'){
+      const sm = d.sm || 'HMAC-SHA1', o = {oauth_consumer_key:s(d.ck), oauth_signature_method:sm, oauth_timestamp:s(d.ts) || String(Math.floor(Date.now() / 1000)), oauth_nonce:s(d.nonce) || Math.random().toString(36).slice(2, 12), oauth_version:s(d.ver) || '1.0'};
+      if(!o.oauth_consumer_key) throw new Error('Consumer key is required'); if(s(d.tk)) o.oauth_token = s(d.tk);
+      const params = []; u.searchParams.forEach((v, k) => params.push([k, v]));
+      if(/x-www-form-urlencoded/i.test(pmHeaderOf(eff.headers, 'content-type')) && bodyText) new URLSearchParams(bodyText).forEach((v, k) => params.push([k, v]));
+      Object.entries(o).forEach(kv => params.push(kv));
+      const norm = params.map(([k, v]) => [pmRfc3986(k), pmRfc3986(v)]).sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : a[1] < b[1] ? -1 : a[1] > b[1] ? 1 : 0).map(x => x.join('=')).join('&');
+      const sk = pmRfc3986(s(d.cs)) + '&' + pmRfc3986(s(d.tsec)), base = m + '&' + pmRfc3986(u.origin + u.pathname) + '&' + pmRfc3986(norm);
+      o.oauth_signature = sm === 'PLAINTEXT' ? sk : pmB64(await pmHmac(sm === 'HMAC-SHA256' ? 'SHA-256' : 'SHA-1', sk, base));
+      if(d.in === 'query') eff.url = pmAddQuery(eff.url, Object.entries(o));
+      else eff.headers.Authorization = 'OAuth ' + (s(d.realm) ? 'realm="' + s(d.realm) + '", ' : '') + Object.entries(o).sort((a, b) => a[0] < b[0] ? -1 : 1).map(([k, v]) => k + '="' + pmRfc3986(v) + '"').join(', ');
+    }
+    else if(ty === 'akamai'){
+      const p2 = n => String(n).padStart(2, '0'), n = new Date();
+      const stamp = s(d.ts) || n.getUTCFullYear() + p2(n.getUTCMonth() + 1) + p2(n.getUTCDate()) + 'T' + p2(n.getUTCHours()) + ':' + p2(n.getUTCMinutes()) + ':' + p2(n.getUTCSeconds()) + '+0000';
+      const nonce = s(d.nonce) || (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)), at = s(d.at), ct = s(d.ct), cs = s(d.cs);
+      if(!at || !ct || !cs) throw new Error('Access token, client token and client secret are required');
+      const authBase = 'EG1-HMAC-SHA256 client_token=' + ct + ';access_token=' + at + ';timestamp=' + stamp + ';nonce=' + nonce + ';';
+      const bu = s(d.base), host = bu ? new URL(/^https?:/i.test(bu) ? bu : 'https://' + bu).host : u.host;
+      const hs = s(d.hs).split(',').map(x => x.trim().toLowerCase()).filter(Boolean).map(h => { const v = pmHeaderOf(eff.headers, h); return v ? h + ':' + String(v).trim().replace(/\s+/g, ' ') : ''; }).filter(Boolean).join('\t');
+      const ch = m === 'POST' && bodyText ? pmB64(await pmSha('SHA-256', bodyText)) : '';
+      const sk = pmB64(await pmHmac('SHA-256', cs, stamp));
+      eff.headers.Authorization = authBase + 'signature=' + pmB64(await pmHmac('SHA-256', sk, [m, u.protocol.replace(':', ''), host, u.pathname + u.search, hs, ch, authBase].join('\t')));
+    }
+    else if(ty === 'asap'){
+      const alg = d.alg || 'RS256', map = {RS256:'SHA-256', RS384:'SHA-384', RS512:'SHA-512'}, pem = s(d.key);
+      if(!/BEGIN PRIVATE KEY/.test(pem)) throw new Error('the private key must be a PKCS#8 PEM ("-----BEGIN PRIVATE KEY-----"). Convert with: openssl pkcs8 -topk8 -nocrypt -in key.pem');
+      const der = Uint8Array.from(atob(pem.replace(/-----[^-]+-----/g, '').replace(/\s+/g, '')), c => c.charCodeAt(0));
+      const key = await pmSubtle().importKey('pkcs8', der, {name:'RSASSA-PKCS1-v1_5', hash:map[alg] || 'SHA-256'}, false, ['sign']);
+      let extra = {}; if(s(d.claims).trim()){ try{ extra = JSON.parse(s(d.claims)); }catch(e){ throw new Error('additional claims are not valid JSON'); } }
+      const iat = Math.floor(Date.now() / 1000), payload = Object.assign({iss:s(d.iss), aud:s(d.aud), iat, exp:iat + (Number(s(d.exp)) || 3600), jti:crypto.randomUUID ? crypto.randomUUID() : String(iat)}, s(d.sub) ? {sub:s(d.sub)} : {}, extra);
+      const input = pmB64Url(JSON.stringify({alg, typ:'JWT', kid:s(d.kid)})) + '.' + pmB64Url(JSON.stringify(payload));
+      eff.headers.Authorization = 'Bearer ' + input + '.' + pmB64Url(await pmSubtle().sign('RSASSA-PKCS1-v1_5', key, PM_ENC.encode(input)));
+    }
+    else if(ty === 'aws'){
+      if(!s(d.ak) || !s(d.sk)) throw new Error('Access key and secret key are required');
+      Object.assign(eff.headers, await pmAwsAuth({method:m, url:eff.url, headers:eff.headers, body:bodyText, accessKey:s(d.ak), secretKey:s(d.sk), region:s(d.region) || 'us-east-1', service:s(d.service) || 'execute-api', token:s(d.st)}));
+    }
+  }catch(e){ throw new Error(label + ': ' + e.message); }
+}
+async function pmDigestHeader(t, eff, challenge){
+  const d = t.authData || {}, s = x => pmSubstitute(x == null ? '' : String(x), t), ch = {};
+  (challenge || '').replace(/^\s*digest\s+/i, '').replace(/(\w+)=(?:"([^"]*)"|([^,\s]+))/g, (_, k, a, b) => { ch[k.toLowerCase()] = a !== undefined ? a : b; });
+  const realm = s(d.realm) || ch.realm || '', nonce = s(d.nonce) || ch.nonce || '', opaque = s(d.opaque) || ch.opaque || '', alg = s(d.alg) || ch.algorithm || 'MD5';
+  const qopList = (s(d.qop) || ch.qop || '').split(',').map(x => x.trim()).filter(Boolean), qop = qopList.includes('auth') ? 'auth' : (qopList.includes('auth-int') ? 'auth-int' : '');
+  const nc = s(d.nc) || '00000001', cnonce = s(d.cnonce) || pmHex(crypto.getRandomValues(new Uint8Array(8))), u = new URL(eff.url), uri = u.pathname + u.search;
+  const H = async x => /^SHA-256/i.test(alg) ? pmHex(await pmSha('SHA-256', x)) : pmMd5(x);
+  let ha1 = await H(s(d.user) + ':' + realm + ':' + s(d.pass)); if(/-sess$/i.test(alg)) ha1 = await H(ha1 + ':' + nonce + ':' + cnonce);
+  const ha2 = await H(eff.method.toUpperCase() + ':' + uri + (qop === 'auth-int' ? ':' + await H(typeof eff.body === 'string' ? eff.body : '') : ''));
+  const resp = await H(qop ? [ha1, nonce, nc, cnonce, qop, ha2].join(':') : [ha1, nonce, ha2].join(':'));
+  return 'Digest username="' + s(d.user) + '", realm="' + realm + '", nonce="' + nonce + '", uri="' + uri + '", algorithm=' + alg + ', response="' + resp + '"' + (qop ? ', qop=' + qop + ', nc=' + nc + ', cnonce="' + cnonce + '"' : '') + (opaque ? ', opaque="' + opaque + '"' : '');
+}
+/* Signs, sends (real or sandbox) and answers a Digest challenge when there is one. */
+async function pmDispatch(t, eff){
+  await pmSignAuth(t, eff);
+  const d = t.authData || {}, call = () => apiHandle(eff.method, eff.url, eff.headers, eff.body, {real:PM.real});
+  if(t.authType === 'digest' && d.realm && d.nonce) eff.headers.Authorization = await pmDigestHeader(t, eff, '');
+  let res = await call();
+  if(t.authType === 'digest' && !res.network && res.status === 401 && !eff.headers.Authorization){
+    const wa = Object.entries(res.headers || {}).find(([k]) => k.toLowerCase() === 'www-authenticate');
+    if(wa && /^\s*digest/i.test(wa[1])){ eff.headers.Authorization = await pmDigestHeader(t, eff, wa[1]); res = await call(); }
+    else pmLog('warn', 'Digest Auth: no readable WWW-Authenticate challenge came back (browsers hide that header unless the server exposes it through CORS). Fill in Realm and Nonce to send it directly.');
+  }
+  return res;
+}
+/* Built-in requests that need a token log in by themselves when the token is missing, expired or belongs to the wrong role. */
+async function pmEnsureAuth(t){
+  if(!t || !t.need) return;
+  const v = t.need === 'admin' ? 'admin_token' : 'token', cur = pmEnvVar(v), ok = cur && verifyToken(cur);
+  if(ok && !ok.error && ok.payload.role === t.need) return;
+  const creds = t.need === 'admin' ? {email:'admin@qa.com', password:'Admin@123'} : {email:'john@example.com', password:'Test@123'};
+  const r = await apiHandle('POST', 'https://' + API_HOST + API_PREFIX + '/auth/login', {'Content-Type':'application/json'}, JSON.stringify(creds));
+  let j = null; try{ j = JSON.parse(r.text || 'null'); }catch(e){}
+  if(j && j.token){ pmSetEnvVar(v, j.token); pmLog('warn', 'Auto-login as ' + t.need + ' - saved a fresh token in {{' + v + '}} (it was missing, expired or for another role)'); }
+  else pmIssue('Auto-login as ' + t.need + ' failed for "' + t.name + '" (' + (r.network || r.status) + '). Log in manually with the Login request.');
+}
+function pmAutoCt(t){
+  if(['GET', 'HEAD'].includes(t.method)) return null;
+  const m = t.bodyMode;
+  if(m === 'raw') return t.body && t.body.trim() ? (PM_RAW_TYPES.find(r => r.k === t.rawType) || PM_RAW_TYPES[2]).ct : null;
+  if(m === 'graphql') return 'application/json';
+  if(m === 'urlenc') return 'application/x-www-form-urlencoded';
+  if(m === 'form-data') return 'multipart/form-data; boundary=<calculated when request is sent>';
+  if(m === 'binary') return t.binFile ? (t.binFile.type || 'application/octet-stream') : null;
+  return null;
+}
+/* Turns the Body tab into what is actually sent: {ct, force, body, view, warn} */
+function pmBodyPlan(t){
+  const m = t.bodyMode, s = x => pmSubstitute(x, t);
+  if(['GET', 'HEAD'].includes(t.method) || !m || m === 'none') return null;
+  if(m === 'raw'){ const txt = s(t.body || ''); return txt.trim() ? {ct:pmAutoCt(t), body:txt, view:txt, warn:[]} : null; }
+  if(m === 'graphql'){
+    const vt = s(t.gqlVars || '').trim(); let vars; if(vt){ try{ vars = JSON.parse(vt); }catch(e){ vars = vt; } }
+    const txt = JSON.stringify({query:s(t.gqlQuery || ''), variables:vars}); return {ct:'application/json', body:txt, view:JSON.stringify(JSON.parse(txt), null, 2), warn:[]};
+  }
+  if(m === 'urlenc'){
+    const txt = t.urlenc.filter(r => r.on !== false && r.key).map(r => encodeURIComponent(s(r.key)) + '=' + encodeURIComponent(s(r.value))).join('&');
+    return txt ? {ct:'application/x-www-form-urlencoded', force:true, body:txt, view:txt, warn:[]} : null;
+  }
+  if(m === 'binary'){
+    const f = t.binFile; if(!f) return null;
+    if(!f.data) return {ct:f.type, body:undefined, view:'', warn:['Binary file "' + f.name + '" was not stored with the saved request - select it again']};
+    return {ct:f.type || 'application/octet-stream', body:{binary:{name:f.name, size:f.size, type:f.type, data:f.data}}, view:JSON.stringify({binary:{fileName:f.name, size:f.size, type:f.type}}, null, 2), warn:[]};
+  }
+  const parts = [], warn = [];
+  t.formData.filter(r => r.on !== false && r.key).forEach(r => {
+    if(r.type === 'file') (r.files || []).forEach(f => { if(f.data || f.size === 0) parts.push({key:s(r.key), type:'file', name:f.name, size:f.size, mime:f.type, data:f.data || ''}); else warn.push('File "' + f.name + '" was not stored with the saved request - select it again'); });
+    else parts.push({key:s(r.key), type:'text', value:s(r.value || '')});
+  });
+  if(!parts.length) return {ct:'multipart/form-data; boundary=----QAForm' + uid(), force:true, body:{multipart:[]}, view:JSON.stringify({formData:[]}), warn};
+  return {ct:'multipart/form-data; boundary=----QAForm' + uid(), force:true, body:{multipart:parts}, warn,
+    view:JSON.stringify({formData:parts.map(p => p.type === 'file' ? {key:p.key, type:'file', fileName:p.name, size:p.size, contentType:p.mime} : {key:p.key, type:'text', value:p.value})}, null, 2)};
+}
 function pmBuildEffective(t){
   let url = pmSubstitute(t.url, t); const d = t.authData || {};
-  if(t.authType === 'apikey' && d.in === 'query') url += (url.includes('?') ? '&' : '?') + encodeURIComponent(pmSubstitute(d.key || 'api_key', t)) + '=' + encodeURIComponent(pmSubstitute(d.value || '', t));
+  url = pmAddQuery(url, pmAuthQuery(t));
   const headers = {};
   t.headers.filter(h => h.on && h.key).forEach(h => headers[h.key] = pmSubstitute(h.value, t));
   Object.assign(headers, pmAuthHeader(t));
-  const bodyText = (['POST', 'PUT', 'PATCH'].includes(t.method) && t.bodyMode === 'json') ? pmSubstitute(t.body, t) : undefined;
-  return {method:t.method, url, headers, body:bodyText};
+  const plan = pmBodyPlan(t);
+  if(plan && plan.ct){
+    const has = Object.keys(headers).find(k => k.toLowerCase() === 'content-type');
+    if(plan.force){ if(has) delete headers[has]; headers['Content-Type'] = plan.ct; } else if(!has) headers['Content-Type'] = plan.ct;
+  }
+  return {method:t.method, url, headers, body:plan ? plan.body : undefined, bodyView:plan ? plan.view : '', warn:plan ? plan.warn : []};
 }
 function pmAfter(t, eff, res){
   pmLog(res.network || res.status >= 400 ? 'error' : 'ok', (res.network ? 'NETWORK ERROR ' + res.network : res.status + ' ' + res.statusText + ' · ' + res.ms + ' ms') + '  ←  ' + t.method + ' ' + eff.url);
-  pmUnresolved(eff.url + JSON.stringify(eff.headers) + (eff.body || '')).forEach(v => pmIssue('Undefined variable ' + v + ' in "' + t.name + '"'));
+  pmUnresolved(eff.url + JSON.stringify(eff.headers) + (eff.bodyView || '')).forEach(v => pmIssue('Undefined variable ' + v + ' in "' + t.name + '"'));
+  (eff.warn || []).forEach(w => pmIssue('"' + t.name + '": ' + w));
   if(res.network) pmIssue('"' + t.name + '": ' + res.network); else if(res.status >= 400) pmIssue('"' + t.name + '" returned ' + res.status + ' ' + res.statusText);
   (res.testResults || []).filter(x => !x.pass).forEach(x => pmIssue('Test failed in "' + t.name + '": ' + x.name + (x.error ? ' — ' + x.error : '')));
 }
@@ -3489,7 +4262,7 @@ function paintPmBottom(){
   const typing = document.activeElement && document.activeElement.id === 'termIn';
   const inner = PM_BTAB === 'console' ? '<div class="pm-log">' + (PM.logs.length ? PM.logs.map(l => '<div class="lg lg-' + l.kind + '"><span>' + l.t + '</span>' + esc(l.msg) + '</div>').join('') : '<span style="color:#8a84a8">Console is empty — send a request or call console.log() in a script.</span>') + '</div>'
     : PM_BTAB === 'terminal' ? '<div class="pm-log">' + (PM.term.length ? PM.term.map(esc).join('<br>') : '<span style="color:#8a84a8">Type <b>help</b> to see commands.</span>') + '</div><input type="text" id="termIn" placeholder="$ help" spellcheck="false">'
-    : '<div class="pm-log">' + (PM.issues.length ? PM.issues.map(i => '<div class="lg lg-error">⚠ ' + esc(i) + '</div>').join('') : '<span style="color:#86efac">No issues found.</span>') + '</div>';
+    : '<div class="pm-log">' + (PM.issues.length ? PM.issues.map(i => '<div class="lg lg-error">' + esc(i) + '</div>').join('') : '<span style="color:#86efac">No issues found.</span>') + '</div>';
   el.innerHTML = '<div class="pm-rtabs">' + tabs.map(([k, l, n]) => '<button class="' + (PM_BTAB === k ? 'active' : '') + '" data-bt="' + k + '">' + l + (n ? ' (' + n + ')' : '') + '</button>').join('') + '<button id="bClear" style="margin-left:auto">Clear</button></div>' + inner;
   $$('[data-bt]', el).forEach(b => b.addEventListener('click', () => { PM_BTAB = b.dataset.bt; paintPmBottom(); }));
   $('#bClear', el).addEventListener('click', () => { if(PM_BTAB === 'console') PM.logs = []; else if(PM_BTAB === 'terminal') PM.term = []; else PM.issues = []; paintPmBottom(); });
@@ -3501,11 +4274,11 @@ async function pmTerm(line){
   try{
     if(c === 'help') out('help | vars | set <globals|collection|env|local> key=value | collections | run <collection name> | send <METHOD> <url> | clear');
     else if(c === 'clear'){ PM.term = []; }
-    else if(c === 'collections') PM.collections.forEach(x => out('📚 ' + x.name + ' (' + x.folders.length + ' folders, ' + x.folders.reduce((s, f) => s + f.reqs.length, 0) + ' requests)'));
+    else if(c === 'collections') PM.collections.forEach(x => out(x.name + ' (' + x.folders.length + ' folders, ' + x.folders.reduce((s, f) => s + f.reqs.length, 0) + ' requests)'));
     else if(c === 'vars'){ pmScopes(t).forEach((arr, i) => out(['local', 'folder', 'collection', 'environment', 'global'][i] + ': ' + ((arr || []).map(v => v.key + '=' + v.value).join(', ') || '—'))); }
     else if(c === 'set'){ const m = /^(\w+)=(.*)$/.exec(a.slice(1).join(' ')); const sc = a[0] === 'global' ? 'globals' : a[0]; if(!m || !['globals', 'collection', 'env', 'local'].includes(sc)) out('usage: set <globals|collection|env|local> key=value'); else { pmSetVar(sc, m[1], m[2], t); out('ok — ' + m[1] + ' set in ' + sc); if(t) pmShowResolved(t); } }
-    else if(c === 'run'){ const col = PM.collections.find(x => x.name.toLowerCase() === a.join(' ').toLowerCase()); if(!col) out('collection not found — try: collections'); else { out('running "' + col.name + '"…'); runCollectionFolder(col.name, pmTabsOf(col)); } }
-    else if(c === 'send'){ const tt = freshTab({method:(a[0] || 'GET').toUpperCase(), url:a.slice(1).join(' '), _ci:t && t._ci, _fi:t && t._fi}); const eff = pmBuildEffective(tt); const r = await apiHandle(eff.method, eff.url, eff.headers, eff.body); out(r.network ? 'ERROR ' + r.network : r.status + ' ' + r.statusText + ' (' + r.ms + ' ms)\n' + r.text.slice(0, 400)); }
+    else if(c === 'run'){ const col = PM.collections.find(x => x.name.toLowerCase() === a.join(' ').toLowerCase()); if(!col) out('collection not found — try: collections'); else { out('opening runner for "' + col.name + '"…'); runCollectionFolder(col.name, pmTabsOf(col), {autoRun:true}); } }
+    else if(c === 'send'){ const tt = freshTab({method:(a[0] || 'GET').toUpperCase(), url:a.slice(1).join(' '), _ci:t && t._ci, _fi:t && t._fi}); const eff = pmBuildEffective(tt); const r = await pmDispatch(tt, eff); out(r.network ? 'ERROR ' + r.network : r.status + ' ' + r.statusText + ' (' + r.ms + ' ms)\n' + r.text.slice(0, 400)); }
     else out('unknown command — type help');
   }catch(e){ out('error: ' + e.message); }
   paintPmBottom();
@@ -3513,18 +4286,19 @@ async function pmTerm(line){
 async function sendPmRequest(t){
   const btn = $('#pmSend'); btn.disabled = true; btn.textContent = 'Sending…';
   try{
+    await pmEnsureAuth(t);
     runPmPreRequest(t.preRequest, t);
     const eff = pmBuildEffective(t);
-    const res = await apiHandle(eff.method, eff.url, eff.headers, eff.body);
+    const res = await pmDispatch(t, eff);
     if(!res.network){
       res.testResults = runPmTests(t.tests, res, t);
       try{
         const j = JSON.parse(res.text || 'null');
-        if(eff.url.includes('/auth/login') && res.status === 200 && j && j.token){ pmSetEnvVar('token', j.token); toast('Login token saved to {{token}} in "' + pmActiveEnv().name + '"', 'ok'); }
+        if(eff.url.includes('/auth/login') && res.status === 200 && j && j.token && !t.noAutoToken){ pmSetEnvVar('token', j.token); toast('Login token saved to {{token}} in "' + pmActiveEnv().name + '"', 'ok'); }
       }catch(e){}
     }
     t.response = res; pmAfter(t, eff, res);
-    PM.history.unshift({method:t.method, url:eff.url, status:res.network ? 0 : res.status, body:eff.body, time:Date.now()}); pmSaveHist();
+    PM.history.unshift({method:t.method, url:eff.url, status:res.network ? 0 : res.status, body:typeof eff.body === 'string' ? eff.body : '', ct:eff.headers['Content-Type'] || '', time:Date.now()}); pmSaveHist();
   }catch(e){ t.response = {network:e.message}; }
   btn.disabled = false; btn.textContent = 'Send'; paintPmResponse();
 }
@@ -3690,29 +4464,48 @@ function runPmTests(code, res, t){
 }
 
 /* ---------- code snippet generator ---------- */
+function pmParts(eff){ return eff.body && typeof eff.body === 'object' && eff.body.multipart ? eff.body.multipart : null; }
+function pmGenHeaders(eff){ const h = Object.assign({}, eff.headers); if(pmParts(eff)) Object.keys(h).forEach(k => { if(k.toLowerCase() === 'content-type') delete h[k]; }); return h; }
 function pmGenCurl(eff){
   let s = 'curl --location \'' + eff.url + '\'';
-  Object.entries(eff.headers).forEach(([k, v]) => { s += ' \\\n  --header \'' + k + ': ' + v + '\''; });
-  if(eff.body) s += ' \\\n  --data \'' + eff.body.replace(/'/g, "'\\''") + '\'';
+  Object.entries(pmGenHeaders(eff)).forEach(([k, v]) => { s += ' \\\n  --header \'' + k + ': ' + v + '\''; });
+  const parts = pmParts(eff);
+  if(parts) parts.forEach(p => { s += ' \\\n  --form \'' + p.key + (p.type === 'file' ? '=@"' + p.name + '"' : '="' + String(p.value).replace(/'/g, "'\\''") + '"') + '\''; });
+  else if(eff.body && typeof eff.body === 'object') s += ' \\\n  --data-binary \'@' + eff.body.binary.name + '\'';
+  else if(eff.body && /x-www-form-urlencoded/i.test(Object.entries(eff.headers).find(([k]) => k.toLowerCase() === 'content-type') || '')) eff.body.split('&').forEach(kv => { s += ' \\\n  --data-urlencode \'' + decodeURIComponent(kv.replace(/\+/g, ' ')) + '\''; });
+  else if(eff.body) s += ' \\\n  --data \'' + eff.body.replace(/'/g, "'\\''") + '\'';
   if(eff.method !== 'GET') s = s.replace('curl --location', 'curl --location --request ' + eff.method);
   return s;
 }
 function pmGenJs(eff){
-  const headerLines = Object.entries(eff.headers).map(([k, v]) => '    "' + k + '": "' + v.replace(/"/g, '\\"') + '"').join(',\n');
-  return 'const response = await fetch("' + eff.url + '", {\n  method: "' + eff.method + '",\n  headers: {\n' + headerLines + '\n  }' + (eff.body ? ',\n  body: JSON.stringify(' + (() => { try{ return JSON.stringify(JSON.parse(eff.body)); }catch(e){ return JSON.stringify(eff.body); } })() + ')' : '') + '\n});\nconst data = await response.json();\nconsole.log(response.status, data);';
+  const parts = pmParts(eff), hd = pmGenHeaders(eff);
+  const headerLines = Object.entries(hd).map(([k, v]) => '    "' + k + '": "' + v.replace(/"/g, '\\"') + '"').join(',\n');
+  let pre = '', body = '';
+  if(parts){ pre = 'const formData = new FormData();\n' + parts.map(p => p.type === 'file' ? 'formData.append("' + p.key + '", fileInput.files[0]); // ' + p.name : 'formData.append("' + p.key + '", ' + JSON.stringify(p.value) + ');').join('\n') + '\n\n'; body = ',\n  body: formData'; }
+  else if(eff.body && typeof eff.body === 'object'){ pre = '// file = the File object you picked (' + eff.body.binary.name + ')\n'; body = ',\n  body: file'; }
+  else if(eff.body){ let b; try{ b = 'JSON.stringify(' + JSON.stringify(JSON.parse(eff.body)) + ')'; }catch(e){ b = JSON.stringify(eff.body); } body = ',\n  body: ' + b; }
+  return pre + 'const response = await fetch("' + eff.url + '", {\n  method: "' + eff.method + '",\n  headers: {\n' + headerLines + '\n  }' + body + '\n});\nconst data = await response.json();\nconsole.log(response.status, data);';
 }
 function pmGenPython(eff){
-  const headerLines = Object.entries(eff.headers).map(([k, v]) => '    "' + k + '": "' + v.replace(/"/g, '\\"') + '"').join(',\n');
-  return 'import requests\n\nresponse = requests.request(\n  "' + eff.method + '",\n  "' + eff.url + '",\n  headers={\n' + headerLines + '\n  }' + (eff.body ? ',\n  data=\'\'\'' + eff.body + '\'\'\'' : '') + '\n)\n\nprint(response.status_code)\nprint(response.json())';
+  const parts = pmParts(eff), hd = pmGenHeaders(eff);
+  const headerLines = Object.entries(hd).map(([k, v]) => '    "' + k + '": "' + v.replace(/"/g, '\\"') + '"').join(',\n');
+  let extra = '';
+  if(parts){
+    const fl = parts.filter(p => p.type === 'file'), tx = parts.filter(p => p.type !== 'file');
+    if(tx.length) extra += ',\n  data={' + tx.map(p => JSON.stringify(p.key) + ': ' + JSON.stringify(p.value)).join(', ') + '}';
+    if(fl.length) extra += ',\n  files=[' + fl.map(p => '("' + p.key + '", ("' + p.name + '", open("' + p.name + '", "rb"), "' + (p.mime || 'application/octet-stream') + '"))').join(', ') + ']';
+  } else if(eff.body && typeof eff.body === 'object') extra = ',\n  data=open("' + eff.body.binary.name + '", "rb")';
+  else if(eff.body) extra = ',\n  data=\'\'\'' + eff.body + '\'\'\'';
+  return 'import requests\n\nresponse = requests.request(\n  "' + eff.method + '",\n  "' + eff.url + '",\n  headers={\n' + headerLines + '\n  }' + extra + '\n)\n\nprint(response.status_code)\nprint(response.json())';
 }
 const PM_CODE_LANGS = [{k:'curl', label:'cURL', gen:pmGenCurl}, {k:'js', label:'JavaScript (fetch)', gen:pmGenJs}, {k:'python', label:'Python (requests)', gen:pmGenPython}];
 function openCodeGenModal(t){
-  const eff = pmBuildEffective(t);
+  const eff = pmBuildEffective(t); if(pmNeedsSigning(t)) eff.headers.Authorization = '<generated when the request is sent>';
   let active = 'curl';
   const body = () => '<div class="modal-head"><h3>Generate code</h3><button class="x-btn" data-action="closeModal">×</button></div>' +
     '<div class="pm-rtabs" id="codeLangTabs">' + PM_CODE_LANGS.map(l => '<button class="' + (active === l.k ? 'active' : '') + '" data-lang="' + l.k + '">' + l.label + '</button>').join('') + '</div>' +
     '<pre class="json" id="codeOut" style="margin-top:12px;max-height:400px">' + esc(PM_CODE_LANGS.find(l => l.k === active).gen(eff)) + '</pre>' +
-    '<div class="modal-actions"><button class="btn" data-action="closeModal">Close</button><button class="btn btn-primary" id="codeCopyBtn">📋 Copy to clipboard</button></div>';
+    '<div class="modal-actions"><button class="btn" data-action="closeModal">Close</button><button class="btn btn-primary" id="codeCopyBtn">' + ic('copy', 14) + ' Copy to clipboard</button></div>';
   const bd = openModal(body(), {cls:'modal-lg'});
   wire(bd);
   function wire(bd){
@@ -3726,41 +4519,261 @@ function openCodeGenModal(t){
 }
 
 /* ---------- Collection Runner ---------- */
-async function runCollectionFolder(folderName, tabs){
+/* =====================================================================
+   COLLECTION RUNNER – full-panel results, per-request details and
+   data-driven runs (CSV / Excel .xlsx / JSON). Each row of the data
+   file is one iteration; its columns are available as {{column}}.
+   ===================================================================== */
+const PM_RUN_CFG = {};
+function pmClone(t){ return Object.assign({}, t, {locals:JSON.parse(JSON.stringify(t.locals || [])), response:null}); }
+function runCollectionFolder(title, tabs, opts){
   if(!tabs.length) return toast('This folder is empty', 'warn');
-  const results = tabs.map(t => ({name:t.name, method:t.method, status:null, ms:null, tests:null, running:false}));
-  const bodyHtml = () => '<div class="modal-head"><h3>Collection Runner — ' + esc(folderName) + '</h3><button class="x-btn" data-action="closeModal">×</button></div>' +
-    '<div class="table-wrap"><table class="tbl"><thead><tr><th>#</th><th>Request</th><th>Status</th><th>Time</th><th>Tests</th></tr></thead><tbody>' +
-    results.map((r, i) => '<tr><td>' + (i + 1) + '</td><td><span class="mth m-' + r.method + '">' + r.method + '</span> ' + esc(r.name) + '</td><td>' + (r.status === null ? (r.running ? '⏳ Running…' : '—') : (r.status === 0 ? '<span class="badge b-err">Network error</span>' : '<span class="badge ' + (r.status < 400 ? 'b-ok' : 'b-err') + '">' + r.status + '</span>')) + '</td><td>' + (r.ms === null ? '—' : r.ms + ' ms') + '</td><td>' + (r.tests === null ? '—' : (r.tests.total ? '<span class="' + (r.tests.failed ? 'fail' : 'pass') + '">' + r.tests.passed + '/' + r.tests.total + '</span>' : '—')) + '</td></tr>').join('') +
-    '</tbody></table></div>' +
-    '<div class="mt" id="runnerSummary"></div>' +
-    '<div class="modal-actions"><button class="btn btn-primary" data-action="closeModal">Close</button></div>';
-  const bd = openModal(bodyHtml(), {cls:'modal-lg', dismissible:false});
-  for(let i = 0; i < tabs.length; i++){
-    results[i].running = true;
-    bd.querySelector('.modal').innerHTML = bodyHtml();
-    const t = tabs[i];
-    try{
-      runPmPreRequest(t.preRequest, t);
-      const eff = pmBuildEffective(t);
-      const res = await apiHandle(eff.method, eff.url, eff.headers, eff.body);
-      results[i].status = res.network ? 0 : res.status; results[i].ms = res.ms; setTimeout(() => pmAfter(t, eff, res), 0);
-      if(!res.network){
-        const tr = runPmTests(t.tests, res, t);
-        res.testResults = tr; results[i].tests = {total:tr.length, passed:tr.filter(x => x.pass).length, failed:tr.some(x => !x.pass)};
-        try{ const j = JSON.parse(res.text || 'null'); if(eff.url.includes('/auth/login') && res.status === 200 && j && j.token) pmSetEnvVar('token', j.token); }catch(e){}
-      }
-    }catch(e){ results[i].status = 0; results[i].ms = 0; }
-    results[i].running = false;
-    bd.querySelector('.modal').innerHTML = bodyHtml();
+  const cfg = PM_RUN_CFG[title] = PM_RUN_CFG[title] || {iterations:1, delay:0, stopOnFail:false, data:null};
+  PM.runner = {title, build:() => tabs.map(pmClone), cfg, state:'idle', results:[], sel:null, filter:'all', dtab:'response', count:tabs.length, iterations:1, plan:tabs.map(t => ({name:t.name, method:t.method, url:t.url})), tabs};
+  PM.runnerOpen = true; PM.runnerFor = PM.activeId; paintPmMain();
+  if(opts && opts.autoRun) pmRunnerStart();
+}
+function pmParseCsv(text){
+  text = text.replace(/^\uFEFF/, '');
+  const first = text.split(/\r?\n/, 1)[0];
+  const delim = [',', ';', '\t'].map(d => [d, first.split(d).length]).sort((a, b) => b[1] - a[1])[0][0];
+  const rows = []; let row = [], cur = '', q = false;
+  for(let i = 0; i < text.length; i++){
+    const ch = text[i];
+    if(q){ if(ch === '"'){ if(text[i + 1] === '"'){ cur += '"'; i++; } else q = false; } else cur += ch; }
+    else if(ch === '"') q = true;
+    else if(ch === delim){ row.push(cur); cur = ''; }
+    else if(ch === '\n' || ch === '\r'){ if(ch === '\r' && text[i + 1] === '\n') i++; row.push(cur); rows.push(row); row = []; cur = ''; }
+    else cur += ch;
   }
-  const totalTests = results.reduce((s, r) => s + (r.tests ? r.tests.total : 0), 0);
-  const passedTests = results.reduce((s, r) => s + (r.tests ? r.tests.passed : 0), 0);
-  const failedReqs = results.filter(r => r.status === 0 || r.status >= 400).length;
-  const summaryEl = $('#runnerSummary', bd);
-  if(summaryEl) summaryEl.innerHTML = '<div class="alert ' + (failedReqs ? 'alert-err' : 'alert-ok') + '">' + (failedReqs ? failedReqs + ' of ' + results.length + ' request(s) failed' : 'All ' + results.length + ' request(s) succeeded') + (totalTests ? ' · ' + passedTests + '/' + totalTests + ' test assertions passed' : '') + '</div>';
+  if(cur !== '' || row.length){ row.push(cur); rows.push(row); }
+  return rows;
+}
+async function pmParseXlsx(buf){
+  const u8 = new Uint8Array(buf), dv = new DataView(buf), dec = new TextDecoder();
+  let e = u8.length - 22; while(e >= 0 && dv.getUint32(e, true) !== 0x06054b50) e--;
+  if(e < 0) throw new Error('This does not look like a valid .xlsx file.');
+  const cnt = dv.getUint16(e + 10, true); let p = dv.getUint32(e + 16, true); const files = {};
+  for(let i = 0; i < cnt; i++){
+    if(dv.getUint32(p, true) !== 0x02014b50) break;
+    const meth = dv.getUint16(p + 10, true), csz = dv.getUint32(p + 20, true), nl = dv.getUint16(p + 28, true), xl = dv.getUint16(p + 30, true), cl = dv.getUint16(p + 32, true), off = dv.getUint32(p + 42, true);
+    files[dec.decode(u8.subarray(p + 46, p + 46 + nl))] = {meth, csz, off}; p += 46 + nl + xl + cl;
+  }
+  const read = async n => {
+    const f = files[n]; if(!f) return null;
+    const nl = dv.getUint16(f.off + 26, true), xl = dv.getUint16(f.off + 28, true), s = f.off + 30 + nl + xl, d = u8.subarray(s, s + f.csz);
+    if(f.meth === 0) return dec.decode(d);
+    if(typeof DecompressionStream === 'undefined') throw new Error('This browser cannot read .xlsx files — please save the sheet as CSV instead.');
+    return await new Response(new Blob([d]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text();
+  };
+  const sheet = Object.keys(files).filter(n => /^xl\/worksheets\/sheet\d+\.xml$/.test(n)).sort((a, b) => parseInt(a.match(/\d+/)) - parseInt(b.match(/\d+/)))[0];
+  if(!sheet) throw new Error('No worksheet found in this file.');
+  const parse = x => new DOMParser().parseFromString(x, 'application/xml');
+  const sstXml = await read('xl/sharedStrings.xml'), sst = [];
+  if(sstXml) Array.from(parse(sstXml).getElementsByTagName('si')).forEach(si => sst.push(Array.from(si.getElementsByTagName('t')).map(t => t.textContent).join('')));
+  const doc = parse(await read(sheet)), rows = [];
+  Array.from(doc.getElementsByTagName('row')).forEach(r => {
+    const out = [];
+    Array.from(r.getElementsByTagName('c')).forEach(c => {
+      const ref = (c.getAttribute('r') || '').replace(/\d+/g, ''); let col = 0; for(const ch of ref) col = col * 26 + (ch.charCodeAt(0) - 64);
+      const ty = c.getAttribute('t'), v = c.getElementsByTagName('v')[0]; let val = '';
+      if(ty === 's') val = sst[Number(v && v.textContent)] || '';
+      else if(ty === 'inlineStr') val = Array.from(c.getElementsByTagName('t')).map(t => t.textContent).join('');
+      else if(ty === 'b') val = v && v.textContent === '1' ? 'true' : 'false';
+      else val = v ? v.textContent : '';
+      out[col ? col - 1 : out.length] = val;
+    });
+    rows.push(Array.from(out, x => x === undefined ? '' : x));
+  });
+  return rows;
+}
+async function pmLoadDataFile(file){
+  const R = PM.runner;
+  try{
+    const ext = file.name.split('.').pop().toLowerCase(); let rows;
+    if(ext === 'xlsx') rows = await pmParseXlsx(await file.arrayBuffer());
+    else if(ext === 'xls') throw new Error('Old .xls files are not supported — open it in Excel and use Save As → .xlsx or CSV.');
+    else if(ext === 'json'){
+      const j = JSON.parse(await file.text());
+      if(!Array.isArray(j) || !j.length || typeof j[0] !== 'object' || j[0] === null) throw new Error('JSON data must be an array of objects, e.g. [{"email":"a@b.com"}].');
+      const cols = [...new Set(j.flatMap(o => Object.keys(o)))];
+      rows = [cols].concat(j.map(o => cols.map(k => o[k] === undefined || o[k] === null ? '' : typeof o[k] === 'object' ? JSON.stringify(o[k]) : String(o[k]))));
+    } else rows = pmParseCsv(await file.text());
+    rows = rows.filter(r => r.some(c => String(c).trim() !== ''));
+    if(rows.length < 2) throw new Error('The file needs a header row (column names) and at least one data row.');
+    const cols = rows[0].map(c => String(c).trim());
+    const bad = cols.filter(c => !/^[\w.\-]+$/.test(c));
+    if(bad.length) throw new Error('Column names may only use letters, numbers, _ . and - (problem: ' + (bad.map(b => b || '(empty)').join(', ')) + ').');
+    const data = rows.slice(1, 1001).map(r => Object.fromEntries(cols.map((c, i) => [c, r[i] === undefined ? '' : String(r[i])])));
+    R.cfg.data = {name:file.name, cols, rows:data, truncated:rows.length - 1 > 1000}; R.cfg.iterations = data.length;
+    paintRunner(); toast('Loaded ' + data.length + ' rows from ' + file.name, 'ok');
+  }catch(err){ toast(err.message, 'err'); pmIssue('Data file "' + file.name + '": ' + err.message); }
+}
+function pmUsedVars(tabs){
+  const s = new Set();
+  tabs.forEach(t => (([t.url, t.body, JSON.stringify(t.headers || []), JSON.stringify(t.authData || {})].join(' ')).match(/\{\{\s*([\w.\-$]+)\s*\}\}/g) || []).forEach(m => { const k = m.replace(/[{}\s]/g, ''); if(!PM_DYN[k]) s.add(k); }));
+  return [...s];
+}
+function pmCsvCell(v){ return '"' + String(v === undefined || v === null ? '' : v).replace(/"/g, '""') + '"'; }
+
+async function pmRunnerStart(){
+  const R = PM.runner, cfg = R.cfg; if(!R || R.state === 'running') return;
+  const n = cfg.data ? cfg.data.rows.length : Math.max(1, Math.min(1000, cfg.iterations | 0 || 1));
+  Object.assign(R, {state:'running', results:[], sel:null, stop:false, stopped:false, iterations:n, startedAt:performance.now(), ms:0, filter:'all'});
+  paintRunner();
+  pmLog('log', 'Runner started: ' + R.title + ' — ' + n + ' iteration' + (n > 1 ? 's' : '') + (cfg.data ? ' (data file ' + cfg.data.name + ')' : ''));
+  try{
+    for(let i = 0; i < n && !R.stop && PM.runner === R; i++){
+      PM.dataRow = cfg.data ? cfg.data.rows[i] : null; PM.iter = {i, n};
+      const tabs = R.build();
+      for(let k = 0; k < tabs.length && !R.stop && PM.runner === R; k++){
+        const t = tabs[k];
+        const rec = {id:R.results.length, iter:i, name:t.name, method:t.method, url:t.url, status:null, running:true, tests:[], row:PM.dataRow ? Object.assign({}, PM.dataRow) : null, ms:0};
+        R.results.push(rec); if(R.sel === null) R.sel = 0; paintRunnerResults();
+        try{
+          await pmEnsureAuth(t);
+          runPmPreRequest(t.preRequest, t);
+          const eff = pmBuildEffective(t);
+          Object.assign(rec, {url:eff.url, reqHeaders:eff.headers, reqBody:eff.bodyView});
+          const res = await pmDispatch(t, eff);
+          rec.reqHeaders = eff.headers; rec.url = eff.url; rec.ms = res.ms || 0;
+          if(res.network){ rec.status = 0; rec.error = res.network; }
+          else{
+            Object.assign(rec, {status:res.status, statusText:res.statusText, size:res.size, resHeaders:res.headers, text:res.text});
+            rec.tests = runPmTests(t.tests, res, t); res.testResults = rec.tests;
+            try{ const j = JSON.parse(res.text || 'null'); if(eff.url.includes('/auth/login') && res.status === 200 && j && j.token && !t.noAutoToken) pmSetEnvVar('token', j.token); }catch(e){}
+          }
+          pmAfter(t, eff, res);
+        }catch(err){ rec.status = 0; rec.error = err.message; pmIssue('Runner: "' + t.name + '" — ' + err.message); }
+        rec.running = false;
+        rec.failed = rec.status === 0 || rec.tests.some(x => !x.pass) || (!rec.tests.length && rec.status >= 400);
+        paintRunnerResults();
+        if(rec.failed && cfg.stopOnFail){ R.stop = true; R.stoppedEarly = true; }
+        if(cfg.delay && !R.stop) await new Promise(r => setTimeout(r, cfg.delay));
+      }
+    }
+  } finally {
+    if(PM.runner === R){
+      PM.dataRow = null; PM.iter = null;
+      R.ms = Math.round(performance.now() - R.startedAt); R.state = R.stopped || R.stoppedEarly ? 'stopped' : 'done';
+      const firstFail = R.results.findIndex(r => r.failed); R.sel = firstFail >= 0 ? firstFail : (R.results.length ? 0 : null);
+      pmLog('log', 'Runner finished: ' + R.results.filter(r => !r.failed).length + ' passed, ' + R.results.filter(r => r.failed).length + ' failed');
+      paintRunner();
+    }
+  }
+}
+function pmRunnerStats(R){
+  const done = R.results.filter(r => !r.running && r.status !== null), failed = done.filter(r => r.failed);
+  return {done:done.length, failed:failed.length, passed:done.length - failed.length,
+    tt:done.reduce((s, r) => s + r.tests.length, 0), tp:done.reduce((s, r) => s + r.tests.filter(x => x.pass).length, 0),
+    avg:done.length ? Math.round(done.reduce((s, r) => s + r.ms, 0) / done.length) : 0,
+    dur:R.state === 'running' ? Math.round(performance.now() - R.startedAt) : R.ms};
+}
+function paintRunner(){
+  const R = PM.runner, cfg = R.cfg, running = R.state === 'running', main = $('#pmMain');
+  const dataHtml = cfg.data
+    ? '<div class="rn-file">' + ic('table', 15) + '<b>' + esc(cfg.data.name) + '</b><span>' + cfg.data.rows.length + ' rows · ' + cfg.data.cols.length + ' columns</span>' + (running ? '' : '<button class="ib danger" id="rnRemove" title="Remove file" aria-label="Remove file">' + ic('x', 14) + '</button>') + '</div>'
+    : '<button class="btn btn-sm" id="rnPick"' + (running ? ' disabled' : '') + '>' + ic('upload', 14) + ' Select data file</button><button class="btn btn-sm" id="rnTpl">' + ic('download', 14) + ' Template</button>';
+  const prev = cfg.data
+    ? '<div class="rn-prev"><table><thead><tr><th>#</th>' + cfg.data.cols.map(c => '<th>{{' + esc(c) + '}}</th>').join('') + '</tr></thead><tbody>' + cfg.data.rows.slice(0, 5).map((r, i) => '<tr><td>' + (i + 1) + '</td>' + cfg.data.cols.map(c => '<td>' + esc(r[c]) + '</td>').join('') + '</tr>').join('') + '</tbody></table></div>' +
+      '<div class="muted small" style="margin-top:-6px">' + (cfg.data.rows.length > 5 ? 'Showing 5 of ' + cfg.data.rows.length + ' rows. ' : '') + 'Iteration 1 uses row 1, iteration 2 uses row 2, and so on.' + (cfg.data.truncated ? ' Only the first 1000 rows are used.' : '') + '</div>'
+    : '<div class="muted small" style="margin-top:-4px">Optional: attach a CSV, Excel (.xlsx) or JSON file. Every row becomes one iteration and each column becomes a <code>{{variable}}</code> you can use in URLs, headers, bodies and auth fields.</div>';
+  main.innerHTML = '<div class="rn">' +
+    '<div class="rn-head"><button class="btn btn-sm" id="rnBack">' + ic('back', 14) + ' Back to requests</button><div class="rn-title"><span class="sub">Collection Runner</span><b>' + esc(R.title) + '</b></div><div class="rn-actions">' +
+      (running ? '<button class="btn btn-danger btn-sm" id="rnStop">' + ic('stop', 13) + ' Stop</button>' : '<button class="btn btn-primary btn-sm" id="rnRun">' + ic('play', 13) + (R.state === 'idle' ? ' Run' : ' Run again') + '</button>') +
+      (R.results.length && !running ? '<button class="btn btn-sm" id="rnExpJson">' + ic('download', 13) + ' JSON</button><button class="btn btn-sm" id="rnExpCsv">' + ic('download', 13) + ' CSV</button>' : '') +
+    '</div></div>' +
+    '<div class="rn-cfg">' +
+      '<label>Iterations<input type="number" id="rnIter" min="1" max="1000" value="' + (cfg.data ? cfg.data.rows.length : cfg.iterations) + '"' + (cfg.data || running ? ' disabled' : '') + '></label>' +
+      '<label>Delay (ms)<input type="number" id="rnDelay" min="0" max="10000" value="' + cfg.delay + '"' + (running ? ' disabled' : '') + '></label>' +
+      '<label class="chk"><input type="checkbox" id="rnStopFail"' + (cfg.stopOnFail ? ' checked' : '') + (running ? ' disabled' : '') + '> Stop on first failure</label>' +
+      '<div class="rn-data">' + dataHtml + '<input type="file" id="rnFile" hidden accept=".csv,.tsv,.txt,.xlsx,.xls,.json"></div>' +
+    '</div>' + prev +
+    '<div id="rnSum"></div><div class="rn-body"><div class="rn-list" id="rnList"></div><div class="rn-detail" id="rnDetail"></div></div></div>';
+  $('#rnBack').addEventListener('click', () => { PM.runnerOpen = false; paintPmMain(); });
+  const run = $('#rnRun'); if(run) run.addEventListener('click', pmRunnerStart);
+  const stop = $('#rnStop'); if(stop) stop.addEventListener('click', () => { R.stop = true; R.stopped = true; $('#rnStop').disabled = true; });
+  const it = $('#rnIter'); if(it) it.addEventListener('input', e => { cfg.iterations = Math.max(1, Math.min(1000, parseInt(e.target.value) || 1)); });
+  $('#rnDelay').addEventListener('input', e => { cfg.delay = Math.max(0, Math.min(10000, parseInt(e.target.value) || 0)); });
+  $('#rnStopFail').addEventListener('change', e => { cfg.stopOnFail = e.target.checked; });
+  const pick = $('#rnPick'); if(pick) pick.addEventListener('click', () => $('#rnFile').click());
+  $('#rnFile').addEventListener('change', e => { if(e.target.files[0]) pmLoadDataFile(e.target.files[0]); });
+  const rm = $('#rnRemove'); if(rm) rm.addEventListener('click', () => { cfg.data = null; cfg.iterations = 1; paintRunner(); });
+  const tpl = $('#rnTpl'); if(tpl) tpl.addEventListener('click', () => {
+    const used = pmUsedVars(R.tabs).filter(v => v !== 'token'), t0 = R.tabs[0];
+    const unresolved = used.filter(v => pmUnresolved(pmSubstitute('{{' + v + '}}', t0)).length);
+    const cols = unresolved.length ? unresolved : (used.length ? used : ['value']);
+    pmDownload('data-template.csv', cols.join(',') + '\n' + cols.map(() => '').join(',') + '\n', 'text/csv'); toast('Template downloaded — fill in the rows and attach it', 'ok');
+  });
+  const ej = $('#rnExpJson'); if(ej) ej.addEventListener('click', () => {
+    const s = pmRunnerStats(R);
+    pmDownload('runner-results.json', JSON.stringify({collection:R.title, iterations:R.iterations, summary:s, results:R.results.map(r => ({iteration:r.iter + 1, name:r.name, method:r.method, url:r.url, dataRow:r.row, status:r.status, statusText:r.statusText, timeMs:r.ms, failed:!!r.failed, error:r.error, requestHeaders:r.reqHeaders, requestBody:r.reqBody, responseHeaders:r.resHeaders, responseBody:r.text, tests:r.tests}))}, null, 2), 'application/json');
+  });
+  const ec = $('#rnExpCsv'); if(ec) ec.addEventListener('click', () => {
+    const head = ['iteration', 'request', 'method', 'url', 'status', 'time_ms', 'tests_passed', 'tests_failed', 'result', 'failed_tests'];
+    const lines = [head.join(',')].concat(R.results.map(r => [r.iter + 1, r.name, r.method, r.url, r.status, r.ms, r.tests.filter(x => x.pass).length, r.tests.filter(x => !x.pass).length, r.failed ? 'FAIL' : 'PASS', r.tests.filter(x => !x.pass).map(x => x.name).join('; ')].map(pmCsvCell).join(',')));
+    pmDownload('runner-results.csv', lines.join('\n'), 'text/csv');
+  });
+  paintRunnerResults();
+}
+function paintRunnerResults(){
+  const R = PM.runner; if(!R || !PM.runnerOpen || !$('#rnList')) return;
+  const s = pmRunnerStats(R), total = R.count * R.iterations, running = R.state === 'running';
+  // summary
+  if(R.state === 'idle') $('#rnSum').innerHTML = '';
+  else $('#rnSum').innerHTML = '<div class="rn-cards">' +
+    '<div class="rc"><span>Iterations</span><b>' + (R.results.length ? Math.min(R.results[R.results.length - 1].iter + 1, R.iterations) : 0) + '/' + R.iterations + '</b></div>' +
+    '<div class="rc"><span>Requests</span><b>' + s.done + '/' + total + '</b></div>' +
+    '<div class="rc ok"><span>Passed</span><b>' + s.passed + '</b></div><div class="rc bad"><span>Failed</span><b>' + s.failed + '</b></div>' +
+    '<div class="rc"><span>Assertions</span><b>' + s.tp + '/' + s.tt + '</b></div><div class="rc"><span>Avg time</span><b>' + s.avg + ' ms</b></div>' +
+    '<div class="rc"><span>Duration</span><b>' + (s.dur < 1000 ? s.dur + ' ms' : (s.dur / 1000).toFixed(1) + ' s') + '</b></div></div>' +
+    '<div class="rn-bar"><i style="width:' + Math.round(s.done / total * 100) + '%"></i></div>' +
+    (running ? '' : '<div class="alert ' + (s.failed ? 'alert-err' : 'alert-ok') + '" style="margin-top:4px">' + (s.failed ? s.failed + ' of ' + s.done + ' request(s) failed' : 'All ' + s.done + ' request(s) passed') + (s.tt ? ' · ' + s.tp + '/' + s.tt + ' assertions passed' : '') + (R.stoppedEarly ? ' · stopped on first failure' : R.stopped ? ' · stopped by you' : '') + '</div>');
+  // list
+  const list = $('#rnList'), keep = list.scrollTop;
+  if(R.state === 'idle'){
+    list.innerHTML = '<div class="rn-iter">Requests that will run (' + R.count + ')</div>' + R.plan.map((r, i) => '<div class="rn-item plan"><span class="st-ic wait"></span><span class="mth m-' + r.method + '">' + r.method + '</span><span class="nm">' + esc(r.name) + '</span></div>').join('');
+    $('#rnDetail').innerHTML = '<div class="pm-empty"><div class="big">' + ic('play', 36) + '</div><p>Press <b>Run</b> to execute. Results for every request — response, headers, the request sent and test results — appear here.</p></div>';
+    return;
+  }
+  const fl = R.filter, cnt = {all:R.results.length, pass:R.results.filter(r => !r.running && !r.failed).length, fail:s.failed};
+  let html = '<div class="rn-filter">' + [['all', 'All'], ['pass', 'Passed'], ['fail', 'Failed']].map(([k, l]) => '<button data-rf="' + k + '" class="' + (fl === k ? 'active' : '') + '">' + l + ' ' + cnt[k] + '</button>').join('') + '</div>';
+  let last = -1;
+  R.results.forEach((r, idx) => {
+    if(fl === 'pass' && (r.running || r.failed)) return; if(fl === 'fail' && !r.failed) return;
+    if(R.iterations > 1 && r.iter !== last){
+      last = r.iter;
+      html += '<div class="rn-iter"><b>Iteration ' + (r.iter + 1) + '</b>' + (r.row ? '<span>' + esc(Object.entries(r.row).slice(0, 3).map(([k, v]) => k + '=' + v).join('  ')) + '</span>' : '') + '</div>';
+    }
+    const tp = r.tests.filter(x => x.pass).length;
+    html += '<div class="rn-item' + (R.sel === idx ? ' sel' : '') + '" data-ri="' + idx + '"><span class="st-ic ' + (r.running ? 'run' : r.failed ? 'bad' : 'ok') + '">' + (r.running ? ic('loader', 11, 'spin') : ic(r.failed ? 'x' : 'check', 11)) + '</span><span class="mth m-' + r.method + '">' + r.method + '</span><span class="nm">' + esc(r.name) + '</span><span class="meta">' + (r.running ? 'running…' : (r.status === 0 ? 'error' : r.status) + ' · ' + r.ms + ' ms' + (r.tests.length ? '<br>' + tp + '/' + r.tests.length + ' tests' : '')) + '</span></div>';
+  });
+  list.innerHTML = html; list.scrollTop = keep;
+  $$('[data-rf]', list).forEach(b => b.addEventListener('click', () => { R.filter = b.dataset.rf; paintRunnerResults(); }));
+  $$('[data-ri]', list).forEach(el => el.addEventListener('click', () => { R.sel = Number(el.dataset.ri); paintRunnerResults(); }));
+  // detail
+  const r = R.results[R.sel], det = $('#rnDetail');
+  if(!r){ det.innerHTML = '<div class="pm-empty"><p>Select a request to see its details.</p></div>'; return; }
+  const kv = o => '<table><tbody>' + (Object.entries(o || {}).map(([k, v]) => '<tr><td>' + esc(k) + '</td><td>' + esc(v) + '</td></tr>').join('') || '<tr><td colspan="2" class="muted">None</td></tr>') + '</tbody></table>';
+  const pretty = tx => { try{ return JSON.stringify(JSON.parse(tx || 'null'), null, 2); }catch(e){ return tx || ''; } };
+  const tpass = r.tests.filter(x => x.pass).length;
+  const tabs = [['response', 'Response'], ['headers', 'Headers'], ['request', 'Request'], ['tests', 'Tests' + (r.tests.length ? ' (' + tpass + '/' + r.tests.length + ')' : '')]];
+  let body = '';
+  if(R.dtab === 'response') body = r.running ? '<p class="muted">Waiting for the response…</p>' : r.error ? '<div class="pm-err">Could not complete request:<br>' + esc(r.error) + '</div>' : '<pre class="json">' + syntaxJson(pretty(r.text)) + '</pre>';
+  else if(R.dtab === 'headers') body = kv(r.resHeaders);
+  else if(R.dtab === 'request') body = '<p><b>' + r.method + '</b> <span style="font-family:var(--mono);word-break:break-all">' + esc(r.url) + '</span></p><h4 style="margin:10px 0 6px">Headers sent</h4>' + kv(r.reqHeaders) + (r.reqBody ? '<h4 style="margin:12px 0 6px">Body sent</h4><pre class="json">' + syntaxJson(pretty(r.reqBody)) + '</pre>' : '');
+  else body = r.tests.length ? r.tests.map(x => '<div class="tr-row"><span class="' + (x.pass ? 'pass' : 'fail') + '">' + (x.pass ? 'PASS' : 'FAIL') + '</span><div>' + esc(x.name) + (x.error ? '<small>' + esc(x.error) + '</small>' : '') + '</div></div>').join('') : '<p class="muted">No tests were defined for this request. Add them in the request\'s Tests tab.</p>';
+  det.innerHTML = '<div class="rd-head"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">' +
+    (r.running ? '<span class="badge b-info">Running…</span>' : '<span class="badge ' + (r.status > 0 && r.status < 400 ? 'b-ok' : 'b-err') + '">' + (r.status === 0 ? 'Error' : r.status + ' ' + esc(r.statusText || '')) + '</span>') +
+    '<b>' + esc(r.name) + '</b><span class="muted small">' + r.ms + ' ms' + (r.size !== undefined ? ' · ' + (r.size < 1024 ? r.size + ' B' : (r.size / 1024).toFixed(1) + ' KB') : '') + '</span>' +
+    (r.running ? '' : '<span class="badge ' + (r.failed ? 'b-err' : 'b-ok') + '" style="margin-left:auto">' + (r.failed ? 'FAILED' : 'PASSED') + '</span>') + '</div>' +
+    '<div class="rd-url">' + r.method + ' ' + esc(r.url) + '</div>' +
+    (r.row ? '<div>' + Object.entries(r.row).map(([k, v]) => '<span class="chip">' + esc(k) + ' = ' + esc(v) + '</span>').join('') + '</div>' : '') + '</div>' +
+    '<div class="pm-rtabs">' + tabs.map(([k, l]) => '<button class="' + (R.dtab === k ? 'active' : '') + '" data-rd="' + k + '">' + l + '</button>').join('') + '</div><div class="rd-body">' + body + '</div>';
+  $$('[data-rd]', det).forEach(b => b.addEventListener('click', () => { R.dtab = b.dataset.rd; paintRunnerResults(); }));
 }
 /* =====================================================================
+   /* =====================================================================
    PERFORMANCE LAB – a real JMeter-style Test Plan tree.
    Build a tree (Test Plan > Thread Group > HTTP Request / Timer /
    Config Element / Listener) exactly like desktop JMeter: use "+ Add" to
@@ -4302,12 +5315,19 @@ route('/guide', () => {
     'Try sending broken JSON, missing required fields, and wrong data types to see validation responses.'
   ]) +
   guideSection('📚 API Client manual — collections, variables & chaining', [
-    '<b>Collections:</b> open the <b>My Collection</b> tab → <b>+ New collection</b>. Each collection holds folders, each folder holds requests. Use the row buttons: ▶ run, +📁 add folder, <code>+Req</code> add request, <code>{x}</code> variables, ✏ rename, 🗑 delete. Click ➖ / ➕ to collapse or expand a collection or folder. Open a request to edit it, then 💾 Save (tick "Update the existing" to overwrite).',
-    '<b>Variables — 5 scopes:</b> click <b>⚙ Variables</b> (or <code>{x}</code> on a collection/folder) and pick Global, Environment, Collection, Folder or Local (this request). Add rows at the bottom, edit inline, 🗑 to delete. If a name exists in several scopes the closest wins: <b>Local → Folder → Collection → Environment → Global</b>.',
-    '<b>Using variables:</b> write <code>{{name}}</code> in the URL, headers, body or auth fields. Example: set collection variable <code>cl_url = https://api.qasandbox.com/v1</code>, then send <code>{{cl_url}}/products/1</code>. The line under the URL bar shows the resolved URL and warns about undefined variables. Only the sandbox host <code>api.qasandbox.com</code> is reachable.',
+    '<b>Collections:</b> open the <b>My Collection</b> tab and click <b>New collection</b>. A collection holds folders, and a folder holds requests. Hover over a row to reveal its actions: run, add folder, add request, variables, rename and delete. Use the + / − box at the left of a row to expand or collapse it. Click a request to open it, edit it, then press <b>Save</b> (tick &quot;Update the existing request&quot; to overwrite it). Names are typed into a dialog, not a browser pop-up.',
+    '<b>Variables — 5 scopes + data file:</b> click <b>Variables</b> (or the {x} icon on a collection or folder) and choose Global, Environment, Collection, Folder or Local (this request only). Add rows at the bottom, edit inline, or use the trash icon to delete; changes save instantly. If a name exists in several scopes the closest wins: <b>Data file → Local → Folder → Collection → Environment → Global</b>.',
+    '<b>Using variables:</b> write <code>{{name}}</code> in the URL, headers, body or auth fields. Example: set collection variable <code>cl_url = https://api.qasandbox.com/v1</code>, then send <code>{{cl_url}}/products/1</code>. The line under the URL bar shows the resolved URL and warns about undefined variables. Your own store API is <code>api.qasandbox.com</code>; other hosts work too (see &quot;Real APIs&quot; below).',
+    '<b>Dynamic variables (new value on every send):</b> <code>{{$timestamp}}</code> (milliseconds), <code>{{$isoTimestamp}}</code>, <code>{{$randomInt}}</code>, <code>{{$guid}}</code>, <code>{{$randomEmail}}</code>, <code>{{$randomFirstName}}</code>, <code>{{$randomLastName}}</code>, <code>{{$randomFullName}}</code>, <code>{{$randomPhone}}</code>, <code>{{$randomAlphaNumeric}}</code>. Use them for anything that must be unique, otherwise a second run fails with 422 &quot;already exists&quot;. Example body: <code>{&quot;email&quot;: &quot;{{$randomEmail}}&quot;, &quot;sku&quot;: &quot;SKU-{{$timestamp}}&quot;}</code>.',
+    '<b>Built-in collection = ready-made examples that pass:</b> every request has its own expected result in the Tests tab (201 for creates, 404/401/405/409/418 for the negative cases, headers, fields). Requests that need a login get one automatically (customer token in <code>{{token}}</code>, admin token in <code>{{admin_token}}</code>); a note appears in the Console. Create requests save the new id (<code>{{new_product_id}}</code>, <code>{{new_category_id}}</code>, <code>{{new_order_id}}</code>) and the matching Delete request uses it, so you can run the whole collection again and again. <b>Flaky</b> and <b>Rate limit</b> are deliberately unstable, so their tests accept the documented failure codes. Use <b>Run all folders</b> at the top of the Collections tab to run everything in one go.',
     '<b>API chaining:</b> in the <b>Tests</b> tab save values from a response, e.g. <code>pm.collectionVariables.set(\'order_id\', pm.response.json().id)</code>, then call <code>{{cl_url}}/orders/{{order_id}}</code> in the next request. Also available: <code>pm.globals</code>, <code>pm.environment</code>, <code>pm.variables</code> (local), each with <code>.set(k, v)</code> / <code>.get(k)</code>. Login responses still auto-save <code>{{token}}</code>.',
-    '<b>Run a collection:</b> press ▶ on a collection (all folders, in order) or on one folder. Requests run one after another, so variables set by an earlier request are available to the next.',
-    '<b>Authorization tab:</b> No Auth, Bearer Token, Basic Auth, API Key (header or query), JWT Bearer, OAuth 2.0 access token. Fields accept variables. The sandbox only validates Bearer tokens, so Basic/API Key are for practising 401 cases.',
+    '<b>Run a collection or folder:</b> hover over it and press the play icon (works for the built-in Collections tab and for your own collections). The <b>Collection Runner</b> opens as a full panel: set iterations, delay and &quot;Stop on first failure&quot;, then press <b>Run</b>. You get summary cards (requests, passed, failed, assertions, average time, duration) and a list of every request. Click any request to see its Response, Headers, the exact Request that was sent and its Test results. Filter by All / Passed / Failed, run again, or export the results as JSON or CSV. Use <b>Runner results</b> next to Variables to reopen the last run. Requests run in order, so a value saved by an earlier request is available to the next one.',
+    '<b>Data-driven testing (CSV / Excel / JSON):</b> in the Runner choose <b>Select data file</b>. Use a <code>.csv</code>, <code>.xlsx</code> or <code>.json</code> file whose first row holds column names (letters, numbers, _ . -). Each following row is one iteration and each column is a variable: with columns <code>email,password,qty</code> write <code>{{email}}</code> in the URL, headers, body or auth fields. The whole collection runs once per row, and chaining still works inside every iteration (log in, save the token, call the next request). Scripts can read the row with <code>pm.iterationData.get(&quot;email&quot;)</code> and the iteration number with <code>pm.info.iteration</code>. <b>Template</b> downloads a CSV header built from the variables your requests use. Old <code>.xls</code> files are not supported — save as .xlsx or CSV. Up to 1000 rows.',
+    '<b>Authorization tab:</b> API Key, Basic Auth, Bearer Token, Digest Auth, Hawk, JWT Bearer (signs the token for you with HS256/384/512), OAuth 1.0, OAuth 2.0 (access token), Akamai EdgeGrid, ASAP (Atlassian), AWS Signature (V4), NTLM and No Auth. Fields accept variables, and signed types (Digest, Hawk, OAuth 1.0, Akamai, ASAP, AWS, JWT) calculate the Authorization header at send time (shown as a read-only row in Headers). Digest answers the server\'s 401 challenge automatically. <b>NTLM cannot work in a browser</b> (it needs a connection handshake) - use Postman desktop or <code>curl --ntlm</code>. The sandbox itself only checks Bearer tokens.',
+    '<b>Real APIs (any website):</b> tick <b>Real internet requests</b> in the bar above the URL. URLs outside <code>api.qasandbox.com</code> (for example <code>https://postman-echo.com/basic-auth</code>) are then sent by your browser. The Console, Tests, variables, runner and code generator all work the same. Limits of a browser: the other server must allow cross-origin calls (CORS) - public test APIs such as postman-echo.com, httpbin.org and jsonplaceholder.typicode.com do, many private APIs do not; a <code>http://localhost</code> API must send <code>Access-Control-Allow-Origin</code>; forbidden headers (Host, Cookie, User-Agent) cannot be set; cookies are not sent; response headers are limited to those the server exposes. If a call fails the Console explains why.',
+    '<b>Request body (Body tab):</b> choose <b>none</b>, <b>form-data</b>, <b>x-www-form-urlencoded</b>, <b>raw</b> (Text, JavaScript, JSON, HTML or XML), <b>binary</b> or <b>GraphQL</b>. The <code>Content-Type</code> header is added for you and is shown as a read-only row in the Headers tab. <b>form-data:</b> type a key, pick <b>Text</b> (type the value) or <b>File</b> (press <b>Select files</b> and choose a file from your computer; one row can hold several files). <b>binary:</b> the chosen file is the whole body. <b>GraphQL:</b> write the query and optional variables JSON; it is sent as JSON.',
+    '<b>File upload practice:</b> <code>POST {{cl_url}}/uploadFile</code> takes exactly <b>one</b> file under the key <code>file</code>. <code>POST {{cl_url}}/uploadFiles</code> takes <b>one to five</b> files and every file must use the key <code>files</code> (add two rows named <code>files</code>, or select two files in one row). Using the wrong key returns 400 &quot;Unexpected field&quot;, sending two files to <code>/uploadFile</code> returns 400, a Text value where a File is needed returns 400, a file over 1 MB returns 413, an empty file returns 400 and a type outside txt/csv/json/xml/pdf/png/jpg/jpeg/gif/docx/xlsx/zip returns 415. <code>GET /files</code> lists what you uploaded this session. Files up to 512 KB are saved with the request in your collection; larger ones must be selected again after a reload.',
+    '<b>GraphQL practice:</b> <code>POST {{cl_url}}/graphql</code> with queries such as <code>{ products(limit: 3) { id name price category { name } } }</code>, <code>product(id: 1)</code>, <code>categories</code> and <code>category(id: 1) { products { name } }</code>. Variables work: <code>query ($id: Int!) { product(id: $id) { name } }</code> with <code>{ &quot;id&quot;: 1 }</code>. Syntax errors and unknown fields return 400 with an <code>errors</code> array. The schema is read-only (no mutations).',
     '<b>Bottom panels:</b> <b>Console</b> shows every request/response and <code>console.log()</code> output from scripts. <b>Terminal</b> runs commands: <code>help</code>, <code>vars</code>, <code>set collection cl_url=…</code>, <code>collections</code>, <code>run &lt;collection name&gt;</code>, <code>send GET {{cl_url}}/products</code>. <b>Issues</b> lists undefined variables, 4xx/5xx responses, failed tests and script errors.'
   ]) +
   guideSection('⚡ Performance testing', [
