@@ -467,6 +467,15 @@ pre.json{margin:0;font-family:var(--mono);font-size:.82rem;line-height:1.55;whit
 .fchip button{border:0;background:none;cursor:pointer;color:#888;display:inline-flex;padding:2px;border-radius:4px}.fchip button:hover{background:#e3e3ef;color:#b91c1c}
 .bin-box{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:18px;border:1px dashed #c9c9d8;border-radius:10px;background:#fafafd}
 .gql label{display:block;margin:10px 0 4px}
+.seg{display:inline-flex;border:1px solid #d8d8e2;border-radius:8px;overflow:hidden;background:#fff}
+.seg button{border:0;background:none;padding:6px 12px;font:inherit;font-size:.8rem;font-weight:600;color:#555;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.seg button+button{border-left:1px solid #d8d8e2}.seg button.active{background:#1f2937;color:#fff}
+.net-opt{border:1px solid #e3e3ea;border-radius:10px;padding:10px 12px;margin-bottom:10px}
+.net-opt.on{border-color:#4f46e5;background:#f7f7ff}
+.net-opt label.t{display:flex;gap:8px;align-items:center;font-weight:700;cursor:pointer}
+.net-opt p{margin:4px 0 0 24px;font-size:.8rem;color:#666}
+.net-opt .row2{display:flex;gap:8px;align-items:center;margin:8px 0 0 24px;flex-wrap:wrap}
+.net-opt input[type=text]{flex:1;min-width:220px;padding:6px 8px;border:1px solid #d0d0da;border-radius:6px;font:inherit;font-size:.82rem}
 /* ---------- Performance tool ---------- */
 .perf-grid{display:grid;grid-template-columns:400px 1fr;gap:18px;align-items:start}
 .panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--sh)}
@@ -2039,8 +2048,12 @@ async function apiCore(method, urlStr, headers, bodyText){
 const HTTP_TEXT = {200:'OK', 201:'Created', 202:'Accepted', 204:'No Content', 301:'Moved Permanently', 302:'Found', 304:'Not Modified', 400:'Bad Request', 401:'Unauthorized', 403:'Forbidden', 404:'Not Found', 405:'Method Not Allowed', 409:'Conflict', 415:'Unsupported Media Type', 422:'Unprocessable Entity', 429:'Too Many Requests', 500:'Internal Server Error', 502:'Bad Gateway', 503:'Service Unavailable'};
 /* Real HTTP call made by the browser itself (used by the API Client for any host other than the sandbox). */
 async function apiReal(method, url, headers, body){
-  const t0 = performance.now(), ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 30000);
+  const t0 = performance.now(), ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 35000);
+  const net = (typeof PM !== 'undefined' && PM.net) || {mode:'direct'};
   let host = ''; try{ host = new URL(url).host; }catch(e){}
+  let target = url;
+  if(net.mode === 'local') target = String(net.local || 'http://localhost:8787').replace(/\/+$/, '') + '/proxy?url=' + encodeURIComponent(url);
+  else if(net.mode === 'public') target = String(net.pub || '').replace('{url}', encodeURIComponent(url));
   try{
     const h = new Headers(); Object.entries(headers || {}).forEach(([k, v]) => { try{ h.set(k, v); }catch(e){} });
     let payload;
@@ -2048,11 +2061,17 @@ async function apiReal(method, url, headers, body){
       if(body.multipart){ const fd = new FormData(); for(const p of body.multipart){ if(p.type === 'file') fd.append(p.key, await (await fetch(p.data)).blob(), p.name); else fd.append(p.key, p.value); } payload = fd; h.delete('Content-Type'); }
       else if(body.binary) payload = await (await fetch(body.binary.data)).blob();
     } else if(body !== undefined && body !== '' && !['GET', 'HEAD'].includes(method)) payload = body;
-    const r = await fetch(url, {method, headers:h, body:payload, signal:ctl.signal, credentials:'omit', redirect:'follow'});
+    const r = await fetch(target, {method, headers:h, body:payload, signal:ctl.signal, credentials:'omit', redirect:'follow'});
+    const pe = r.headers.get('x-qa-proxy-error');
+    if(net.mode === 'local' && pe) return {network:'The local proxy could not reach ' + host + ': ' + decodeURIComponent(pe), ms:Math.round(performance.now() - t0)};
     const text = await r.text(), hd = {}; r.headers.forEach((v, k) => { hd[k] = v; });
     return {status:r.status, statusText:r.statusText || HTTP_TEXT[r.status] || '', headers:hd, text, ms:Math.round(performance.now() - t0), size:text.length};
   }catch(e){
-    return {network:e.name === 'AbortError' ? 'Request to ' + host + ' timed out after 30 seconds' : 'Could not get a response from ' + host + '. Possible reasons: the browser blocked it because the server does not allow cross-origin (CORS) calls, the server is offline or the name does not exist, or the URL is a mixed http/https request.', ms:Math.round(performance.now() - t0)};
+    const ms = Math.round(performance.now() - t0);
+    if(e.name === 'AbortError') return {network:'Request to ' + host + ' timed out after 35 seconds', ms, netHint:true};
+    if(net.mode === 'local') return {network:'Could not reach the local proxy at ' + (net.local || 'http://localhost:8787') + '. Is it running? Start it with  node qastore-proxy.js  (or  python qastore-proxy.py ). Download the script from Internet settings.', ms, netHint:true};
+    if(net.mode === 'public') return {network:'The public CORS proxy did not answer for ' + host + ' (it may be down, rate-limited, or block this request type).', ms, netHint:true};
+    return {network:'The browser could not complete the call to ' + host + '. Most often the server does not allow cross-origin (CORS) requests from a web page, or it is offline. This cannot be fixed inside a web page - open Internet settings and use the Local proxy (about 1 minute).', ms, netHint:true};
   }finally{ clearTimeout(timer); }
 }
 async function apiHandle(method, url, headers, body, opts){
@@ -3417,7 +3436,7 @@ const PM_RAW_TYPES = [{k:'text', label:'Text', ct:'text/plain'}, {k:'javascript'
 function freshTab(seed){
   const t = Object.assign({
     id: uid(), name:'Untitled request', method:'GET', url:'{{cl_url}}/products',
-    params:[], headers:[], body:'{\n  \n}', bodyMode:'none', rawType:'json', formData:[], urlenc:[], gqlQuery:PM_GQL_SAMPLE, gqlVars:'', binFile:null, auth:false, authType:'none', authData:{}, locals:[],
+    params:[], headers:[], body:'{\n  \n}', description:'', bodyMode:'none', rawType:'json', formData:[], urlenc:[], gqlQuery:PM_GQL_SAMPLE, gqlVars:'', binFile:null, auth:false, authType:'none', authData:{}, locals:[],
     preRequest:'', tests: PM_TEST_SNIPPET, activeReqTab:'params', response:null, saved:true
   }, seed || {});
   if(seed && seed.auth && !seed.authType){ t.authType = 'bearer'; t.authData = {token:'{{token}}'}; }
@@ -3460,6 +3479,8 @@ if(!PM.collections || !Array.isArray(PM.collections) || !PM.collections.length){
 }
 pmMigrateSaved();
 PM.real = store.get(LS.pm + '_real', true) !== false;
+PM.net = Object.assign({mode:'direct', local:'http://localhost:8787', pub:'https://corsproxy.io/?url={url}'}, store.get(LS.pm + '_net', {}) || {});
+const pmNetLabel = () => ({direct:'Direct', local:'Local proxy', public:'Public proxy'}[PM.net.mode] || 'Direct');
 function pmActiveEnv(){ return PM.environments.find(e => e.id === PM.activeEnvId) || PM.environments[0]; }
 function pmEnvVar(key){ const v = pmActiveEnv().vars.find(x => x.key === key && x.on !== false); return v ? v.value : undefined; }
 function pmSetEnvVar(key, value){ const env = pmActiveEnv(); const v = env.vars.find(x => x.key === key); if(v) v.value = value; else env.vars.push({key, value, on:true}); pmSaveEnvs(); }
@@ -3498,7 +3519,7 @@ const PM_DYN = {
   '$randomAlphaNumeric':() => Math.random().toString(36).slice(2, 10)
 };
 function pmSubstitute(str, t){
-  if(!str) return str;
+  if(!str || PM.docMode) return str;
   const sc = pmScopes(t); let s = String(str);
   for(let i = 0; i < 3; i++){
     const n = s.replace(/\{\{\s*([\w.\-$]+)\s*\}\}/g, (m, k) => { if(k[0] === '$') return PM_DYN[k] ? PM_DYN[k]() : m; const dr = PM.dataRow; if(dr && Object.prototype.hasOwnProperty.call(dr, k)) return dr[k]; for(const a of sc){ const v = (a || []).find(x => x.key === k && x.on !== false && x.value !== ''); if(v) return v.value; } return m; });
@@ -3595,8 +3616,8 @@ function paintPmSide(mode){
     const op = k => PM.open[k] !== false;
     const ab = (a, i, ti, n, cls) => '<button class="ib' + (cls ? ' ' + cls : '') + '" data-a="' + a + '" data-i="' + i + '" title="' + ti + '" aria-label="' + ti + '">' + ic(n, 14) + '</button>';
     body.innerHTML = '<div style="padding:2px 2px 8px"><button class="btn btn-sm btn-block" data-a="cnew" data-i="0">' + ic('plus', 13) + ' New collection</button></div>' +
-    PM.collections.map((c, ci) => '<div class="pm-folder"><div class="f-head" data-tg="c' + ci + '">' + tgl(op('c' + ci)) + '<span class="fi col">' + ic('layers') + '</span><span class="nm">' + esc(c.name) + '</span><span class="acts">' + ab('crun', ci, 'Run collection', 'play') + ab('cfold', ci, 'Add folder', 'folderplus') + ab('cvars', ci, 'Collection variables', 'braces') + ab('cren', ci, 'Rename', 'edit') + ab('cdel', ci, 'Delete', 'trash', 'danger') + '</span></div>' +
-      (op('c' + ci) ? (c.folders.length ? c.folders.map((f, fi) => { const k = ci + ':' + fi; return '<div class="pm-folder" style="margin-left:14px"><div class="f-head" data-tg="f' + ci + '_' + fi + '">' + tgl(op('f' + ci + '_' + fi)) + '<span class="fi">' + ic('folder') + '</span><span class="nm">' + esc(f.name) + '</span><span class="cnt">' + f.reqs.length + '</span><span class="acts">' + ab('frun', k, 'Run folder', 'play') + ab('freq', k, 'Add request', 'fileplus') + ab('fvars', k, 'Folder variables', 'braces') + ab('fren', k, 'Rename', 'edit') + ab('fdel', k, 'Delete', 'trash', 'danger') + '</span></div>' +
+    PM.collections.map((c, ci) => '<div class="pm-folder"><div class="f-head" data-tg="c' + ci + '">' + tgl(op('c' + ci)) + '<span class="fi col">' + ic('layers') + '</span><span class="nm">' + esc(c.name) + '</span><span class="acts">' + ab('cdoc', ci, 'View documentation', 'book') + ab('crun', ci, 'Run collection', 'play') + ab('cfold', ci, 'Add folder', 'folderplus') + ab('cvars', ci, 'Collection variables', 'braces') + ab('cren', ci, 'Rename', 'edit') + ab('cdel', ci, 'Delete', 'trash', 'danger') + '</span></div>' +
+      (op('c' + ci) ? (c.folders.length ? c.folders.map((f, fi) => { const k = ci + ':' + fi; return '<div class="pm-folder" style="margin-left:14px"><div class="f-head" data-tg="f' + ci + '_' + fi + '">' + tgl(op('f' + ci + '_' + fi)) + '<span class="fi">' + ic('folder') + '</span><span class="nm">' + esc(f.name) + '</span><span class="cnt">' + f.reqs.length + '</span><span class="acts">' + ab('fdoc', k, 'View documentation', 'book') + ab('frun', k, 'Run folder', 'play') + ab('freq', k, 'Add request', 'fileplus') + ab('fvars', k, 'Folder variables', 'braces') + ab('fren', k, 'Rename', 'edit') + ab('fdel', k, 'Delete', 'trash', 'danger') + '</span></div>' +
         (op('f' + ci + '_' + fi) ? f.reqs.map((r, ri) => '<div class="pm-req" data-a="rqopen" data-i="' + k + ':' + ri + '"><span class="mth m-' + r.method + '">' + r.method + '</span><span class="nm">' + esc(r.name) + '</span><span class="acts">' + ab('rqren', k + ':' + ri, 'Rename', 'edit') + ab('rqdel', k + ':' + ri, 'Delete', 'trash', 'danger') + '</span></div>').join('') || '<div class="muted small" style="padding:4px 8px 4px 30px">No requests yet</div>' : '') + '</div>'; }).join('') : '<div class="muted small" style="padding:4px 8px 4px 30px">No folders yet — use the add-folder icon</div>') : '') + '</div>').join('');
     body.onclick = e => {
       const b = e.target.closest('[data-a]'), h = e.target.closest('[data-tg]');
@@ -3609,15 +3630,18 @@ function paintPmSide(mode){
   const mockFolder = {folder:'My Custom Mocks (Admin ▸ API Mocks)', reqs: mocks.map(m => ({name:m.path + ' → ' + m.status_code, method:m.method, url:'https://' + API_HOST + m.path, auth:m.requires_auth === 'yes', tests:"pm.test('Status code is " + Number(m.status_code) + "', () => pm.response.status === " + Number(m.status_code) + ");"}))};
   const folders = mocks.length ? PM_COLLECTION.concat([mockFolder]) : PM_COLLECTION;
   const nAll = folders.reduce((s, f) => s + f.reqs.length, 0);
-  body.innerHTML = '<div style="padding:2px 2px 8px"><button class="btn btn-sm btn-block" id="pmRunAll">' + ic('play', 13) + ' Run all folders (' + nAll + ' requests)</button></div>' + folders.map((f, fi) => '<div class="pm-folder"><div class="f-head" data-fold="' + fi + '">' + tgl(true) + '<span class="fi">' + ic('folder') + '</span><span class="nm">' + esc(f.folder) + '</span><span class="cnt">' + f.reqs.length + '</span>' + (f.reqs.length ? '<span class="acts" style="display:inline-flex"><button class="ib" data-runcol="' + fi + '" title="Run this folder" aria-label="Run this folder">' + ic('play', 14) + '</button></span>' : '') + '</div><div class="f-body" data-foldbody="' + fi + '">' +
+  body.innerHTML = '<div style="padding:2px 2px 8px"><div style="display:flex;gap:6px"><button class="btn btn-sm" style="flex:1" id="pmRunAll">' + ic('play', 13) + ' Run all folders (' + nAll + ')</button><button class="btn btn-sm" id="pmDocAll" title="View documentation">' + ic('book', 13) + ' Docs</button></div></div>' + folders.map((f, fi) => '<div class="pm-folder"><div class="f-head" data-fold="' + fi + '">' + tgl(true) + '<span class="fi">' + ic('folder') + '</span><span class="nm">' + esc(f.folder) + '</span><span class="cnt">' + f.reqs.length + '</span>' + (f.reqs.length ? '<span class="acts" style="display:inline-flex"><button class="ib" data-doccol="' + fi + '" title="View documentation" aria-label="View documentation">' + ic('book', 14) + '</button><button class="ib" data-runcol="' + fi + '" title="Run this folder" aria-label="Run this folder">' + ic('play', 14) + '</button></span>' : '') + '</div><div class="f-body" data-foldbody="' + fi + '">' +
     (f.reqs.length ? f.reqs.map((r, ri) => '<div class="pm-req" data-fold-item="' + fi + ':' + ri + '"><span class="mth m-' + r.method + '">' + r.method + '</span><span class="nm">' + esc(r.name) + '</span></div>').join('') : '<div class="muted small" style="padding:6px 8px 6px 24px">No custom mocks yet — add one in Admin ▸ API Mocks.</div>') + '</div></div>').join('');
-  $('#pmRunAll').addEventListener('click', () => runCollectionFolder('Store API \u2014 all folders', folders.flatMap(f => f.reqs.map(tabFromCollection))));
+  const grouped = fl => fl.flatMap(f => f.reqs.map(r => Object.assign(tabFromCollection(r), {_group:f.folder})));
+  $('#pmDocAll').addEventListener('click', () => runCollectionFolder('Store API \u2014 all folders', grouped(folders), {view:'docs'}));
+  $$('[data-doccol]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); const f = folders[Number(b.dataset.doccol)]; runCollectionFolder(f.folder, grouped([f]), {view:'docs'}); }));
+  $('#pmRunAll').addEventListener('click', () => runCollectionFolder('Store API \u2014 all folders', folders.flatMap(f => f.reqs.map(r => Object.assign(tabFromCollection(r), {_group:f.folder})))));
   $$('.f-head[data-fold]').forEach(h => h.addEventListener('click', e => { if(e.target.closest('button')) return; const b = $('[data-foldbody="' + h.dataset.fold + '"]'); const hide = b.style.display !== 'none'; b.style.display = hide ? 'none' : 'block'; h.querySelector('.tgl').innerHTML = ic(hide ? 'plus' : 'minus', 11); }));
   $$('[data-fold-item]').forEach(el => el.addEventListener('click', () => {
     const [fi, ri] = el.dataset.foldItem.split(':').map(Number); const item = folders[fi].reqs[ri];
     const t = tabFromCollection(item); PM.tabs.push(t); PM.activeId = t.id; paintPmMain();
   }));
-  $$('[data-runcol]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); const f = folders[Number(b.dataset.runcol)]; runCollectionFolder(f.folder, f.reqs.map(tabFromCollection)); }));
+  $$('[data-runcol]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); const f = folders[Number(b.dataset.runcol)]; runCollectionFolder(f.folder, f.reqs.map(r => Object.assign(tabFromCollection(r), {_group:f.folder}))); }));
 }
 function paintPmMain(){
   if(PM.runnerOpen && PM.activeId !== PM.runnerFor) PM.runnerOpen = false;
@@ -3628,7 +3652,7 @@ function paintPmMain(){
   '<div class="pm-tabbar" id="pmTabbar"></div>' +
   '<div class="pm-envbar">' +
   '<span>Environment:</span><select id="pmEnvSelect">' + PM.environments.map(e => '<option value="' + e.id + '"' + (e.id === PM.activeEnvId ? ' selected' : '') + '>' + esc(e.name) + '</option>').join('') + '</select>' +
-  '<button class="btn btn-sm" id="pmManageEnv">' + ic('braces', 14) + ' Variables</button><label class="small" style="display:inline-flex;gap:6px;align-items:center;cursor:pointer" title="When on, URLs outside api.qasandbox.com are called for real by your browser (the other server must allow CORS)"><input type="checkbox" id="pmReal"' + (PM.real ? ' checked' : '') + '> Real internet requests</label>' + (PM.runner ? '<button class="btn btn-sm" id="pmLastRun">' + ic('play', 13) + ' Runner results</button>' : '') +
+  '<button class="btn btn-sm" id="pmManageEnv">' + ic('braces', 14) + ' Variables</button><label class="small" style="display:inline-flex;gap:6px;align-items:center;cursor:pointer" title="When on, URLs outside api.qasandbox.com are called for real by your browser (the other server must allow CORS)"><input type="checkbox" id="pmReal"' + (PM.real ? ' checked' : '') + '> Real internet requests</label><button class="btn btn-sm" id="pmNet" title="How requests to other websites are sent">' + ic('settings', 14) + ' Internet: ' + pmNetLabel() + '</button>' + (PM.runner ? '<button class="btn btn-sm" id="pmLastRun">' + ic('play', 13) + ' Runner results</button>' : '') +
   '<span class="muted small" style="margin-left:auto">Use <code>{{variableName}}</code> in the URL, headers or body — try <code>{{cl_url}}/products/1</code></span>' +
   '</div>' +
   '<div class="pm-urlbar">' +
@@ -3651,6 +3675,7 @@ function paintPmMain(){
   $('#pmCodeGen').addEventListener('click', () => openCodeGenModal(t));
   $('#pmEnvSelect').addEventListener('change', e => { PM.activeEnvId = e.target.value; pmSaveEnvs(); paintPmMain(); });
   $('#pmManageEnv').addEventListener('click', () => openVarsHub());
+  $('#pmNet').addEventListener('click', openNetModal);
   $('#pmReal').addEventListener('change', e => { PM.real = e.target.checked; store.set(LS.pm + '_real', PM.real); pmShowResolved(activeTab()); toast(PM.real ? 'Real internet requests are ON - other hosts are called by your browser' : 'Real internet requests are OFF - only api.qasandbox.com works', 'ok'); });
   const lastRun = $('#pmLastRun'); if(lastRun) lastRun.addEventListener('click', () => { PM.runnerOpen = true; PM.runnerFor = PM.activeId; paintPmMain(); });
 }
@@ -3671,7 +3696,7 @@ function paintPmTabbar(){
 }
 function paintPmReqTabs(){
   const t = activeTab();
-  const tabs = [['params', 'Params', t.params.length], ['headers', 'Headers', t.headers.filter(h => h.on).length], ['body', 'Body', t.bodyMode && t.bodyMode !== 'none' ? 1 : 0], ['auth', 'Authorization', t.authType && t.authType !== 'none' ? 1 : 0], ['vars', 'Variables', (t.locals || []).length], ['prereq', 'Pre-request Script', t.preRequest && t.preRequest.trim() ? 1 : 0], ['tests', 'Tests', 0]];
+  const tabs = [['params', 'Params', t.params.length], ['headers', 'Headers', t.headers.filter(h => h.on).length], ['body', 'Body', t.bodyMode && t.bodyMode !== 'none' ? 1 : 0], ['auth', 'Authorization', t.authType && t.authType !== 'none' ? 1 : 0], ['vars', 'Variables', (t.locals || []).length], ['prereq', 'Pre-request Script', t.preRequest && t.preRequest.trim() ? 1 : 0], ['tests', 'Tests', 0], ['docs', 'Docs', t.description && t.description.trim() ? 1 : 0]];
   $('#pmReqTabs').innerHTML = tabs.map(([k, l, n]) => '<button class="' + (t.activeReqTab === k ? 'active' : '') + '" data-rtab="' + k + '">' + l + (n ? ' <span class="dot">●</span>' : '') + '</button>').join('');
   $$('[data-rtab]').forEach(b => b.addEventListener('click', () => { t.activeReqTab = b.dataset.rtab; paintPmReqTabs(); paintPmReqPanel(); }));
 }
@@ -3749,6 +3774,38 @@ function paintPmBody(t, p){
     });
   }
 }
+Object.assign(ICONS, {
+  book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+  settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'
+});
+const PM_PROXY_NODE = "#!/usr/bin/env node\n/*\n  QA Store local proxy  (Node.js 14 or newer, no packages needed)\n\n  Lets the QA Store API Client call ANY website (no CORS problems).\n  Start it, then in the API Client choose  Internet settings > Local proxy.\n\n    node qastore-proxy.js                      -> listens on http://localhost:8787\n    node qastore-proxy.js --port 9000\n    node qastore-proxy.js --allow-origin https://my-qa-site.example\n\n  Safety: it only listens on this computer (127.0.0.1) and only answers pages opened\n  from a file (origin \"null\"), from localhost, or from an origin you pass with\n  --allow-origin. Other websites are refused, so they cannot use it to reach your network.\n*/\nconst http = require('http'), https = require('https'), { URL } = require('url');\nconst args = process.argv.slice(2); let port = 8787; const allowed = ['null'];\nfor(let i = 0; i < args.length; i++){ if(args[i] === '--port') port = Number(args[++i]); else if(args[i] === '--allow-origin') allowed.push(args[++i]); }\nconst originOk = o => !o || allowed.includes(o) || /^https?:\\/\\/(localhost|127\\.0\\.0\\.1)(:\\d+)?$/.test(o);\nconst HOP = ['connection', 'keep-alive', 'transfer-encoding', 'upgrade', 'proxy-authenticate', 'proxy-authorization', 'te', 'trailer'];\n\nfunction cors(req, res){\n  const o = req.headers.origin;\n  res.setHeader('Access-Control-Allow-Origin', o || '*');\n  res.setHeader('Access-Control-Allow-Methods', '*');\n  res.setHeader('Access-Control-Allow-Headers', req.headers['access-control-request-headers'] || '*');\n  res.setHeader('Access-Control-Expose-Headers', '*');\n  res.setHeader('Access-Control-Allow-Private-Network', 'true');\n  res.setHeader('Vary', 'Origin');\n}\nfunction fail(req, res, code, msg){\n  cors(req, res); res.setHeader('X-QA-Proxy-Error', encodeURIComponent(msg)); res.setHeader('Content-Type', 'application/json');\n  res.writeHead(code); res.end(JSON.stringify({ proxyError: msg }));\n}\nfunction forward(target, method, headers, body, hops, done){\n  const u = new URL(target), lib = u.protocol === 'https:' ? https : http;\n  const h = Object.assign({}, headers); h.host = u.host; if(body.length) h['content-length'] = body.length; else delete h['content-length'];\n  const r = lib.request(u, { method, headers: h, timeout: 30000 }, resp => {\n    if([301, 302, 303, 307, 308].includes(resp.statusCode) && resp.headers.location && hops < 10){\n      resp.resume(); const next = new URL(resp.headers.location, u).toString();\n      const keep = resp.statusCode === 307 || resp.statusCode === 308;\n      return forward(next, keep ? method : 'GET', headers, keep ? body : Buffer.alloc(0), hops + 1, done);\n    }\n    done(null, resp);\n  });\n  r.on('timeout', () => r.destroy(new Error('Timed out after 30 seconds')));\n  r.on('error', e => done(e));\n  r.end(body);\n}\nhttp.createServer((req, res) => {\n  if(!originOk(req.headers.origin)) { res.writeHead(403, { 'Content-Type': 'text/plain' }); return res.end('Origin ' + req.headers.origin + ' is not allowed. Start the proxy with --allow-origin ' + req.headers.origin); }\n  if(req.method === 'OPTIONS'){ cors(req, res); res.writeHead(204); return res.end(); }\n  const u = new URL(req.url, 'http://localhost');\n  if(u.pathname === '/health'){ cors(req, res); res.setHeader('Content-Type', 'application/json'); res.writeHead(200); return res.end('{\"ok\":true,\"proxy\":\"qastore\"}'); }\n  if(u.pathname !== '/proxy') return fail(req, res, 404, 'Use /proxy?url=<encoded target url>');\n  const target = u.searchParams.get('url');\n  if(!target || !/^https?:\\/\\//i.test(target)) return fail(req, res, 400, 'Query parameter \"url\" must be an absolute http(s) address');\n  const chunks = []; req.on('data', c => chunks.push(c));\n  req.on('end', () => {\n    const h = {}; Object.entries(req.headers).forEach(([k, v]) => { if(!HOP.includes(k) && !['host', 'origin', 'referer', 'content-length'].includes(k) && !k.startsWith('sec-')) h[k] = v; });\n    forward(target, req.method, h, Buffer.concat(chunks), 0, (err, resp) => {\n      if(err) return fail(req, res, 502, (err.code ? err.code + ': ' : '') + err.message);\n      cors(req, res);\n      Object.entries(resp.headers).forEach(([k, v]) => { if(!HOP.includes(k) && !k.startsWith('access-control-')) res.setHeader(k, v); });\n      res.writeHead(resp.statusCode, resp.statusMessage); resp.pipe(res);\n    });\n  });\n}).listen(port, '127.0.0.1', () => console.log('QA Store proxy running on http://localhost:' + port + '  (Ctrl+C to stop)'));\n";
+const PM_PROXY_PY = "#!/usr/bin/env python3\n\"\"\"\nQA Store local proxy  (Python 3.8+, standard library only)\n\nLets the QA Store API Client call ANY website (no CORS problems).\nStart it, then in the API Client choose  Internet settings > Local proxy.\n\n    python qastore-proxy.py                          -> http://localhost:8787\n    python qastore-proxy.py --port 9000\n    python qastore-proxy.py --allow-origin https://my-qa-site.example\n\nSafety: listens on 127.0.0.1 only and answers pages opened from a file (origin \"null\"),\nfrom localhost, or from an origin you pass with --allow-origin. Other websites are refused.\n\"\"\"\nimport argparse, http.client, http.server, json, re, socketserver, urllib.parse\n\nap = argparse.ArgumentParser(); ap.add_argument('--port', type=int, default=8787); ap.add_argument('--allow-origin', action='append', default=[])\nARGS = ap.parse_args(); ALLOWED = ['null'] + ARGS.allow_origin\nHOP = {'connection', 'keep-alive', 'transfer-encoding', 'upgrade', 'proxy-authenticate', 'proxy-authorization', 'te', 'trailer'}\norigin_ok = lambda o: (not o) or o in ALLOWED or re.match(r'^https?://(localhost|127\\.0\\.0\\.1)(:\\d+)?$', o)\n\ndef fetch(target, method, headers, body, hops=0):\n    u = urllib.parse.urlsplit(target)\n    conn = (http.client.HTTPSConnection if u.scheme == 'https' else http.client.HTTPConnection)(u.netloc, timeout=30)\n    h = dict(headers); h['Host'] = u.netloc\n    if body: h['Content-Length'] = str(len(body))\n    else: h.pop('Content-Length', None)\n    conn.request(method, (u.path or '/') + ('?' + u.query if u.query else ''), body or None, h)\n    r = conn.getresponse()\n    if r.status in (301, 302, 303, 307, 308) and r.getheader('Location') and hops < 10:\n        nxt = urllib.parse.urljoin(target, r.getheader('Location')); r.read(); conn.close()\n        keep = r.status in (307, 308)\n        return fetch(nxt, method if keep else 'GET', headers, body if keep else b'', hops + 1)\n    data = r.read(); conn.close()\n    return r, data\n\nclass Handler(http.server.BaseHTTPRequestHandler):\n    protocol_version = 'HTTP/1.1'\n    def log_message(self, *a): pass\n    def cors(self):\n        o = self.headers.get('Origin')\n        self.send_header('Access-Control-Allow-Origin', o or '*'); self.send_header('Access-Control-Allow-Methods', '*')\n        self.send_header('Access-Control-Allow-Headers', self.headers.get('Access-Control-Request-Headers') or '*')\n        self.send_header('Access-Control-Expose-Headers', '*'); self.send_header('Access-Control-Allow-Private-Network', 'true'); self.send_header('Vary', 'Origin')\n    def reply(self, code, obj, extra=None):\n        b = json.dumps(obj).encode(); self.send_response(code); self.cors(); self.send_header('Content-Type', 'application/json'); self.send_header('Content-Length', str(len(b)))\n        for k, v in (extra or {}).items(): self.send_header(k, v)\n        self.end_headers(); self.wfile.write(b)\n    def handle_any(self):\n        if not origin_ok(self.headers.get('Origin')):\n            b = ('Origin %s is not allowed. Start the proxy with --allow-origin %s' % (self.headers.get('Origin'), self.headers.get('Origin'))).encode()\n            self.send_response(403); self.send_header('Content-Length', str(len(b))); self.end_headers(); self.wfile.write(b); return\n        if self.command == 'OPTIONS':\n            self.send_response(204); self.cors(); self.send_header('Content-Length', '0'); self.end_headers(); return\n        u = urllib.parse.urlsplit(self.path)\n        if u.path == '/health': return self.reply(200, {'ok': True, 'proxy': 'qastore'})\n        n = int(self.headers.get('Content-Length') or 0); body = self.rfile.read(n) if n else b''\n        if u.path != '/proxy': return self.reply(404, {'proxyError': 'Use /proxy?url=<encoded target url>'}, {'X-QA-Proxy-Error': 'Use /proxy?url=...'})\n        target = (urllib.parse.parse_qs(u.query).get('url') or [''])[0]\n        if not re.match(r'^https?://', target, re.I): return self.reply(400, {'proxyError': 'Query parameter \"url\" must be an absolute http(s) address'}, {'X-QA-Proxy-Error': 'Bad url parameter'})\n        h = {k: v for k, v in self.headers.items() if k.lower() not in HOP | {'host', 'origin', 'referer', 'content-length'} and not k.lower().startswith('sec-')}\n        try: r, data = fetch(target, self.command, h, body)\n        except Exception as e:\n            msg = (type(e).__name__ + ': ' + str(e)).replace('\\n', ' '); return self.reply(502, {'proxyError': msg}, {'X-QA-Proxy-Error': urllib.parse.quote(msg)})\n        self.send_response(r.status, r.reason); self.cors()\n        for k, v in r.getheaders():\n            if k.lower() not in HOP | {'content-length'} and not k.lower().startswith('access-control-'): self.send_header(k, v)\n        self.send_header('Content-Length', str(len(data))); self.end_headers(); self.wfile.write(data)\n    do_GET = do_POST = do_PUT = do_PATCH = do_DELETE = do_HEAD = do_OPTIONS = handle_any\n\nclass Server(socketserver.ThreadingMixIn, http.server.HTTPServer): daemon_threads = True\nprint('QA Store proxy running on http://localhost:%d  (Ctrl+C to stop)' % ARGS.port)\nServer(('127.0.0.1', ARGS.port), Handler).serve_forever()\n";
+function openNetModal(){
+  const N = PM.net, save = () => { store.set(LS.pm + '_net', N); store.set(LS.pm + '_real', PM.real); const b = $('#pmNet'); if(b) b.innerHTML = ic('settings', 14) + ' Internet: ' + pmNetLabel(); const c = $('#pmReal'); if(c) c.checked = PM.real; };
+  const opt = (k, title, desc, extra) => '<div class="net-opt' + (N.mode === k ? ' on' : '') + '"><label class="t"><input type="radio" name="netmode" value="' + k + '"' + (N.mode === k ? ' checked' : '') + '> ' + title + '</label><p>' + desc + '</p>' + (extra || '') + '</div>';
+  const bd = openModal('<div class="modal-head"><h3>Internet settings</h3><button class="x-btn" data-action="closeModal">×</button></div>' +
+    '<div class="check mb"><input type="checkbox" id="netOn"' + (PM.real ? ' checked' : '') + '><label for="netOn">Allow requests to websites other than api.qasandbox.com</label></div>' +
+    '<p class="muted small" style="margin-bottom:10px">A web page is not allowed to call most websites directly (browser security rule called CORS). Pick how the API Client should send those requests:</p>' +
+    opt('direct', 'Direct from the browser', 'Works only for servers that allow CORS, for example postman-echo.com, httpbin.org and jsonplaceholder.typicode.com. Nothing to install.') +
+    opt('local', 'Local proxy <span class="badge b-ok" style="margin-left:6px">recommended</span>', 'Works with <b>any</b> URL, including localhost and private APIs, and shows the real error (DNS, refused connection, timeout). A tiny program that runs on your computer; your data never leaves it except to the target API.',
+      '<div class="row2"><input type="text" id="netLocal" value="' + esc(N.local) + '" spellcheck="false"><button class="btn btn-sm" id="netTest">Test</button><span class="small" id="netTestOut"></span></div>' +
+      '<div class="row2"><button class="btn btn-sm" id="netDlNode">' + ic('download', 13) + ' qastore-proxy.js (Node.js)</button><button class="btn btn-sm" id="netDlPy">' + ic('download', 13) + ' qastore-proxy.py (Python)</button></div>' +
+      '<p style="margin-top:8px"><b>Setup:</b> 1) download one script · 2) open a terminal in that folder and run <code>node qastore-proxy.js</code> (or <code>python qastore-proxy.py</code>) · 3) leave it running and press <b>Test</b>. It only accepts pages opened from a file or localhost; if you host this page on a website, start it with <code>--allow-origin https://your-site</code>.</p>') +
+    opt('public', 'Public CORS proxy (third party)', '<span style="color:#b45309"><b>Everything you send, including passwords and tokens, passes through someone else\'s server.</b> Use only with test data. Public proxies may be slow, rate-limited or block some requests.</span>',
+      '<div class="row2"><input type="text" id="netPub" value="' + esc(N.pub) + '" spellcheck="false"><span class="small muted">{url} is replaced by the target address</span></div>') +
+    '<div class="modal-actions"><button class="btn btn-primary" data-action="closeModal">Done</button></div>', {cls:'modal-lg'});
+  $$('input[name=netmode]', bd).forEach(r => r.addEventListener('change', () => { N.mode = r.value; if(r.value !== 'direct' && !PM.real){ PM.real = true; $('#netOn', bd).checked = true; } save(); $$('.net-opt', bd).forEach(o => o.classList.toggle('on', o.querySelector('input[name=netmode]').checked)); }));
+  $('#netOn', bd).addEventListener('change', e => { PM.real = e.target.checked; save(); });
+  $('#netLocal', bd).addEventListener('input', e => { N.local = e.target.value.trim(); save(); });
+  $('#netPub', bd).addEventListener('input', e => { N.pub = e.target.value.trim(); save(); });
+  $('#netDlNode', bd).addEventListener('click', () => pmDownload('qastore-proxy.js', PM_PROXY_NODE, 'text/javascript'));
+  $('#netDlPy', bd).addEventListener('click', () => pmDownload('qastore-proxy.py', PM_PROXY_PY, 'text/x-python'));
+  $('#netTest', bd).addEventListener('click', async () => {
+    const out = $('#netTestOut', bd); out.style.color = '#666'; out.textContent = 'Testing...';
+    try{ const r = await fetch(String(N.local).replace(/\/+$/, '') + '/health', {signal:AbortSignal.timeout(4000)}); const j = await r.json(); out.style.color = '#15803d'; out.textContent = j && j.ok ? 'Proxy is running' : 'Unexpected answer'; }
+    catch(e){ out.style.color = '#b91c1c'; out.textContent = 'Not reachable - is the script running?'; }
+  });
+}
 function paintPmReqPanel(){
   const t = activeTab(); const p = $('#pmReqPanel');
   if(t.activeReqTab === 'params'){
@@ -3776,6 +3833,9 @@ function paintPmReqPanel(){
       (cfg.fields.length ? '<div class="pm-hint">Every field accepts <code>{{variables}}</code>. Sandbox endpoints only validate Bearer tokens; the other types are for real APIs and for practising header handling.</div>' : '');
     $('#pmAuthType').addEventListener('change', e => { t.authType = e.target.value; if(['bearer', 'oauth2'].includes(t.authType) && !d.token) d.token = '{{token}}'; t.saved = false; paintPmReqTabs(); paintPmReqPanel(); });
     $$('[data-ad]', p).forEach(el => ['input', 'change'].forEach(ev => el.addEventListener(ev, () => { d[el.dataset.ad] = el.value; t.saved = false; })));
+  } else if(t.activeReqTab === 'docs'){
+    p.innerHTML = '<p class="muted small">Describe what this request does. The text appears in the generated documentation (collection runner &gt; View Documentation).</p><textarea class="code-area" id="pmDesc" style="min-height:180px;font-family:inherit" placeholder="e.g. Creates a new order for the logged-in customer. Requires a customer token.">' + esc(t.description || '') + '</textarea>';
+    $('#pmDesc').addEventListener('input', e => { t.description = e.target.value; t.saved = false; });
   } else if(t.activeReqTab === 'vars'){
     p.innerHTML = '<p class="muted small">Local variables belong to this request only and override folder, collection, environment and global variables. Use them as <code>{{name}}</code>.</p>' + kvTable(t.locals);
     wireKv(p, t.locals, () => { t.saved = false; });
@@ -3889,7 +3949,7 @@ function openEnvManagerModal(){
 }
 function pmTabsOf(c, only){
   const ci = PM.collections.indexOf(c), out = [];
-  c.folders.forEach((f, fi) => { if(only === undefined || only === fi) f.reqs.forEach((r, ri) => out.push(freshTab(Object.assign({}, r, {params:(r.params || []).slice(), headers:(r.headers || []).slice(), _ci:ci, _fi:fi, _ri:ri})))); });
+  c.folders.forEach((f, fi) => { if(only === undefined || only === fi) f.reqs.forEach((r, ri) => out.push(freshTab(Object.assign({}, r, {params:(r.params || []).slice(), headers:(r.headers || []).slice(), _ci:ci, _fi:fi, _ri:ri, _group:f.name})))); });
   return out;
 }
 function pmFixLinks(ci, fi, ri){
@@ -3912,6 +3972,8 @@ async function pmColAction(a, [ci, fi, ri]){
   else if(a === 'freq'){ const n = await askText({title:'New request', label:'Request name', value:'New Request', ok:'Create'}); if(n){ const t = freshTab({name:n, _ci:ci, _fi:fi, saved:false}); PM.tabs.push(t); PM.activeId = t.id; PM.open['f' + ci + '_' + fi] = true; paintPmMain(); toast('Set up the request, then press Save to add it to the folder', 'ok'); } }
   else if(a === 'cvars') openVarsHub('collection', ci);
   else if(a === 'fvars') openVarsHub('folder', ci, fi);
+  else if(a === 'cdoc') runCollectionFolder(c.name, pmTabsOf(c), {view:'docs'});
+  else if(a === 'fdoc') runCollectionFolder(c.name + ' / ' + f.name, pmTabsOf(c, fi), {view:'docs'});
   else if(a === 'crun') runCollectionFolder(c.name, pmTabsOf(c));
   else if(a === 'frun') runCollectionFolder(c.name + ' / ' + f.name, pmTabsOf(c, fi));
   else if(a === 'rqdel') del('Delete request "' + esc(f.reqs[ri].name) + '"?', 'This cannot be undone.', () => { f.reqs.splice(ri, 1); pmFixLinks(ci, fi, ri); });
@@ -3944,7 +4006,7 @@ function openSaveToCollectionModal(t){
   $('#saveColForm', bd).addEventListener('submit', e => {
     e.preventDefault();
     const fd = new FormData(e.target), name = fd.get('name').trim() || 'Untitled request';
-    const shape = JSON.parse(JSON.stringify({name, method:t.method, url:t.url, params:t.params, headers:t.headers, body:t.body, bodyMode:t.bodyMode, rawType:t.rawType, formData:t.formData, urlenc:t.urlenc, gqlQuery:t.gqlQuery, gqlVars:t.gqlVars, binFile:t.binFile, authType:t.authType, authData:t.authData, locals:t.locals, tests:t.tests, preRequest:t.preRequest, need:t.need || null, noAutoToken:!!t.noAutoToken})); pmStripBig(shape);
+    const shape = JSON.parse(JSON.stringify({name, method:t.method, url:t.url, params:t.params, headers:t.headers, body:t.body, bodyMode:t.bodyMode, rawType:t.rawType, formData:t.formData, urlenc:t.urlenc, gqlQuery:t.gqlQuery, gqlVars:t.gqlVars, binFile:t.binFile, authType:t.authType, authData:t.authData, locals:t.locals, tests:t.tests, preRequest:t.preRequest, need:t.need || null, noAutoToken:!!t.noAutoToken, description:t.description || ''})); pmStripBig(shape);
     if(upd && box && box.checked){ cc.folders[t._fi].reqs[t._ri] = shape; pmSaveCollection(); t.name = name; t.saved = true; paintPmTabbar(); closeModal(); toast('Updated "' + name + '"', 'ok'); return; }
     let ci = fd.get('col');
     if(ci === '__new__'){ PM.collections.push({id:'col_' + uid(), name:(fd.get('newCol') || '').trim() || 'New Collection', vars:[], folders:[]}); ci = PM.collections.length - 1; } else ci = Number(ci);
@@ -3958,7 +4020,7 @@ function paintPmResponse(){
   const t = activeTab(); const wrap = $('#pmRespWrap');
   if(!t.response){ wrap.innerHTML = '<div class="pm-empty"><div class="big">' + ic('send', 40) + '</div><p>Click <b>Send</b> to get a response.</p></div>'; return; }
   const r = t.response;
-  if(r.network){ wrap.innerHTML = '<div class="pm-panel"><div class="pm-err">Could not send request:<br>' + esc(r.network) + '</div></div>'; return; }
+  if(r.network){ wrap.innerHTML = '<div class="pm-panel"><div class="pm-err">Could not send request:<br>' + esc(r.network) + '</div>' + (r.netHint ? '<p style="margin-top:12px"><button class="btn btn-primary btn-sm" id="pmOpenNet">' + ic('settings', 14) + ' Open Internet settings</button></p>' : '') + '</div>'; const nb = $('#pmOpenNet'); if(nb) nb.addEventListener('click', openNetModal); return; }
   const stCls = r.status < 300 ? 'st-2' : r.status < 400 ? 'st-3' : r.status < 500 ? 'st-4' : 'st-5';
   wrap.innerHTML = '<div class="pm-res-bar"><span class="st ' + stCls + '">' + r.status + ' ' + esc(r.statusText) + '</span><span>Time: <b>' + r.ms + ' ms</b></span><span>Size: <b>' + (r.size < 1024 ? r.size + ' B' : (r.size / 1024).toFixed(1) + ' KB') + '</b></span><button class="btn btn-sm" id="pmSaveResponse">' + ic('download', 14) + ' Save Response</button></div>' +
   '<div class="pm-rtabs" id="pmResTabs"><button class="active" data-rres="body">Body</button><button data-rres="cookies">Cookies</button><button data-rres="headers">Headers (' + Object.keys(r.headers).length + ')</button><button data-rres="tests">Test Results</button></div>' +
@@ -4529,7 +4591,7 @@ function pmClone(t){ return Object.assign({}, t, {locals:JSON.parse(JSON.stringi
 function runCollectionFolder(title, tabs, opts){
   if(!tabs.length) return toast('This folder is empty', 'warn');
   const cfg = PM_RUN_CFG[title] = PM_RUN_CFG[title] || {iterations:1, delay:0, stopOnFail:false, data:null};
-  PM.runner = {title, build:() => tabs.map(pmClone), cfg, state:'idle', results:[], sel:null, filter:'all', dtab:'response', count:tabs.length, iterations:1, plan:tabs.map(t => ({name:t.name, method:t.method, url:t.url})), tabs};
+  PM.runner = {title, build:() => tabs.map(pmClone), cfg, state:'idle', results:[], sel:null, filter:'all', dtab:'response', view:(opts && opts.view) || 'summary', count:tabs.length, iterations:1, plan:tabs.map(t => ({name:t.name, method:t.method, url:t.url})), tabs};
   PM.runnerOpen = true; PM.runnerFor = PM.activeId; paintPmMain();
   if(opts && opts.autoRun) pmRunnerStart();
 }
@@ -4669,8 +4731,112 @@ function pmRunnerStats(R){
     avg:done.length ? Math.round(done.reduce((s, r) => s + r.ms, 0) / done.length) : 0,
     dur:R.state === 'running' ? Math.round(performance.now() - R.startedAt) : R.ms};
 }
+/* ---------------- Documentation ---------------- */
+const PM_DOC_CSS = `.qd{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#1f2433;line-height:1.55}
+.qd-wrap{display:grid;grid-template-columns:250px minmax(0,1fr);gap:18px;align-items:start}
+.qd-toc{position:sticky;top:8px;max-height:calc(100vh - 40px);overflow:auto;border:1px solid #e3e3ea;border-radius:12px;padding:10px;background:#fafafd;font-size:.82rem}
+.qd-toc .g{font-weight:700;margin:10px 4px 4px;color:#555;text-transform:uppercase;font-size:.68rem;letter-spacing:.06em}
+.qd-toc a{display:flex;gap:6px;align-items:center;padding:4px 6px;border-radius:6px;color:#333;text-decoration:none}.qd-toc a:hover{background:#ececf6}
+.qd-m{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.66rem;font-weight:800;min-width:46px;display:inline-block}
+.qd-m-GET{color:#15803d}.qd-m-POST{color:#c2410c}.qd-m-PUT{color:#1d4ed8}.qd-m-PATCH{color:#7c3aed}.qd-m-DELETE{color:#b91c1c}
+.qd h1{font-size:1.5rem;margin:0 0 4px}.qd .meta{color:#6b6b80;font-size:.85rem;margin-bottom:18px}
+.qd h2{font-size:1.15rem;margin:26px 0 10px;padding-bottom:6px;border-bottom:2px solid #e8e8f2}
+.qd-req{border:1px solid #e3e3ea;border-radius:12px;padding:16px 18px;margin-bottom:16px;background:#fff}
+.qd-req h3{margin:0 0 8px;font-size:1.02rem}
+.qd-url{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;padding:8px 10px;background:#f4f4fa;border-radius:8px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;word-break:break-all}
+.qd h4{margin:14px 0 6px;font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;color:#6b6b80}
+.qd table{border-collapse:collapse;width:100%;font-size:.82rem}.qd td,.qd th{border:1px solid #e3e3ea;padding:5px 9px;text-align:left;vertical-align:top}.qd td:last-child{word-break:break-all}
+.qd pre{background:#1e1b2e;color:#e9e4ff;padding:10px 12px;border-radius:8px;overflow:auto;font-size:.78rem;max-height:340px;margin:0;white-space:pre-wrap;word-break:break-word}
+.qd ul{margin:0;padding-left:20px}.qd p{margin:0 0 6px}
+.qd .st{display:inline-block;padding:1px 9px;border-radius:999px;font-size:.74rem;font-weight:700;margin-right:8px}.qd .st.ok{background:#dcfce7;color:#166534}.qd .st.bad{background:#fee2e2;color:#991b1b}
+@media(max-width:900px){.qd-wrap{grid-template-columns:1fr}.qd-toc{position:static;max-height:none}}`;
+(() => { const st = document.createElement('style'); st.textContent = PM_DOC_CSS; document.head.appendChild(st); })();
+const PM_BODY_LABEL = {raw:'raw', 'form-data':'form-data', urlenc:'x-www-form-urlencoded', binary:'binary', graphql:'GraphQL'};
+function pmTestNames(code){ const out = []; String(code || '').replace(/pm\.test\(\s*(['"`])((?:\\.|(?!\1)[^\\])*)\1/g, (m, q, n) => { out.push(n.replace(/\\(['"`\\])/g, '$1')); return m; }); return out; }
+const pmMask = txt => String(txt || '').replace(/("[\w]*(?:token|password|secret)[\w]*"\s*:\s*)"[^"]*"/gi, '$1"***"');
+function pmDocAuth(t){
+  const d = t.authData || {}, ty = t.authType || 'none'; if(ty === 'none') return 'No Auth';
+  const tpl = v => /^\{\{[^}]+\}\}$/.test(String(v || '').trim()) ? ' (' + String(v).trim() + ')' : '';
+  if(ty === 'bearer' || ty === 'oauth2') return PM_AUTH[ty].label + tpl(d.token);
+  if(ty === 'apikey') return PM_AUTH[ty].label + ' - ' + (d.key || 'X-API-Key') + ' sent in ' + (d.in === 'query' ? 'the query string' : 'a header');
+  return PM_AUTH[ty].label;
+}
+function pmDocModel(R){
+  const groups = [];
+  PM.docMode = true;
+  try{
+    R.tabs.forEach((t, i) => {
+      const gname = t._group || R.title; let g = groups.find(x => x.name === gname); if(!g){ g = {name:gname, items:[]}; groups.push(g); }
+      const eff = pmBuildEffective(t), apiKeyName = t.authType === 'apikey' ? ((t.authData || {}).key || 'X-API-Key') : null;
+      const hdrs = Object.entries(eff.headers).filter(([k]) => k.toLowerCase() !== 'authorization' && k !== apiKeyName).map(([k, v]) => [k, String(v).replace(/;\s*boundary=.*/, '')]);
+      const safe = Object.assign({}, eff, {url:t.url, headers:Object.fromEntries(Object.entries(eff.headers).filter(([k]) => k.toLowerCase() !== 'authorization' && k !== apiKeyName))});
+      const rec = R.results[i] && R.results[i].iter === 0 ? R.results[i] : null;
+      let ex = null;
+      if(rec && !rec.running && rec.status !== null){
+        let b = rec.error || rec.text || ''; try{ b = JSON.stringify(JSON.parse(b), null, 2); }catch(e){} b = pmMask(b);
+        ex = {status:rec.status, statusText:rec.statusText || '', ms:rec.ms, ok:!rec.failed, body:b.length > 1600 ? b.slice(0, 1600) + '\n...' : b};
+      }
+      g.items.push({n:i, name:t.name, method:t.method, url:t.url, auth:pmDocAuth(t), headers:hdrs, bodyMode:t.bodyMode, body:eff.bodyView || '', tests:pmTestNames(t.tests), desc:(t.description || '').trim(), curl:pmGenCurl(safe), ex});
+    });
+  } finally { PM.docMode = false; }
+  return groups;
+}
+function pmDocSections(groups){
+  const L = ['<h4>', '</h4>'];
+  return groups.map(g => '<h2>' + esc(g.name) + '</h2>' + g.items.map(it =>
+    '<section class="qd-req" id="doc-' + it.n + '"><h3>' + esc(it.name) + '</h3><div class="qd-url"><span class="qd-m qd-m-' + it.method + '">' + it.method + '</span><span>' + esc(it.url) + '</span></div>' +
+    (it.desc ? '<h4>Description</h4><p>' + esc(it.desc).replace(/\n/g, '<br>') + '</p>' : '') +
+    '<h4>Authorization</h4><p>' + esc(it.auth) + '</p>' +
+    (it.headers.length ? '<h4>Headers</h4><table><tbody>' + it.headers.map(h => '<tr><td>' + esc(h[0]) + '</td><td>' + esc(h[1]) + '</td></tr>').join('') + '</tbody></table>' : '') +
+    (it.body ? '<h4>Body (' + (PM_BODY_LABEL[it.bodyMode] || it.bodyMode) + ')</h4><pre>' + esc(it.body) + '</pre>' : '') +
+    (it.tests.length ? '<h4>Expected behaviour</h4><ul>' + it.tests.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>' : '') +
+    '<h4>Example request (cURL)</h4><pre>' + esc(it.curl) + '</pre>' +
+    (it.ex ? '<h4>Example response</h4><p><span class="st ' + (it.ex.ok ? 'ok' : 'bad') + '">' + (it.ex.status || 'Error') + ' ' + esc(it.ex.statusText) + '</span><span style="color:#6b6b80;font-size:.8rem">' + it.ex.ms + ' ms</span></p><pre>' + esc(it.ex.body) + '</pre>' : '<h4>Example response</h4><p style="color:#6b6b80">Not captured yet - press Run to record a real example.</p>') +
+    '</section>').join('')).join('');
+}
+function pmDocToc(groups){ return groups.map(g => '<div class="g">' + esc(g.name) + '</div>' + g.items.map(it => '<a href="#doc-' + it.n + '" data-doc="' + it.n + '"><span class="qd-m qd-m-' + it.method + '">' + it.method + '</span><span>' + esc(it.name) + '</span></a>').join('')).join(''); }
+function pmDocHead(groups, R){
+  const n = groups.reduce((a, g) => a + g.items.length, 0), s = R.results.length ? pmRunnerStats(R) : null;
+  return '<h1>API documentation - ' + esc(R.title) + '</h1><div class="meta">' + n + ' request' + (n === 1 ? '' : 's') + ' in ' + groups.length + ' folder' + (groups.length === 1 ? '' : 's') + ' · generated ' + esc(new Date().toLocaleString()) + (s ? ' · last run: ' + s.passed + ' passed, ' + s.failed + ' failed' : '') + '. Variables such as <code>{{cl_url}}</code> are shown as written; secrets are hidden.</div>';
+}
+function pmDocMarkdown(groups, R){
+  const n = groups.reduce((a, g) => a + g.items.length, 0);
+  let md = '# API documentation - ' + R.title + '\n\n' + n + ' requests, generated ' + new Date().toLocaleString() + '\n\n';
+  groups.forEach(g => {
+    md += '## ' + g.name + '\n\n';
+    g.items.forEach(it => {
+      md += '### ' + it.name + '\n\n`' + it.method + ' ' + it.url + '`\n\n' + (it.desc ? it.desc + '\n\n' : '') + '**Authorization:** ' + it.auth + '\n\n';
+      if(it.headers.length) md += '**Headers**\n\n| Name | Value |\n|---|---|\n' + it.headers.map(h => '| ' + h[0] + ' | ' + String(h[1]).replace(/\|/g, '\\|') + ' |').join('\n') + '\n\n';
+      if(it.body) md += '**Body (' + (PM_BODY_LABEL[it.bodyMode] || it.bodyMode) + ')**\n\n```\n' + it.body + '\n```\n\n';
+      if(it.tests.length) md += '**Expected behaviour**\n\n' + it.tests.map(x => '- ' + x).join('\n') + '\n\n';
+      md += '**Example request**\n\n```bash\n' + it.curl + '\n```\n\n';
+      if(it.ex) md += '**Example response** - ' + (it.ex.status || 'Error') + ' ' + it.ex.statusText + ' (' + it.ex.ms + ' ms)\n\n```json\n' + it.ex.body + '\n```\n\n';
+    });
+  });
+  return md;
+}
+function paintRunnerDocs(){
+  const R = PM.runner, running = R.state === 'running', main = $('#pmMain'), groups = pmDocModel(R);
+  main.innerHTML = '<div class="rn">' + rnHead(R, running, true) + '<div class="qd"><div class="qd-wrap"><nav class="qd-toc">' + pmDocToc(groups) + '</nav><div>' + pmDocHead(groups, R) + pmDocSections(groups) + '</div></div></div></div>';
+  $('#rnBack').addEventListener('click', () => { PM.runnerOpen = false; paintPmMain(); });
+  $$('[data-rv]').forEach(b => b.addEventListener('click', () => { R.view = b.dataset.rv; paintRunner(); }));
+  const run = $('#rnRun'); if(run) run.addEventListener('click', pmRunnerStart);
+  const stop = $('#rnStop'); if(stop) stop.addEventListener('click', () => { R.stop = true; R.stopped = true; stop.disabled = true; });
+  $$('[data-doc]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); const el = document.getElementById('doc-' + a.dataset.doc); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }));
+  const fname = R.title.replace(/[^\w\-]+/g, '_').replace(/^_+|_+$/g, '') || 'collection';
+  $('#rdHtml').addEventListener('click', () => pmDownload('api-docs-' + fname + '.html', '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>API documentation - ' + esc(R.title) + '</title><style>body{margin:0;padding:24px;background:#f6f6fb}' + PM_DOC_CSS + '</style></head><body><div class="qd"><div class="qd-wrap"><nav class="qd-toc">' + pmDocToc(groups) + '</nav><div>' + pmDocHead(groups, R) + pmDocSections(groups) + '</div></div></div></body></html>', 'text/html'));
+  $('#rdMd').addEventListener('click', () => pmDownload('api-docs-' + fname + '.md', pmDocMarkdown(groups, R), 'text/markdown'));
+}
+function rnHead(R, running, docs){
+  return '<div class="rn-head"><button class="btn btn-sm" id="rnBack">' + ic('back', 14) + ' Back to requests</button><div class="rn-title"><span class="sub">Collection Runner</span><b>' + esc(R.title) + '</b></div>' +
+    '<div class="seg"><button data-rv="summary" class="' + (docs ? '' : 'active') + '">' + ic('table', 14) + ' View Summary</button><button data-rv="docs" class="' + (docs ? 'active' : '') + '">' + ic('book', 14) + ' View Documentation</button></div>' +
+    '<div class="rn-actions">' + (running ? '<button class="btn btn-danger btn-sm" id="rnStop">' + ic('stop', 13) + ' Stop</button>' : '<button class="btn btn-primary btn-sm" id="rnRun">' + ic('play', 13) + (R.state === 'idle' ? ' Run' : ' Run again') + '</button>') +
+    (docs ? '<button class="btn btn-sm" id="rdHtml">' + ic('download', 13) + ' HTML</button><button class="btn btn-sm" id="rdMd">' + ic('download', 13) + ' Markdown</button>' : (R.results.length && !running ? '<button class="btn btn-sm" id="rnExpJson">' + ic('download', 13) + ' JSON</button><button class="btn btn-sm" id="rnExpCsv">' + ic('download', 13) + ' CSV</button>' : '')) +
+    '</div></div>';
+}
 function paintRunner(){
   const R = PM.runner, cfg = R.cfg, running = R.state === 'running', main = $('#pmMain');
+  if(R.view === 'docs'){ paintRunnerDocs(); return; }
   const dataHtml = cfg.data
     ? '<div class="rn-file">' + ic('table', 15) + '<b>' + esc(cfg.data.name) + '</b><span>' + cfg.data.rows.length + ' rows · ' + cfg.data.cols.length + ' columns</span>' + (running ? '' : '<button class="ib danger" id="rnRemove" title="Remove file" aria-label="Remove file">' + ic('x', 14) + '</button>') + '</div>'
     : '<button class="btn btn-sm" id="rnPick"' + (running ? ' disabled' : '') + '>' + ic('upload', 14) + ' Select data file</button><button class="btn btn-sm" id="rnTpl">' + ic('download', 14) + ' Template</button>';
@@ -4679,10 +4845,7 @@ function paintRunner(){
       '<div class="muted small" style="margin-top:-6px">' + (cfg.data.rows.length > 5 ? 'Showing 5 of ' + cfg.data.rows.length + ' rows. ' : '') + 'Iteration 1 uses row 1, iteration 2 uses row 2, and so on.' + (cfg.data.truncated ? ' Only the first 1000 rows are used.' : '') + '</div>'
     : '<div class="muted small" style="margin-top:-4px">Optional: attach a CSV, Excel (.xlsx) or JSON file. Every row becomes one iteration and each column becomes a <code>{{variable}}</code> you can use in URLs, headers, bodies and auth fields.</div>';
   main.innerHTML = '<div class="rn">' +
-    '<div class="rn-head"><button class="btn btn-sm" id="rnBack">' + ic('back', 14) + ' Back to requests</button><div class="rn-title"><span class="sub">Collection Runner</span><b>' + esc(R.title) + '</b></div><div class="rn-actions">' +
-      (running ? '<button class="btn btn-danger btn-sm" id="rnStop">' + ic('stop', 13) + ' Stop</button>' : '<button class="btn btn-primary btn-sm" id="rnRun">' + ic('play', 13) + (R.state === 'idle' ? ' Run' : ' Run again') + '</button>') +
-      (R.results.length && !running ? '<button class="btn btn-sm" id="rnExpJson">' + ic('download', 13) + ' JSON</button><button class="btn btn-sm" id="rnExpCsv">' + ic('download', 13) + ' CSV</button>' : '') +
-    '</div></div>' +
+    rnHead(R, running) +
     '<div class="rn-cfg">' +
       '<label>Iterations<input type="number" id="rnIter" min="1" max="1000" value="' + (cfg.data ? cfg.data.rows.length : cfg.iterations) + '"' + (cfg.data || running ? ' disabled' : '') + '></label>' +
       '<label>Delay (ms)<input type="number" id="rnDelay" min="0" max="10000" value="' + cfg.delay + '"' + (running ? ' disabled' : '') + '></label>' +
@@ -4691,6 +4854,7 @@ function paintRunner(){
     '</div>' + prev +
     '<div id="rnSum"></div><div class="rn-body"><div class="rn-list" id="rnList"></div><div class="rn-detail" id="rnDetail"></div></div></div>';
   $('#rnBack').addEventListener('click', () => { PM.runnerOpen = false; paintPmMain(); });
+  $$('[data-rv]').forEach(b => b.addEventListener('click', () => { R.view = b.dataset.rv; paintRunner(); }));
   const run = $('#rnRun'); if(run) run.addEventListener('click', pmRunnerStart);
   const stop = $('#rnStop'); if(stop) stop.addEventListener('click', () => { R.stop = true; R.stopped = true; $('#rnStop').disabled = true; });
   const it = $('#rnIter'); if(it) it.addEventListener('input', e => { cfg.iterations = Math.max(1, Math.min(1000, parseInt(e.target.value) || 1)); });
@@ -5322,9 +5486,10 @@ route('/guide', () => {
     '<b>Built-in collection = ready-made examples that pass:</b> every request has its own expected result in the Tests tab (201 for creates, 404/401/405/409/418 for the negative cases, headers, fields). Requests that need a login get one automatically (customer token in <code>{{token}}</code>, admin token in <code>{{admin_token}}</code>); a note appears in the Console. Create requests save the new id (<code>{{new_product_id}}</code>, <code>{{new_category_id}}</code>, <code>{{new_order_id}}</code>) and the matching Delete request uses it, so you can run the whole collection again and again. <b>Flaky</b> and <b>Rate limit</b> are deliberately unstable, so their tests accept the documented failure codes. Use <b>Run all folders</b> at the top of the Collections tab to run everything in one go.',
     '<b>API chaining:</b> in the <b>Tests</b> tab save values from a response, e.g. <code>pm.collectionVariables.set(\'order_id\', pm.response.json().id)</code>, then call <code>{{cl_url}}/orders/{{order_id}}</code> in the next request. Also available: <code>pm.globals</code>, <code>pm.environment</code>, <code>pm.variables</code> (local), each with <code>.set(k, v)</code> / <code>.get(k)</code>. Login responses still auto-save <code>{{token}}</code>.',
     '<b>Run a collection or folder:</b> hover over it and press the play icon (works for the built-in Collections tab and for your own collections). The <b>Collection Runner</b> opens as a full panel: set iterations, delay and &quot;Stop on first failure&quot;, then press <b>Run</b>. You get summary cards (requests, passed, failed, assertions, average time, duration) and a list of every request. Click any request to see its Response, Headers, the exact Request that was sent and its Test results. Filter by All / Passed / Failed, run again, or export the results as JSON or CSV. Use <b>Runner results</b> next to Variables to reopen the last run. Requests run in order, so a value saved by an earlier request is available to the next one.',
+    '<b>View Summary / View Documentation:</b> the runner has two views, switched at the top. <b>View Summary</b> shows pass/fail cards and every request result. <b>View Documentation</b> generates API documentation for the collection or folder you ran: for each request the method and URL, authorization type (secrets hidden), headers, body, expected behaviour (taken from its tests), a cURL example and - after a run - a real example response. Download it as <b>HTML</b> (one file you can share) or <b>Markdown</b>. You can also open it without running: hover a collection or folder and press the book icon (or <b>Docs</b> above the built-in collection). Add your own text in a request\'s <b>Docs</b> tab; it is included in the documentation.',
     '<b>Data-driven testing (CSV / Excel / JSON):</b> in the Runner choose <b>Select data file</b>. Use a <code>.csv</code>, <code>.xlsx</code> or <code>.json</code> file whose first row holds column names (letters, numbers, _ . -). Each following row is one iteration and each column is a variable: with columns <code>email,password,qty</code> write <code>{{email}}</code> in the URL, headers, body or auth fields. The whole collection runs once per row, and chaining still works inside every iteration (log in, save the token, call the next request). Scripts can read the row with <code>pm.iterationData.get(&quot;email&quot;)</code> and the iteration number with <code>pm.info.iteration</code>. <b>Template</b> downloads a CSV header built from the variables your requests use. Old <code>.xls</code> files are not supported — save as .xlsx or CSV. Up to 1000 rows.',
     '<b>Authorization tab:</b> API Key, Basic Auth, Bearer Token, Digest Auth, Hawk, JWT Bearer (signs the token for you with HS256/384/512), OAuth 1.0, OAuth 2.0 (access token), Akamai EdgeGrid, ASAP (Atlassian), AWS Signature (V4), NTLM and No Auth. Fields accept variables, and signed types (Digest, Hawk, OAuth 1.0, Akamai, ASAP, AWS, JWT) calculate the Authorization header at send time (shown as a read-only row in Headers). Digest answers the server\'s 401 challenge automatically. <b>NTLM cannot work in a browser</b> (it needs a connection handshake) - use Postman desktop or <code>curl --ntlm</code>. The sandbox itself only checks Bearer tokens.',
-    '<b>Real APIs (any website):</b> tick <b>Real internet requests</b> in the bar above the URL. URLs outside <code>api.qasandbox.com</code> (for example <code>https://postman-echo.com/basic-auth</code>) are then sent by your browser. The Console, Tests, variables, runner and code generator all work the same. Limits of a browser: the other server must allow cross-origin calls (CORS) - public test APIs such as postman-echo.com, httpbin.org and jsonplaceholder.typicode.com do, many private APIs do not; a <code>http://localhost</code> API must send <code>Access-Control-Allow-Origin</code>; forbidden headers (Host, Cookie, User-Agent) cannot be set; cookies are not sent; response headers are limited to those the server exposes. If a call fails the Console explains why.',
+    '<b>Real APIs (any website):</b> tick <b>Real internet requests</b> and open <b>Internet settings</b> to choose how requests leave your browser. <b>Direct</b> works only for servers that allow CORS (postman-echo.com, httpbin.org, jsonplaceholder.typicode.com usually do). For <b>any</b> other URL, including <code>http://localhost</code> and private APIs, use the <b>Local proxy</b>: download <code>qastore-proxy.js</code> (Node.js) or <code>qastore-proxy.py</code> (Python) from that dialog, run it in a terminal (<code>node qastore-proxy.js</code>), keep it open and press <b>Test</b>. It only listens on your computer and only answers pages opened from a file or localhost (use <code>--allow-origin https://your-site</code> if you host this page). The <b>Public CORS proxy</b> option sends everything through a third-party server - use it for test data only. Tests, variables, the runner and code generation work the same for real APIs. Limits that remain: Host/Cookie/User-Agent headers cannot be set from a web page, and cookies are not sent.',
     '<b>Request body (Body tab):</b> choose <b>none</b>, <b>form-data</b>, <b>x-www-form-urlencoded</b>, <b>raw</b> (Text, JavaScript, JSON, HTML or XML), <b>binary</b> or <b>GraphQL</b>. The <code>Content-Type</code> header is added for you and is shown as a read-only row in the Headers tab. <b>form-data:</b> type a key, pick <b>Text</b> (type the value) or <b>File</b> (press <b>Select files</b> and choose a file from your computer; one row can hold several files). <b>binary:</b> the chosen file is the whole body. <b>GraphQL:</b> write the query and optional variables JSON; it is sent as JSON.',
     '<b>File upload practice:</b> <code>POST {{cl_url}}/uploadFile</code> takes exactly <b>one</b> file under the key <code>file</code>. <code>POST {{cl_url}}/uploadFiles</code> takes <b>one to five</b> files and every file must use the key <code>files</code> (add two rows named <code>files</code>, or select two files in one row). Using the wrong key returns 400 &quot;Unexpected field&quot;, sending two files to <code>/uploadFile</code> returns 400, a Text value where a File is needed returns 400, a file over 1 MB returns 413, an empty file returns 400 and a type outside txt/csv/json/xml/pdf/png/jpg/jpeg/gif/docx/xlsx/zip returns 415. <code>GET /files</code> lists what you uploaded this session. Files up to 512 KB are saved with the request in your collection; larger ones must be selected again after a reload.',
     '<b>GraphQL practice:</b> <code>POST {{cl_url}}/graphql</code> with queries such as <code>{ products(limit: 3) { id name price category { name } } }</code>, <code>product(id: 1)</code>, <code>categories</code> and <code>category(id: 1) { products { name } }</code>. Variables work: <code>query ($id: Int!) { product(id: $id) { name } }</code> with <code>{ &quot;id&quot;: 1 }</code>. Syntax errors and unknown fields return 400 with an <code>errors</code> array. The schema is read-only (no mutations).',
