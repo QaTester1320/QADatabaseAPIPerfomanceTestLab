@@ -528,7 +528,161 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
 .jm-checkbox-row{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--purple-100);margin-bottom:14px;}
 .jm-checkbox-row input{width:auto;}
 .jm-sampler-picker{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+
+.pm-ic{width:1em;height:1em;vertical-align:-0.14em;flex-shrink:0;}
+.pm-tree-actions button .pm-ic,.kv-remove .pm-ic{width:14px;height:14px;}.kv-remove{display:inline-flex;align-items:center;justify-content:center;}
+.pm-tree-chevron .pm-ic{width:12px;height:12px;}
+.pm-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#7fd9b9;margin-left:5px;vertical-align:middle;}
+.pm-bt{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;margin-bottom:14px;}
+.pm-radio{display:inline-flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--purple-100);cursor:pointer;}
+.pm-radio input{accent-color:var(--purple-400);}
+.pm-sel,.pm-in{background:#150b28;color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-s);padding:9px 11px;font-size:0.82rem;font-family:var(--font-mono);}
+.pm-in{width:100%;box-sizing:border-box;}textarea.pm-in{resize:vertical;}
+.pm-lbl{display:block;font-size:0.76rem;font-weight:600;color:var(--purple-300);margin-bottom:6px;}
+.pm-lbl-d{display:block;font-size:0.78rem;font-weight:600;color:var(--ink-soft);margin-bottom:6px;}
+.pm-err{color:var(--error);font-size:0.78rem;min-height:1em;margin-top:4px;}
+.pm-check{display:flex;align-items:center;gap:8px;font-size:0.84rem;margin-top:14px;}
+.pm-drop{border:1.5px dashed var(--purple-300);border-radius:var(--radius-m);padding:14px;margin-bottom:6px;}
+.fd-grid{display:grid;gap:8px;align-items:center;}
+.fd-grid.fd{grid-template-columns:24px 1.1fr 92px 1.7fr 1fr 34px;}
+.fd-grid.ue{grid-template-columns:24px 1fr 1.7fr 1fr 34px;}
+.fd-grid>input:not([type=checkbox]){background:#150b28;color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-s);padding:9px 11px;font-family:var(--font-mono);font-size:0.82rem;min-width:0;}
+.fd-grid>input[type=checkbox]{accent-color:var(--purple-400);}
+.fd-h{font-size:0.72rem;font-weight:700;color:var(--purple-300);text-transform:uppercase;letter-spacing:.04em;}
+.fd-file{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.fd-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);border-radius:999px;padding:3px 10px;font-size:0.76rem;color:var(--purple-100);}
+.fd-chip i{font-style:normal;color:var(--purple-300);}
+@media (max-width:860px){.fd-grid.fd,.fd-grid.ue{grid-template-columns:1fr 1fr;}}
+.rr-panel{background:#150b28;border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-l);margin-bottom:20px;overflow:hidden;}
+.rr-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;padding:16px 18px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.rr-title{font-family:var(--font-display);font-weight:700;color:#fff;font-size:1.05rem;display:flex;align-items:center;gap:8px;}
+.rr-sub{font-size:0.76rem;color:var(--purple-300);margin-top:2px;}.rr-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.rr-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:1px;background:rgba(255,255,255,0.08);}
+.rr-stat{background:#150b28;padding:14px 16px;}.rr-stat b{display:block;font-family:var(--font-display);font-size:1.25rem;}.rr-stat span{font-size:0.72rem;color:var(--purple-300);}
+.rr-tabs{display:flex;gap:4px;padding:10px 14px 0;}
+.rr-tab{background:none;border:0;border-bottom:2px solid transparent;color:var(--purple-300);padding:8px 12px;font-size:0.82rem;font-weight:600;}
+.rr-tab.active{color:#fff;border-color:var(--purple-400);}
+.rr-list{padding:10px 14px 16px;max-height:640px;overflow-y:auto;}
+.rr-iter{font-size:0.78rem;font-weight:700;color:var(--purple-200);margin:14px 0 6px;}.rr-iter span{font-weight:400;color:var(--purple-300);font-family:var(--font-mono);}
+.rr-item{border:1px solid rgba(255,255,255,0.1);border-left:3px solid #7fd9b9;border-radius:var(--radius-s);margin-bottom:6px;background:rgba(255,255,255,0.03);}
+.rr-item.bad{border-left-color:#ff9d92;}
+.rr-item summary{display:flex;align-items:center;gap:12px;padding:9px 12px;cursor:pointer;list-style:none;font-size:0.84rem;color:#fff;}
+.rr-item summary::-webkit-details-marker{display:none;}
+.rr-m{font-family:var(--font-mono);font-size:0.7rem;font-weight:700;width:56px;color:var(--purple-200);}
+.rr-m.m-GET{color:#7fd9b9;}.rr-m.m-POST{color:#f0c674;}.rr-m.m-PUT,.rr-m.m-PATCH{color:#93b8f7;}.rr-m.m-DELETE{color:#ff9d92;}
+.rr-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.rr-ms{font-size:0.74rem;color:var(--purple-300);}.rr-t{font-size:0.76rem;min-width:110px;text-align:right;}
+.rr-body{padding:4px 14px 14px;border-top:1px solid rgba(255,255,255,0.08);}
+.rr-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;}@media (max-width:860px){.rr-cols{grid-template-columns:1fr;}}
+.rr-body h5{color:#fff;font-size:0.82rem;margin:12px 0 6px;}.rr-body h6{color:var(--purple-300);font-size:0.72rem;margin:10px 0 4px;text-transform:uppercase;letter-spacing:.04em;}
+.rr-body pre{margin:0;background:#0d0718;border-radius:var(--radius-s);padding:10px;color:#d9c9fc;font-family:var(--font-mono);font-size:0.75rem;white-space:pre-wrap;word-break:break-word;max-height:240px;overflow:auto;}
+.rr-url{font-family:var(--font-mono);font-size:0.78rem;color:var(--purple-100);word-break:break-all;}
+.rr-err{background:rgba(255,157,146,0.12);color:#ff9d92;border-radius:var(--radius-s);padding:8px 10px;margin-top:10px;font-family:var(--font-mono);font-size:0.78rem;}
+.doc-table{width:100%;border-collapse:collapse;font-size:0.82rem;color:#fff;}.doc-table th{text-align:left;color:var(--purple-300);font-size:0.72rem;text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.15);}.doc-table td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-mono);}
+.doc-h{color:#fff;font-family:var(--font-display);margin:22px 0 8px;display:flex;align-items:center;gap:8px;}.doc-p{color:var(--purple-100);font-size:0.84rem;margin:6px 0;}
+.doc-req{border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-m);padding:14px;margin:10px 0;background:rgba(255,255,255,0.03);}.doc-line{display:flex;align-items:center;gap:8px;color:#fff;margin-bottom:4px;}
+.doc-req h6{color:var(--purple-300);font-size:0.72rem;margin:12px 0 4px;text-transform:uppercase;letter-spacing:.04em;}.doc-req pre{margin:0;background:#0d0718;border-radius:var(--radius-s);padding:10px;color:#d9c9fc;font-family:var(--font-mono);font-size:0.75rem;white-space:pre-wrap;word-break:break-word;max-height:260px;overflow:auto;}
+.pm-tree-wrap{overflow-x:hidden;}
+.pm-tree-row{position:relative;min-height:32px;box-sizing:border-box;white-space:nowrap;}
+.pm-tree-gname{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:flex;align-items:center;gap:6px;}
+.pm-tree-gname .pm-ic{color:var(--purple-300);}
+.pm-tree-actions{position:absolute;right:4px;top:50%;transform:translateY(-50%);align-items:center;gap:1px;padding:2px 2px 2px 18px;background:linear-gradient(90deg,rgba(21,11,40,0),#150b28 16px);border-radius:6px;}
+.pm-tree-row:hover .pm-tree-actions{background:linear-gradient(90deg,rgba(38,24,64,0),#261840 16px);}
+.pm-tree-row.active .pm-tree-actions{background:linear-gradient(90deg,rgba(60,32,110,0),#3c206e 16px);}
+.pm-tree-actions button{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;line-height:1;padding:4px 6px;font-size:0.72rem;font-weight:600;}
+.pm-tree-actions button .pm-ic{width:13px;height:13px;}
+
+/* ===== API client polish ===== */
+.pm-title-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}.pm-title-row+.tool-panel-sub{margin-top:4px;}
+.pm-theme-seg{display:inline-flex;border:1px solid rgba(255,255,255,0.18);border-radius:999px;padding:3px;gap:2px;}
+.pm-theme-seg button{display:inline-flex;align-items:center;gap:6px;border:0;background:transparent;color:var(--purple-300);font-size:0.78rem;font-weight:600;padding:6px 12px;border-radius:999px;}
+.pm-theme-seg button .pm-ic{width:15px;height:15px;}.pm-theme-seg button.on{background:var(--purple-500);color:#fff;}
+.pm-side-head{display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:3;background:var(--purple-950);padding:2px 0 10px;font-size:0.8rem;font-weight:700;color:var(--purple-300);text-transform:uppercase;letter-spacing:.05em;}
+.pm-tree-wrap{max-height:56vh;}
+.pm-tree-row{flex-wrap:wrap;align-items:flex-start;white-space:normal;}
+.pm-tree-name,.pm-tree-gname{white-space:normal;overflow:visible;text-overflow:clip;word-break:break-word;min-width:0;display:block;}
+.pm-tree-gname{flex:1;}
+.pm-tree-actions{position:static;transform:none;background:none !important;padding:0;flex-basis:100%;margin:2px 0 0 18px;flex-wrap:wrap;}
+.pm-tree-row:hover .pm-tree-actions{display:flex;}
+.au-wrap{display:grid;grid-template-columns:230px 1fr;gap:22px;}@media(max-width:860px){.au-wrap{grid-template-columns:1fr;}}
+.au-side label,.au-fields label{font-size:0.78rem;font-weight:600;color:var(--purple-200);}.au-side label{display:block;margin-bottom:6px;}
+.au-fields{display:grid;grid-template-columns:170px 1fr;gap:10px 14px;align-items:center;max-width:720px;}@media(max-width:700px){.au-fields{grid-template-columns:1fr;}}
+.au-fields input,.au-fields select,.au-fields textarea{background:#150b28;color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-s);padding:9px 11px;font-family:var(--font-mono);font-size:0.82rem;width:100%;box-sizing:border-box;}
+.au-fields textarea{resize:vertical;}
+.au-token{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);}.au-token-title{font-size:0.82rem;font-weight:700;color:var(--purple-100);margin-bottom:10px;}
+.au-token-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px;}
+.au-note{font-size:0.76rem;color:var(--purple-300);margin-top:14px;max-width:720px;line-height:1.55;}
+.var-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;}.var-flow b{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);border-radius:999px;padding:4px 12px;font-size:0.76rem;color:var(--purple-100);}
+.var-flow i{font-style:normal;color:var(--purple-300);}.var-flow-l{font-size:0.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--purple-300);font-weight:700;margin-right:4px;}
+.var-help{font-size:0.8rem;color:var(--purple-300);margin:0 0 16px;line-height:1.55;}
+.var-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-m);padding:14px 16px 16px;margin-bottom:14px;}
+.var-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
+.var-badge{width:24px;height:24px;border-radius:50%;background:var(--purple-500);color:#fff;font-size:0.75rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.var-ttl{flex:1;min-width:180px;}.var-title{font-weight:700;color:#fff;font-size:0.92rem;display:flex;align-items:center;gap:7px;}.var-desc{font-size:0.78rem;color:var(--purple-300);margin-top:2px;}
+.var-desc b{color:var(--purple-100);}.var-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.var-head{display:grid;grid-template-columns:1fr 1fr 34px;gap:8px;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--purple-300);margin-bottom:6px;}
+.pm-dock{position:fixed;left:0;right:0;bottom:0;z-index:600;background:#0d0718;border-top:1px solid rgba(255,255,255,0.16);box-shadow:0 -8px 24px rgba(0,0,0,0.35);}
+.pm-dock-grip{height:6px;cursor:ns-resize;background:rgba(255,255,255,0.06);}.pm-dock-grip:hover{background:var(--purple-500);}
+.pm-dock-bar{display:flex;align-items:center;gap:2px;padding:0 10px;height:38px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.pm-dock-tab,.pm-dock-btn{display:inline-flex;align-items:center;gap:6px;background:transparent;border:0;color:var(--purple-300);font-size:0.8rem;font-weight:600;padding:8px 12px;border-bottom:2px solid transparent;}
+.pm-dock-tab.active{color:#fff;border-color:var(--purple-400);}.pm-dock-btn{padding:6px 10px;border-radius:6px;border:0;}.pm-dock-btn:hover{background:rgba(255,255,255,0.1);color:#fff;}
+.pm-dock-n{background:rgba(255,255,255,0.12);border-radius:999px;padding:0 7px;font-size:0.7rem;}
+.pm-dock-body{height:var(--dock-h);overflow:hidden;}.pm-dock.closed .pm-dock-body{display:none;}
+.pm-dock-pane{display:none;height:100%;overflow:auto;padding:10px 16px;box-sizing:border-box;}.pm-dock-pane.active{display:block;}
+.pm-dock-pane.term{background:#000;font-family:var(--font-mono);font-size:0.78rem;}.pm-dock-pane.term.active{display:flex;flex-direction:column;}
+.pm-dock-pane.term #pmTerminalOutput{flex:1;overflow:auto;white-space:pre-wrap;word-break:break-word;}
+.pm-term-in{display:flex;gap:8px;align-items:center;border-top:1px solid rgba(255,255,255,0.12);padding-top:8px;margin-top:8px;color:#7fd9b9;}
+.pm-term-in input{flex:1;background:transparent;border:0;outline:none;color:#7fd9b9;font-family:var(--font-mono);font-size:0.8rem;}
+/* ===== Light theme (API client page only) ===== */
+.pm-shell.pm-light{--purple-950:#f4f4f8;--purple-300:#6a6a7c;--purple-200:#4d4d60;--purple-100:#2a2a38;background:#f4f4f8;}
+.pm-light .tool-panel-title,.pm-light .pm-tree-gname,.pm-light .pm-tab.active,.pm-light .rr-title,.pm-light .rr-item summary,.pm-light .doc-h,.pm-light .doc-line,.pm-light .rr-body h5,.pm-light .rr-stat b,.pm-light .var-title,.pm-light .doc-table,.pm-light .doc-table td{color:#1f1f2b;}
+.pm-light .tool-panel-sub span{color:#1f1f2b !important;}
+.pm-light .pm-theme-seg{border-color:#d4d4de;background:#fff;}
+.pm-light .pm-tree-wrap,.pm-light .pm-response-wrap,.pm-light .rr-panel,.pm-light .var-card,.pm-light .rr-stat{background:#fff;border-color:#e0e0ea;}
+.pm-light .rr-stats{background:#e0e0ea;}.pm-light .rr-head{border-color:#e6e6ee;}
+.pm-light .pm-method,.pm-light .pm-url,.pm-light .kv-row input,.pm-light .pm-body-editor,.pm-light .fd-grid>input:not([type=checkbox]),.pm-light .au-fields input,.pm-light .au-fields select,.pm-light .au-fields textarea,.pm-light .pm-sel,.pm-light select,.pm-light textarea{background:#fff;color:#1f1f2b;border-color:#d4d4de;}
+.pm-light .pm-body-editor{color:#2a2a38;}
+.pm-light .kv-remove{background:#f3f3f8;border-color:#d4d4de;color:#6a6a7c;}
+.pm-light .pm-tabs,.pm-light .pm-response-head,.pm-light .au-token,.pm-light .pm-dock-bar{border-color:#e0e0ea;}
+.pm-light .pm-tree-row:hover{background:#f1eefb;}.pm-light .pm-tree-row.active{background:#e9defc;}
+.pm-light .pm-tree-method.m-GET,.pm-light .rr-m.m-GET{color:#0a8a5f;}.pm-light .pm-tree-method.m-POST,.pm-light .rr-m.m-POST{color:#b7791f;}.pm-light .pm-tree-method.m-PUT,.pm-light .pm-tree-method.m-PATCH,.pm-light .rr-m.m-PUT,.pm-light .rr-m.m-PATCH{color:#2f6bc4;}.pm-light .pm-tree-method.m-DELETE,.pm-light .rr-m.m-DELETE{color:#c0392b;}
+.pm-light .pm-tree-actions button:hover{background:#e6e0f7;color:#1f1f2b;}
+.pm-light .pm-response-body,.pm-light .rr-body pre,.pm-light .doc-req pre{color:#2a2a38;background:#f6f6fa;}
+.pm-light .json-key{color:#7a3fe6;}.pm-light .json-str{color:#0a7d55;}.pm-light .json-num{color:#c25e00;}.pm-light .json-bool{color:#c0392b;}.pm-light .json-null{color:#8a8a99;}
+.pm-light .collection-item{background:#fff;border-color:#d4d4de;color:#2a2a38;}
+.pm-light .fd-chip{background:#f3f3f8;border-color:#d4d4de;color:#2a2a38;}.pm-light .var-flow b{background:#fff;border-color:#d4d4de;color:#2a2a38;}
+.pm-light .rr-item{background:#fff;border-color:#e0e0ea;}.pm-light .doc-req{background:#fff;border-color:#e0e0ea;}
+.pm-light .doc-table th,.pm-light .doc-table td{border-color:#ececf3;}.pm-light .var-card .var-desc b{color:#1f1f2b;}
+.pm-light .pm-dock{background:#fff;border-color:#d4d4de;box-shadow:0 -6px 20px rgba(60,40,110,0.12);}.pm-light .pm-dock-grip{background:#ececf3;}
+.pm-light .pm-dock-tab.active{color:#1f1f2b;}.pm-light .pm-dock-btn:hover{background:#f0eefa;color:#1f1f2b;}.pm-light .pm-dock-n{background:#ececf3;}
+.pm-light details summary{color:#4d4d60 !important;}.pm-light .pm-empty-response{color:#6a6a7c;}
+.pm-light .btn-secondary{background:#fff;}
+
+/* ===== demo extras ===== */
+.ico{display:inline-flex;width:1.1em;height:1.1em;vertical-align:-0.18em;flex-shrink:0;line-height:1;}.ico .pm-ic{width:100%;height:100%;}
+.emoji .ico,.confirm-icon .ico,.tick .ico{width:1em;height:1em;}
+.pc-sec{margin-bottom:20px;}.pc-sec h4{font-size:0.9rem;margin-bottom:8px;color:var(--purple-800);}.pc-hint{font-size:0.78rem;color:var(--ink-faint);margin:0 0 10px;line-height:1.5;}
+.pc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}.pc-grid label{font-size:0.78rem;font-weight:600;color:var(--ink-soft);display:flex;flex-direction:column;gap:5px;}
+.pc-grid input,.pc-grid select{background:#150b28;color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-s);padding:9px 11px;font-size:0.85rem;}
+.pc-row{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer;}.pc-row span{display:flex;flex-direction:column;font-size:0.86rem;}.pc-row small{color:var(--ink-faint);font-size:0.76rem;}
+.pc-q{border-bottom:1px solid var(--line);padding:6px 0;font-size:0.84rem;}.pc-q pre{background:#150b28;color:#d9c9fc;border-radius:8px;padding:10px;margin:8px 0 2px;font-size:0.76rem;white-space:pre-wrap;}
+.pc-exp{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:0.86rem;}
+.pc-coupon{display:flex;gap:8px;margin-top:14px;}.pc-coupon input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;font-size:0.84rem;text-transform:uppercase;}
+.trk{padding:10px 4px 4px;}.trk-steps{display:flex;gap:0;margin-bottom:8px;}.trk-step{flex:1;font-size:0.74rem;color:var(--ink-faint);text-transform:capitalize;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;}
+.trk-step:not(:last-child)::after{content:"";position:absolute;top:6px;left:55%;width:90%;height:2px;background:var(--line);}.trk-step.done:not(:last-child)::after{background:var(--purple-500);}
+.trk-dot{width:14px;height:14px;border-radius:50%;background:#fff;border:2px solid var(--line);z-index:1;}.trk-step.done{color:var(--purple-700);font-weight:600;}.trk-step.done .trk-dot{background:var(--purple-500);border-color:var(--purple-500);}
+.trk-cancel{color:var(--error);font-size:0.8rem;margin:6px 0;}.trk-meta{font-size:0.74rem;color:var(--ink-faint);margin:6px 0 8px;}
+.status-packed{background:#e8f0ff;color:#2b57b7;}
+.dash-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px;}
+.dash-kpi{display:flex;gap:12px;align-items:center;background:#fff;border-radius:var(--radius-m);padding:14px 16px;border:1px solid var(--line);}.dash-kpi b{display:block;font-size:1.25rem;color:var(--purple-900,#2a1456);}.dash-kpi small{color:var(--ink-faint);font-size:0.76rem;}
+.dash-ic{width:38px;height:38px;border-radius:10px;background:var(--purple-50);color:var(--purple-600);display:inline-flex;align-items:center;justify-content:center;font-size:1.25rem;}
+.dash-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;}.dash-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-m);padding:16px;}.dash-card h4{font-size:0.88rem;margin-bottom:12px;color:var(--purple-800);}
+.dash-bar{display:grid;grid-template-columns:110px 1fr 70px;gap:10px;align-items:center;font-size:0.78rem;margin-bottom:8px;}.dash-bar span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-transform:capitalize;}
+.dash-bar div{height:8px;background:var(--purple-50);border-radius:999px;overflow:hidden;}.dash-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--purple-400),var(--purple-600));border-radius:999px;}.dash-bar em{font-style:normal;text-align:right;color:var(--ink-faint);}
+.dash-act{font-size:0.82rem;padding:6px 0;border-bottom:1px solid var(--line);}.dash-act small{color:var(--ink-faint);margin-left:6px;}
+.admin-toolbar{flex-wrap:wrap;gap:10px;}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -554,7 +708,7 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
       <a href="#/login" data-route="/login" id="navAuthLink">Login</a>
     </nav>
     <div class="nav-tools">
-      <button class="icon-btn cart-badge" onclick="openCartDrawer()" title="Cart">🛒<span class="count" id="cartCount">0</span></button>
+      <button class="icon-btn cart-badge" id="pcGear" title="Demo controls: failure simulation, bug mode, SQL practice, reset" aria-label="Demo controls"></button><button class="icon-btn cart-badge" onclick="openCartDrawer()" title="Cart">🛒<span class="count" id="cartCount">0</span></button>
       <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">☰</button>
     </div>
   </div>
@@ -675,6 +829,24 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
   </div>
 </div>
 
+<!-- ========== EDIT COLLECTION / FOLDER / REQUEST ========== -->
+<div class="modal-overlay" id="pmEditModal"><div class="modal-box" style="max-width:460px;">
+  <div class="modal-head"><h3 id="pmEditTitle">Edit</h3><button class="modal-close" onclick="closeModal('pmEditModal')">&#10005;</button></div>
+  <div class="modal-body" id="pmEditBody"></div>
+</div></div>
+
+<!-- ========== RUN COLLECTION (data-driven) ========== -->
+<div class="modal-overlay" id="pmRunModal"><div class="modal-box" style="max-width:560px;">
+  <div class="modal-head"><h3 id="pmRunTitle">Run collection</h3><button class="modal-close" onclick="closeModal('pmRunModal')">&#10005;</button></div>
+  <div class="modal-body">
+    <p class="sql-hint" id="pmRunInfo" style="margin-bottom:16px;"></p>
+    <label class="pm-lbl-d">Data file (optional): CSV, Excel (.xlsx / .xls) or JSON</label>
+    <div class="pm-drop"><input type="file" id="pmRunFile" accept=".csv,.xlsx,.xls,.json"><div id="pmRunData" class="sql-hint" style="margin:10px 0 0;"></div></div>
+    <label class="pm-check"><input type="checkbox" id="pmRunStop"> Stop the run at the first failed request</label>
+    <div class="modal-foot" style="padding:18px 0 0;border:0;"><button class="btn btn-secondary" onclick="closeModal('pmRunModal')">Cancel</button><button class="btn btn-primary" id="pmRunGo">Run</button></div>
+  </div>
+</div></div>
+
 <!-- ========== COLLECTION / FOLDER AUTHORIZATION MODAL ========== -->
 <div class="modal-overlay" id="pmAuthEditorModal">
   <div class="modal-box" style="max-width:480px;">
@@ -779,7 +951,7 @@ function fmtMoney(n){ return '$'+Number(n).toFixed(2); }
 function esc(str){ return String(str==null?'':str).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function uid(prefix){ return prefix+'_'+Math.random().toString(36).slice(2,9); }
 function currentUser(){ return DB.customers.find(c=>c.id===SESSION.currentUserId) || null; }
-function isAdmin(){ const u=currentUser(); return !!u && u.role==='admin'; }
+function isAdmin(){ const u=currentUser(); return !!u && ['admin','manager','support'].includes(u.role); }
 function catName(id){ const c=DB.categories.find(c=>c.id===id); return c?c.name:'—'; }
 function catIcon(id){ const c=DB.categories.find(c=>c.id===id); return c?c.icon:'📦'; }
 function productById(id){ return DB.products.find(p=>p.id===Number(id)); }
@@ -1013,7 +1185,7 @@ function renderShop(root){
 function renderShopGrid(){
   let list=DB.products.slice();
   if(shopFilter.cat) list=list.filter(p=>p.categoryId===shopFilter.cat);
-  if(shopFilter.search) list=list.filter(p=>p.name.toLowerCase().includes(shopFilter.search.toLowerCase()));
+  if(shopFilter.search) list=list.filter(p=>(pcBug('caseSearch')?p.name.includes(shopFilter.search):p.name.toLowerCase().includes(shopFilter.search.toLowerCase())));
   if(shopFilter.sort==='priceLow') list.sort((a,b)=>a.price-b.price);
   if(shopFilter.sort==='priceHigh') list.sort((a,b)=>b.price-a.price);
   if(shopFilter.sort==='rating') list.sort((a,b)=>b.rating-a.rating);
@@ -1121,7 +1293,7 @@ function submitProductReview(productId){
 let lastAddedProductId=null;
 function addToCart(productId,qty){
   const p=productById(productId);
-  if(!p || p.stock<=0) return;
+  if(!p || (p.stock<=0 && !pcBug('stockIgnore'))) return;
   const existing=SESSION.cart.find(i=>i.productId===productId);
   if(existing) existing.qty+=qty; else SESSION.cart.push({productId,qty});
   saveState();
@@ -1296,8 +1468,8 @@ function renderCart(root){
   const items=SESSION.cart.map(i=>({...i,product:productById(i.productId)})).filter(i=>i.product);
   const subtotal=items.reduce((s,i)=>s+i.product.price*i.qty,0);
   const shipping=subtotal>50?0:6.99;
-  const tax=subtotal*0.08;
-  const total=subtotal+shipping+tax;
+  const tax=subtotal*(pcBug('wrongTax')?0.18:0.08);
+  const total=subtotal+shipping+tax-pcCoupon(subtotal).discount;
   root.innerHTML=`
   <div class="page-hero"><div class="container"><div class="breadcrumb"><b>Home</b> / Cart</div><h1 class="page-title">Your cart</h1></div></div>
   <div class="section container">
@@ -1316,9 +1488,9 @@ function renderCart(root){
         <h3 style="margin-bottom:18px;">Order summary</h3>
         <div class="summary-row"><span>Subtotal</span><span>${fmtMoney(subtotal)}</span></div>
         <div class="summary-row"><span>Shipping</span><span>${shipping===0?'Free':fmtMoney(shipping)}</span></div>
-        <div class="summary-row"><span>Estimated tax</span><span>${fmtMoney(tax)}</span></div>
+        <div class="summary-row"><span>Estimated tax</span><span>${fmtMoney(tax)}</span></div>${pcDiscountRow(subtotal)}
         <div class="summary-row total"><span>Total</span><span>${fmtMoney(total)}</span></div>
-        <button class="btn btn-primary btn-block" style="margin-top:16px;" onclick="location.hash='#/checkout'">Proceed to checkout</button>
+        ${pcCouponBox()}<button class="btn btn-primary btn-block" style="margin-top:16px;" onclick="location.hash='#/checkout'">Proceed to checkout</button>
         <a href="#/shop" class="btn btn-ghost btn-block" style="margin-top:8px;">Continue shopping</a>
       </div>
     </div>
@@ -1369,7 +1541,7 @@ function orderSummaryHTML(){
   const subtotal=items.reduce((s,i)=>s+i.product.price*i.qty,0);
   const shipping=subtotal>50?0:6.99;
   const tax=subtotal*0.08;
-  const total=subtotal+shipping+tax;
+  const total=subtotal+shipping+tax-pcCoupon(subtotal).discount;
   return `<div class="summary-card">
     <h3 style="margin-bottom:16px;">Order summary</h3>
     ${items.map(i=>`<div class="order-item-mini"><span>${i.qty}× ${esc(i.product.name)}</span><span>${fmtMoney(i.product.price*i.qty)}</span></div>`).join('')}
@@ -1418,7 +1590,7 @@ function submitShipping(){
   const vals={name:$('#shName').value.trim(),address:$('#shAddress').value.trim(),city:$('#shCity').value.trim(),zip:$('#shZip').value.trim(),country:$('#shCountry').value.trim(),phone:$('#shPhone').value.trim()};
   let valid=true;
   [['sh-name','name'],['sh-address','address'],['sh-city','city'],['sh-zip','zip'],['sh-country','country'],['sh-phone','phone']].forEach(([id,key])=>{
-    const bad=!vals[key];
+    const bad=!vals[key] && !(pcBug('skipValidation') && (key==='zip'||key==='phone'));
     $('#'+id).classList.toggle('invalid',bad);
     if(bad) valid=false;
   });
@@ -1505,11 +1677,11 @@ function placeOrder(){
   const order={
     id:DB.nextIds.order++, customerId:currentUser().id, items,
     shipping:checkoutState.shipping, payment:checkoutState.payment,
-    status:'pending', total:+(subtotal+shipping+tax).toFixed(2), date:new Date().toISOString().slice(0,10)
+    status:'pending', total:+(subtotal+shipping+tax-pcCoupon(subtotal).discount).toFixed(2), coupon:SESSION.coupon||'', date:new Date().toISOString().slice(0,10)
   };
   DB.orders.push(order);
   items.forEach(it=>{ const p=productById(it.productId); if(p) p.stock=Math.max(0,p.stock-it.qty); });
-  SESSION.cart=[];
+  SESSION.cart=[]; SESSION.coupon='';
   saveState();
   $('#app').innerHTML=`
   <div class="section container">
@@ -1565,7 +1737,7 @@ function renderAccountPanel(user){
     panel.innerHTML = orders.length ? `
       <h3 style="margin-bottom:16px;">My orders <span class="count-badge">${orders.length}</span></h3>
       <table class="mini-table"><thead><tr><th>Order</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
-      <tbody>${orders.map(o=>`<tr><td>#${o.id}</td><td>${o.date}</td><td>${o.items.reduce((s,i)=>s+i.qty,0)} items</td><td>${fmtMoney(o.total)}</td><td><span class="status-pill status-${o.status}">${o.status}</span></td></tr>`).join('')}</tbody></table>
+      <tbody>${orders.map(o=>`<tr><td>#${o.id}</td><td>${o.date}</td><td>${o.items.reduce((s,i)=>s+i.qty,0)} items</td><td>${fmtMoney(o.total)}</td><td><span class="status-pill status-${o.status}">${o.status}</span></td></tr><tr><td colspan="5" style="padding:0 8px 14px;">${orderTrackHTML(o)}</td></tr>`).join('')}</tbody></table>
     ` : `<div class="empty-state"><div class="emoji">📦</div><h3>No orders yet</h3><a href="#/shop" class="btn btn-primary" style="margin-top:16px;">Start shopping</a></div>`;
   }
   if(accountTab==='wishlist'){
@@ -1760,13 +1932,13 @@ const adminModules={
     defaults:{customerId:()=>DB.customers[0]?DB.customers[0].id:1,status:'pending',total:0,date:()=>new Date().toISOString().slice(0,10),items:[],shipping:{name:'',address:'',city:'',zip:'',country:'',phone:''},payment:{method:'cod'}},
   },
 };
-let adminActiveTab='products';
+let adminActiveTab='dashboard';
 let adminSearch='';
 let adminEditing={module:null,id:null};
 
 function renderAdmin(root){
   const user=currentUser();
-  if(!user || user.role!=='admin'){
+  if(!user || !['admin','manager','support'].includes(user.role)){
     root.innerHTML=`<div class="tool-shell"><div class="section container"><div class="empty-state" style="color:#fff;"><div class="emoji">🔐</div><h3 style="color:#fff;">Admin access required</h3><p style="color:var(--purple-300);margin-top:8px;">Sign in with the admin demo account to manage store data.</p><a href="#/login" class="btn btn-primary" style="margin-top:18px;">Sign in as admin</a></div></div></div>`;
     return;
   }
@@ -1793,6 +1965,8 @@ function renderAdmin(root){
 function renderAdminTable(){
   const mod=adminModules[adminActiveTab];
   $('#adminModTitle').textContent=mod.label;
+  pcAdminToolbar(mod);
+  if(mod.custom){ $('#adminModSub').textContent=mod.sub||''; $('#adminTableWrap').innerHTML=mod.custom(); return; }
   $('#adminModSub').textContent='Manage '+mod.label.toLowerCase()+' — add, view, edit and delete records.';
   let rows=DB[mod.table];
   if(adminSearch){
@@ -1807,8 +1981,8 @@ function renderAdminTable(){
     ${mod.columns.map(c=>`<td>${c.render? c.render(r[c.key],r) : esc(String(r[c.key]!=null?r[c.key]:''))}</td>`).join('')}
     <td class="row-actions">
       <button title="View" onclick="viewAdminRecord('${adminActiveTab}',${r[mod.idKey]})">👁</button>
-      <button title="Edit" onclick="openAdminForm('${adminActiveTab}',${r[mod.idKey]})">✎</button>
-      <button title="Delete" class="del" onclick="deleteAdminRecord('${adminActiveTab}',${r[mod.idKey]})">🗑</button>
+      ${(mod.readonly||!adminCan('edit'))?'':`<button title="Edit" onclick="openAdminForm('${adminActiveTab}',${r[mod.idKey]})">✎</button>`}
+      ${(mod.readonly||!adminCan('delete'))?'':`<button title="Delete" class="del" onclick="deleteAdminRecord('${adminActiveTab}',${r[mod.idKey]})">🗑</button>`}
     </td>
   </tr>`).join('')}</tbody></table>`;
 }
@@ -2210,6 +2384,38 @@ pm.test("Response time is below 500ms", function () {
 pm.test("Body is not empty", function () {
   pm.expect(pm.response.json()).to.not.equal(null);
 });`};
+
+const PM_BODY_KEYS=['bodyType','rawType','formData','urlencoded','binary','gql'];
+function pmBodyDefaults(n){
+  n.bodyType=n.bodyType||((n.body&&String(n.body).trim())?'raw':'none');
+  n.rawType=n.rawType||'JSON';
+  n.formData=(n.formData&&n.formData.length)?n.formData:[{k:'',t:'text',v:'',d:'',on:true,files:[]}];
+  n.urlencoded=(n.urlencoded&&n.urlencoded.length)?n.urlencoded:[{k:'',v:'',d:'',on:true}];
+  n.binary=n.binary||null; n.gql=n.gql||{query:'',variables:'{\n  \n}'};
+}
+pmBodyDefaults(pmState);
+let pmFormParts=[], pmIterRow=null, pmRunReport=null, pmRunFilter='all';
+const _ic=p=>`<svg class="pm-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const PMI={
+ api:_ic('<path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/>'),clock:_ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+ console:_ic('<path d="M4 17l6-6-6-6"/><path d="M12 19h8"/>'),alert:_ic('<path d="M12 3l10 18H2z"/><path d="M12 10v4M12 18h.01"/>'),
+ term:_ic('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 10l3 2-3 2M12 15h5"/>'),
+ save:_ic('<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-7h8v7"/>'),lock:_ic('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/>'),
+ env:_ic('<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>'),globe:_ic('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/>'),
+ folder:_ic('<path d="M3 6a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>'),
+ collection:_ic('<path d="M4 7l8-4 8 4v10l-8 4-8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/>'),
+ edit:_ic('<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/>'),
+ trash:_ic('<path d="M4 7h16M10 11v6M14 11v6"/><path d="M6 7l1 13h10l1-13M9 7V4h6v3"/>'),
+ x:_ic('<path d="M6 6l12 12M18 6L6 18"/>'),cross:_ic('<path d="M6 6l12 12M18 6L6 18"/>'),
+ eye:_ic('<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'),
+ play:_ic('<path d="M7 4l13 8-13 8z"/>'),key:_ic('<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>'),
+ link:_ic('<path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/>'),
+ check:_ic('<path d="M5 12l5 5L20 7"/>'),chevd:_ic('<path d="M6 9l6 6 6-6"/>'),chevr:_ic('<path d="M9 6l6 6-6 6"/>'),
+ upload:_ic('<path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 20h16"/>'),file:_ic('<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/>'),
+ table:_ic('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>'),download:_ic('<path d="M12 4v12M7 11l5 5 5-5"/><path d="M4 20h16"/>')
+};
+function I(n){ return PMI[n]||''; }
+function pmFmtSize(n){ return n<1024?n+' B':n<1048576?(n/1024).toFixed(1)+' KB':(n/1048576).toFixed(1)+' MB'; }
 let pmLastTestResults=null;
 function loadGlobals(){ try{ const raw=localStorage.getItem('pmGlobals_v1'); if(raw) return JSON.parse(raw); }catch(e){} return [{k:'baseUrl',v:'/api'}]; }
 function saveGlobals(){ try{ localStorage.setItem('pmGlobals_v1', JSON.stringify(pmGlobals)); }catch(e){} }
@@ -2267,14 +2473,14 @@ function renderCookieRows(){
     <div class="kv-row">
       <input value="${esc(c.name)}" placeholder="Name" onchange="pmCookieJar[${i}].name=this.value">
       <input value="${esc(c.value)}" placeholder="Value" onchange="pmCookieJar[${i}].value=this.value">
-      <button class="kv-remove" onclick="pmCookieJar.splice(${i},1);renderCookieRows();">✕</button>
+      <button class="kv-remove" onclick="pmCookieJar.splice(${i},1);renderCookieRows();">${I('x')}</button>
     </div>`).join('') : '<p class="sql-hint">No cookies yet — they appear here automatically after a response sets one (try Login), or add one manually.</p>';
 }
 function pmAddCookieRow(){ pmCookieJar.push({name:'',value:''}); renderCookieRows(); }
 function renderSavedResponsesHTML(node){
   return (node.savedResponses||[]).map((ex,i)=>{
     const cls = ex.status>=500?'status-5xx':ex.status>=400?'status-4xx':'status-2xx';
-    return `<span class="collection-item">${esc(ex.name)} <span class="status-badge ${cls}" style="padding:1px 7px;font-size:0.68rem;margin:0 6px;">${ex.status}</span><button data-viewex="${node.id}:${i}" style="background:none;border:0;color:var(--purple-300);cursor:pointer;" title="View">👁</button><button data-delex="${node.id}:${i}" style="background:none;border:0;color:var(--purple-300);cursor:pointer;" title="Delete">🗑</button></span>`;
+    return `<span class="collection-item">${esc(ex.name)} <span class="status-badge ${cls}" style="padding:1px 7px;font-size:0.68rem;margin:0 6px;">${ex.status}</span><button data-viewex="${node.id}:${i}" style="background:none;border:0;color:var(--purple-300);cursor:pointer;" title="View">${I('eye')}</button><button data-delex="${node.id}:${i}" style="background:none;border:0;color:var(--purple-300);cursor:pointer;" title="Delete">${I('trash')}</button></span>`;
   }).join('');
 }
 function pmGetByPath(obj,path){
@@ -2348,43 +2554,28 @@ function pmFindNode(id,nodes=pmCollections){ for(const n of nodes){ if(n.id===id
 function pmFindParentArray(id,nodes=pmCollections){ for(const n of nodes){ if(n.id===id) return nodes; if(n.items){ const f=pmFindParentArray(id,n.items); if(f) return f; } } return null; }
 function renderPostman(root){
   const curNode=pmState.savedId?pmFindNode(pmState.savedId):null;
+  const varCard=(n,ic,title,desc,rowsId,addFn,addLabel,actions)=>`<div class="var-card"><div class="var-top"><span class="var-badge">${n}</span><div class="var-ttl"><div class="var-title">${I(ic)} ${title}</div><div class="var-desc">${desc}</div></div>${actions?`<div class="var-actions">${actions}</div>`:''}</div><div class="var-head"><span>Variable</span><span>Value</span><span></span></div><div id="${rowsId}"></div><button class="btn btn-secondary btn-sm" onclick="${addFn}">+ ${addLabel}</button></div>`;
   root.innerHTML=`
-  <div class="tool-shell">
+  <div class="tool-shell pm-shell ${pmTheme==='light'?'pm-light':''}">
     <div class="tool-body container">
-      <div class="tool-panel-title">📮 API Client</div>
+      <div class="pm-title-row"><div class="tool-panel-title" style="margin:0;">${I('api')} API Client</div>${pmThemeSegHTML()}</div>
       <div class="tool-panel-sub">Send requests to the mock REST API and inspect real status codes and JSON responses. <span style="color:var(--purple-100);">${esc(pmState.name)}${pmState.savedId?'':' (unsaved)'}</span></div>
       <div class="pm-layout">
       <div class="pm-sidebar">
+      <div class="pm-side-head"><span>Collections</span><span style="display:flex;gap:6px;"><button class="btn btn-secondary btn-sm" id="pmSideIO" title="Import / export collections">${pcI('upload')} Import</button><button class="btn btn-primary btn-sm" id="pmSideNewCol">+ New</button></span></div>
       <div class="pm-tree-wrap" id="pmTree"></div>
       <details style="margin-bottom:16px;">
-        <summary style="color:var(--purple-300);font-size:0.8rem;cursor:pointer;font-weight:600;">🕐 Request history (<span id="pmHistoryCount">${pmHistory.length}</span>)</summary>
+        <summary style="color:var(--purple-300);font-size:0.8rem;cursor:pointer;font-weight:600;">${I('clock')} Request history (<span id="pmHistoryCount">${pmHistory.length}</span>)</summary>
         <div class="collection-list" id="pmHistoryList" style="margin-top:10px;">${renderPmHistoryItems()}</div>
       </details>
-      <details style="margin-bottom:16px;">
-        <summary style="color:var(--purple-300);font-size:0.8rem;cursor:pointer;font-weight:600;display:flex;align-items:center;">🖥️ Console (<span id="pmConsoleCount">${pmConsoleLog.length}</span>)<button id="pmConsoleClearBtn" class="btn btn-secondary btn-sm" style="margin-left:auto;padding:2px 10px;">Clear</button></summary>
-        <div id="pmConsoleList" style="margin-top:10px;max-height:220px;overflow-y:auto;background:#0d0718;border-radius:var(--radius-m);padding:10px 12px;">${renderConsoleEntries()}</div>
-      </details>
-      <details style="margin-bottom:16px;" ${pmIssues.length?'open':''}>
-        <summary style="color:#ff9d92;font-size:0.8rem;cursor:pointer;font-weight:600;display:flex;align-items:center;">⚠️ Issues (<span id="pmIssuesCount">${pmIssues.length}</span>)<button id="pmIssuesClearBtn" class="btn btn-secondary btn-sm" style="margin-left:auto;padding:2px 10px;">Clear</button></summary>
-        <div id="pmIssuesList" style="margin-top:10px;max-height:220px;overflow-y:auto;background:#1a0d14;border-radius:var(--radius-m);padding:10px 12px;">${renderIssueEntries()}</div>
-      </details>
-      <details style="margin-bottom:16px;" id="pmTerminalDetails">
-        <summary style="color:#7fd9b9;font-size:0.8rem;cursor:pointer;font-weight:600;display:flex;align-items:center;">⌨️ Terminal<button id="pmTerminalClearBtn" class="btn btn-secondary btn-sm" style="margin-left:auto;padding:2px 10px;">Clear</button></summary>
-        <div style="margin-top:10px;background:#000;border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-m);padding:10px 12px;">
-          <div id="pmTerminalOutput" style="max-height:200px;overflow-y:auto;font-family:var(--font-mono);font-size:0.74rem;white-space:pre-wrap;word-break:break-word;">${renderTerminalOutput()}</div>
-          <div style="display:flex;align-items:center;gap:6px;margin-top:8px;border-top:1px solid rgba(255,255,255,0.12);padding-top:8px;">
-            <span style="color:#7fd9b9;font-family:var(--font-mono);font-size:0.8rem;">$</span>
-            <input id="pmTerminalInput" placeholder="type 'help'" autocomplete="off" style="flex:1;background:transparent;border:0;color:#7fd9b9;font-family:var(--font-mono);font-size:0.8rem;outline:none;">
-          </div>
-        </div>
-      </details>
-      ${curNode && (curNode.savedResponses||[]).length ? `
+            ${curNode && (curNode.savedResponses||[]).length ? `
       <details style="margin-bottom:16px;" open>
-        <summary style="color:var(--purple-300);font-size:0.8rem;cursor:pointer;font-weight:600;">💾 Saved responses (${curNode.savedResponses.length})</summary>
+        <summary style="color:var(--purple-300);font-size:0.8rem;cursor:pointer;font-weight:600;">${I('save')} Saved responses (${curNode.savedResponses.length})</summary>
         <div class="collection-list" style="margin-top:10px;" id="pmSavedRespList">${renderSavedResponsesHTML(curNode)}</div>
       </details>` : ''}
       </div>
       <div class="pm-main">
+      ${pmRunPanelHTML()}
       <div class="pm-request-bar">
         <select class="pm-method" id="pmMethod">
           ${['GET','POST','PUT','PATCH','DELETE','HEAD','OPTIONS'].map(m=>`<option ${pmState.method===m?'selected':''}>${m}</option>`).join('')}
@@ -2394,14 +2585,15 @@ function renderPostman(root){
           <option value="">No Environment</option>
           ${pmEnvironments.map(e=>`<option value="${e.id}" ${e.id===pmActiveEnvId?'selected':''}>${esc(e.name)}</option>`).join('')}
         </select>
-        <button class="btn btn-secondary" id="pmSaveBtn" title="Save">💾 Save</button>
+        <button class="btn btn-secondary" id="pmCodeBtn" title="Generate code snippet">${pcI('code')} Code</button>
+        <button class="btn btn-secondary" id="pmSaveBtn" title="Save">${I('save')} Save</button>
         <button class="btn btn-primary" id="pmSendBtn" style="padding:0 26px;">Send</button>
       </div>
       <div class="pm-tabs" id="pmReqTabs">
         <div class="pm-tab ${pmState.activeReqTab==='params'?'active':''}" data-t="params">Params</div>
         <div class="pm-tab ${pmState.activeReqTab==='auth'?'active':''}" data-t="auth">Authorization</div>
         <div class="pm-tab ${pmState.activeReqTab==='headers'?'active':''}" data-t="headers">Headers</div>
-        <div class="pm-tab ${pmState.activeReqTab==='body'?'active':''}" data-t="body">Body (JSON)</div>
+        <div class="pm-tab ${pmState.activeReqTab==='body'?'active':''}" data-t="body">Body${pmState.bodyType&&pmState.bodyType!=='none'?' <span class="pm-dot"></span>':''}</div>
         <div class="pm-tab ${pmState.activeReqTab==='prereq'?'active':''}" data-t="prereq">Pre-request Script</div>
         <div class="pm-tab ${pmState.activeReqTab==='tests'?'active':''}" data-t="tests">Tests</div>
         <div class="pm-tab ${pmState.activeReqTab==='env'?'active':''}" data-t="env">Variables</div>
@@ -2411,25 +2603,18 @@ function renderPostman(root){
         <button class="btn btn-secondary btn-sm" onclick="pmAddRow('params')">+ Add param</button>
       </div>
       <div class="pm-panel ${pmState.activeReqTab==='auth'?'active':''}" id="pmPanelAuth">
-        <div class="kv-row" style="grid-template-columns:200px 1fr;margin-bottom:14px;">
-          <select id="pmAuthType" class="pm-method" style="width:100%;">
-            <option value="inherit" ${pmState.auth.type==='inherit'?'selected':''}>Inherit from parent</option>
-            <option value="none" ${pmState.auth.type==='none'?'selected':''}>No Auth</option>
-            <option value="bearer" ${pmState.auth.type==='bearer'?'selected':''}>Bearer Token</option>
-            <option value="basic" ${pmState.auth.type==='basic'?'selected':''}>Basic Auth</option>
-            <option value="apikey" ${pmState.auth.type==='apikey'?'selected':''}>API Key</option>
-          </select>
-          <span class="sql-hint" style="margin:0;align-self:center;">Applied automatically as a header (or query param) on Send — separate from the Headers tab, and enforced by the mock API on write requests.</span>
-        </div>
-        <div id="pmAuthFields"></div>
+        <div class="au-wrap"><div class="au-side"><label>Auth Type</label><select id="pmAuthType" class="pm-method" style="width:100%;">${pmAuthOptions(pmState.auth.type,true)}</select><p class="sql-hint" style="margin-top:10px;">The authorization is added automatically to the request (header or query) when you click Send.</p></div><div id="pmAuthFields" class="au-main"></div></div>
       </div>
       <div class="pm-panel ${pmState.activeReqTab==='headers'?'active':''}" id="pmPanelHeaders">
         <div id="headerRows"></div>
         <button class="btn btn-secondary btn-sm" onclick="pmAddRow('headers')">+ Add header</button>
       </div>
       <div class="pm-panel ${pmState.activeReqTab==='body'?'active':''}" id="pmPanelBody">
-        <textarea class="pm-body-editor" id="pmBody" spellcheck="false">${esc(pmState.body)}</textarea>
-        <p class="sql-hint" style="margin-top:8px;">Sent with POST / PUT / PATCH requests. Must be valid JSON.</p>
+        <div class="pm-bt" id="pmBodyTypes">
+          ${[['none','none'],['form-data','form-data'],['urlencoded','x-www-form-urlencoded'],['raw','raw'],['binary','binary'],['graphql','GraphQL']].map(([v,l])=>`<label class="pm-radio"><input type="radio" name="pmBT" value="${v}" ${pmState.bodyType===v?'checked':''}><span>${l}</span></label>`).join('')}
+          ${pmState.bodyType==='raw'?`<select id="pmRawType" class="pm-sel">${['JSON','Text','JavaScript','HTML','XML'].map(t=>`<option ${pmState.rawType===t?'selected':''}>${t}</option>`).join('')}</select>`:''}
+        </div>
+        <div id="pmBodyArea"></div>
       </div>
       <div class="pm-panel ${pmState.activeReqTab==='prereq'?'active':''}" id="pmPanelPreReq">
         <select id="pmPreReqSnippet" style="max-width:280px;margin-bottom:8px;">
@@ -2458,31 +2643,12 @@ pm.test(&quot;Has expected property&quot;, () =&gt; { pm.expect(jsonData).to.hav
         <p class="sql-hint" style="margin-top:8px;">Runs automatically after Send. Available: pm.test(name, fn), pm.response.status/.responseTime/.json()/.headers.get(name), pm.response.to.have.status(code)/.header(name)/.jsonSchema(schema), pm.expect(x).to.equal/.eql/.include/.not.*, .be.above/.below/.ok/.a()/.an(), .have.property(k)/.members([...])/.length(n), plus pm.globals/.collectionVariables/.environment/.variables.get/set/unset to extract values for later requests.</p>
       </div>
       <div class="pm-panel ${pmState.activeReqTab==='env'?'active':''}" id="pmPanelEnv">
-        <p class="sql-hint" style="margin-bottom:14px;">Reference any variable anywhere as <code>{{name}}</code> — in the URL, params, headers or body. If the same name exists in more than one scope, the closest one wins: <b>Local → Environment → Collection → Global</b>.</p>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-          <b style="font-size:0.82rem;color:#fff;">🔒 Local variables</b><span class="sql-hint" style="margin:0;">— this request only</span>
-        </div>
-        <div id="localVarRows"></div>
-        <button class="btn btn-secondary btn-sm" onclick="pmAddLocalVarRow()">+ Add local variable</button>
-        <div style="display:flex;align-items:center;gap:8px;margin:18px 0 6px;flex-wrap:wrap;">
-          <b style="font-size:0.82rem;color:#fff;">🌎 Environment variables</b><span class="sql-hint" style="margin:0;">— ${pmActiveEnv()?esc(pmActiveEnv().name):'none selected'}</span>
-          <span style="margin-left:auto;display:flex;gap:6px;">
-            <button class="btn btn-secondary btn-sm" id="pmEnvNewBtn">+ New environment</button>
-            ${pmActiveEnv()?`<button class="btn btn-secondary btn-sm" id="pmEnvRenameBtn">✎ Rename</button><button class="btn btn-secondary btn-sm" id="pmEnvDeleteBtn">🗑 Delete</button>`:''}
-          </span>
-        </div>
-        <div id="envRows"></div>
-        <button class="btn btn-secondary btn-sm" onclick="pmAddEnvRow()">+ Add environment variable</button>
-        <div style="display:flex;align-items:center;gap:8px;margin:18px 0 6px;">
-          <b style="font-size:0.82rem;color:#fff;">📁 Collection variables</b><span class="sql-hint" style="margin:0;">— ${pmCurrentCollectionCtx()?esc(pmCurrentCollectionCtx().name):'none'}</span>
-        </div>
-        <div id="colVarRows"></div>
-        <button class="btn btn-secondary btn-sm" onclick="pmAddColVarRow()">+ Add collection variable</button>
-        <div style="display:flex;align-items:center;gap:8px;margin:18px 0 6px;">
-          <b style="font-size:0.82rem;color:#fff;">🌐 Global variables</b><span class="sql-hint" style="margin:0;">— shared everywhere</span>
-        </div>
-        <div id="globalVarRows"></div>
-        <button class="btn btn-secondary btn-sm" onclick="pmAddGlobalVarRow()">+ Add global variable</button>
+        <div class="var-flow"><span class="var-flow-l">Lookup order</span><b>1 Local</b><i>&rarr;</i><b>2 Environment</b><i>&rarr;</i><b>3 Collection</b><i>&rarr;</i><b>4 Global</b></div>
+        <p class="var-help">Use a variable anywhere as <code>{{name}}</code> (URL, params, headers, body). If the same name exists in more than one place, the first match in the order above is used.</p>
+        ${varCard(1,'lock','Local','Only this request. Saved with the request.','localVarRows','pmAddLocalVarRow()','Add local variable','')}
+        ${varCard(2,'env','Environment','Active environment: <b>'+(pmActiveEnv()?esc(pmActiveEnv().name):'none')+'</b>. Switch it from the dropdown next to the URL.','envRows','pmAddEnvRow()','Add environment variable',`<button class="btn btn-secondary btn-sm" id="pmEnvNewBtn">+ New</button>${pmActiveEnv()?`<button class="btn btn-secondary btn-sm" id="pmEnvRenameBtn">${I('edit')} Rename</button><button class="btn btn-secondary btn-sm" id="pmEnvDeleteBtn">${I('trash')} Delete</button>`:''}`)}
+        ${varCard(3,'folder','Collection','Shared by every request in <b>'+(pmCurrentCollectionCtx()?esc(pmCurrentCollectionCtx().name):'no collection')+'</b>.','colVarRows','pmAddColVarRow()','Add collection variable','')}
+        ${varCard(4,'globe','Global','Visible everywhere, in every collection and environment.','globalVarRows','pmAddGlobalVarRow()','Add global variable','')}
       </div>
       <div class="pm-response-wrap" id="pmResponseWrap">
         <div class="pm-empty-response">Hit <b>Send</b> to see the response here.</div>
@@ -2490,12 +2656,13 @@ pm.test(&quot;Has expected property&quot;, () =&gt; { pm.expect(jsonData).to.hav
       </div>
       </div>
     </div>
-  </div>`;
-  renderPmTree();
+  </div>
+  ${pmDockHTML()}`;
+  renderPmTree(); pmBindDock(); pmBindSideHead();
   $('#pmMethod').addEventListener('change',e=>{ pmState.method=e.target.value; pmApplyMethodColor(); });
   pmApplyMethodColor();
   $('#pmUrl').addEventListener('input',e=>pmState.url=e.target.value);
-  $('#pmBody').addEventListener('input',e=>pmState.body=e.target.value);
+  pmBindBody();
   $('#pmPreReq').addEventListener('input',e=>pmState.preRequestScript=e.target.value);
   $('#pmTests').addEventListener('input',e=>pmState.testsScript=e.target.value);
   $('#pmPreReqSnippet').addEventListener('change',e=>{ if(e.target.value){ pmInsertSnippet('pmPreReq','preRequestScript',e.target.value); e.target.value=''; } });
@@ -2550,27 +2717,26 @@ function pmTreeNodeHTML(n,depth){
   if(n.type==='req'){
     const active=pmState.savedId===n.id;
     return `<div class="pm-tree-row pm-tree-req ${active?'active':''}" style="padding-left:${depth*16+18}px" data-open="${n.id}">
-      <span class="pm-tree-method m-${n.method}">${n.method}</span><span class="pm-tree-name">${esc(n.name)}</span>
-      <span class="pm-tree-actions"><button data-rn="${n.id}" title="Rename">✎</button><button data-del="${n.id}" title="Delete">🗑</button></span>
+      <span class="pm-tree-method m-${n.method}">${n.method}</span><span class="pm-tree-name" title="${esc(n.name)}">${esc(n.name)}</span>
+      <span class="pm-tree-actions"><button data-rn="${n.id}" title="Rename">${I('edit')}</button><button data-del="${n.id}" title="Delete">${I('trash')}</button></span>
     </div>`;
   }
-  const icon=n.type==='collection'?'📦':'📁', chev=n.open?'▾':'▸';
+  const icon=n.type==='collection'?I('collection'):I('folder'), chev=n.open?I('chevd'):I('chevr');
   const kids = n.open ? (n.items||[]).map(c=>pmTreeNodeHTML(c,depth+1)).join('') : '';
   return `<div class="pm-tree-row pm-tree-group" style="padding-left:${depth*16}px" data-toggle="${n.id}">
       <span class="pm-tree-chevron">${chev}</span><span class="pm-tree-gname">${icon} ${esc(n.name)}</span>
       <span class="pm-tree-actions">
-        ${n.type==='collection'?`<button data-runcol="${n.id}" title="Run all requests in this collection">▶ Run</button>`:''}
-        <button data-authnode="${n.id}" title="Set Authorization for everything in here">🔐</button>
+        ${n.type==='collection'?`<button data-runcol="${n.id}" title="Run all requests in this collection">${I('play')} Run</button>`:''}
+        <button data-authnode="${n.id}" title="Set Authorization for everything in here">${I('key')}</button>
         <button data-addreq="${n.id}" title="Add request">+Req</button>
         ${n.type==='collection'?`<button data-addfld="${n.id}" title="Add folder">+Fld</button>`:''}
-        <button data-rn="${n.id}" title="Rename">✎</button><button data-del="${n.id}" title="Delete">🗑</button>
+        <button data-rn="${n.id}" title="Rename">${I('edit')}</button><button data-del="${n.id}" title="Delete">${I('trash')}</button>
       </span>
     </div>${kids}`;
 }
 function renderPmTree(){
   const wrap=$('#pmTree'); if(!wrap) return;
-  wrap.innerHTML = pmCollections.map(c=>pmTreeNodeHTML(c,0)).join('') +
-    `<button class="btn btn-secondary btn-sm" id="pmAddColBtn" style="margin-top:6px;">+ New Collection</button>`;
+  wrap.innerHTML = pmCollections.map(c=>pmTreeNodeHTML(c,0)).join('') || '<p class="sql-hint" style="padding:8px;">No collections yet. Use + New above.</p>';
   $all('[data-toggle]',wrap).forEach(el=>el.addEventListener('click',()=>{ pmFindNode(el.dataset.toggle).open=!pmFindNode(el.dataset.toggle).open; renderPmTree(); }));
   $all('[data-open]',wrap).forEach(el=>el.addEventListener('click',e=>{ if(e.target.closest('.pm-tree-actions')) return; pmLoadRequest(el.dataset.open); }));
   $all('[data-addreq]',wrap).forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); pmAddRequestTo(el.dataset.addreq); }));
@@ -2579,11 +2745,6 @@ function renderPmTree(){
   $all('[data-authnode]',wrap).forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); pmOpenAuthEditor(el.dataset.authnode); }));
   $all('[data-rn]',wrap).forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); pmRenameNode(el.dataset.rn); }));
   $all('[data-del]',wrap).forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); pmDeleteNode(el.dataset.del); }));
-  const addCol=$('#pmAddColBtn'); if(addCol) addCol.addEventListener('click',()=>{
-    pmPromptModal('New collection name','New Collection',name=>{
-      pmCollections.push({type:'collection',id:uid('col'),name,open:true,items:[]}); savePmCollections(); renderPmTree();
-    });
-  });
 }
 function pmAddFolderTo(colId){
   const col=pmFindNode(colId); if(!col) return;
@@ -2594,16 +2755,30 @@ function pmAddFolderTo(colId){
 }
 function pmAddRequestTo(parentId){
   const parent=pmFindNode(parentId); if(!parent) return;
-  const req={type:'req',id:uid('req'),name:'New Request',method:'GET',url:'/api/products',params:[{k:'',v:''}],headers:[],body:'',testsScript:'',preRequestScript:'',localVars:[]};
+  const req={type:'req',id:uid('req'),name:'New Request',method:'GET',url:'/api/products',params:[{k:'',v:''}],headers:[],body:'',bodyType:'none',testsScript:'',preRequestScript:'',localVars:[]};
   parent.open=true; parent.items=parent.items||[]; parent.items.push(req);
   savePmCollections(); pmLoadRequest(req.id);
 }
-function pmRenameNode(id){
-  const n=pmFindNode(id); if(!n) return;
-  pmPromptModal('Rename to',n.name,name=>{
-    n.name=name; if(pmState.savedId===id) pmState.name=name;
-    savePmCollections(); renderPostman($('#app'));
-  });
+function pmRenameNode(id){ pmEditNode(id); }
+function pmEditNode(id){
+  const n=pmFindNode(id); if(!n) return; const isReq=n.type==='req';
+  $('#pmEditTitle').textContent='Edit '+(n.type==='req'?'request':n.type);
+  $('#pmEditBody').innerHTML=`
+    <label class="pm-lbl-d">Name</label><input class="pm-in" id="pmEditName" value="${esc(n.name)}" maxlength="80">
+    <div class="pm-err" id="pmEditErr"></div>
+    ${isReq?`<div style="display:grid;grid-template-columns:110px 1fr;gap:10px;margin-top:14px;"><div><label class="pm-lbl-d">Method</label><select class="pm-in" id="pmEditMethod">${['GET','POST','PUT','PATCH','DELETE','HEAD','OPTIONS'].map(m=>`<option ${n.method===m?'selected':''}>${m}</option>`).join('')}</select></div><div><label class="pm-lbl-d">URL</label><input class="pm-in" id="pmEditUrl" value="${esc(n.url||'')}"></div></div>`:''}
+    <label class="pm-lbl-d" style="margin-top:14px;">Description</label><textarea class="pm-in" id="pmEditDesc" rows="3" placeholder="Optional notes about this ${n.type==='req'?'request':n.type}">${esc(n.description||'')}</textarea>
+    <div class="modal-foot" style="padding:18px 0 0;border:0;"><button class="btn btn-secondary" onclick="closeModal('pmEditModal')">Cancel</button><button class="btn btn-primary" id="pmEditSave">Save changes</button></div>`;
+  const save=()=>{
+    const name=$('#pmEditName').value.trim(); if(!name){ $('#pmEditErr').textContent='Name cannot be empty.'; return; }
+    n.name=name; n.description=$('#pmEditDesc').value.trim();
+    if(isReq){ n.method=$('#pmEditMethod').value; n.url=$('#pmEditUrl').value.trim()||n.url; if(pmState.savedId===id){ pmState.method=n.method; pmState.url=n.url; } }
+    if(pmState.savedId===id) pmState.name=name;
+    savePmCollections(); closeModal('pmEditModal'); renderPostman($('#app')); showToast('Saved changes to "'+name+'"');
+  };
+  $('#pmEditSave').onclick=save;
+  $('#pmEditName').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); save(); } });
+  openModal('pmEditModal'); setTimeout(()=>{ const f=$('#pmEditName'); f.focus(); f.select(); },50);
 }
 function pmDeleteNode(id){
   const arr=pmFindParentArray(id); if(!arr) return;
@@ -2621,6 +2796,7 @@ function pmLoadRequest(id,silent){
   pmState.body=n.body||''; pmState.preRequestScript=n.preRequestScript||''; pmState.testsScript=n.testsScript||'';
   pmState.localVars=n.localVars?JSON.parse(JSON.stringify(n.localVars)):[];
   pmState.auth=n.auth?JSON.parse(JSON.stringify(n.auth)):{type:'inherit',bearerToken:'',basicUser:'',basicPass:'',apiKeyName:'X-API-Key',apiKeyValue:'',apiKeyIn:'header'};
+  PM_BODY_KEYS.forEach(k=>{ pmState[k]=n[k]===undefined?undefined:JSON.parse(JSON.stringify(n[k])); }); pmBodyDefaults(pmState);
   pmState.savedId=id; pmState.name=n.name;
   if(!silent) renderPostman($('#app'));
 }
@@ -2629,40 +2805,167 @@ function pmFlattenRequests(node,out){
   (node.items||[]).forEach(child=>{ if(child.type==='req') out.push(child); else if(child.items) pmFlattenRequests(child,out); });
   return out;
 }
-async function pmRunCollection(colId){
+let pmRunView='results';
+let pmRunDialog=null;
+function pmRunCollection(colId){
   const col=pmFindNode(colId); if(!col) return;
   const reqs=pmFlattenRequests(col);
   if(!reqs.length){ showToast('No requests in "'+col.name+'" to run.'); return; }
-  const snapshot=JSON.parse(JSON.stringify({method:pmState.method,url:pmState.url,headers:pmState.headers,body:pmState.body,params:pmState.params,preRequestScript:pmState.preRequestScript,testsScript:pmState.testsScript,localVars:pmState.localVars,auth:pmState.auth,name:pmState.name}));
-  const savedIdSnapshot=pmState.savedId;
-  const runResults=[];
-  pmConsoleLog.push({ts:Date.now(),type:'log',text:`▶ Running collection "${col.name}" (${reqs.length} request${reqs.length>1?'s':''})…`});
-  for(const r of reqs){
-    pmLoadRequest(r.id,true);
-    const outcome=sendPmRequest(true);
-    runResults.push({name:r.name,method:r.method,status:outcome.status,ms:outcome.ms,pass:outcome.pass,fail:outcome.fail,error:outcome.error});
-  }
-  Object.assign(pmState,snapshot); pmState.savedId=savedIdSnapshot;
-  const totalPass=runResults.reduce((s,r)=>s+r.pass,0), totalFail=runResults.reduce((s,r)=>s+r.fail,0);
-  pmConsoleLog.push({ts:Date.now(),type:'log',text:`✔ Run finished: ${runResults.length} requests, ${totalPass} tests passed, ${totalFail} failed.`});
-  if(pmConsoleLog.length>300) pmConsoleLog.shift();
-  renderPostman($('#app'));
-  pmShowRunSummary(col.name,runResults);
+  pmRunDialog={colId,rows:null,fileName:''};
+  $('#pmRunTitle').textContent='Run collection - '+col.name;
+  $('#pmRunInfo').textContent=reqs.length+' request'+(reqs.length>1?'s':'')+' will run in order. Values saved by one request (pm.environment.set) are available to the next, so API chaining works.';
+  $('#pmRunFile').value=''; $('#pmRunStop').checked=false; pmRunDataInfo();
+  openModal('pmRunModal');
 }
-function pmShowRunSummary(colName,runResults){
-  const rows=runResults.map(r=>{
-    const cls = !r.status ? 'status-5xx' : r.status>=500?'status-5xx':r.status>=400?'status-4xx':'status-2xx';
-    return `<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);">
-      <span style="font-family:var(--font-mono);font-size:0.7rem;font-weight:700;width:52px;">${esc(r.method)}</span>
-      <span style="flex:1;">${esc(r.name)}</span>
-      <span class="status-badge ${cls}" style="padding:1px 8px;font-size:0.7rem;">${r.status||'ERR'}</span>
-      <span style="font-size:0.76rem;color:${r.fail?'#ff9d92':'#7fd9b9'};">${r.error? 'script error' : (r.pass+r.fail)? r.pass+'/'+(r.pass+r.fail)+' passed' : '—'}</span>
-    </div>`;
-  }).join('');
-  const totalPass=runResults.reduce((s,r)=>s+r.pass,0), totalFail=runResults.reduce((s,r)=>s+r.fail,0);
-  $('#jsonViewTitle').textContent='Run results — '+colName;
-  $('#jsonViewBody').innerHTML=`<p class="sql-hint" style="margin-bottom:10px;">${runResults.length} requests run · ${totalPass} tests passed${totalFail? ' · '+totalFail+' failed':''}.</p>${rows}`;
-  openModal('jsonViewModal');
+function pmRunDataInfo(){
+  const d=pmRunDialog, box=$('#pmRunData');
+  if(!d||!d.rows){ box.innerHTML='No data file selected - the collection runs once.'; return; }
+  const cols=Object.keys(d.rows[0]||{});
+  box.innerHTML=`<b>${esc(d.fileName)}</b>: ${d.rows.length} row${d.rows.length>1?'s':''} = ${d.rows.length} iteration${d.rows.length>1?'s':''}.<br>Columns: ${cols.map(c=>'<code>'+esc(c)+'</code>').join(' ')||'none'}<br>Use them as <code>{{column}}</code> in the URL, headers or body, or <code>pm.iterationData.get("column")</code> in scripts.`;
+}
+function pmParseCSV(text){
+  const rows=[]; let row=[],cur='',q=false;
+  for(let i=0;i<text.length;i++){ const c=text[i];
+    if(q){ if(c==='"'){ if(text[i+1]==='"'){ cur+='"'; i++; } else q=false; } else cur+=c; }
+    else if(c==='"') q=true;
+    else if(c===','){ row.push(cur); cur=''; }
+    else if(c==='\n'||c==='\r'){ if(c==='\r'&&text[i+1]==='\n') i++; row.push(cur); cur=''; rows.push(row); row=[]; }
+    else cur+=c; }
+  if(cur!==''||row.length){ row.push(cur); rows.push(row); }
+  const clean=rows.filter(r=>r.some(x=>String(x).trim()!==''));
+  if(!clean.length) return [];
+  const head=clean[0].map(h=>h.trim());
+  return clean.slice(1).map(r=>{ const o={}; head.forEach((h,i)=>{ if(h) o[h]=r[i]===undefined?'':r[i]; }); return o; });
+}
+function pmReadDataFile(file,cb){
+  const name=file.name.toLowerCase(), fr=new FileReader();
+  if(/\.(xlsx|xls)$/.test(name)){
+    if(!window.XLSX){ showToast('The Excel reader did not load (it needs internet once). Save the sheet as CSV instead.','error'); return; }
+    fr.onload=()=>{ try{ const wb=XLSX.read(fr.result,{type:'array'}); cb(XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:''})); }catch(e){ showToast('Could not read the Excel file: '+e.message,'error'); } };
+    fr.readAsArrayBuffer(file);
+  }else if(/\.json$/.test(name)){
+    fr.onload=()=>{ try{ const j=JSON.parse(fr.result); cb(Array.isArray(j)?j:[j]); }catch(e){ showToast('That JSON file is not valid.','error'); } };
+    fr.readAsText(file);
+  }else{ fr.onload=()=>cb(pmParseCSV(String(fr.result).replace(/^\uFEFF/,''))); fr.readAsText(file); }
+}
+function pmRunGo(){
+  const d=pmRunDialog; if(!d) return;
+  closeModal('pmRunModal'); pmExecuteRun(d.colId,d.rows,{stop:$('#pmRunStop').checked,fileName:d.fileName});
+}
+function pmExecuteRun(colId,rows,opts){
+  opts=opts||{}; const col=pmFindNode(colId); if(!col) return;
+  const reqs=pmFlattenRequests(col); if(!reqs.length){ showToast('No requests in "'+col.name+'" to run.'); return; }
+  const snapshot=JSON.parse(JSON.stringify({method:pmState.method,url:pmState.url,headers:pmState.headers,body:pmState.body,bodyType:pmState.bodyType,rawType:pmState.rawType,formData:pmState.formData,urlencoded:pmState.urlencoded,binary:pmState.binary,gql:pmState.gql,params:pmState.params,preRequestScript:pmState.preRequestScript,testsScript:pmState.testsScript,localVars:pmState.localVars,auth:pmState.auth,name:pmState.name}));
+  const savedIdSnapshot=pmState.savedId, iters=(rows&&rows.length)?rows:[null], items=[], t0=performance.now();
+  pmConsoleLog.push({ts:Date.now(),type:'log',text:'Running collection "'+col.name+'" ('+reqs.length+' request'+(reqs.length>1?'s':'')+', '+iters.length+' iteration'+(iters.length>1?'s':'')+')'});
+  let stopped=false;
+  for(let it=0; it<iters.length && !stopped; it++){
+    pmIterRow=iters[it];
+    for(const r of reqs){
+      pmLoadRequest(r.id,true);
+      if(pmIterRow) pmState.localVars=Object.entries(pmIterRow).map(([k,v])=>({k,v:String(v)})).concat(pmState.localVars||[]);
+      const o=sendPmRequest(true)||{};
+      items.push({iter:it+1,row:pmIterRow,name:r.name,method:r.method,status:o.status,ms:o.ms||0,pass:o.pass||0,fail:o.fail||0,error:o.error,tests:o.tests||[],detail:o.detail});
+      if(opts.stop && (o.error||o.fail>0||!o.status||o.status>=500)){ stopped=true; break; }
+    }
+  }
+  pmIterRow=null;
+  Object.assign(pmState,snapshot); pmState.savedId=savedIdSnapshot;
+  const tp=items.reduce((s,x)=>s+x.pass,0), tf=items.reduce((s,x)=>s+x.fail,0);
+  pmConsoleLog.push({ts:Date.now(),type:'log',text:'Run finished: '+items.length+' requests, '+tp+' tests passed, '+tf+' failed.'});
+  if(pmConsoleLog.length>300) pmConsoleLog.shift();
+  pmRunReport={colId,colName:col.name,iterations:iters.length,dataFile:opts.fileName||'',stopped,total:Math.round(performance.now()-t0),items,at:new Date().toLocaleString()};
+  pmRunFilter='all'; pmRunView='results';
+  renderPostman($('#app'));
+  const p=document.getElementById('pmRunPanel'); if(p&&p.scrollIntoView) p.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function pmSetRunView(v){ pmRunView=v; renderPostman($('#app')); const p=document.getElementById('pmRunPanel'); if(p&&p.scrollIntoView) p.scrollIntoView({block:'start'}); }
+function pmRunWrap(R,title,inner){
+  return `<div class="rr-panel" id="pmRunPanel"><div class="rr-head"><div><div class="rr-title">${I(title==='Documentation'?'file':'table')} ${title} - ${esc(R.colName)}</div><div class="rr-sub">${esc(R.at)}</div></div>
+    <div class="rr-actions"><button class="btn btn-secondary btn-sm" onclick="pmSetRunView('results')">${I('chevr')} Run results</button>
+    ${title==='Documentation'?`<button class="btn btn-secondary btn-sm" onclick="pmDownloadDocs()">${I('download')} Download HTML</button>`:`<button class="btn btn-secondary btn-sm" onclick="pmSetRunView('docs')">${I('file')} View Documentation</button>`}
+    <button class="btn btn-secondary btn-sm" onclick="pmCloseRun()">${I('x')} Close</button></div></div><div class="rr-list" style="max-height:none;padding:16px 18px;">${inner}</div></div>`;
+}
+function pmRunSummaryHTML(R){
+  const by={}; R.items.forEach(x=>{ const k=x.method+' '+x.name; const g=by[k]=by[k]||{method:x.method,name:x.name,runs:0,pass:0,fail:0,ms:0,statuses:[],errors:0}; g.runs++; g.pass+=x.pass; g.fail+=x.fail; g.ms+=x.ms; if(!g.statuses.includes(x.status||'ERR')) g.statuses.push(x.status||'ERR'); if(x.error||!x.status||x.status>=500) g.errors++; });
+  const rows=Object.values(by), tp=rows.reduce((a,g)=>a+g.pass,0), tf=rows.reduce((a,g)=>a+g.fail,0), failedReq=rows.filter(g=>g.fail||g.errors);
+  return `<p class="sql-hint" style="margin:0 0 14px;">${R.items.length} request runs across ${R.iterations} iteration${R.iterations>1?'s':''} in ${R.total} ms. ${tp} test${tp===1?'':'s'} passed, ${tf} failed. ${failedReq.length?failedReq.length+' request'+(failedReq.length>1?'s need':' needs')+' attention.':'Every request passed.'}</p>
+  <div style="overflow-x:auto;"><table class="doc-table"><thead><tr><th>Request</th><th>Runs</th><th>Status codes</th><th>Tests passed</th><th>Tests failed</th><th>Avg time</th><th>Result</th></tr></thead><tbody>${rows.map(g=>{ const bad=g.fail||g.errors; return `<tr><td><span class="rr-m m-${esc(g.method)}">${esc(g.method)}</span> ${esc(g.name)}</td><td>${g.runs}</td><td>${g.statuses.join(', ')}</td><td style="color:#7fd9b9;">${g.pass}</td><td style="color:${g.fail?'#ff9d92':'inherit'};">${g.fail}</td><td>${Math.round(g.ms/g.runs)} ms</td><td style="color:${bad?'#ff9d92':'#7fd9b9'};font-weight:700;">${bad?'Failed':'Passed'}</td></tr>`; }).join('')}</tbody></table></div>`;
+}
+function pmDocBodyText(n){
+  const t=n.bodyType||((n.body&&n.body.trim())?'raw':'none');
+  if(t==='raw') return n.body||'';
+  if(t==='urlencoded') return (n.urlencoded||[]).filter(r=>r.k).map(r=>r.k+'='+r.v).join('\n');
+  if(t==='form-data') return (n.formData||[]).filter(r=>r.k).map(r=>r.k+' ['+(r.t==='file'?'file':'text')+']: '+(r.t==='file'?((r.files||[]).map(f=>f.name).join(', ')||'(file)'):r.v)).join('\n');
+  if(t==='graphql') return (n.gql&&n.gql.query)||'';
+  if(t==='binary') return n.binary?n.binary.name:'';
+  return '';
+}
+function pmDocNodeHTML(n,depth,R){
+  if(n.type!=='req'){
+    return `<h${Math.min(depth+2,5)} class="doc-h">${I(n.type==='collection'?'collection':'folder')} ${esc(n.name)}</h${Math.min(depth+2,5)}>${n.description?`<p class="doc-p">${esc(n.description)}</p>`:''}`+(n.items||[]).map(c=>pmDocNodeHTML(c,depth+1,R)).join('');
+  }
+  const hs=(n.headers||[]).filter(h=>h.k), ps=(n.params||[]).filter(h=>h.k), body=pmDocBodyText(n), runs=R?R.items.filter(x=>x.name===n.name&&x.method===n.method):[];
+  const kv=a=>`<table class="doc-table"><tbody>${a.map(h=>`<tr><td>${esc(h.k)}</td><td>${esc(h.v)}</td></tr>`).join('')}</tbody></table>`;
+  return `<div class="doc-req"><div class="doc-line"><span class="rr-m m-${esc(n.method)}">${esc(n.method)}</span><b>${esc(n.name)}</b></div><div class="rr-url">${esc(n.url)}</div>${n.description?`<p class="doc-p">${esc(n.description)}</p>`:''}
+    ${ps.length?'<h6>Query params</h6>'+kv(ps):''}${hs.length?'<h6>Headers</h6>'+kv(hs):''}${n.auth&&n.auth.type&&n.auth.type!=='inherit'?`<h6>Authorization</h6><p class="doc-p">${esc(n.auth.type)}</p>`:''}
+    ${body?`<h6>Body (${esc(n.bodyType||'raw')})</h6><pre>${esc(body)}</pre>`:''}${n.preRequestScript&&n.preRequestScript.trim()?`<h6>Pre-request script</h6><pre>${esc(n.preRequestScript)}</pre>`:''}${n.testsScript&&n.testsScript.trim()?`<h6>Tests</h6><pre>${esc(n.testsScript)}</pre>`:''}
+    ${(n.savedResponses||[]).map(ex=>`<h6>Example response: ${esc(ex.name)} (${ex.status})</h6><pre>${esc(JSON.stringify(ex.body,null,2))}</pre>`).join('')}
+    ${runs.length?`<h6>Last run</h6><p class="doc-p">${runs.map(x=>(x.status||'ERR')+' in '+x.ms+' ms, '+(x.tests.length?x.pass+'/'+x.tests.length+' tests passed':'no tests')).join(' | ')}</p>`:''}</div>`;
+}
+function pmDocsHTML(colId,withRun){
+  const col=pmFindNode(colId); if(!col) return '<p class="sql-hint">Collection not found.</p>';
+  const n=pmFlattenRequests(col).length;
+  return `<div class="doc-wrap"><p class="sql-hint" style="margin:0 0 6px;">${n} request${n===1?'':'s'} documented from the collection's current state.</p>${pmDocNodeHTML(col,0,withRun?pmRunReport:null)}</div>`;
+}
+const PM_DOC_CSS='body{font-family:Inter,Arial,sans-serif;max-width:900px;margin:30px auto;padding:0 20px;color:#222;line-height:1.5}pre{background:#f3eefc;padding:10px;border-radius:6px;white-space:pre-wrap;word-break:break-word;font-size:12px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #ddd;padding:6px 8px;text-align:left}.doc-req{border:1px solid #ddd;border-radius:8px;padding:14px;margin:12px 0}.rr-m{font-weight:700;margin-right:8px}.rr-url{font-family:monospace;font-size:13px;color:#555}h6{margin:12px 0 4px;text-transform:uppercase;font-size:11px;color:#6531c9}svg{display:none}';
+function pmDownloadDocs(){
+  if(!pmRunReport) return; const body=pmDocsHTML(pmRunReport.colId,true);
+  const html='<!doctype html><html><head><meta charset="utf-8"><title>'+esc(pmRunReport.colName)+' - Documentation</title><style>'+PM_DOC_CSS+'</style></head><body><h1>'+esc(pmRunReport.colName)+'</h1>'+body+'</body></html>';
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([html],{type:'text/html'})); a.download=pmRunReport.colName.replace(/\W+/g,'-')+'-documentation.html'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),500);
+}
+function pmCloseRun(){ pmRunReport=null; renderPostman($('#app')); }
+function pmSetRunFilter(f){ pmRunFilter=f; renderPostman($('#app')); }
+function pmExportRun(){
+  if(!pmRunReport) return;
+  const blob=new Blob([JSON.stringify(pmRunReport,null,2)],{type:'application/json'}), a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download='run-report-'+pmRunReport.colName.replace(/\W+/g,'-')+'.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),500);
+}
+function pmRunItemHTML(x,isBad){
+  const d=x.detail||{}, tests=x.tests||[];
+  const cls=!x.status||x.status>=500?'status-5xx':x.status>=400?'status-4xx':'status-2xx';
+  const hdr=o=>esc(Object.entries(o||{}).map(([k,v])=>k+': '+v).join('\n')||'-');
+  return `<details class="rr-item ${isBad?'bad':'ok'}"><summary><span class="rr-m m-${esc(x.method)}">${esc(x.method)}</span><span class="rr-name">${esc(x.name)}</span><span class="status-badge ${cls}">${x.status||'ERR'}${d.statusText?' '+esc(d.statusText):''}</span><span class="rr-ms">${x.ms} ms</span><span class="rr-t" style="color:${x.fail||x.error?'#ff9d92':'#7fd9b9'};">${x.error?'script error':tests.length?x.pass+'/'+tests.length+' tests passed':'no tests'}</span></summary>
+    <div class="rr-body">${x.error?`<div class="rr-err">${esc(x.error)}</div>`:''}
+      <div class="rr-cols">
+        <div><h5>Request</h5><div class="rr-url">${esc(d.method||x.method)} ${esc(d.url||'')}</div><h6>Headers</h6><pre>${hdr(d.reqHeaders)}</pre><h6>Body</h6><pre>${esc(d.reqBody||'-')}</pre></div>
+        <div><h5>Response</h5><div class="rr-url">${x.status||'ERR'} ${esc(d.statusText||'')} - ${x.ms} ms</div><h6>Headers</h6><pre>${hdr(d.respHeaders)}</pre><h6>Body</h6><pre>${d.body===undefined?'-':esc(JSON.stringify(d.body,null,2))}</pre></div>
+      </div>
+      <h5 style="margin-top:14px;">Test results</h5>${renderPmTestResultsHTML(tests)}
+    </div></details>`;
+}
+function pmRunPanelHTML(){
+  const R=pmRunReport; if(!R) return '';
+  if(pmRunView==='summary') return pmRunWrap(R,'Run summary',pmRunSummaryHTML(R));
+  if(pmRunView==='docs') return pmRunWrap(R,'Documentation',pmDocsHTML(R.colId,true));
+  const items=R.items, pass=items.reduce((s,x)=>s+x.pass,0), fail=items.reduce((s,x)=>s+x.fail,0);
+  const bad=items.filter(x=>x.error||x.fail>0||!x.status||x.status>=500);
+  const shown=pmRunFilter==='failed'?bad:pmRunFilter==='passed'?items.filter(x=>!bad.includes(x)):items;
+  const avg=items.length?Math.round(items.reduce((s,x)=>s+x.ms,0)/items.length):0;
+  const stat=(l,v,c)=>`<div class="rr-stat"><b style="color:${c||'#fff'};">${v}</b><span>${l}</span></div>`;
+  let last=0, list='';
+  shown.forEach(x=>{
+    if(R.iterations>1&&x.iter!==last){ last=x.iter; list+=`<div class="rr-iter">Iteration ${x.iter} of ${R.iterations}${x.row?' <span>'+esc(Object.entries(x.row).map(([k,v])=>k+' = '+v).join(', '))+'</span>':''}</div>`; }
+    list+=pmRunItemHTML(x,bad.includes(x));
+  });
+  const tab=(f,l)=>`<button class="rr-tab ${pmRunFilter===f?'active':''}" onclick="pmSetRunFilter('${f}')">${l}</button>`;
+  return `<div class="rr-panel" id="pmRunPanel">
+    <div class="rr-head"><div><div class="rr-title">${I('play')} Run results - ${esc(R.colName)}</div><div class="rr-sub">${esc(R.at)}${R.dataFile?' - data file: '+esc(R.dataFile):''}${R.stopped?' - stopped at first failure':''}</div></div>
+      <div class="rr-actions"><button class="btn btn-secondary btn-sm" onclick="pmSetRunView('summary')">${I('table')} View Summary</button><button class="btn btn-secondary btn-sm" onclick="pmSetRunView('docs')">${I('file')} View Documentation</button><button class="btn btn-secondary btn-sm" onclick="pmRunCollection('${R.colId}')">${I('play')} Run again</button><button class="btn btn-secondary btn-sm" onclick="pmExportRun()">${I('download')} Export JSON</button><button class="btn btn-secondary btn-sm" onclick="pmCloseRun()">${I('x')} Close</button></div></div>
+    <div class="rr-stats">${stat('Iterations',R.iterations)}${stat('Requests',items.length)}${stat('Tests passed',pass,'#7fd9b9')}${stat('Tests failed',fail,fail?'#ff9d92':'#fff')}${stat('Avg response',avg+' ms')}${stat('Total time',R.total+' ms')}</div>
+    <div class="rr-tabs">${tab('all','All ('+items.length+')')}${tab('passed','Passed ('+(items.length-bad.length)+')')}${tab('failed','Failed ('+bad.length+')')}</div>
+    <div class="rr-list">${list||'<p class="sql-hint" style="padding:14px;">Nothing to show for this filter.</p>'}</div>
+  </div>`;
 }
 function renderConsoleEntries(){
   if(!pmConsoleLog.length) return '<p class="sql-hint">Nothing logged yet. Sent requests and console.log() calls from your scripts will appear here.</p>';
@@ -2704,7 +3007,7 @@ function pmTerminalExec(raw){
       pmTerminalPrint('out',argStr);
     }else if(verb.toLowerCase()==='list'){
       const lines=[];
-      pmCollections.forEach(col=>{ lines.push('📦 '+col.name); pmFlattenRequests(col).forEach(r=>lines.push('   '+r.method+'  '+r.name)); });
+      pmCollections.forEach(col=>{ lines.push('['+col.name+']'); pmFlattenRequests(col).forEach(r=>lines.push('   '+r.method+'  '+r.name)); });
       pmTerminalPrint('out',lines.join('\n')||'No collections yet.');
     }else if(verb.toLowerCase()==='env'){
       const env=pmActiveEnv();
@@ -2724,7 +3027,7 @@ function pmTerminalExec(raw){
       const match=all.find(r=>r.name.toLowerCase()===argStr.toLowerCase())||all.find(r=>r.name.toLowerCase().includes(argStr.toLowerCase()));
       if(!match){ pmTerminalPrint('err','no saved request matching "'+argStr+'"'); }
       else{
-        const snapshot=JSON.parse(JSON.stringify({method:pmState.method,url:pmState.url,headers:pmState.headers,body:pmState.body,params:pmState.params,preRequestScript:pmState.preRequestScript,testsScript:pmState.testsScript,localVars:pmState.localVars,auth:pmState.auth,name:pmState.name}));
+        const snapshot=JSON.parse(JSON.stringify({method:pmState.method,url:pmState.url,headers:pmState.headers,body:pmState.body,bodyType:pmState.bodyType,rawType:pmState.rawType,formData:pmState.formData,urlencoded:pmState.urlencoded,binary:pmState.binary,gql:pmState.gql,params:pmState.params,preRequestScript:pmState.preRequestScript,testsScript:pmState.testsScript,localVars:pmState.localVars,auth:pmState.auth,name:pmState.name}));
         const savedIdSnap=pmState.savedId;
         pmLoadRequest(match.id,true);
         const outcome=sendPmRequest(true);
@@ -2734,7 +3037,7 @@ function pmTerminalExec(raw){
     }else if(verb.toLowerCase()==='runcol'){
       const col=pmCollections.find(c=>c.name.toLowerCase()===argStr.toLowerCase())||pmCollections.find(c=>c.name.toLowerCase().includes(argStr.toLowerCase()));
       if(!col){ pmTerminalPrint('err','no collection matching "'+argStr+'"'); }
-      else{ pmTerminalPrint('out','running "'+col.name+'"… see the results popup when it finishes.'); pmRunCollection(col.id); }
+      else{ pmTerminalPrint('out','running "'+col.name+'"… see the run report when it finishes.'); pmExecuteRun(col.id,null); }
     }else if(['GET','POST','PUT','PATCH','DELETE','HEAD','OPTIONS'].includes(V)){
       const method=V, url0=rest[0], bodyRaw=rest.slice(1).join(' ');
       if(!url0){ pmTerminalPrint('err','usage: '+method+' <url>'+(['POST','PUT','PATCH'].includes(method)?' [json body]':'')); }
@@ -2768,7 +3071,7 @@ function pmTerminalExec(raw){
 function pmQuickSave(){
   if(pmState.savedId){
     const n=pmFindNode(pmState.savedId);
-    if(n){ n.method=pmState.method; n.url=pmState.url; n.params=pmState.params; n.headers=pmState.headers; n.body=pmState.body; n.preRequestScript=pmState.preRequestScript; n.testsScript=pmState.testsScript; n.localVars=pmState.localVars; n.auth=pmState.auth;
+    if(n){ n.method=pmState.method; n.url=pmState.url; n.params=pmState.params; n.headers=pmState.headers; n.body=pmState.body; n.preRequestScript=pmState.preRequestScript; n.testsScript=pmState.testsScript; n.localVars=pmState.localVars; n.auth=pmState.auth; PM_BODY_KEYS.forEach(k=>n[k]=JSON.parse(JSON.stringify(pmState[k]===undefined?null:pmState[k])));
       savePmCollections(); showToast('Saved "'+n.name+'"'); return; }
   }
   pmOpenSaveModal();
@@ -2777,7 +3080,7 @@ function pmOpenSaveModal(){
   function pickerHTML(nodes,depth){
     return nodes.filter(n=>n.type!=='req').map(n=>`
       <div class="pm-save-row" style="padding-left:${depth*16}px;">
-        <span>${n.type==='collection'?'📦':'📁'} ${esc(n.name)}</span>
+        <span>${I(n.type==='collection'?'collection':'folder')} ${esc(n.name)}</span>
         <button class="btn btn-secondary btn-sm" data-savehere="${n.id}">Save here</button>
       </div>${pickerHTML(n.items||[],depth+1)}`).join('');
   }
@@ -2791,9 +3094,9 @@ function pmOpenSaveModal(){
   $all('[data-savehere]').forEach(btn=>btn.addEventListener('click',()=>{
     const name=$('#pmSaveNameInput').value.trim()||'Untitled Request';
     const parent=pmFindNode(btn.dataset.savehere); if(!parent) return;
-    const req={type:'req',id:uid('req'),name,method:pmState.method,url:pmState.url,params:pmState.params,headers:pmState.headers,body:pmState.body,preRequestScript:pmState.preRequestScript,testsScript:pmState.testsScript,localVars:pmState.localVars,auth:pmState.auth};
+    const req={type:'req',id:uid('req'),name,method:pmState.method,url:pmState.url,params:pmState.params,headers:pmState.headers,body:pmState.body,bodyType:pmState.bodyType,rawType:pmState.rawType,formData:pmState.formData,urlencoded:pmState.urlencoded,binary:pmState.binary,gql:pmState.gql,preRequestScript:pmState.preRequestScript,testsScript:pmState.testsScript,localVars:pmState.localVars,auth:pmState.auth};
     parent.open=true; parent.items=parent.items||[]; parent.items.push(req);
-    pmState.savedId=req.id; pmState.name=name;
+    PM_BODY_KEYS.forEach(k=>req[k]=JSON.parse(JSON.stringify(pmState[k]===undefined?null:pmState[k]))); pmState.savedId=req.id; pmState.name=name;
     savePmCollections(); closeModal('pmSaveModal'); renderPostman($('#app')); showToast('Saved "'+name+'"');
   }));
   $('#pmSaveNewColBtn').addEventListener('click',()=>{
@@ -2804,35 +3107,10 @@ function pmOpenSaveModal(){
 }
 function renderAuthFields(){
   const wrap=$('#pmAuthFields'); if(!wrap) return;
-  pmState.auth=pmState.auth||{type:'inherit'};
-  const a=pmState.auth;
-  if(a.type==='inherit'){
-    const eff=pmResolveAuth();
-    wrap.innerHTML=`<p class="sql-hint">Inherits from the nearest parent folder or collection's Authorization setting${pmState.savedId?' — currently resolves to <b>'+({none:'No Auth',bearer:'Bearer Token',basic:'Basic Auth',apikey:'API Key'}[eff.type]||'No Auth')+'</b>.':' (save this request into a collection to inherit).'}</p>`;
-  }else if(a.type==='bearer'){
-    wrap.innerHTML=`<div class="kv-row" style="grid-template-columns:1fr;">
-      <input placeholder="Demo token — type anything, or use {{authToken}}" value="${esc(a.bearerToken||'')}" oninput="pmState.auth.bearerToken=this.value">
-    </div>
-    <p class="sql-hint" style="margin-top:8px;">This is a demo/sandbox site, so any text works as a token here — try <code>{{authToken}}</code>, which Login's Tests script sets automatically after you run it. Sent as header <code>Authorization: Bearer &lt;token&gt;</code>.</p>`;
-  }else if(a.type==='basic'){
-    wrap.innerHTML=`<div class="kv-row" style="grid-template-columns:1fr 1fr;">
-      <input placeholder="Username / email" value="${esc(a.basicUser||'')}" oninput="pmState.auth.basicUser=this.value">
-      <input placeholder="Password" value="${esc(a.basicPass||'')}" oninput="pmState.auth.basicPass=this.value">
-    </div>
-    <p class="sql-hint" style="margin-top:8px;">Demo credentials — use a real seeded customer's email/password to pass validation, e.g. <code>priya@example.com</code> / <code>priya123</code>. Sent as <code>Authorization: Basic &lt;base64(user:pass)&gt;</code>.</p>`;
-  }else if(a.type==='apikey'){
-    wrap.innerHTML=`<div class="kv-row" style="grid-template-columns:1fr 1fr;">
-      <input placeholder="Key name (e.g. X-API-Key)" value="${esc(a.apiKeyName||'X-API-Key')}" oninput="pmState.auth.apiKeyName=this.value">
-      <input placeholder="Demo value — try sandbox-api-key-123" value="${esc(a.apiKeyValue||'')}" oninput="pmState.auth.apiKeyValue=this.value">
-    </div>
-    <select style="margin-top:8px;" onchange="pmState.auth.apiKeyIn=this.value">
-      <option value="header" ${a.apiKeyIn!=='query'?'selected':''}>Add to Header</option>
-      <option value="query" ${a.apiKeyIn==='query'?'selected':''}>Add to Query Params</option>
-    </select>
-    <p class="sql-hint" style="margin-top:8px;">Demo/sandbox key that always works: <code>sandbox-api-key-123</code>.</p>`;
-  }else{
-    wrap.innerHTML='<p class="sql-hint">This request does not use authorization.</p>';
-  }
+  pmState.auth=pmState.auth||{type:'inherit'}; const a=pmState.auth;
+  if(a.type==='inherit'){ const eff=pmResolveAuth(); wrap.innerHTML=`<p class="sql-hint">Inherits from the nearest parent folder or collection's Authorization${pmState.savedId?' - currently resolves to <b>'+(PM_AUTH_LABEL[eff.type]||'No Auth')+'</b>.':' (save this request into a collection to inherit).'}</p>`; return; }
+  if(a.type==='none'){ wrap.innerHTML='<p class="sql-hint">This request does not use authorization.</p>'; return; }
+  wrap.innerHTML=pmAuthFormHTML(a,a.type); pmBindAuthForm(wrap,a,null,renderAuthFields);
 }
 function pmAuthEditorFieldsHTML(auth){
   if(auth.type==='inherit') return '<p class="sql-hint">Uses the nearest parent folder or collection\'s Authorization setting.</p>';
@@ -2858,19 +3136,16 @@ function pmOpenAuthEditor(nodeId){
     $('#pmAuthEditorTitle').textContent='Authorization — '+node.name;
     $('#pmAuthEditorBody').innerHTML=`
       <p class="sql-hint" style="margin-bottom:10px;">Applies to every request inside <b>${esc(node.name)}</b> that's set to "Inherit from parent" in its own Authorization tab.</p>
-      <select id="pmAuthEditorType" class="pm-method" style="width:100%;margin-bottom:14px;">
-        ${showInherit?`<option value="inherit" ${node.auth.type==='inherit'?'selected':''}>Inherit from parent</option>`:''}
-        <option value="none" ${node.auth.type==='none'?'selected':''}>No Auth</option>
-        <option value="bearer" ${node.auth.type==='bearer'?'selected':''}>Bearer Token</option>
-        <option value="basic" ${node.auth.type==='basic'?'selected':''}>Basic Auth</option>
-        <option value="apikey" ${node.auth.type==='apikey'?'selected':''}>API Key</option>
-      </select>
-      <div id="pmAuthEditorFields">${pmAuthEditorFieldsHTML(node.auth)}</div>
+      <select id="pmAuthEditorType" class="pm-method" style="width:100%;margin-bottom:14px;">${pmAuthOptions(node.auth.type,showInherit)}</select>
+      <div id="pmAuthEditorFields"></div>
       <div class="modal-foot" style="justify-content:flex-end;gap:8px;margin-top:16px;">
         <button class="btn btn-primary" onclick="closeModal('pmAuthEditorModal')">Done</button>
       </div>`;
     $('#pmAuthEditorType').addEventListener('change',e=>{ node.auth.type=e.target.value; savePmCollections(); renderBody(); });
-    $all('[data-authfield]').forEach(el=>el.addEventListener(el.tagName==='SELECT'?'change':'input',e=>{ node.auth[el.dataset.authfield]=e.target.value; savePmCollections(); }));
+    const fw=$('#pmAuthEditorFields'), t=node.auth.type;
+    if(t==='inherit') fw.innerHTML='<p class="sql-hint">Uses the nearest parent folder or collection\'s Authorization setting.</p>';
+    else if(t==='none') fw.innerHTML='<p class="sql-hint">No authorization - requests here send none unless they set their own.</p>';
+    else { fw.innerHTML=pmAuthFormHTML(node.auth,t); pmBindAuthForm(fw,node.auth,savePmCollections,renderBody); }
   }
   renderBody();
   openModal('pmAuthEditorModal');
@@ -2888,7 +3163,7 @@ function pmInsertSnippet(textareaId,stateField,snippet){
 }
 function pmApplyMethodColor(){
   const sel=$('#pmMethod'); if(!sel) return;
-  const bg={GET:'#16321f',POST:'#3a2f12',PUT:'#122a3a',PATCH:'#1e2a3a',DELETE:'#3a1818',HEAD:'#241b3a',OPTIONS:'#241b3a'};
+  const bg=pmTheme==='light'?{GET:'#e3f6ec',POST:'#fdf1d6',PUT:'#e1eefb',PATCH:'#e6edf8',DELETE:'#fbe3e1',HEAD:'#eee8fa',OPTIONS:'#eee8fa'}:{GET:'#16321f',POST:'#3a2f12',PUT:'#122a3a',PATCH:'#1e2a3a',DELETE:'#3a1818',HEAD:'#241b3a',OPTIONS:'#241b3a'};
   sel.style.background = bg[sel.value] || '';
 }
 function pmComputeAuth(){
@@ -2907,6 +3182,7 @@ function pmComputeAuth(){
     if(!val) return {headers:{},query:{}};
     return a.apiKeyIn==='query' ? {headers:{},query:{[name]:val}} : {headers:{[name]:val},query:{}};
   }
+  const ext=pmComputeAuthExt(a); if(ext) return ext;
   return {headers:{},query:{}};
 }
 function renderEnvRows(){
@@ -2917,7 +3193,7 @@ function renderEnvRows(){
     <div class="kv-row">
       <input placeholder="Variable name" value="${esc(row.k)}" onchange="pmActiveEnv().vars[${i}].k=this.value;saveEnvironments();">
       <input placeholder="Value" value="${esc(row.v)}" onchange="pmActiveEnv().vars[${i}].v=this.value;saveEnvironments();">
-      <button class="kv-remove" onclick="pmActiveEnv().vars.splice(${i},1);saveEnvironments();renderEnvRows();">✕</button>
+      <button class="kv-remove" onclick="pmActiveEnv().vars.splice(${i},1);saveEnvironments();renderEnvRows();">${I('x')}</button>
     </div>`).join('')) || '<p class="sql-hint">No variables in this environment yet.</p>';
 }
 function pmAddEnvRow(){ const env=pmActiveEnv(); if(!env){ showToast('Select or create an environment first.'); return; } env.vars.push({k:'',v:''}); saveEnvironments(); renderEnvRows(); }
@@ -2927,7 +3203,7 @@ function renderGlobalVarRows(){
     <div class="kv-row">
       <input placeholder="Variable name" value="${esc(row.k)}" onchange="pmGlobals[${i}].k=this.value;saveGlobals();">
       <input placeholder="Value" value="${esc(row.v)}" onchange="pmGlobals[${i}].v=this.value;saveGlobals();">
-      <button class="kv-remove" onclick="pmGlobals.splice(${i},1);saveGlobals();renderGlobalVarRows();">✕</button>
+      <button class="kv-remove" onclick="pmGlobals.splice(${i},1);saveGlobals();renderGlobalVarRows();">${I('x')}</button>
     </div>`).join('')) || '<p class="sql-hint">No global variables yet. Visible everywhere, in every collection and environment.</p>';
 }
 function pmAddGlobalVarRow(){ pmGlobals.push({k:'',v:''}); saveGlobals(); renderGlobalVarRows(); }
@@ -2940,7 +3216,7 @@ function renderColVarRows(){
     <div class="kv-row">
       <input placeholder="Variable name" value="${esc(row.k)}" onchange="pmCurrentCollectionCtx().variables[${i}].k=this.value;savePmCollections();">
       <input placeholder="Value" value="${esc(row.v)}" onchange="pmCurrentCollectionCtx().variables[${i}].v=this.value;savePmCollections();">
-      <button class="kv-remove" onclick="pmCurrentCollectionCtx().variables.splice(${i},1);savePmCollections();renderColVarRows();">✕</button>
+      <button class="kv-remove" onclick="pmCurrentCollectionCtx().variables.splice(${i},1);savePmCollections();renderColVarRows();">${I('x')}</button>
     </div>`).join('')) || '<p class="sql-hint">No collection variables yet. Shared by every request in this collection.</p>';
 }
 function pmAddColVarRow(){ const col=pmCurrentCollectionCtx(); if(!col){ showToast('Create or save into a collection first.'); return; } col.variables=col.variables||[]; col.variables.push({k:'',v:''}); savePmCollections(); renderColVarRows(); }
@@ -2951,7 +3227,7 @@ function renderLocalVarRows(){
     <div class="kv-row">
       <input placeholder="Variable name" value="${esc(row.k)}" onchange="pmState.localVars[${i}].k=this.value">
       <input placeholder="Value" value="${esc(row.v)}" onchange="pmState.localVars[${i}].v=this.value">
-      <button class="kv-remove" onclick="pmState.localVars.splice(${i},1);renderLocalVarRows();">✕</button>
+      <button class="kv-remove" onclick="pmState.localVars.splice(${i},1);renderLocalVarRows();">${I('x')}</button>
     </div>`).join('')) || '<p class="sql-hint">No local variables. These apply only to this request and are saved with it.</p>';
 }
 function pmAddLocalVarRow(){ pmState.localVars=pmState.localVars||[]; pmState.localVars.push({k:'',v:''}); renderLocalVarRows(); }
@@ -2987,8 +3263,214 @@ function renderPmRows(kind){
     <div class="kv-row">
       <input placeholder="Key" value="${esc(row.k)}" onchange="pmUpdateRow('${kind}',${i},'k',this.value)">
       <input placeholder="Value" value="${esc(row.v)}" onchange="pmUpdateRow('${kind}',${i},'v',this.value)">
-      <button class="kv-remove" onclick="pmRemoveRow('${kind}',${i})">✕</button>
+      <button class="kv-remove" onclick="pmRemoveRow('${kind}',${i})">${I('x')}</button>
     </div>`).join('');
+}
+
+
+/* ---- Authorization: all Postman auth types ---- */
+const PM_AUTH_TYPES=[['inherit','Inherit auth from parent'],['none','No Auth'],['apikey','API Key'],['bearer','Bearer Token'],['jwt','JWT Bearer'],['basic','Basic Auth'],['digest','Digest Auth'],['oauth1','OAuth 1.0'],['oauth2','OAuth 2.0'],['hawk','Hawk Authentication'],['awsv4','AWS Signature'],['ntlm','NTLM Authentication'],['edgegrid','Akamai EdgeGrid'],['asap','ASAP (Atlassian)']];
+const PM_AUTH_LABEL=Object.fromEntries(PM_AUTH_TYPES);
+const _AF=(key,label,o)=>Object.assign({key,label},o||{});
+const _SEL=a=>a.map(x=>[x,x]);
+const _ADD=[['header','Request Headers'],['query','Query Params']];
+const PM_AUTH_FIELDS={
+ apikey:[_AF('apiKeyName','Key',{def:'X-API-Key'}),_AF('apiKeyValue','Value',{ph:'sandbox-api-key-123'}),_AF('apiKeyIn','Add to',{sel:[['header','Header'],['query','Query Params']],def:'header'})],
+ bearer:[_AF('bearerToken','Token',{ph:'Token or {{authToken}}'})],
+ jwt:[_AF('jwtAlg','Algorithm',{sel:_SEL(['HS256','HS384','HS512']),def:'HS256'}),_AF('jwtSecret','Secret',{type:'password'}),_AF('jwtPayload','Payload',{area:1,def:'{\n  "sub": "user"\n}'}),_AF('jwtPrefix','Header prefix',{def:'Bearer'}),_AF('jwtAddTo','Add JWT token to',{sel:_ADD,def:'header'})],
+ basic:[_AF('basicUser','Username'),_AF('basicPass','Password',{type:'password'})],
+ digest:[_AF('dgUser','Username'),_AF('dgPass','Password',{type:'password'}),_AF('dgRealm','Realm'),_AF('dgNonce','Nonce'),_AF('dgAlg','Algorithm',{sel:_SEL(['MD5','MD5-sess','SHA-256','SHA-512']),def:'MD5'}),_AF('dgQop','qop',{def:'auth'}),_AF('dgNc','Nonce Count',{def:'00000001'}),_AF('dgCnonce','Client Nonce'),_AF('dgOpaque','Opaque')],
+ oauth1:[_AF('o1Method','Signature Method',{sel:_SEL(['HMAC-SHA1','HMAC-SHA256','HMAC-SHA512','PLAINTEXT','RSA-SHA1']),def:'HMAC-SHA1'}),_AF('o1Key','Consumer Key'),_AF('o1Secret','Consumer Secret',{type:'password'}),_AF('o1Token','Access Token'),_AF('o1TokenSecret','Token Secret',{type:'password'}),_AF('o1Callback','Callback URL'),_AF('o1Verifier','Verifier'),_AF('o1Timestamp','Timestamp',{ph:'auto'}),_AF('o1Nonce','Nonce',{ph:'auto'}),_AF('o1Version','Version',{def:'1.0'}),_AF('o1Realm','Realm'),_AF('o1AddTo','Add params to',{sel:_ADD,def:'header'})],
+ hawk:[_AF('hkId','Hawk Auth ID'),_AF('hkKey','Hawk Auth Key',{type:'password'}),_AF('hkAlg','Algorithm',{sel:_SEL(['sha256','sha1']),def:'sha256'}),_AF('hkUser','User'),_AF('hkNonce','Nonce'),_AF('hkExt','ext'),_AF('hkApp','app'),_AF('hkDlg','dlg'),_AF('hkTs','Timestamp',{ph:'auto'})],
+ awsv4:[_AF('awsAccess','AccessKey'),_AF('awsSecret','SecretKey',{type:'password'}),_AF('awsRegion','AWS Region',{def:'us-east-1'}),_AF('awsService','Service Name',{def:'execute-api'}),_AF('awsSession','Session Token'),_AF('awsAddTo','Add auth data to',{sel:_ADD,def:'header'})],
+ ntlm:[_AF('ntUser','Username'),_AF('ntPass','Password',{type:'password'}),_AF('ntDomain','Domain'),_AF('ntWs','Workstation')],
+ edgegrid:[_AF('egAccess','Access Token'),_AF('egClient','Client Token'),_AF('egSecret','Client Secret',{type:'password'}),_AF('egNonce','Nonce',{ph:'auto'}),_AF('egTs','Timestamp',{ph:'auto'}),_AF('egBase','Base URI'),_AF('egHeaders','Headers to Sign')],
+ asap:[_AF('asAlg','Algorithm',{sel:_SEL(['RS256','RS384','RS512','ES256','ES384','ES512','PS256']),def:'RS256'}),_AF('asIss','Issuer'),_AF('asAud','Audience'),_AF('asKid','Key ID'),_AF('asKey','Private Key',{area:1}),_AF('asSub','Subject'),_AF('asExp','Expiry (seconds)',{def:'3600'})]
+};
+const PM_O2_FIELDS=[
+ _AF('o2Grant','Grant Type',{sel:[['authorization_code','Authorization Code'],['authorization_code_pkce','Authorization Code (With PKCE)'],['implicit','Implicit'],['password','Password Credentials'],['client_credentials','Client Credentials']],def:'authorization_code'}),
+ _AF('o2AddTo','Add auth data to',{sel:[['header','Request Headers'],['query','Request URL / Query Params']],def:'header'}),_AF('o2Prefix','Header Prefix',{def:'Bearer'}),
+ _AF('o2AuthUrl','Auth URL',{g:'code'}),_AF('o2TokenUrl','Access Token URL',{g:'token'}),_AF('o2Callback','Callback URL',{g:'code'}),_AF('o2ClientId','Client ID'),_AF('o2ClientSecret','Client Secret',{type:'password',g:'token'}),
+ _AF('o2User','Username',{g:'pw'}),_AF('o2Pass','Password',{type:'password',g:'pw'}),_AF('o2Scope','Scope'),_AF('o2State','State',{g:'code'}),
+ _AF('o2ClientAuth','Client Authentication',{sel:[['basic','Send as Basic Auth header'],['body','Send client credentials in body']],def:'basic',g:'token'})];
+const PM_AUTH_NOTE={
+ bearer:'Sent as <code>Authorization: Bearer &lt;token&gt;</code>. Tip: <code>{{authToken}}</code> is set by the Login request\'s Tests script.',
+ basic:'Sent as <code>Authorization: Basic base64(user:pass)</code>. Try a seeded customer such as <code>priya@example.com</code> / <code>priya123</code>.',
+ apikey:'Demo key that always works: <code>sandbox-api-key-123</code>.',
+ oauth2:'Offline sandbox: there is no real sign-in page, so <b>Get New Access Token</b> issues a mock token that the mock API accepts. You can also paste any token.'
+};
+const PM_AUTH_SIM='The header is built like Postman builds it, but signatures are simulated in this sandbox. The mock API authorises protected writes with a <code>Bearer mock-jwt-…</code> token (Login or OAuth 2.0), Basic customer credentials, or <code>X-API-Key: sandbox-api-key-123</code>.';
+function pmAuthOptions(sel,showInherit){ return PM_AUTH_TYPES.filter(t=>showInherit||t[0]!=='inherit').map(([v,l])=>`<option value="${v}" ${sel===v?'selected':''}>${l}</option>`).join(''); }
+function pmO2Show(f,a){ const gr=a.o2Grant||'authorization_code'; if(!f.g) return true; if(f.g==='code') return gr!=='password'&&gr!=='client_credentials'; if(f.g==='pw') return gr==='password'; if(f.g==='token') return gr!=='implicit'; return true; }
+function pmAuthFormHTML(a,type){
+  const fields=type==='oauth2'?PM_O2_FIELDS.filter(f=>pmO2Show(f,a)):(PM_AUTH_FIELDS[type]||[]);
+  const val=f=>a[f.key]!==undefined?a[f.key]:(f.def||'');
+  const ctl=f=>f.sel?`<select data-af="${f.key}">${f.sel.map(([v,l])=>`<option value="${esc(v)}" ${val(f)===v?'selected':''}>${esc(l)}</option>`).join('')}</select>`:f.area?`<textarea data-af="${f.key}" rows="4" spellcheck="false">${esc(val(f))}</textarea>`:`<input data-af="${f.key}" type="${f.type||'text'}" value="${esc(val(f))}" placeholder="${esc(f.ph||'')}" autocomplete="off">`;
+  let h='<div class="au-fields">'+fields.map(f=>`<label>${f.label}</label>${ctl(f)}`).join('')+'</div>';
+  if(type==='oauth2'){
+    h+=`<div class="au-token"><div class="au-token-title">Access token</div><div class="au-fields"><label>Current Token</label><input data-af="o2Token" value="${esc(a.o2Token||'')}" placeholder="Paste a token or get a new one"></div>
+    <div class="au-token-row"><button class="btn btn-primary btn-sm" data-act="o2get">${I('key')} Get New Access Token</button><button class="btn btn-secondary btn-sm" data-act="o2clear">Clear token</button><span class="sql-hint" style="margin:0;">${a.o2Expiry?'Expires '+new Date(a.o2Expiry).toLocaleTimeString():''}</span></div></div>`;
+  }
+  const note=PM_AUTH_NOTE[type]||(PM_AUTH_FIELDS[type]?PM_AUTH_SIM:'');
+  return h+(note?`<p class="au-note">${note}</p>`:'');
+}
+function pmOAuth2Token(a){
+  if(!(a.o2ClientId||'').trim()){ showToast('Enter a Client ID first.','error'); return; }
+  a.o2Token='mock-jwt-oauth2-'+Math.random().toString(36).slice(2,12); a.o2Expiry=Date.now()+3600000;
+  showToast('Mock access token issued (valid for 1 hour in this sandbox).');
+}
+function pmBindAuthForm(wrap,a,onChange,rerender){
+  wrap.querySelectorAll('[data-af]').forEach(el=>el.addEventListener(el.tagName==='SELECT'?'change':'input',()=>{ a[el.dataset.af]=el.value; if(onChange) onChange(); if(el.dataset.af==='o2Grant') rerender(); }));
+  const g=wrap.querySelector('[data-act="o2get"]'); if(g) g.onclick=()=>{ pmOAuth2Token(a); if(onChange) onChange(); rerender(); };
+  const c=wrap.querySelector('[data-act="o2clear"]'); if(c) c.onclick=()=>{ a.o2Token=''; a.o2Expiry=0; if(onChange) onChange(); rerender(); };
+}
+function pmComputeAuthExt(a){
+  const S=pmSubstituteVars, g=(k,d)=>S(a[k]!==undefined&&a[k]!==''?a[k]:(d||'')), enc=x=>btoa(unescape(encodeURIComponent(x)));
+  const b64u=x=>enc(x).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  const sig=x=>{ let h=2166136261; for(let i=0;i<x.length;i++){ h^=x.charCodeAt(i); h=Math.imul(h,16777619)>>>0; } return ('00000000'+h.toString(16)).slice(-8).repeat(4); };
+  const ts=()=>String(Math.floor(Date.now()/1000)), nonce=()=>Math.random().toString(36).slice(2,12);
+  const H=v=>({headers:{Authorization:v},query:{}});
+  const path=()=>{ try{ return pmSubstituteVars(pmState.url||'').split('?')[0]; }catch(e){ return '/'; } };
+  const t=a.type;
+  if(t==='oauth2'){ const tok=g('o2Token'); if(!tok) return {headers:{},query:{}}; return g('o2AddTo','header')==='query'?{headers:{},query:{access_token:tok}}:H((a.o2Prefix!==undefined?S(a.o2Prefix):'Bearer')+' '+tok); }
+  if(t==='jwt'||t==='asap'){
+    let payload={}; if(t==='jwt'){ try{ payload=JSON.parse(g('jwtPayload','{}')||'{}'); }catch(e){ payload={}; } }
+    else payload={iss:g('asIss'),aud:g('asAud'),sub:g('asSub')||undefined,iat:+ts(),exp:+ts()+(+g('asExp','3600')||3600),jti:nonce()};
+    const head=t==='jwt'?{alg:g('jwtAlg','HS256'),typ:'JWT'}:{alg:g('asAlg','RS256'),typ:'JWT',kid:g('asKid')};
+    const tok=b64u(JSON.stringify(head))+'.'+b64u(JSON.stringify(payload))+'.'+sig(JSON.stringify(payload)+g(t==='jwt'?'jwtSecret':'asKey'));
+    if(t==='jwt'&&g('jwtAddTo','header')==='query') return {headers:{},query:{token:tok}};
+    return H((t==='jwt'?g('jwtPrefix','Bearer'):'Bearer')+' '+tok);
+  }
+  if(t==='digest'){ if(!g('dgUser')) return {headers:{},query:{}}; return H('Digest username="'+g('dgUser')+'", realm="'+g('dgRealm')+'", nonce="'+g('dgNonce')+'", uri="'+path()+'", algorithm='+g('dgAlg','MD5')+', qop='+g('dgQop','auth')+', nc='+g('dgNc','00000001')+', cnonce="'+(g('dgCnonce')||nonce())+'", response="'+sig(g('dgUser')+g('dgPass')+g('dgRealm')+g('dgNonce'))+'"'+(g('dgOpaque')?', opaque="'+g('dgOpaque')+'"':'')); }
+  if(t==='oauth1'){
+    if(!g('o1Key')) return {headers:{},query:{}};
+    const p={oauth_consumer_key:g('o1Key'),oauth_signature_method:g('o1Method','HMAC-SHA1'),oauth_timestamp:g('o1Timestamp')||ts(),oauth_nonce:g('o1Nonce')||nonce(),oauth_version:g('o1Version','1.0')};
+    if(g('o1Token')) p.oauth_token=g('o1Token'); if(g('o1Callback')) p.oauth_callback=g('o1Callback'); if(g('o1Verifier')) p.oauth_verifier=g('o1Verifier');
+    p.oauth_signature=sig(JSON.stringify(p)+g('o1Secret')+g('o1TokenSecret'));
+    if(g('o1AddTo','header')==='query') return {headers:{},query:p};
+    return H('OAuth '+(g('o1Realm')?'realm="'+g('o1Realm')+'",':'')+Object.entries(p).map(([k,v])=>k+'="'+encodeURIComponent(v)+'"').join(','));
+  }
+  if(t==='hawk'){ if(!g('hkId')) return {headers:{},query:{}}; const T=g('hkTs')||ts(), N=g('hkNonce')||nonce(); return H('Hawk id="'+g('hkId')+'", ts="'+T+'", nonce="'+N+'"'+(g('hkExt')?', ext="'+g('hkExt')+'"':'')+(g('hkApp')?', app="'+g('hkApp')+'"':'')+(g('hkDlg')?', dlg="'+g('hkDlg')+'"':'')+', mac="'+enc(sig(g('hkKey')+T+N)).slice(0,43)+'"'); }
+  if(t==='awsv4'){ if(!g('awsAccess')) return {headers:{},query:{}}; const d=new Date().toISOString().replace(/[:-]|\.\d{3}/g,''); const day=d.slice(0,8); const cred=g('awsAccess')+'/'+day+'/'+g('awsRegion','us-east-1')+'/'+g('awsService','execute-api')+'/aws4_request'; const sg=sig(g('awsSecret')+d)+sig(cred);
+    if(g('awsAddTo','header')==='query') return {headers:{},query:{'X-Amz-Algorithm':'AWS4-HMAC-SHA256','X-Amz-Credential':cred,'X-Amz-Date':d,'X-Amz-Signature':sg}};
+    const out=H('AWS4-HMAC-SHA256 Credential='+cred+', SignedHeaders=host;x-amz-date, Signature='+sg); out.headers['X-Amz-Date']=d; if(g('awsSession')) out.headers['X-Amz-Security-Token']=g('awsSession'); return out; }
+  if(t==='ntlm'){ if(!g('ntUser')) return {headers:{},query:{}}; return H('NTLM '+enc('NTLMSSP\u0000\u0001'+g('ntDomain')+'\\'+g('ntUser')+(g('ntWs')?'@'+g('ntWs'):''))); }
+  if(t==='edgegrid'){ if(!g('egClient')) return {headers:{},query:{}}; const T=g('egTs')||new Date().toISOString().replace(/[:-]|\.\d{3}/g,'').replace('T','T'); return H('EG1-HMAC-SHA256 client_token='+g('egClient')+';access_token='+g('egAccess')+';timestamp='+T+';nonce='+(g('egNonce')||nonce())+';signature='+enc(sig(g('egSecret')+T)).slice(0,43)); }
+  return null;
+}
+
+/* ---- Theme toggle + docked Console / Issues / Terminal ---- */
+Object.assign(PMI,{sun:_ic('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),moon:_ic('<path d="M21 13A9 9 0 1111 3a7 7 0 0010 10z"/>'),chevu:_ic('<path d="M6 15l6-6 6 6"/>')});
+let pmTheme=(()=>{ try{ return localStorage.getItem('pm_theme')==='light'?'light':'dark'; }catch(e){ return 'dark'; } })();
+let pmDock=(()=>{ const d={open:true,tab:'console',h:230}; try{ Object.assign(d,JSON.parse(localStorage.getItem('pm_dock')||'{}')); }catch(e){} return d; })();
+function pmSaveDock(){ try{ localStorage.setItem('pm_dock',JSON.stringify(pmDock)); }catch(e){} }
+function pmThemeSegHTML(){
+  return `<div class="pm-theme-seg" role="group" aria-label="Page theme"><button data-th="dark" class="${pmTheme==='dark'?'on':''}" title="Dark theme">${I('moon')}<span>Dark</span></button><button data-th="light" class="${pmTheme==='light'?'on':''}" title="Light theme">${I('sun')}<span>Light</span></button></div>`;
+}
+function pmDockHTML(){
+  const tabs=[['console','console','Console',pmConsoleLog.length,'pmConsoleCount'],['issues','alert','Issues',pmIssues.length,'pmIssuesCount'],['terminal','term','Terminal','','']];
+  return `<div class="pm-dock ${pmDock.open?'open':'closed'}" id="pmDock" style="--dock-h:${pmDock.h}px;"><div class="pm-dock-grip" id="pmDockGrip" title="Drag to resize"></div>
+    <div class="pm-dock-bar">${tabs.map(([k,ic,l,c,id])=>`<button class="pm-dock-tab ${pmDock.tab===k?'active':''}" data-dt="${k}">${I(ic)} ${l}${id?` <span class="pm-dock-n" id="${id}">${c}</span>`:''}</button>`).join('')}<span style="flex:1"></span>
+    <button class="pm-dock-btn" id="pmDockClear">${I('trash')} Clear</button><button class="pm-dock-btn" id="pmDockToggle" title="Collapse / expand">${I(pmDock.open?'chevd':'chevu')}</button></div>
+    <div class="pm-dock-body"><div class="pm-dock-pane ${pmDock.tab==='console'?'active':''}" data-dp="console"><div id="pmConsoleList">${renderConsoleEntries()}</div></div>
+    <div class="pm-dock-pane ${pmDock.tab==='issues'?'active':''}" data-dp="issues"><div id="pmIssuesList">${renderIssueEntries()}</div></div>
+    <div class="pm-dock-pane term ${pmDock.tab==='terminal'?'active':''}" data-dp="terminal"><div id="pmTerminalOutput">${renderTerminalOutput()}</div><div class="pm-term-in"><span>$</span><input id="pmTerminalInput" placeholder="type 'help'" autocomplete="off"></div></div></div></div>
+    <div class="pm-dock-pad" style="height:${(pmDock.open?pmDock.h:0)+46}px"></div>`;
+}
+function pmBindDock(){
+  const d=$('#pmDock'); if(!d) return;
+  const apply=()=>{ d.classList.toggle('open',pmDock.open); d.classList.toggle('closed',!pmDock.open); d.style.setProperty('--dock-h',pmDock.h+'px');
+    d.querySelectorAll('[data-dt]').forEach(b=>b.classList.toggle('active',b.dataset.dt===pmDock.tab)); d.querySelectorAll('[data-dp]').forEach(p=>p.classList.toggle('active',p.dataset.dp===pmDock.tab));
+    const pad=document.querySelector('.pm-dock-pad'); if(pad) pad.style.height=((pmDock.open?pmDock.h:0)+46)+'px'; $('#pmDockToggle').innerHTML=I(pmDock.open?'chevd':'chevu'); $('#pmDockClear').style.visibility=pmDock.tab==='terminal'||pmDock.tab==='console'||pmDock.tab==='issues'?'visible':'hidden'; pmSaveDock(); };
+  d.querySelectorAll('[data-dt]').forEach(b=>b.onclick=()=>{ pmDock.tab=b.dataset.dt; pmDock.open=true; apply(); });
+  $('#pmDockToggle').onclick=()=>{ pmDock.open=!pmDock.open; apply(); };
+  $('#pmDockClear').onclick=()=>{
+    if(pmDock.tab==='console'){ pmConsoleLog=[]; $('#pmConsoleList').innerHTML=renderConsoleEntries(); $('#pmConsoleCount').textContent='0'; }
+    else if(pmDock.tab==='issues'){ pmIssues=[]; $('#pmIssuesList').innerHTML=renderIssueEntries(); $('#pmIssuesCount').textContent='0'; }
+    else { pmTerminalLines=[]; $('#pmTerminalOutput').innerHTML=renderTerminalOutput(); }
+  };
+  $('#pmDockGrip').onmousedown=e=>{ e.preventDefault(); const sy=e.clientY, sh=pmDock.h;
+    const mv=ev=>{ pmDock.h=Math.round(Math.max(120,Math.min(window.innerHeight*0.7,sh+(sy-ev.clientY)))); pmDock.open=true; apply(); };
+    const up=()=>{ document.removeEventListener('mousemove',mv); document.removeEventListener('mouseup',up); };
+    document.addEventListener('mousemove',mv); document.addEventListener('mouseup',up); };
+  apply();
+}
+function pmBindSideHead(){
+  const nb=$('#pmSideNewCol'); if(nb) nb.onclick=()=>pmPromptModal('New collection name','New Collection',name=>{ pmCollections.push({type:'collection',id:uid('col'),name,open:true,items:[]}); savePmCollections(); renderPmTree(); });
+  $all('.pm-theme-seg [data-th]').forEach(b=>b.onclick=()=>{
+    pmTheme=b.dataset.th; try{ localStorage.setItem('pm_theme',pmTheme); }catch(e){}
+    const sh=document.querySelector('.pm-shell'); if(sh) sh.classList.toggle('pm-light',pmTheme==='light');
+    $all('.pm-theme-seg [data-th]').forEach(x=>x.classList.toggle('on',x.dataset.th===pmTheme)); pmApplyMethodColor();
+  });
+}
+/* ---- Body tab (Postman-style) ---- */
+function pmBindBody(){
+  $all('input[name="pmBT"]').forEach(r=>r.addEventListener('change',()=>{ pmState.bodyType=r.value; renderPostman($('#app')); }));
+  const rt=$('#pmRawType'); if(rt) rt.addEventListener('change',()=>{ pmState.rawType=rt.value; renderBodyArea(); });
+  renderBodyArea();
+}
+function pmReadFiles(list,cb){
+  const arr=[...list]; const out=[]; let n=arr.length; if(!n) return cb([]);
+  arr.forEach((f,idx)=>{
+    const meta={name:f.name,size:f.size,type:f.type}; const done=()=>{ out[idx]=meta; if(--n===0) cb(out); };
+    if(f.size>1500000){ done(); return; }
+    const fr=new FileReader(); fr.onload=()=>{ meta.data=fr.result; done(); }; fr.onerror=done; fr.readAsDataURL(f);
+  });
+}
+function renderBodyArea(){
+  const w=$('#pmBodyArea'); if(!w) return; const t=pmState.bodyType;
+  if(t==='none'){ w.innerHTML='<p class="sql-hint">This request does not have a body.</p>'; return; }
+  if(t==='raw'){
+    w.innerHTML='<textarea class="pm-body-editor" id="pmBody" spellcheck="false"></textarea><p class="sql-hint" style="margin-top:8px;">Sent as '+esc(pmState.rawType)+(pmState.rawType==='JSON'?' and validated as JSON before sending.':'.')+' {{variables}} are substituted.</p>';
+    const ta=$('#pmBody'); ta.value=pmState.body||''; ta.addEventListener('input',e=>pmState.body=e.target.value); return;
+  }
+  if(t==='graphql'){
+    w.innerHTML='<label class="pm-lbl">Query</label><textarea class="pm-body-editor" id="pmGqlQ" spellcheck="false"></textarea><label class="pm-lbl" style="margin-top:10px;">Variables (JSON)</label><textarea class="pm-body-editor" id="pmGqlV" style="min-height:90px;" spellcheck="false"></textarea>';
+    const q=$('#pmGqlQ'), v=$('#pmGqlV'); q.value=pmState.gql.query; v.value=pmState.gql.variables;
+    q.addEventListener('input',()=>pmState.gql.query=q.value); v.addEventListener('input',()=>pmState.gql.variables=v.value); return;
+  }
+  if(t==='binary'){
+    const f=pmState.binary;
+    w.innerHTML=`<div class="fd-file"><button class="btn btn-secondary btn-sm" id="pmBinPick">${I('upload')} Select file</button>${f?`<span class="fd-chip">${I('file')} ${esc(f.name)} <i>${pmFmtSize(f.size)}</i></span><button class="kv-remove" id="pmBinClear" style="width:30px;height:30px;">${I('x')}</button>`:'<span class="sql-hint" style="margin:0;">No file selected</span>'}</div><input type="file" id="pmBinInput" hidden>`;
+    $('#pmBinPick').onclick=()=>$('#pmBinInput').click();
+    $('#pmBinInput').onchange=e=>pmReadFiles(e.target.files,o=>{ pmState.binary=o[0]||null; renderBodyArea(); });
+    const c=$('#pmBinClear'); if(c) c.onclick=()=>{ pmState.binary=null; renderBodyArea(); };
+    return;
+  }
+  const isFD=t==='form-data', rows=isFD?pmState.formData:pmState.urlencoded;
+  const blank=()=>isFD?{k:'',t:'text',v:'',d:'',on:true,files:[]}:{k:'',v:'',d:'',on:true};
+  w.innerHTML=`<div class="fd-grid ${isFD?'fd':'ue'}"><div></div><div class="fd-h">Key</div>${isFD?'<div class="fd-h">Type</div>':''}<div class="fd-h">Value</div><div class="fd-h">Description</div><div></div>`+
+  rows.map((r,i)=>`
+    <input type="checkbox" data-f="on" data-i="${i}" ${r.on!==false?'checked':''}>
+    <input data-f="k" data-i="${i}" placeholder="Key" value="${esc(r.k)}">
+    ${isFD?`<select data-f="t" data-i="${i}" class="pm-sel"><option value="text" ${r.t!=='file'?'selected':''}>Text</option><option value="file" ${r.t==='file'?'selected':''}>File</option></select>`:''}
+    ${isFD&&r.t==='file'?`<div class="fd-file"><button class="btn btn-secondary btn-sm" data-pick="${i}">${I('upload')} Select files</button>${(r.files||[]).map(f=>`<span class="fd-chip">${esc(f.name)} <i>${pmFmtSize(f.size)}</i></span>`).join('')}<input type="file" hidden multiple data-fi="${i}"></div>`:`<input data-f="v" data-i="${i}" placeholder="Value" value="${esc(r.v)}">`}
+    <input data-f="d" data-i="${i}" placeholder="Description" value="${esc(r.d||'')}">
+    <button class="kv-remove" data-rm="${i}" title="Remove">${I('x')}</button>`).join('')+'</div>'+
+  (isFD?'<p class="sql-hint" style="margin-top:10px;">Set Type to <b>File</b> to pick files from your computer. The mock API accepts <code>POST {{baseUrl}}/uploadFile</code> with exactly one file under key <code>file</code>, and <code>POST {{baseUrl}}/uploadFiles</code> with one or more files under key <code>files</code>; any other key is rejected with 400.</p>':'');
+  w.oninput=w.onchange=e=>{
+    const el=e.target;
+    if(el.dataset.fi!==undefined){ if(e.type!=='change') return; const i=+el.dataset.fi; pmReadFiles(el.files,o=>{ rows[i].files=(rows[i].files||[]).concat(o); rows[i].v=rows[i].files.map(f=>f.name).join(', '); if(!rows[i].k) rows[i].k=rows.length>1&&rows.slice(0,i).some(r=>r.t==='file')?'files':'file'; renderBodyArea(); }); return; }
+    const f=el.dataset.f; if(!f) return; const i=+el.dataset.i, row=rows[i];
+    if(f==='on') row.on=el.checked;
+    else if(f==='t'){ row.t=el.value; renderBodyArea(); return; }
+    else row[f]=el.value;
+    if(e.type==='change'&&f==='k'&&i===rows.length-1&&row.k){ rows.push(blank()); renderBodyArea(); }
+  };
+  w.onclick=e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    if(b.dataset.rm!==undefined){ rows.splice(+b.dataset.rm,1); if(!rows.length) rows.push(blank()); renderBodyArea(); }
+    else if(b.dataset.pick!==undefined){ const inp=w.querySelector('[data-fi="'+b.dataset.pick+'"]'); if(inp) inp.click(); }
+  };
+}
+function pmBuildBody(){
+  const S=pmSubstituteVars, t=pmState.bodyType||'none', none={text:'',parts:[],contentType:'',validateJson:false,shown:''};
+  if(t==='raw'){ const ct={JSON:'application/json',Text:'text/plain',JavaScript:'application/javascript',HTML:'text/html',XML:'application/xml'}[pmState.rawType]||'text/plain'; const txt=S(pmState.body||''); return {text:txt,parts:[],contentType:ct,validateJson:pmState.rawType==='JSON',shown:txt}; }
+  if(t==='urlencoded'){ const rows=pmState.urlencoded.filter(r=>r.on!==false&&r.k); const o={}; rows.forEach(r=>o[S(r.k)]=S(r.v||'')); return {text:JSON.stringify(o),parts:[],contentType:'application/x-www-form-urlencoded',validateJson:false,shown:rows.map(r=>encodeURIComponent(S(r.k))+'='+encodeURIComponent(S(r.v||''))).join('&')}; }
+  if(t==='form-data'){ const rows=pmState.formData.filter(r=>r.on!==false&&r.k); const parts=rows.map(r=>({key:S(r.k),type:r.t==='file'?'file':'text',value:S(r.v||''),files:r.t==='file'?(r.files||[]):[]})); const o={}; parts.filter(p=>p.type==='text').forEach(p=>o[p.key]=p.value); return {text:JSON.stringify(o),parts,contentType:'multipart/form-data; boundary=----PurpleCart'+Date.now().toString(16),validateJson:false,shown:parts.map(p=>p.key+' ['+p.type+']: '+(p.type==='file'?(p.files.map(f=>f.name+' ('+pmFmtSize(f.size)+')').join(', ')||'(no file)'):p.value)).join('\n')}; }
+  if(t==='binary'){ const f=pmState.binary; return {text:'',parts:f?[{key:'binary',type:'file',value:'',files:[f]}]:[],contentType:(f&&f.type)||'application/octet-stream',validateJson:false,shown:f?f.name+' ('+pmFmtSize(f.size)+')':''}; }
+  if(t==='graphql'){ let v={}; try{ v=JSON.parse(S(pmState.gql.variables||'{}')||'{}'); }catch(e){} const text=JSON.stringify({query:S(pmState.gql.query||''),variables:v}); return {text,parts:[],contentType:'application/json',validateJson:false,shown:text}; }
+  return none;
 }
 function pmAddRow(kind){ (kind==='params'?pmState.params:pmState.headers).push({k:'',v:''}); renderPmRows(kind); }
 function pmUpdateRow(kind,i,field,val){ (kind==='params'?pmState.params:pmState.headers)[i][field]=val; }
@@ -3036,6 +3518,16 @@ function mockApiRequest(method,url,bodyStr,persist,reqHeaders){
   const resource=segs[1];
   const id=segs[2]!=null?Number(segs[2]):null;
 
+  if(resource==='uploadFile'||resource==='uploadFiles'){
+    if(method!=='POST') return {status:405,body:{error:'Method Not Allowed',message:'Use POST with Body > form-data.'},headers:{Allow:'POST'}};
+    const single=resource==='uploadFile', need=single?'file':'files', files=[];
+    pmFormParts.filter(p=>p.type==='file').forEach(p=>p.files.forEach(f=>files.push({key:p.key,name:f.name,size:f.size,type:f.type||'application/octet-stream'})));
+    if(!files.length) return {status:400,body:{error:'Bad Request',message:'No file received. In Body > form-data set the value Type to File, pick a file and use the key "'+need+'".'}};
+    const wrong=files.find(f=>f.key!==need);
+    if(wrong) return {status:400,body:{error:'Bad Request',message:(single?'/uploadFile':'/uploadFiles')+' expects the key "'+need+'" but received "'+wrong.key+'".'}};
+    if(single&&files.length>1) return {status:400,body:{error:'Bad Request',message:'/uploadFile accepts exactly one file. Send several files with key "files" to /uploadFiles.'}};
+    return {status:201,body:{message:files.length+' file'+(files.length>1?'s':'')+' uploaded successfully',files}};
+  }
   const resourceMap={products:'products',categories:'categories',customers:'customers',orders:'orders',reviews:'reviews',cms:'cms'};
 
   if(resource==='login'){
@@ -3076,10 +3568,17 @@ function mockApiRequest(method,url,bodyStr,persist,reqHeaders){
       return {status:200,body:rec};
     }
     let rows=DB[table].slice();
-    for(const [key,val] of query.entries()){
-      rows=rows.filter(r=>String(r[key])===val);
-    }
-    return {status:200,body:{count:rows.length,results:rows}};
+    const special=['_page','_limit','_sort','_order','q','minPrice','maxPrice','inStock'];
+    for(const [key,val] of query.entries()){ if(special.includes(key)) continue; rows=rows.filter(r=>String(r[key])===val); }
+    if(query.get('q')) rows=rows.filter(r=>JSON.stringify(r).toLowerCase().includes(query.get('q').toLowerCase()));
+    if(query.get('minPrice')!=null) rows=rows.filter(r=>r.price>=+query.get('minPrice'));
+    if(query.get('maxPrice')!=null) rows=rows.filter(r=>r.price<=+query.get('maxPrice'));
+    if(query.get('inStock')==='true') rows=rows.filter(r=>r.stock>0);
+    const sk=query.get('_sort'); if(sk){ const dir=(query.get('_order')||'asc').toLowerCase()==='desc'?-1:1; rows.sort((a,b)=>(a[sk]>b[sk]?1:a[sk]<b[sk]?-1:0)*dir); }
+    const total=rows.length, lim=+query.get('_limit')||0, pg=Math.max(1,+query.get('_page')||1);
+    if(lim) rows=rows.slice((pg-1)*lim,pg*lim);
+    const hdr={'X-Total-Count':String(total)}; if(lim){ hdr['X-Page']=String(pg); hdr['X-Total-Pages']=String(Math.ceil(total/lim)); }
+    return {status:200,body:{count:rows.length,total,results:rows},headers:hdr};
   }
   if(method==='POST'){
     let payload;
@@ -3146,13 +3645,14 @@ function pmBuildScriptScopes(){
     environment: pmScopeSandbox(()=>{ let e=pmActiveEnv(); if(!e){ const id=uid('env'); e={id,name:'Environment',vars:[]}; pmEnvironments.push(e); pmActiveEnvId=id; } return e.vars; }, saveEnvironments),
     collectionVariables: pmScopeSandbox(()=>{ const c=pmCurrentCollectionCtx(); if(!c) return []; c.variables=c.variables||[]; return c.variables; }, savePmCollections),
     variables: pmScopeSandbox(()=>{ pmState.localVars=pmState.localVars||[]; return pmState.localVars; }, null),
+    iterationData:{ get(k){ return pmIterRow&&pmIterRow[k]!==undefined?String(pmIterRow[k]):undefined; }, toObject(){ return Object.assign({},pmIterRow||{}); } },
   };
 }
 function pmConsoleShim(){
   return {
     log(...args){ pmConsoleLog.push({ts:Date.now(),type:'log',text:args.map(a=>(typeof a==='object'&&a!==null)?JSON.stringify(a):String(a)).join(' ')}); if(pmConsoleLog.length>300) pmConsoleLog.shift(); },
-    warn(...args){ this.log('⚠',...args); },
-    error(...args){ this.log('✖',...args); },
+    warn(...args){ this.log('warn:',...args); },
+    error(...args){ this.log('error:',...args); },
   };
 }
 function runPmPreRequest(script){
@@ -3191,14 +3691,15 @@ function sendPmRequest(headless){
   Object.assign(reqHeaders,authResult.headers);
   Object.entries(authResult.query).forEach(([k,v])=>{ url += (url.includes('?')?'&':'?') + encodeURIComponent(k)+'='+encodeURIComponent(v); });
   const startTime=performance.now();
-  const substitutedBody=pmSubstituteVars(pmState.body);
+  const built=pmBuildBody(); const substitutedBody=built.text; pmFormParts=built.parts;
+  if(built.contentType && (pmState.bodyType!=='raw' || !pmGetHeaderCI(reqHeaders,'Content-Type'))){ Object.keys(reqHeaders).forEach(k=>{ if(k.toLowerCase()==='content-type') delete reqHeaders[k]; }); reqHeaders['Content-Type']=built.contentType; }
   let result;
-  if(['POST','PUT','PATCH'].includes(method) && substitutedBody.trim()){
+  if(['POST','PUT','PATCH'].includes(method) && built.validateJson && substitutedBody.trim()){
     try{ JSON.parse(substitutedBody); }
     catch(e){ result={status:400,body:{error:'Bad Request',message:'Request body is not valid JSON: '+e.message}}; }
   }
   if(!result) result=mockApiRequest(method,url,substitutedBody,undefined,reqHeaders);
-  const ms=Math.max(8,Math.round(performance.now()-startTime + Math.random()*40));
+  const ms=Math.max(8,Math.round(performance.now()-startTime + Math.random()*40))+(result.simDelay||0);
   const statusClass = result.status>=500?'status-5xx': result.status>=400?'status-4xx':'status-2xx';
   const statusText={200:'OK',201:'Created',204:'No Content',400:'Bad Request',401:'Unauthorized',404:'Not Found',405:'Method Not Allowed',500:'Internal Server Error'}[result.status]||'';
   const bodySize=JSON.stringify(result.body===undefined?null:result.body).length;
@@ -3216,7 +3717,7 @@ function sendPmRequest(headless){
   if(result.status>=400) pmIssues.push({ts:Date.now(),text:`${method} ${url} → ${result.status} ${statusText}`.trim()+' ("'+pmState.name+'")'});
   if(failCount>0) pmIssues.push({ts:Date.now(),text:`${failCount} test${failCount>1?'s':''} failed for "${pmState.name}" (${method} ${url})`});
   if(pmIssues.length>300) pmIssues.splice(0,pmIssues.length-300);
-  if(headless) return {status:result.status,ms,pass:passCount,fail:failCount,tests:pmLastTestResults};
+  if(headless) return {status:result.status,ms,pass:passCount,fail:failCount,tests:pmLastTestResults,detail:{method,url,reqHeaders,reqBody:built.shown,statusText,respHeaders,body:result.body===undefined?null:result.body}};
   const histListEl=$('#pmHistoryList'); if(histListEl) histListEl.innerHTML=renderPmHistoryItems();
   const histCountEl=$('#pmHistoryCount'); if(histCountEl) histCountEl.textContent=pmHistory.length;
   const consoleListEl=$('#pmConsoleList'); if(consoleListEl) consoleListEl.innerHTML=renderConsoleEntries();
@@ -3226,12 +3727,12 @@ function sendPmRequest(headless){
   $('#pmResponseWrap').innerHTML=`
     <div class="pm-response-head">
       <span class="status-badge ${statusClass}">${result.status} ${statusText}</span>
-      <span class="pm-meta-chip">⏱ ${ms} ms</span>
-      <span class="pm-meta-chip">📦 ${bodySize} B</span>
+      <span class="pm-meta-chip">${ms} ms</span>
+      <span class="pm-meta-chip">${bodySize} B</span>
       <span class="pm-meta-chip">${method} ${esc(url)}</span>
-      <button class="btn btn-secondary btn-sm" id="pmExtractBtn" style="margin-left:auto;">🔗 Extract to variable</button>
-      <button class="btn btn-secondary btn-sm" id="pmSaveRespBtn">💾 Save Response</button>
-      ${pmLastTestResults.length? `<span class="pm-meta-chip" style="color:${failCount?'#ff9d92':'#7fd9b9'};">${failCount? '✖ '+failCount+' failed' : '✓ '+passCount+' passed'}</span>` : ''}
+      <button class="btn btn-secondary btn-sm" id="pmExtractBtn" style="margin-left:auto;">${I('link')} Extract to variable</button>
+      <button class="btn btn-secondary btn-sm" id="pmSaveRespBtn">${I('save')} Save Response</button>
+      ${pmLastTestResults.length? `<span class="pm-meta-chip" style="color:${failCount?'#ff9d92':'#7fd9b9'};">${failCount? failCount+' failed' : passCount+' passed'}</span>` : ''}
     </div>
     <div class="pm-tabs" style="padding:0 18px;margin:0;" id="pmRespTabs">
       <div class="pm-tab active" data-rt="body">Body</div>
@@ -3325,7 +3826,7 @@ function renderPmTestResultsHTML(results){
   if(!results.length) return '<p style="color:var(--purple-300);">No tests were run. Add assertions in the "Tests" tab, then hit Send.</p>';
   return results.map(t=>`
     <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);">
-      <span style="color:${t.pass?'#7fd9b9':'#ff9d92'};font-weight:700;">${t.pass?'✓':'✖'}</span>
+      <span style="color:${t.pass?'#7fd9b9':'#ff9d92'};font-weight:700;">${t.pass?I('check'):I('cross')}</span>
       <div><div style="color:#fff;font-size:0.85rem;">${esc(t.name)}</div>${t.error?`<div style="color:#ff9d92;font-size:0.78rem;margin-top:3px;">${esc(t.error)}</div>`:''}</div>
     </div>`).join('');
 }
@@ -3473,13 +3974,13 @@ function renderJmTree(){
   $all('.jm-tree-node[data-sel]').forEach(n=>n.addEventListener('click',()=>{ perfSelected=n.dataset.sel; renderJmTree(); renderJmMainBody(); }));
   const addRow=wrap.querySelector('.jm-add-row[data-add="group"]');
   if(addRow) addRow.addEventListener('click',(e)=>{
-    const type=prompt('Thread Group type: type "setup", "normal", or "teardown"','normal');
-    if(type===null) return;
-    const clean=['setup','normal','teardown'].includes(type.trim().toLowerCase()) ? type.trim().toLowerCase() : 'normal';
-    const g=newThreadGroup(clean);
-    testPlan.threadGroups.push(g);
-    perfSelected='tg::'+g.id;
-    renderJmTree(); renderJmMainBody();
+    pmPromptModal('Thread Group type (setup, normal or teardown)','normal',type=>{
+      const clean=['setup','normal','teardown'].includes(type.trim().toLowerCase()) ? type.trim().toLowerCase() : 'normal';
+      const g=newThreadGroup(clean);
+      testPlan.threadGroups.push(g);
+      perfSelected='tg::'+g.id;
+      renderJmTree(); renderJmMainBody();
+    });
   });
 }
 function removeGroup(id){
@@ -4152,6 +4653,308 @@ function exportPerfCsv(){
 }
 </script>
 <script>
+/* ============ DEMO EXTRAS: icons, demo controls, coupons, tracking, admin, import/export ============ */
+const _icf=p=>`<svg class="pm-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none">${p}</svg>`;
+const PCI=Object.assign({},PMI,{
+ headphones:_ic('<path d="M4 15v-3a8 8 0 0116 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>'),
+ watch:_ic('<rect x="7" y="6" width="10" height="12" rx="3"/><path d="M9 6l1-3h4l1 3M9 18l1 3h4l1-3M12 10v2.5l1.5 1"/>'),
+ camera:_ic('<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>'),
+ laptop:_ic('<rect x="5" y="5" width="14" height="10" rx="1.5"/><path d="M2 19h20"/>'),
+ speaker:_ic('<rect x="6" y="3" width="12" height="18" rx="2"/><circle cx="12" cy="14.5" r="3.5"/><circle cx="12" cy="7.5" r="1"/>'),
+ gamepad:_ic('<path d="M7 8h10a4 4 0 014 4v2a3 3 0 01-5.2 2L14 14h-4l-1.8 2A3 3 0 013 14v-2a4 4 0 014-4z"/><path d="M8 11v3M6.5 12.5h3M16 11.5h.01M18 13h.01"/>'),
+ box:PMI.collection,cart:_ic('<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.4 11h11l2-8H6"/>'),
+ sparkles:_ic('<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/>'),
+ truck:_ic('<path d="M2 6h11v10H2zM13 9h4l3 3v4h-7"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/>'),
+ search:_ic('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/>'),cap:_ic('<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"/>'),
+ card:_ic('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/>'),cash:_ic('<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>'),
+ user:_ic('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/>'),users:_ic('<circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0114 0M16 4.5a3.5 3.5 0 010 7M18 14a7 7 0 013.5 6"/>'),
+ tag:_ic('<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/>'),
+ star:_ic('<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'),starf:_icf('<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'),
+ receipt:_ic('<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>'),
+ database:_ic('<ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>'),
+ layers:PMI.env,layout:_ic('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/>'),plus:_ic('<path d="M12 5v14M5 12h14"/>'),
+ zap:_ic('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'),sqg:_icf('<rect x="5" y="5" width="14" height="14" rx="3" fill="#1fa971"/>'),sqr:_icf('<rect x="5" y="5" width="14" height="14" rx="3" fill="#e5484d"/>'),
+ thread:_ic('<path d="M4 6h16M4 12h16M4 18h10"/>'),flask:_ic('<path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 001.3 2h12.4a1.5 1.5 0 001.3-2L14 9V3"/>'),
+ script:_ic('<path d="M7 3h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/><path d="M9 8h6M9 12h6M9 16h4"/>'),
+ bars:_ic('<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>'),tree:_ic('<path d="M5 4h6v4H5zM13 10h6v4h-6zM13 16h6v4h-6zM8 8v10h5M8 12h5"/>'),
+ up:_ic('<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>'),down:_ic('<path d="M3 7l6 6 4-4 8 8M15 17h6v-6"/>'),menu:_ic('<path d="M4 6h16M4 12h16M4 18h16"/>'),
+ heart:_ic('<path d="M12 21s-8-5.2-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 10c0 5.8-8 11-8 11z"/>'),heartf:_icf('<path d="M12 21s-8-5.2-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 10c0 5.8-8 11-8 11z"/>'),
+ code:_ic('<path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/>'),gear:_ic('<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>')
+});
+function pcI(n){ return PCI[n]||''; }
+const PC_EM={'🎧':'headphones','⌚':'watch','📷':'camera','💻':'laptop','🔊':'speaker','🎮':'gamepad','📦':'box','🛒':'cart','⚠':'alert','✨':'sparkles','🚚':'truck','🔒':'lock','🔐':'lock','🔎':'search','🔍':'search','🎓':'cap','💳':'card','💵':'cash','👤':'user','🏷':'tag','👥':'users','⭐':'star','🧾':'receipt','👁':'eye','✎':'edit','🗑':'trash','📄':'file','🗄':'database','🧱':'layers','🏗':'layout','🆕':'plus','⚡':'zap','🟩':'sqg','🟥':'sqr','🧵':'thread','🧪':'flask','📜':'script','🌐':'globe','🗂':'folder','📊':'bars','🌳':'tree','📈':'up','📉':'down','☰':'menu','✕':'x','✖':'x','✓':'check','✔':'check','★':'starf','☆':'star','♥':'heartf','♡':'heart','⬇':'download','🔗':'link'};
+const PC_EMRE=/([\u{1F000}-\u{1FAFF}\u2600-\u27BF\u2B50\u2B07\u231A])\uFE0F?/gu;
+function pcIconize(root){
+  if(!root) return; if(root.nodeType===3) root=root.parentNode; if(!root||!root.nodeType) return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{ const p=n.parentNode; if(!p||/^(SCRIPT|STYLE|TEXTAREA|OPTION|INPUT|TITLE)$/.test(p.nodeName)) return NodeFilter.FILTER_REJECT; PC_EMRE.lastIndex=0; return PC_EMRE.test(n.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT; }});
+  const nodes=[]; while(w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach(n=>{
+    const t=n.nodeValue, frag=document.createDocumentFragment(); let last=0, changed=false, m; PC_EMRE.lastIndex=0;
+    while((m=PC_EMRE.exec(t))){ const nm=PC_EM[m[1]]; if(!nm||!PCI[nm]) continue; frag.appendChild(document.createTextNode(t.slice(last,m.index))); const sp=document.createElement('span'); sp.className='ico'; sp.innerHTML=PCI[nm]; frag.appendChild(sp); last=m.index+m[0].length; changed=true; }
+    if(changed){ frag.appendChild(document.createTextNode(t.slice(last))); n.parentNode.replaceChild(frag,n); }
+  });
+}
+function pcTestIds(root){
+  if(!root||root.nodeType!==1) return;
+  [root,...root.querySelectorAll('[id],button,a,input,select,textarea,.product-card,.tool-tab')].forEach(e=>{
+    if(e.hasAttribute('data-testid')) return; let v=e.id;
+    if(!v){ const t=(e.getAttribute('aria-label')||e.getAttribute('placeholder')||e.getAttribute('title')||e.textContent||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40); if(!t) return;
+      const k={A:'link',BUTTON:'btn',INPUT:'input',SELECT:'select',TEXTAREA:'textarea'}[e.tagName]||'item'; v=k+'-'+t; }
+    e.setAttribute('data-testid',v);
+  });
+}
+let _pcBusy=false;
+new MutationObserver(ms=>{ if(_pcBusy) return; _pcBusy=true; try{ ms.forEach(m=>{ m.addedNodes.forEach(n=>{ if(n.nodeType===1){ pcIconize(n); pcTestIds(n); } else if(n.nodeType===3) pcIconize(n); }); if(m.type==='characterData') pcIconize(m.target); }); } finally{ _pcBusy=false; } }).observe(document.body,{childList:true,subtree:true,characterData:true});
+document.addEventListener('DOMContentLoaded',()=>{ pcIconize(document.body); pcTestIds(document.body); });
+pcIconize(document.body); pcTestIds(document.body);
+
+/* ---- demo controls ---- */
+const PCD=(()=>{ const d={bug:{},chaos:{failRate:0,forceStatus:'',latency:0,rateLimit:0}}; try{ const x=JSON.parse(localStorage.getItem('pc_demo')||'{}'); if(x.bug) d.bug=x.bug; if(x.chaos) Object.assign(d.chaos,x.chaos); }catch(e){} return d; })();
+function pcSaveDemo(){ try{ localStorage.setItem('pc_demo',JSON.stringify(PCD)); }catch(e){} }
+function pcBug(n){ return !!PCD.bug[n]; }
+const _pcMar=mockApiRequest; let _pcRl=[];
+mockApiRequest=function(method,url,bodyStr,persist,reqHeaders){
+  const c=PCD.chaos, now=Date.now(), lat=+c.latency||0, names={400:'Bad Request',401:'Unauthorized',403:'Forbidden',404:'Not Found',408:'Request Timeout',429:'Too Many Requests',500:'Internal Server Error',502:'Bad Gateway',503:'Service Unavailable',504:'Gateway Timeout'};
+  if(+c.rateLimit>0){ _pcRl=_pcRl.filter(t=>now-t<60000); _pcRl.push(now); if(_pcRl.length>+c.rateLimit) return {status:429,body:{error:'Too Many Requests',message:'Rate limit of '+c.rateLimit+' requests per minute exceeded.'},headers:{'Retry-After':'30','X-RateLimit-Limit':String(c.rateLimit),'X-RateLimit-Remaining':'0'},simDelay:lat}; }
+  if(c.forceStatus){ const st=+c.forceStatus; return {status:st,body:{error:names[st]||'Error',message:'Forced by Demo Controls (failure simulation).'},simDelay:lat}; }
+  if(+c.failRate>0 && Math.random()*100<+c.failRate){ const st=[500,502,503][Math.floor(Math.random()*3)]; return {status:st,body:{error:names[st],message:'Random failure injected by Demo Controls.'},simDelay:lat}; }
+  const r=_pcMar.apply(this,arguments); if(lat>0&&r) r.simDelay=lat; return r;
+};
+const PC_SQL=[['Products above $100, most expensive first','SELECT name, price FROM products WHERE price > 100 ORDER BY price DESC;'],['How many products are in each category?','SELECT categoryId, COUNT(*) AS total FROM products GROUP BY categoryId;'],['Which products are out of stock?','SELECT name FROM products WHERE stock = 0;'],['Average rating per category','SELECT categoryId, AVG(rating) AS avg_rating FROM products GROUP BY categoryId;'],['Orders worth more than $200, newest first','SELECT id, total, date FROM orders WHERE total > 200 ORDER BY date DESC;'],['Customers who are admins','SELECT name, email FROM customers WHERE role = \'admin\';']];
+function pcModal(id,title,width){
+  if(document.getElementById(id)) return document.getElementById(id);
+  const d=document.createElement('div'); d.className='modal-overlay'; d.id=id;
+  d.innerHTML=`<div class="modal-box" style="max-width:${width||560}px;"><div class="modal-head"><h3>${title}</h3><button class="modal-close" onclick="closeModal('${id}')">&#10005;</button></div><div class="modal-body" id="${id}Body"></div></div>`;
+  document.body.appendChild(d); return d;
+}
+function pcOpenDemo(){
+  pcModal('pcDemoModal','Demo controls',620); const c=PCD.chaos;
+  const chk=(k,l,d)=>`<label class="pc-row"><input type="checkbox" data-bug="${k}" ${PCD.bug[k]?'checked':''}><span><b>${l}</b><small>${d}</small></span></label>`;
+  $('#pcDemoModalBody').innerHTML=`
+   <div class="pc-sec"><h4>API failure simulation</h4><p class="pc-hint">Affects the mock API: API Client, collection runs and performance tests. Good for practising negative scenarios.</p>
+    <div class="pc-grid"><label>Random failure rate (%)<input type="number" min="0" max="100" data-ch="failRate" value="${c.failRate}"></label>
+    <label>Force every response to<select data-ch="forceStatus"><option value="">Normal behaviour</option>${[400,401,403,404,408,429,500,502,503,504].map(x=>`<option ${String(c.forceStatus)===String(x)?'selected':''}>${x}</option>`).join('')}</select></label>
+    <label>Extra latency (ms, simulated)<input type="number" min="0" data-ch="latency" value="${c.latency}"></label>
+    <label>Rate limit (requests / minute, 0 = off)<input type="number" min="0" data-ch="rateLimit" value="${c.rateLimit}"></label></div></div>
+   <div class="pc-sec"><h4>Storefront bug mode</h4><p class="pc-hint">Switch on known defects for testers to find and report.</p>
+    ${chk('wrongTax','Wrong tax in cart','Cart shows 18% tax but the placed order uses 8%.')}${chk('skipValidation','Weak checkout validation','ZIP code and phone can be left empty.')}${chk('stockIgnore','Out-of-stock can be bought','Sold-out products can still be added to the cart.')}${chk('caseSearch','Case-sensitive search','Shop search stops matching when letter case differs.')}</div>
+   <div class="pc-sec"><h4>Coupon codes for the cart</h4><p class="pc-hint"><code>SAVE10</code> 10% off, <code>WELCOME5</code> $5 off over $30, <code>FREESHIP</code> free shipping, <code>EXPIRED20</code> always expired.</p></div>
+   <div class="pc-sec"><h4>SQL practice (Database console)</h4>${PC_SQL.map(([q,a],i)=>`<details class="pc-q"><summary>${i+1}. ${q}</summary><pre>${esc(a)}</pre></details>`).join('')}</div>
+   <div class="pc-sec"><h4>Reset</h4><button class="btn btn-secondary btn-sm" id="pcResetBtn">Reset demo data to defaults</button></div>`;
+  openModal('pcDemoModal');
+}
+document.addEventListener('change',e=>{
+  const t=e.target; if(t.dataset&&t.dataset.bug){ PCD.bug[t.dataset.bug]=t.checked; pcSaveDemo(); }
+  if(t.dataset&&t.dataset.ch){ PCD.chaos[t.dataset.ch]=t.value; pcSaveDemo(); }
+});
+document.addEventListener('click',e=>{
+  const g=e.target.closest('#pcGear'); if(g){ pcOpenDemo(); return; }
+  if(e.target.closest('#pcResetBtn')){ closeModal('pcDemoModal'); resetDemoData(); return; }
+  if(e.target.closest('#pmSideIO')){ pcOpenIO(); return; }
+  if(e.target.closest('#pmCodeBtn')){ pcOpenCode(); return; }
+  const ex=e.target.closest('[data-pcexp]'); if(ex){ pcExportCollection(ex.dataset.pcexp); return; }
+  if(e.target.closest('#pcImportGo')){ pcRunImport(); return; }
+  if(e.target.closest('#adminExportBtn')){ pcAdminExportCsv(); return; }
+  if(e.target.closest('#adminImportBtn')){ const f=document.getElementById('adminImportFile'); if(f) f.click(); return; }
+  const cp=e.target.closest('#pcCopyCode'); if(cp){ const ta=document.getElementById('pcCodeOut'); if(ta){ ta.select(); try{ navigator.clipboard.writeText(ta.value); }catch(x){ document.execCommand('copy'); } showToast('Code copied','success'); } return; }
+});
+document.addEventListener('input',e=>{ if(e.target.id==='pcCodeLang') pcRenderCode(); });
+document.addEventListener('change',e=>{ if(e.target.id==='pcCodeLang') pcRenderCode(); if(e.target.id==='adminImportFile') pcAdminImportCsv(e.target); if(e.target.id==='pcImportFile'&&e.target.files[0]){ const fr=new FileReader(); fr.onload=()=>{ document.getElementById('pcImportText').value=fr.result; }; fr.readAsText(e.target.files[0]); } });
+
+/* ---- coupons, order tracking, invoice ---- */
+const PC_COUPONS={SAVE10:{type:'pct',v:10},WELCOME5:{type:'flat',v:5,min:30},FREESHIP:{type:'ship'},EXPIRED20:{type:'pct',v:20,expired:true}};
+function pcCoupon(subtotal){
+  const code=(typeof SESSION!=='undefined'&&SESSION)?SESSION.coupon:''; const c=code&&PC_COUPONS[code]; if(!c||c.expired||(c.min&&subtotal<c.min)) return {code:code||'',discount:0};
+  const d=c.type==='pct'?subtotal*c.v/100:c.type==='flat'?c.v:(subtotal>50?0:6.99); return {code,discount:+d.toFixed(2)};
+}
+function pcDiscountRow(subtotal){ const c=pcCoupon(subtotal); return c.discount>0?`<div class="summary-row" style="color:var(--success);"><span>Discount (${esc(c.code)})</span><span>-${fmtMoney(c.discount)}</span></div>`:''; }
+function pcCouponBox(){ const cur=SESSION.coupon||''; return `<div class="pc-coupon"><input id="couponInput" placeholder="Coupon code" value="${esc(cur)}"><button class="btn btn-secondary btn-sm" id="applyCouponBtn" onclick="pcApplyCoupon()">Apply</button>${cur?`<button class="btn btn-ghost btn-sm" onclick="pcClearCoupon()">Remove</button>`:''}</div>`; }
+function pcApplyCoupon(){
+  const code=(document.getElementById('couponInput').value||'').trim().toUpperCase(); if(!code){ showToast('Enter a coupon code.'); return; }
+  const c=PC_COUPONS[code]; if(!c){ showToast('Invalid coupon code.','error'); return; } if(c.expired){ showToast('This coupon has expired.','error'); return; }
+  const sub=SESSION.cart.reduce((a,i)=>{ const p=productById(i.productId); return a+(p?p.price*i.qty:0); },0);
+  if(c.min&&sub<c.min){ showToast('Add more items: this coupon needs a subtotal of at least '+fmtMoney(c.min)+'.','error'); return; }
+  SESSION.coupon=code; saveState(); showToast('Coupon '+code+' applied.','success'); renderCart($('#app'));
+}
+function pcClearCoupon(){ SESSION.coupon=''; saveState(); renderCart($('#app')); }
+const PC_FLOW=['pending','packed','shipped','delivered'];
+function orderTrackHTML(o){
+  const st=o.status==='processing'?'pending':o.status, idx=PC_FLOW.indexOf(st), cancelled=st==='cancelled';
+  return `<div class="trk"><div class="trk-steps">${PC_FLOW.map((x,i)=>`<div class="trk-step ${!cancelled&&i<=idx?'done':''}"><span class="trk-dot"></span>${x}</div>`).join('')}</div>${cancelled?'<div class="trk-cancel">This order was cancelled.</div>':''}
+   ${(o.statusHistory||[]).length?`<div class="trk-meta">${o.statusHistory.map(h=>esc(h.status)+' on '+new Date(h.at).toLocaleDateString()).join(' &rarr; ')}</div>`:''}<button class="btn btn-secondary btn-sm" onclick="pcInvoice(${o.id})">${pcI('download')} Invoice</button></div>`;
+}
+function pcDownload(name,text,mime){ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([text],{type:mime||'text/plain'})); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),600); }
+function pcInvoice(id){
+  const o=DB.orders.find(x=>x.id===id); if(!o) return; const sh=o.shipping||{};
+  const rows=o.items.map(i=>{ const p=productById(i.productId); return `<tr><td>${esc(p?p.name:'Product #'+i.productId)}</td><td>${i.qty}</td><td>$${i.price.toFixed(2)}</td><td>$${(i.price*i.qty).toFixed(2)}</td></tr>`; }).join('');
+  pcDownload('invoice-'+id+'.html','<!doctype html><meta charset="utf-8"><title>Invoice #'+id+'</title><style>body{font-family:Arial,sans-serif;max-width:720px;margin:30px auto;color:#222}table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid #ddd;padding:8px;text-align:left}h1{color:#6531c9}</style><h1>Purple Cart</h1><h2>Invoice #'+id+'</h2><p>Date: '+esc(o.date)+'<br>Status: '+esc(o.status)+'<br>Ship to: '+esc([sh.name,sh.address,sh.city,sh.zip,sh.country].filter(Boolean).join(', '))+'</p><table><tr><th>Item</th><th>Qty</th><th>Price</th><th>Total</th></tr>'+rows+'</table><h3>Total: $'+Number(o.total).toFixed(2)+'</h3>','text/html');
+}
+
+/* ---- admin: dashboard, audit log, roles, CSV ---- */
+function adminCan(a){ const u=currentUser(); if(!u) return false; if(u.role==='admin') return true; if(u.role==='manager') return a!=='delete'; return false; }
+function pcAdminToolbar(mod){
+  const tb=document.querySelector('.admin-toolbar'); if(!tb) return;
+  tb.style.display=mod.custom?'none':'';
+  const add=document.getElementById('adminAddBtn'); if(add) add.style.display=(mod.readonly||!adminCan('add'))?'none':'';
+  if(!document.getElementById('adminExportBtn')){
+    tb.insertAdjacentHTML('beforeend',`<button class="btn btn-secondary" id="adminExportBtn">${pcI('download')} Export CSV</button><button class="btn btn-secondary" id="adminImportBtn">${pcI('upload')} Import CSV</button><input type="file" id="adminImportFile" accept=".csv" hidden>`);
+  }
+  const imp=document.getElementById('adminImportBtn'); if(imp) imp.style.display=(adminActiveTab==='products'&&adminCan('add'))?'':'none';
+}
+function pcCsvCell(v){ if(v&&typeof v==='object') v=JSON.stringify(v); v=v==null?'':String(v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; }
+function pcAdminExportCsv(){
+  const mod=adminModules[adminActiveTab]; if(!mod||mod.custom) return; const rows=DB[mod.table]||[]; if(!rows.length){ showToast('Nothing to export.'); return; }
+  const keys=[...new Set(rows.flatMap(r=>Object.keys(r)))];
+  pcDownload(mod.table+'.csv',[keys.join(',')].concat(rows.map(r=>keys.map(k=>pcCsvCell(r[k])).join(','))).join('\n'),'text/csv');
+}
+function pcAdminImportCsv(inp){
+  const f=inp.files[0]; if(!f) return; const fr=new FileReader();
+  fr.onload=()=>{ const rows=pmParseCSV(String(fr.result).replace(/^\uFEFF/,'')); let n=0; rows.forEach(r=>{ if(!r.name) return; const id=Math.max(0,...DB.products.map(p=>p.id))+1; const cid=+r.categoryId||(DB.categories[0]&&DB.categories[0].id)||1;
+    DB.products.push({id,name:r.name,categoryId:cid,price:+r.price||0,compareAt:+r.compareAt||0,stock:+r.stock||0,image:catIcon(cid),rating:+r.rating||4,reviewsCount:+r.reviewsCount||0,description:r.description||''}); n++; });
+    inp.value=''; saveState(); showToast(n+' product'+(n===1?'':'s')+' imported.','success'); renderAdminTable(); };
+  fr.readAsText(f);
+}
+function pcDashboardHTML(){
+  const o=DB.orders, rev=o.filter(x=>x.status!=='cancelled').reduce((a,x)=>a+x.total,0), by={}, day={}, units={};
+  o.forEach(x=>{ by[x.status]=(by[x.status]||0)+1; day[x.date]=(day[x.date]||0)+x.total; x.items.forEach(i=>units[i.productId]=(units[i.productId]||0)+i.qty); });
+  const dates=Object.keys(day).sort().slice(-7), maxD=Math.max(1,...dates.map(d=>day[d])), maxS=Math.max(1,...Object.values(by));
+  const top=Object.entries(units).sort((a,b)=>b[1]-a[1]).slice(0,5), low=DB.products.filter(p=>p.stock<=10).sort((a,b)=>a.stock-b.stock).slice(0,6);
+  const kpi=(l,v,ic)=>`<div class="dash-kpi"><span class="dash-ic">${pcI(ic)}</span><div><b>${v}</b><small>${l}</small></div></div>`;
+  const bar=(l,v,max,txt)=>`<div class="dash-bar"><span>${esc(l)}</span><div><i style="width:${Math.round(v/max*100)}%"></i></div><em>${txt}</em></div>`;
+  return `<div class="dash">
+   <div class="dash-kpis">${kpi('Revenue',fmtMoney(rev),'cash')}${kpi('Orders',o.length,'receipt')}${kpi('Customers',DB.customers.length,'users')}${kpi('Products',DB.products.length,'box')}${kpi('Low stock',low.length,'alert')}</div>
+   <div class="dash-cols"><div class="dash-card"><h4>Orders by status</h4>${Object.entries(by).map(([k,v])=>bar(k,v,maxS,v)).join('')||'<p class="pc-hint">No orders yet.</p>'}</div>
+   <div class="dash-card"><h4>Revenue by day</h4>${dates.map(d=>bar(d,day[d],maxD,fmtMoney(day[d]))).join('')||'<p class="pc-hint">No orders yet.</p>'}</div>
+   <div class="dash-card"><h4>Top selling products</h4>${top.map(([id,u])=>{ const p=productById(id); return bar(p?p.name:'#'+id,u,top[0][1],u+' sold'); }).join('')||'<p class="pc-hint">No sales yet.</p>'}</div>
+   <div class="dash-card"><h4>Low stock (10 or fewer)</h4>${low.map(p=>bar(p.name,p.stock,10,p.stock+' left')).join('')||'<p class="pc-hint">Stock levels look healthy.</p>'}</div></div>
+   <div class="dash-card" style="margin-top:16px;"><h4>Recent activity</h4>${(DB.audit||[]).slice(0,6).map(a=>`<div class="dash-act"><b>${esc(a.actor)}</b> ${esc(a.action)} ${esc(a.table)} #${esc(a.recordId)} <small>${new Date(a.at).toLocaleString()}</small></div>`).join('')||'<p class="pc-hint">Changes made in the admin panel or through the API appear here and in the Audit Log tab.</p>'}</div></div>`;
+}
+(function(){
+  const old=Object.assign({},adminModules); Object.keys(adminModules).forEach(k=>delete adminModules[k]);
+  adminModules.dashboard={label:'Dashboard',icon:'📊',custom:pcDashboardHTML,sub:'Sales, orders and stock at a glance.',table:'orders',idKey:'id',columns:[],searchKeys:[]};
+  Object.assign(adminModules,old);
+  adminModules.audit={label:'Audit Log',icon:'🧾',table:'audit',idKey:'id',readonly:true,searchKeys:['actor','action','table','detail'],columns:[{key:'at',label:'Time',render:v=>esc(new Date(v).toLocaleString())},{key:'actor',label:'By'},{key:'action',label:'Action'},{key:'table',label:'Table'},{key:'recordId',label:'Record'},{key:'detail',label:'Details'}],fields:[],defaults:{}};
+  const of=adminModules.orders&&adminModules.orders.fields.find(f=>f.key==='status'); if(of) { of.type='select'; of.options=()=>PC_FLOW.concat(['cancelled']).map(v=>({value:v,label:v})); }
+  const rf=adminModules.customers&&adminModules.customers.fields.find(f=>f.key==='role'); if(rf){ rf.type='select'; rf.options=()=>['customer','admin','manager','support'].map(v=>({value:v,label:v})); }
+})();
+let _pcPrev=null,_pcDB=null;
+function pcSnap(){ const o={}; ['products','categories','customers','reviews','cms','orders'].forEach(t=>{ o[t]={}; (DB[t]||[]).forEach(r=>o[t][r.id]=JSON.stringify(r)); }); return o; }
+function pcAuditDiff(){
+  if(!DB) return; if(DB!==_pcDB||!_pcPrev){ _pcDB=DB; _pcPrev=pcSnap(); return; }
+  DB.audit=DB.audit||[]; const u=currentUser(), actor=u?u.name+' ('+u.role+')':'API / guest', now=new Date().toISOString();
+  const log=(action,table,id,detail)=>{ DB.audit.unshift({id:(DB.audit[0]?DB.audit[0].id:0)+1,at:now,actor,action,table,recordId:id,detail}); };
+  ['products','categories','customers','reviews','cms','orders'].forEach(t=>{
+    const prev=_pcPrev[t]||{}; (DB[t]||[]).forEach(r=>{ const cur=JSON.stringify(r), was=prev[r.id];
+      if(was===undefined) log('created',t,r.id,r.name||r.title||r.email||('total $'+r.total)||'');
+      else if(was!==cur){ const a=JSON.parse(was), ch=Object.keys(r).filter(k=>JSON.stringify(a[k])!==JSON.stringify(r[k])&&k!=='statusHistory');
+        if(t==='orders'&&a.status!==r.status){ r.statusHistory=(r.statusHistory||[]).concat([{status:r.status,at:now,by:actor}]); log('status changed',t,r.id,a.status+' to '+r.status); }
+        else if(ch.length) log('updated',t,r.id,'changed: '+ch.join(', ')); } });
+    Object.keys(prev).forEach(id=>{ if(!(DB[t]||[]).some(r=>String(r.id)===id)) log('deleted',t,id,''); });
+  });
+  if(DB.audit.length>400) DB.audit.length=400; _pcPrev=pcSnap();
+}
+const _pcSs=saveState; saveState=function(){ try{ pcAuditDiff(); }catch(e){ console.warn('audit',e); } _pcSs(); };
+const _pcLs=loadState; loadState=function(){ _pcLs();
+  DB.audit=DB.audit||[]; const mk=(role,email,name)=>{ if(!DB.customers.some(c=>c.email===email)) DB.customers.push({id:Math.max(0,...DB.customers.map(c=>c.id))+1,name,email,password:role+'123',role,phone:'',address:'',status:'active'}); };
+  mk('manager','manager@example.com','Maya Manager'); mk('support','support@example.com','Sam Support'); _pcDB=null; _pcPrev=null; pcAuditDiff(); };
+
+/* ---- API client: Postman import/export, cURL import, code snippets ---- */
+function pcDownloadJson(n,o){ pcDownload(n,JSON.stringify(o,null,2),'application/json'); }
+function pcNodeToItem(n){
+  if(n.type!=='req') return {name:n.name,item:(n.items||[]).map(pcNodeToItem)};
+  const bt=n.bodyType||((n.body&&n.body.trim())?'raw':'none'); let body;
+  if(bt==='raw') body={mode:'raw',raw:n.body||'',options:{raw:{language:({JSON:'json',Text:'text',JavaScript:'javascript',HTML:'html',XML:'xml'})[n.rawType||'JSON']||'json'}}};
+  else if(bt==='urlencoded') body={mode:'urlencoded',urlencoded:(n.urlencoded||[]).filter(r=>r.k).map(r=>({key:r.k,value:r.v||''}))};
+  else if(bt==='form-data') body={mode:'formdata',formdata:(n.formData||[]).filter(r=>r.k).map(r=>r.t==='file'?{key:r.k,type:'file',src:(r.files||[]).map(f=>f.name)}:{key:r.k,type:'text',value:r.v||''})};
+  else if(bt==='graphql') body={mode:'graphql',graphql:{query:(n.gql&&n.gql.query)||'',variables:(n.gql&&n.gql.variables)||''}};
+  const a=n.auth||{}; let auth;
+  if(a.type==='bearer') auth={type:'bearer',bearer:[{key:'token',value:a.bearerToken||'',type:'string'}]};
+  else if(a.type==='basic') auth={type:'basic',basic:[{key:'username',value:a.basicUser||''},{key:'password',value:a.basicPass||''}]};
+  else if(a.type==='apikey') auth={type:'apikey',apikey:[{key:'key',value:a.apiKeyName||'X-API-Key'},{key:'value',value:a.apiKeyValue||''},{key:'in',value:a.apiKeyIn||'header'}]};
+  const ev=[]; if((n.preRequestScript||'').trim()) ev.push({listen:'prerequest',script:{type:'text/javascript',exec:n.preRequestScript.split('\n')}}); if((n.testsScript||'').trim()) ev.push({listen:'test',script:{type:'text/javascript',exec:n.testsScript.split('\n')}});
+  const it={name:n.name,request:{method:n.method,header:(n.headers||[]).filter(h=>h.k).map(h=>({key:h.k,value:h.v||''})),url:{raw:n.url}}}; if(body) it.request.body=body; if(auth) it.request.auth=auth; if(n.description) it.request.description=n.description; if(ev.length) it.event=ev; return it;
+}
+function pcExportCollection(id){
+  const c=pmFindNode(id); if(!c) return;
+  pcDownloadJson(c.name.replace(/\W+/g,'-')+'.postman_collection.json',{info:{name:c.name,schema:'https://schema.getpostman.com/json/collection/v2.1.0/collection.json'},item:(c.items||[]).map(pcNodeToItem),variable:(c.variables||[]).map(v=>({key:v.k,value:v.v}))});
+  showToast('Exported "'+c.name+'" as Postman v2.1.','success');
+}
+function pcItemToNode(it){
+  if(it.item) return {type:'folder',id:uid('fld'),name:it.name||'Folder',open:true,items:it.item.map(pcItemToNode)};
+  const r=it.request||{}, kv=a=>(a||[]).filter(x=>!x.disabled).map(x=>({k:x.key||'',v:x.value||''})), gv=(a,k)=>{ const f=(a||[]).find(x=>x.key===k); return f?f.value:''; };
+  const url=typeof r.url==='string'?r.url:(r.url&&r.url.raw)||''; const n={type:'req',id:uid('req'),name:it.name||'Request',method:(r.method||'GET').toUpperCase(),url,params:[{k:'',v:''}],headers:kv(r.header),body:'',bodyType:'none',testsScript:'',preRequestScript:'',localVars:[],auth:{type:'inherit'}};
+  const b=r.body||{}; if(b.mode==='raw'){ n.bodyType='raw'; n.body=b.raw||''; const l=b.options&&b.options.raw&&b.options.raw.language; n.rawType=({json:'JSON',text:'Text',javascript:'JavaScript',html:'HTML',xml:'XML'})[l]||'JSON'; }
+  else if(b.mode==='urlencoded'){ n.bodyType='urlencoded'; n.urlencoded=kv(b.urlencoded).map(x=>({k:x.k,v:x.v,d:'',on:true})); }
+  else if(b.mode==='formdata'){ n.bodyType='form-data'; n.formData=(b.formdata||[]).map(x=>({k:x.key||'',t:x.type==='file'?'file':'text',v:x.value||'',d:'',on:true,files:[]})); }
+  else if(b.mode==='graphql'){ n.bodyType='graphql'; n.gql={query:(b.graphql&&b.graphql.query)||'',variables:(b.graphql&&b.graphql.variables)||'{}'}; }
+  const a=r.auth; if(a){ if(a.type==='bearer') n.auth={type:'bearer',bearerToken:gv(a.bearer,'token')}; else if(a.type==='basic') n.auth={type:'basic',basicUser:gv(a.basic,'username'),basicPass:gv(a.basic,'password')}; else if(a.type==='apikey') n.auth={type:'apikey',apiKeyName:gv(a.apikey,'key'),apiKeyValue:gv(a.apikey,'value'),apiKeyIn:gv(a.apikey,'in')||'header'}; else if(a.type==='noauth') n.auth={type:'none'}; }
+  (it.event||[]).forEach(e=>{ const code=(e.script&&e.script.exec||[]).join('\n'); if(e.listen==='test') n.testsScript=code; if(e.listen==='prerequest') n.preRequestScript=code; });
+  return n;
+}
+function pcParseCurl(cmd){
+  const toks=[]; const re=/'([^']*)'|"((?:[^"\\]|\\.)*)"|(\S+)/g; let m; cmd=cmd.replace(/\\\r?\n/g,' ').trim();
+  while((m=re.exec(cmd))) toks.push(m[1]!==undefined?m[1]:m[2]!==undefined?m[2].replace(/\\(.)/g,'$1'):m[3]);
+  let method='',url='',data=null,user=null; const headers=[],form=[];
+  for(let i=1;i<toks.length;i++){ const t=toks[i];
+    if(t==='-X'||t==='--request') method=(toks[++i]||'').toUpperCase();
+    else if(t==='-H'||t==='--header'){ const h=toks[++i]||'', ix=h.indexOf(':'); if(ix>0) headers.push({k:h.slice(0,ix).trim(),v:h.slice(ix+1).trim()}); }
+    else if(['-d','--data','--data-raw','--data-binary','--data-ascii'].includes(t)) data=(data===null?'':data+'&')+(toks[++i]||'');
+    else if(t==='-F'||t==='--form') form.push(toks[++i]||'');
+    else if(t==='-u'||t==='--user') user=toks[++i]||'';
+    else if(t==='--url') url=toks[++i]||'';
+    else if(/^https?:\/\//.test(t)||t.startsWith('/')) url=t; }
+  if(!url) throw new Error('No URL found in the cURL command.');
+  const n={type:'req',id:uid('req'),name:url.replace(/^https?:\/\/[^/]+/,'')||url,method:method||((data!==null||form.length)?'POST':'GET'),url,params:[{k:'',v:''}],headers,body:'',bodyType:'none',testsScript:'',preRequestScript:'',localVars:[],auth:{type:'inherit'}};
+  if(user){ const ix=user.indexOf(':'); n.auth={type:'basic',basicUser:ix<0?user:user.slice(0,ix),basicPass:ix<0?'':user.slice(ix+1)}; }
+  if(form.length){ n.bodyType='form-data'; n.formData=form.map(f=>{ const ix=f.indexOf('='), k=f.slice(0,ix), v=f.slice(ix+1); return v.startsWith('@')?{k,t:'file',v:v.slice(1),d:'',on:true,files:[]}:{k,t:'text',v,d:'',on:true,files:[]}; }); }
+  else if(data!==null){ if(/^\s*[\[{]/.test(data)){ n.bodyType='raw'; n.rawType='JSON'; n.body=data; } else if(data.includes('=')){ n.bodyType='urlencoded'; n.urlencoded=data.split('&').map(p=>{ const ix=p.indexOf('='); return {k:decodeURIComponent(p.slice(0,ix)),v:decodeURIComponent(p.slice(ix+1)),d:'',on:true}; }); } else { n.bodyType='raw'; n.rawType='Text'; n.body=data; } }
+  return n;
+}
+function pcOpenIO(){
+  pcModal('pcIoModal','Import / Export',620);
+  $('#pcIoModalBody').innerHTML=`<label class="pm-lbl-d">Import a Postman collection (v2.1 JSON) or paste a cURL command</label>
+   <textarea class="pm-in" id="pcImportText" rows="7" placeholder="Paste Postman JSON or: curl -X POST https://example.com/api -H 'Content-Type: application/json' -d '{...}'"></textarea>
+   <div style="display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap;"><input type="file" id="pcImportFile" accept=".json,.txt"><button class="btn btn-primary btn-sm" id="pcImportGo">Import</button></div>
+   <div class="pc-sec" style="margin-top:20px;"><h4>Export a collection</h4>${pmCollections.map(c=>`<div class="pc-exp"><span>${esc(c.name)}</span><button class="btn btn-secondary btn-sm" data-pcexp="${c.id}">${pcI('download')} Postman v2.1</button></div>`).join('')||'<p class="pc-hint">No collections yet.</p>'}</div>`;
+  openModal('pcIoModal');
+}
+function pcRunImport(){
+  const txt=(document.getElementById('pcImportText').value||'').trim(); if(!txt){ showToast('Paste something to import first.'); return; }
+  try{
+    if(/^curl\s/i.test(txt)){ const n=pcParseCurl(txt); let col=pmCollections.find(c=>c.name==='Imported'); if(!col){ col={type:'collection',id:uid('col'),name:'Imported',open:true,items:[]}; pmCollections.push(col); } col.open=true; col.items.push(n); savePmCollections(); closeModal('pcIoModal'); renderPmTree(); pmLoadRequest(n.id); showToast('cURL command imported.','success'); return; }
+    const j=JSON.parse(txt); if(!j.item&&!(j.info&&j.info.name)) throw new Error('This does not look like a Postman v2.1 collection.');
+    const col={type:'collection',id:uid('col'),name:(j.info&&j.info.name)||'Imported collection',open:true,items:(j.item||[]).map(pcItemToNode),variables:(j.variable||[]).map(v=>({k:v.key,v:v.value}))};
+    pmCollections.push(col); savePmCollections(); closeModal('pcIoModal'); renderPmTree(); showToast('Imported "'+col.name+'".','success');
+  }catch(e){ showToast('Import failed: '+e.message,'error'); }
+}
+function pcReqSpec(){
+  const S=pmSubstituteVars, b=pmBuildBody(); let url=S(pmState.url||''); const ps=(pmState.params||[]).filter(p=>p.k);
+  if(ps.length&&!url.includes('?')) url+='?'+ps.map(p=>encodeURIComponent(S(p.k))+'='+encodeURIComponent(S(p.v||''))).join('&');
+  if(url.startsWith('/')) url='http://localhost:8080'+url;
+  const h={}; (pmState.headers||[]).filter(x=>x.k).forEach(x=>h[S(x.k)]=S(x.v||'')); Object.assign(h,pmComputeAuth().headers||{});
+  const hasCT=()=>Object.keys(h).some(k=>k.toLowerCase()==='content-type');
+  if(pmState.bodyType==='form-data') Object.keys(h).forEach(k=>{ if(k.toLowerCase()==='content-type') delete h[k]; });
+  else if(pmState.bodyType!=='none'&&b.contentType&&!hasCT()) h['Content-Type']=b.contentType;
+  return {method:pmState.method,url,headers:h,body:b,type:pmState.bodyType,parts:b.parts||[]};
+}
+function pcGenCode(lang,r){
+  const q=x=>"'"+String(x).replace(/'/g,"'\\''")+"'", H=Object.entries(r.headers), form=r.type==='form-data', hasBody=r.type!=='none'&&r.type!=='binary'&&!form&&r.body.text!=='';
+  const raw=r.type==='raw'||r.type==='graphql'?r.body.shown:r.type==='urlencoded'?r.body.shown:'';
+  if(lang==='curl'){ let o='curl -X '+r.method+' '+q(r.url); H.forEach(([k,v])=>o+=' \\\n  -H '+q(k+': '+v)); if(form) r.parts.forEach(p=>o+=' \\\n  -F '+q(p.key+'='+(p.type==='file'?'@'+((p.files[0]&&p.files[0].name)||'file'):p.value))); else if(r.type==='binary') o+=' \\\n  --data-binary '+q('@'+((r.parts[0]&&r.parts[0].files[0]&&r.parts[0].files[0].name)||'file')); else if(hasBody) o+=' \\\n  -d '+q(raw); return o; }
+  if(lang==='js'){ let o=''; if(form){ o+='const form = new FormData();\n'; r.parts.forEach(p=>o+=p.type==='file'?'form.append('+JSON.stringify(p.key)+', fileInput.files[0]); // choose a file\n':'form.append('+JSON.stringify(p.key)+', '+JSON.stringify(p.value)+');\n'); o+='\n'; }
+    o+='const response = await fetch('+JSON.stringify(r.url)+', {\n  method: '+JSON.stringify(r.method)+',\n  headers: '+JSON.stringify(r.headers,null,2).replace(/\n/g,'\n  ')+(form?',\n  body: form':hasBody?',\n  body: '+JSON.stringify(raw):'')+'\n});\nconsole.log(response.status, await response.text());'; return o; }
+  let o='import requests\n\nurl = '+JSON.stringify(r.url)+'\nheaders = '+JSON.stringify(r.headers,null,2).replace(/true/g,'True')+'\n'; let call='requests.request("'+r.method+'", url, headers=headers';
+  if(form){ const t=r.parts.filter(p=>p.type==='text'), f=r.parts.filter(p=>p.type==='file'); if(t.length) o+='data = '+JSON.stringify(Object.fromEntries(t.map(p=>[p.key,p.value])),null,2)+'\n'; if(f.length) o+='files = ['+f.map(p=>'('+JSON.stringify(p.key)+', (open('+JSON.stringify((p.files[0]&&p.files[0].name)||'file')+', "rb")))').join(', ')+']\n'; call+=(t.length?', data=data':'')+(f.length?', files=files':''); }
+  else if(hasBody){ o+='payload = '+JSON.stringify(raw)+'\n'; call+=', data=payload'; }
+  return o+'\nresponse = '+call+')\nprint(response.status_code, response.text)'; }
+function pcOpenCode(){
+  pcModal('pcCodeModal','Generate code',680);
+  $('#pcCodeModalBody').innerHTML=`<div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;"><label class="pm-lbl-d" style="margin:0;">Language</label><select class="pm-in" id="pcCodeLang" style="width:180px;"><option value="curl">cURL</option><option value="js">JavaScript (fetch)</option><option value="py">Python (requests)</option></select><button class="btn btn-secondary btn-sm" id="pcCopyCode" style="margin-left:auto;">Copy</button></div><textarea class="pm-in" id="pcCodeOut" rows="14" readonly spellcheck="false"></textarea><p class="pc-hint">Relative URLs use http://localhost:8080 as the host. Variables are already filled in.</p>`;
+  pcRenderCode(); openModal('pcCodeModal');
+}
+function pcRenderCode(){ const out=document.getElementById('pcCodeOut'), sel=document.getElementById('pcCodeLang'); if(out&&sel) out.value=pcGenCode(sel.value,pcReqSpec()); }
+</script>
+<script>
 /* ---------------------------- INIT ---------------------------- */
 let pmInputModalCallback=null;
 function pmPromptModal(title,defaultVal,cb){
@@ -4169,6 +4972,11 @@ function pmInputModalSubmit(){
 }
 $('#pmInputModalConfirm').addEventListener('click',pmInputModalSubmit);
 $('#pmInputModalField').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); pmInputModalSubmit(); } });
+$('#pmRunFile').addEventListener('change',e=>{
+  const f=e.target.files[0]; if(!f||!pmRunDialog) return;
+  pmReadDataFile(f,rows=>{ rows=(rows||[]).filter(r=>r&&typeof r==='object'); if(!rows.length){ showToast('No data rows found in that file.','error'); pmRunDialog.rows=null; } else { pmRunDialog.rows=rows; pmRunDialog.fileName=f.name; } pmRunDataInfo(); });
+});
+$('#pmRunGo').addEventListener('click',pmRunGo);
 loadState();
 render();
 </script>
