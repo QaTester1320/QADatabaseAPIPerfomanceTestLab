@@ -681,6 +681,30 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
 .dash-bar div{height:8px;background:var(--purple-50);border-radius:999px;overflow:hidden;}.dash-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--purple-400),var(--purple-600));border-radius:999px;}.dash-bar em{font-style:normal;text-align:right;color:var(--ink-faint);}
 .dash-act{font-size:0.82rem;padding:6px 0;border-bottom:1px solid var(--line);}.dash-act small{color:var(--ink-faint);margin-left:6px;}
 .admin-toolbar{flex-wrap:wrap;gap:10px;}
+/* ===== extras 2 ===== */
+.data-table td{color:var(--ink);overflow-wrap:anywhere;word-break:break-word;}
+.data-table tr:hover td{background:var(--purple-50);color:var(--ink);}
+.data-table td:nth-child(2),.data-table td:nth-child(3){min-width:90px;}
+.row-actions{flex-wrap:nowrap;}
+.skip-link{position:absolute;left:-999px;top:8px;background:#fff;color:#2a1456;padding:8px 14px;border-radius:8px;z-index:2000;font-weight:700;}.skip-link:focus{left:10px;}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2.5px solid #9d6bff;outline-offset:2px;}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}}
+@media (max-width:900px){.db-layout,.cart-layout,.account-layout,.pm-layout,.checkout-layout{grid-template-columns:1fr !important;}.pm-sidebar,.db-sidebar{position:static !important;max-height:none !important;}.tool-body{padding:18px 12px 60px;}.data-table th,.data-table td{padding:10px 10px;}.admin-toolbar{flex-direction:column;align-items:stretch;}.pm-title-row{flex-direction:column;align-items:flex-start;}.dash-bar{grid-template-columns:90px 1fr 56px;}}
+@media (max-width:560px){.pc-grid{grid-template-columns:1fr;}.g-code{flex-direction:column;align-items:stretch;}.jm-layout{flex-direction:column;}}
+.pc-guide-btn{margin-left:10px;vertical-align:middle;}
+.guide-body{background:#fff;border-radius:var(--radius-l);padding:8px 26px 26px;color:var(--ink);box-shadow:var(--shadow-card);}
+.g-sec{margin-top:22px;}.g-sec h3{font-size:1.05rem;color:var(--purple-800);margin-bottom:10px;padding-bottom:6px;border-bottom:1.5px solid var(--purple-50);}
+.g-sec p,.g-sec li{font-size:0.9rem;line-height:1.65;}.g-sec ul,.g-sec ol{padding-left:20px;margin:6px 0;}
+.g-sec code{background:var(--purple-50);color:var(--purple-700);padding:1px 6px;border-radius:5px;font-size:0.82rem;}
+.g-scroll{overflow-x:auto;}.g-table{width:100%;border-collapse:collapse;font-size:0.84rem;}.g-table th{background:var(--purple-50);text-align:left;padding:9px 12px;color:var(--purple-700);font-size:0.72rem;text-transform:uppercase;letter-spacing:.04em;}.g-table td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+.g-code{display:flex;gap:12px;justify-content:space-between;align-items:flex-start;background:#150b28;border-radius:10px;padding:12px 14px;margin:8px 0;}.g-code pre{margin:0;color:#d9c9fc;font-family:var(--font-mono);font-size:0.78rem;white-space:pre-wrap;word-break:break-word;flex:1;}.g-code span{display:flex;gap:6px;flex-shrink:0;}
+.g-ex{margin:12px 0;}.g-ex small{color:var(--ink-faint);font-size:0.78rem;}
+.bulk-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 14px;background:var(--purple-50);border-bottom:1px solid var(--line);}.bulk-bar select,.bulk-bar input{min-width:150px;}
+.addr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;}.addr-card{border:1.5px solid var(--line);border-radius:var(--radius-m);padding:14px;background:#fff;}.addr-card.def{border-color:var(--purple-400);background:var(--purple-50);}
+.addr-card p{font-size:0.84rem;color:var(--ink-soft);margin:6px 0 10px;line-height:1.55;}.addr-def{margin-left:8px;font-size:0.68rem;background:var(--purple-500);color:#fff;border-radius:999px;padding:2px 8px;}.addr-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.cmp-good{color:#7fd9b9;font-weight:700;}.cmp-bad{color:#ff9d92;font-weight:700;}.cmp-same{color:var(--purple-300);}
+.cmp-verdict{margin:14px 0;padding:10px 14px;border-radius:var(--radius-s);font-size:0.86rem;font-weight:600;}.cmp-verdict.good{background:rgba(31,169,113,0.15);color:#7fd9b9;}.cmp-verdict.bad{background:rgba(224,71,60,0.15);color:#ff9d92;}
+.pc-csvinfo{margin-top:10px;color:var(--purple-100);font-size:0.84rem;}.pc-csvinfo code{background:rgba(255,255,255,0.1);color:#fff;padding:1px 6px;border-radius:5px;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -705,6 +729,7 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;}
       <a href="#/database" data-route="/database">Database</a>
       <a href="#/api" data-route="/api">API Client</a>
       <a href="#/performance" data-route="/performance">Performance</a>
+      <a href="#/guide" data-route="/guide">Test Guide</a>
       <a href="#/login" data-route="/login" id="navAuthLink">Login</a>
     </nav>
     <div class="nav-tools">
@@ -1005,6 +1030,7 @@ function getRoutes(){
     '/database':renderDatabase,
     '/api':renderPostman,
     '/performance':renderPerformance,
+    '/guide':renderGuide,
   };
 }
 function currentPath(){
@@ -1719,6 +1745,7 @@ function renderAccount(root){
         <button data-tab="orders" class="${accountTab==='orders'?'active':''}">📦 My orders</button>
         <button data-tab="wishlist" class="${accountTab==='wishlist'?'active':''}">♥ Wishlist</button>
         <button data-tab="compare" class="${accountTab==='compare'?'active':''}">⇄ Compare list</button>
+        <button data-tab="addresses" class="${accountTab==='addresses'?'active':''}">🏠 Address book</button>
         <button data-tab="info" class="${accountTab==='info'?'active':''}">👤 Account info</button>
         <button data-tab="delete" class="${accountTab==='delete'?'active':''}" style="color:var(--error);">🗑 Delete account</button>
         <hr style="border:none;border-top:1px solid var(--line);margin:8px 0;">
@@ -1937,6 +1964,7 @@ let adminSearch='';
 let adminEditing={module:null,id:null};
 
 function renderAdmin(root){
+  if(typeof pcEnsure==='function') pcEnsure();
   const user=currentUser();
   if(!user || !['admin','manager','support'].includes(user.role)){
     root.innerHTML=`<div class="tool-shell"><div class="section container"><div class="empty-state" style="color:#fff;"><div class="emoji">🔐</div><h3 style="color:#fff;">Admin access required</h3><p style="color:var(--purple-300);margin-top:8px;">Sign in with the admin demo account to manage store data.</p><a href="#/login" class="btn btn-primary" style="margin-top:18px;">Sign in as admin</a></div></div></div>`;
@@ -1975,9 +2003,9 @@ function renderAdminTable(){
   }
   const wrap=$('#adminTableWrap');
   if(!rows.length){ wrap.innerHTML=`<div class="table-empty">No ${mod.label.toLowerCase()} found.</div>`; return; }
-  wrap.innerHTML=`<table class="data-table"><thead><tr><th>ID</th>${mod.columns.map(c=>`<th>${c.label}</th>`).join('')}<th>Actions</th></tr></thead>
+  wrap.innerHTML=pcBulkBar(mod)+`<table class="data-table"><thead><tr>${pcBulkTh(mod)}<th>ID</th>${mod.columns.map(c=>`<th>${c.label}</th>`).join('')}<th>Actions</th></tr></thead>
   <tbody>${rows.map(r=>`<tr>
-    <td>#${r[mod.idKey]}</td>
+    ${pcBulkTd(mod,r)}<td>#${r[mod.idKey]}</td>
     ${mod.columns.map(c=>`<td>${c.render? c.render(r[c.key],r) : esc(String(r[c.key]!=null?r[c.key]:''))}</td>`).join('')}
     <td class="row-actions">
       <button title="View" onclick="viewAdminRecord('${adminActiveTab}',${r[mod.idKey]})">👁</button>
@@ -2168,7 +2196,7 @@ function renderDbMainContent(){
     <span class="sql-hint">Columns: ${dbTables[activeDbTable].columns.map(c=>c.name).join(', ')}</span>
     <textarea class="sql-editor" id="sqlEditor" spellcheck="false">SELECT * FROM ${activeDbTable} LIMIT 50;</textarea>
     <div class="sql-actions">
-      <span class="sql-hint">Supports SELECT / INSERT / UPDATE / DELETE with WHERE, ORDER BY, LIMIT · Ctrl/Cmd+Enter to run</span>
+      <span class="sql-hint">SELECT with JOIN, GROUP BY, HAVING, aggregates (COUNT/SUM/AVG/MIN/MAX), AND/OR, IN, BETWEEN, LIKE, IS NULL, ORDER BY, LIMIT; INSERT / UPDATE / DELETE; EXPLAIN SELECT. Ctrl/Cmd+Enter to run.</span>
       <div style="display:flex;gap:10px;">
         <button class="btn btn-secondary btn-sm" onclick="clearSqlEditor()">Clear</button>
         <button class="btn btn-secondary btn-sm" onclick="exportSqlResultsCsv()">⬇ Export .csv</button>
@@ -2278,83 +2306,246 @@ function parseWhere(clause){
   });
   return row=>preds.every(fn=>fn(row));
 }
+const SQL_RESERVED=new Set(['SELECT','FROM','WHERE','GROUP','BY','HAVING','ORDER','LIMIT','OFFSET','JOIN','INNER','LEFT','RIGHT','OUTER','ON','AS','AND','OR','NOT','IN','LIKE','BETWEEN','IS','NULL','DISTINCT','ASC','DESC','SET','VALUES','INSERT','INTO','UPDATE','DELETE','EXPLAIN']);
+function sqlTok(src){
+  const re=/(\s*)(?:('(?:[^']|'')*')|(\d+\.?\d*)|([A-Za-z_][A-Za-z0-9_]*(?:\.(?:[A-Za-z_][A-Za-z0-9_]*|\*))?|\*)|(<>|!=|>=|<=|=|<|>|\(|\)|,|\+|-|\/|%))/y;
+  const out=[]; let i=0;
+  while(i<src.length){
+    re.lastIndex=i; const m=re.exec(src);
+    if(!m){ if(/^\s*$/.test(src.slice(i))) break; throw new Error('Unexpected character near "'+src.slice(i).trim().slice(0,12)+'"'); }
+    const s0=i+m[1].length; i=re.lastIndex;
+    if(m[2]!==undefined) out.push({t:'str',v:m[2].slice(1,-1).replace(/''/g,"'"),s:s0,e:i,raw:m[2]});
+    else if(m[3]!==undefined) out.push({t:'num',v:Number(m[3]),s:s0,e:i,raw:m[3]});
+    else if(m[4]!==undefined) out.push({t:'id',v:m[4],u:m[4].toUpperCase(),s:s0,e:i,raw:m[4]});
+    else out.push({t:'op',v:m[5],s:s0,e:i,raw:m[5]});
+  }
+  return out;
+}
+function sqlParser(src){
+  const T=sqlTok(src); let p=0;
+  const isKw=k=>T[p]&&T[p].t==='id'&&T[p].u===k;
+  const eatKw=k=>{ if(isKw(k)){ p++; return true; } return false; };
+  const needKw=k=>{ if(!eatKw(k)) throw new Error('Expected '+k+' near "'+(T[p]?T[p].raw:'end of query')+'"'); };
+  const isOp=o=>T[p]&&T[p].t==='op'&&T[p].v===o;
+  const eatOp=o=>{ if(isOp(o)){ p++; return true; } return false; };
+  const needOp=o=>{ if(!eatOp(o)) throw new Error('Expected "'+o+'" near "'+(T[p]?T[p].raw:'end of query')+'"'); };
+  const isStar=()=>T[p]&&T[p].t==='id'&&T[p].v==='*';
+  function expr(){ return orE(); }
+  function orE(){ let l=andE(); while(eatKw('OR')) l={k:'or',l,r:andE()}; return l; }
+  function andE(){ let l=notE(); while(eatKw('AND')) l={k:'and',l,r:notE()}; return l; }
+  function notE(){ if(eatKw('NOT')) return {k:'not',e:notE()}; return cmp(); }
+  function cmp(){
+    let l=add();
+    for(;;){
+      const t=T[p]; if(!t) return l;
+      if(t.t==='op'&&['=','!=','<>','<','>','<=','>='].includes(t.v)){ p++; l={k:'bin',op:t.v==='<>'?'!=':t.v,l,r:add()}; continue; }
+      const save=p; let neg=false; if(isKw('NOT')){ neg=true; p++; }
+      if(eatKw('LIKE')){ l={k:'like',l,r:add(),neg}; continue; }
+      if(eatKw('IN')){ needOp('('); const list=[]; do{ list.push(expr()); }while(eatOp(',')); needOp(')'); l={k:'in',l,list,neg}; continue; }
+      if(eatKw('BETWEEN')){ const lo=add(); needKw('AND'); const hi=add(); l={k:'btw',l,lo,hi,neg}; continue; }
+      if(!neg&&eatKw('IS')){ const n=eatKw('NOT'); needKw('NULL'); l={k:'isnull',l,neg:n}; continue; }
+      p=save; return l;
+    }
+  }
+  function add(){ let l=mul(); while(isOp('+')||isOp('-')){ const op=T[p++].v; l={k:'bin',op,l,r:mul()}; } return l; }
+  function mul(){ let l=un(); while(isOp('/')||isOp('%')||isStar()){ const op=T[p++].v; l={k:'bin',op,l,r:un()}; } return l; }
+  function un(){ if(eatOp('-')) return {k:'bin',op:'-',l:{k:'num',v:0},r:un()}; return prim(); }
+  function prim(){
+    const t=T[p]; if(!t) throw new Error('Unexpected end of query');
+    if(t.t==='num'){ p++; return {k:'num',v:t.v}; }
+    if(t.t==='str'){ p++; return {k:'str',v:t.v}; }
+    if(t.t==='op'&&t.v==='('){ p++; const e=expr(); needOp(')'); return e; }
+    if(t.t==='id'){
+      if(t.u==='NULL'){ p++; return {k:'null'}; }
+      if(T[p+1]&&T[p+1].t==='op'&&T[p+1].v==='('){
+        p+=2; const name=t.u;
+        if(['COUNT','SUM','AVG','MIN','MAX'].includes(name)){
+          let star=false, distinct=false, arg=null;
+          if(isStar()){ p++; star=true; } else { distinct=eatKw('DISTINCT'); arg=expr(); }
+          needOp(')'); return {k:'agg',name,star,distinct,arg};
+        }
+        const args=[]; if(!isOp(')')){ do{ args.push(expr()); }while(eatOp(',')); } needOp(')'); return {k:'fn',name,args};
+      }
+      if(SQL_RESERVED.has(t.u)) throw new Error('Unexpected keyword "'+t.raw+'"');
+      p++; return {k:'col',name:t.v};
+    }
+    throw new Error('Unexpected "'+t.raw+'"');
+  }
+  return {T,src,expr,isKw,eatKw,needKw,isOp,eatOp,needOp,isStar,
+    get p(){ return p; }, set p(v){ p=v; }, cur:()=>T[p], next:()=>T[p++], done:()=>p>=T.length};
+}
+function sqlTruthy(v){ return v===true||(typeof v==='number'&&v!==0)||(typeof v==='string'&&v!==''&&v!=='0'&&v.toLowerCase()!=='false'); }
+function sqlNum(v){ if(typeof v==='number') return v; if(typeof v==='string'&&v.trim()!==''&&isFinite(v)) return Number(v); return NaN; }
+function sqlCompare(a,b){
+  if(a==null||b==null) return null;
+  const na=sqlNum(a), nb=sqlNum(b); if(!isNaN(na)&&!isNaN(nb)) return na<nb?-1:na>nb?1:0;
+  const sa=String(typeof a==='object'?JSON.stringify(a):a), sb=String(typeof b==='object'?JSON.stringify(b):b); return sa<sb?-1:sa>sb?1:0;
+}
+function sqlOrd(a,b){ if(a==null&&b==null) return 0; if(a==null) return -1; if(b==null) return 1; return sqlCompare(a,b); }
+function sqlLookup(ctx,name){ if(name in ctx) return ctx[name]; const ln=name.toLowerCase(); for(const k in ctx){ if(k.toLowerCase()===ln) return ctx[k]; } throw new Error("Unknown column '"+name+"'"); }
+function sqlEval(n,ctx,grp){
+  switch(n.k){
+    case 'num': case 'str': return n.v;
+    case 'null': return null;
+    case 'col': return sqlLookup(ctx,n.name);
+    case 'and': return sqlTruthy(sqlEval(n.l,ctx,grp))&&sqlTruthy(sqlEval(n.r,ctx,grp));
+    case 'or': return sqlTruthy(sqlEval(n.l,ctx,grp))||sqlTruthy(sqlEval(n.r,ctx,grp));
+    case 'not': return !sqlTruthy(sqlEval(n.e,ctx,grp));
+    case 'bin': {
+      const x=sqlEval(n.l,ctx,grp), y=sqlEval(n.r,ctx,grp);
+      if(['=','!=','<','>','<=','>='].includes(n.op)){ const c=sqlCompare(x,y); if(c===null) return false; return n.op==='='?c===0:n.op==='!='?c!==0:n.op==='<'?c<0:n.op==='>'?c>0:n.op==='<='?c<=0:c>=0; }
+      if(x==null||y==null) return null;
+      if(n.op==='+'&&(isNaN(sqlNum(x))||isNaN(sqlNum(y)))) return String(x)+String(y);
+      const a=sqlNum(x), b=sqlNum(y); if(isNaN(a)||isNaN(b)) return null;
+      return n.op==='+'?a+b:n.op==='-'?a-b:n.op==='*'?a*b:n.op==='/'?(b===0?null:a/b):a%b;
+    }
+    case 'like': { const v=sqlEval(n.l,ctx,grp), pat=String(sqlEval(n.r,ctx,grp)); const re=new RegExp('^'+pat.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/%/g,'.*').replace(/_/g,'.')+'$','i'); const r=v!=null&&re.test(String(v)); return n.neg?!r:r; }
+    case 'in': { const v=sqlEval(n.l,ctx,grp); const r=n.list.some(e=>sqlCompare(v,sqlEval(e,ctx,grp))===0); return n.neg?!r:r; }
+    case 'btw': { const v=sqlEval(n.l,ctx,grp), lo=sqlCompare(v,sqlEval(n.lo,ctx,grp)), hi=sqlCompare(v,sqlEval(n.hi,ctx,grp)); const r=lo!==null&&hi!==null&&lo>=0&&hi<=0; return n.neg?!r:r; }
+    case 'isnull': { const r=sqlEval(n.l,ctx,grp)==null; return n.neg?!r:r; }
+    case 'agg': {
+      const rows=grp||[ctx]; let vals=n.star?rows.map(()=>1):rows.map(r=>sqlEval(n.arg,r)).filter(v=>v!=null);
+      if(n.distinct) vals=[...new Set(vals.map(v=>JSON.stringify(v)))].map(v=>JSON.parse(v));
+      if(n.name==='COUNT') return vals.length; if(!vals.length) return null;
+      if(n.name==='MIN'||n.name==='MAX') return vals.reduce((m,v)=>{ const c=sqlCompare(v,m); return (n.name==='MIN'?c<0:c>0)?v:m; });
+      const sum=vals.reduce((t,v)=>t+(sqlNum(v)||0),0); return n.name==='SUM'?Math.round(sum*100)/100:Math.round(sum/vals.length*100)/100;
+    }
+    case 'fn': {
+      const a=n.args.map(e=>sqlEval(e,ctx,grp));
+      switch(n.name){
+        case 'UPPER': return a[0]==null?null:String(a[0]).toUpperCase();
+        case 'LOWER': return a[0]==null?null:String(a[0]).toLowerCase();
+        case 'LENGTH': return a[0]==null?null:String(a[0]).length;
+        case 'ROUND': { const m=Math.pow(10,a[1]||0); return Math.round(sqlNum(a[0])*m)/m; }
+        case 'ABS': return Math.abs(sqlNum(a[0]));
+        case 'COALESCE': { const f=a.find(v=>v!=null); return f===undefined?null:f; }
+        case 'CONCAT': return a.map(v=>v==null?'':v).join('');
+        default: throw new Error('Unknown function '+n.name+'()');
+      }
+    }
+  }
+  throw new Error('Cannot evaluate this expression');
+}
+function sqlHasAgg(n){ if(!n||typeof n!=='object') return false; if(n.k==='agg') return true; return Object.values(n).some(v=>Array.isArray(v)?v.some(sqlHasAgg):(v&&typeof v==='object'&&sqlHasAgg(v))); }
+function sqlCtxPart(alias,table,row,exist){
+  const o={}; const cols=row?Object.keys(row):((dbTables[table]&&dbTables[table].columns.map(c=>c.name))||[]);
+  cols.forEach(k=>{ const v=row?row[k]:null; o[alias+'.'+k]=v; if(table!==alias) o[table+'.'+k]=v; if(!(k in exist)) o[k]=v; });
+  return o;
+}
+function sqlTableRef(P){
+  const t=P.next(); if(!t||t.t!=='id') throw new Error('Expected a table name');
+  if(!DB[t.v]) throw new Error("Table '"+t.v+"' doesn't exist.");
+  let alias=t.v; if(P.eatKw('AS')) alias=P.next().v; else if(P.cur()&&P.cur().t==='id'&&!SQL_RESERVED.has(P.cur().u)) alias=P.next().v;
+  return {table:t.v,alias};
+}
+function sqlParseSelect(P){
+  const q={distinct:false,items:[],from:null,joins:[],where:null,groupBy:[],having:null,orderBy:[],limit:null,offset:0};
+  P.needKw('SELECT'); q.distinct=P.eatKw('DISTINCT');
+  do{
+    const t=P.cur();
+    if(t&&t.t==='id'&&t.v==='*'){ P.p++; q.items.push({star:true}); continue; }
+    if(t&&t.t==='id'&&/\.\*$/.test(t.v)){ P.p++; q.items.push({star:true,prefix:t.v.slice(0,-2)}); continue; }
+    if(!t) throw new Error('Expected a column list after SELECT');
+    const start=t.s, e=P.expr(), end=P.T[P.p-1].e; let label=P.src.slice(start,end).trim(), alias=null;
+    if(P.eatKw('AS')) alias=P.next().v; else if(P.cur()&&P.cur().t==='id'&&!SQL_RESERVED.has(P.cur().u)) alias=P.next().v;
+    if(!alias&&e.k==='col') label=e.name.includes('.')?e.name.split('.')[1]:e.name;
+    q.items.push({expr:e,label:alias||label});
+  }while(P.eatOp(','));
+  P.needKw('FROM'); q.from=sqlTableRef(P);
+  for(;;){
+    let type=null; if(P.isKw('INNER')){ P.p++; type='INNER'; } else if(P.isKw('LEFT')){ P.p++; P.eatKw('OUTER'); type='LEFT'; }
+    if(type||P.isKw('JOIN')){ P.needKw('JOIN'); const ref=sqlTableRef(P); P.needKw('ON'); ref.on=P.expr(); ref.type=type||'INNER'; q.joins.push(ref); continue; }
+    break;
+  }
+  if(P.eatKw('WHERE')) q.where=P.expr();
+  if(P.eatKw('GROUP')){ P.needKw('BY'); do{ q.groupBy.push(P.expr()); }while(P.eatOp(',')); }
+  if(P.eatKw('HAVING')) q.having=P.expr();
+  if(P.eatKw('ORDER')){ P.needKw('BY'); do{ const e=P.expr(); const desc=P.eatKw('DESC'); if(!desc) P.eatKw('ASC'); q.orderBy.push({e,desc}); }while(P.eatOp(',')); }
+  if(P.eatKw('LIMIT')){ q.limit=Number(P.next().v); if(P.eatOp(',')){ q.offset=q.limit; q.limit=Number(P.next().v); } }
+  if(P.eatKw('OFFSET')) q.offset=Number(P.next().v);
+  return q;
+}
+function sqlRunSelect(q){
+  let rows=DB[q.from.table].map(r=>sqlCtxPart(q.from.alias,q.from.table,r,{}));
+  q.joins.forEach(j=>{
+    const out=[];
+    rows.forEach(L=>{ let hit=false;
+      DB[j.table].forEach(rr=>{ const c=Object.assign({},L,sqlCtxPart(j.alias,j.table,rr,L)); if(sqlTruthy(sqlEval(j.on,c))){ out.push(c); hit=true; } });
+      if(!hit&&j.type==='LEFT') out.push(Object.assign({},L,sqlCtxPart(j.alias,j.table,null,L))); });
+    rows=out;
+  });
+  if(q.where) rows=rows.filter(c=>sqlTruthy(sqlEval(q.where,c)));
+  const agg=q.items.some(i=>i.expr&&sqlHasAgg(i.expr))||(q.having&&sqlHasAgg(q.having));
+  let groups;
+  if(q.groupBy.length||agg){
+    const map=new Map(); if(!q.groupBy.length) map.set('',rows.slice()); else rows.forEach(c=>{ const k=JSON.stringify(q.groupBy.map(e=>sqlEval(e,c))); if(!map.has(k)) map.set(k,[]); map.get(k).push(c); });
+    groups=[...map.values()].map(g=>({ctx:g[0]||{},rows:g}));
+  } else groups=rows.map(c=>({ctx:c,rows:null}));
+  if(q.having) groups=groups.filter(g=>sqlTruthy(sqlEval(q.having,g.ctx,g.rows)));
+  let out=groups.map(g=>{
+    const rec={}, al={};
+    q.items.forEach(it=>{
+      if(it.star){ Object.keys(g.ctx).forEach(k=>{ if(it.prefix){ if(k.startsWith(it.prefix+'.')) rec[k.slice(it.prefix.length+1)]=g.ctx[k]; } else if(!k.includes('.')) rec[k]=g.ctx[k]; }); }
+      else { const v=sqlEval(it.expr,g.ctx,g.rows); rec[it.label]=v; al[it.label]=v; }
+    });
+    return {rec,al,g};
+  });
+  if(q.distinct){ const seen=new Set(); out=out.filter(o=>{ const k=JSON.stringify(o.rec); if(seen.has(k)) return false; seen.add(k); return true; }); }
+  if(q.orderBy.length) out.sort((A,B)=>{ for(const ob of q.orderBy){ const c=sqlOrd(sqlEval(ob.e,Object.assign({},A.g.ctx,A.al),A.g.rows),sqlEval(ob.e,Object.assign({},B.g.ctx,B.al),B.g.rows)); if(c) return ob.desc?-c:c; } return 0; });
+  if(q.offset) out=out.slice(q.offset); if(q.limit!=null) out=out.slice(0,q.limit);
+  return out.map(o=>o.rec);
+}
+function sqlExplain(q){
+  const r=[]; let n=1; const add=(op,detail)=>r.push({step:n++,operation:op,detail});
+  add('Table scan',q.from.table+' ('+DB[q.from.table].length+' rows)');
+  q.joins.forEach(j=>add(j.type+' JOIN','nested loop with '+j.table+' ('+DB[j.table].length+' rows)'));
+  if(q.where) add('Filter','WHERE clause checked for every row');
+  if(q.groupBy.length||q.items.some(i=>i.expr&&sqlHasAgg(i.expr))) add('Aggregate',q.groupBy.length?'GROUP BY '+q.groupBy.length+' expression(s)':'one group for all rows');
+  if(q.having) add('Filter groups','HAVING clause');
+  if(q.distinct) add('Distinct','remove duplicate rows');
+  if(q.orderBy.length) add('Sort',q.orderBy.length+' sort key(s), in memory');
+  if(q.limit!=null) add('Limit',q.limit+(q.offset?' (offset '+q.offset+')':''));
+  add('Project',q.items.length+' output column(s)');
+  return r;
+}
 function runSqlQuery(){
-  const raw=$('#sqlEditor').value.trim().replace(/;$/,'');
+  const raw=$('#sqlEditor').value.trim().replace(/;\s*$/,'');
   if(!raw){ renderSqlError('Query is empty.'); return; }
   sqlHistory.push(raw);
   const histEl=$('#sqlHistoryList'); if(histEl) histEl.innerHTML=renderSqlHistoryItems();
   try{
-    const selectM=raw.match(/^SELECT\s+(.+?)\s+FROM\s+([a-zA-Z_]+)\s*(?:WHERE\s+(.+?))?\s*(?:ORDER BY\s+([a-zA-Z_]+)\s*(ASC|DESC)?)?\s*(?:LIMIT\s+(\d+))?$/is);
-    const insertM=raw.match(/^INSERT\s+INTO\s+([a-zA-Z_]+)\s*\(([^)]+)\)\s*VALUES\s*\(([^)]+)\)$/is);
-    const updateM=raw.match(/^UPDATE\s+([a-zA-Z_]+)\s+SET\s+(.+?)\s*(?:WHERE\s+(.+))?$/is);
-    const deleteM=raw.match(/^DELETE\s+FROM\s+([a-zA-Z_]+)\s*(?:WHERE\s+(.+))?$/is);
-
-    if(selectM){
-      const [,cols,table,where,orderCol,orderDir,limit]=selectM;
-      if(!DB[table]) throw new Error("Table '"+table+"' doesn't exist.");
-      let rows=DB[table].slice();
-      if(where) rows=rows.filter(parseWhere(where.trim()));
-      if(orderCol){ rows.sort((a,b)=> a[orderCol]>b[orderCol]?1:a[orderCol]<b[orderCol]?-1:0); if(/desc/i.test(orderDir||'')) rows.reverse(); }
-      if(limit) rows=rows.slice(0,Number(limit));
-      if(cols.trim()!=='*'){
-        const wanted=cols.split(',').map(c=>c.trim());
-        rows=rows.map(r=>{ const o={}; wanted.forEach(c=>o[c]=r[c]); return o; });
-      }
-      renderSqlRows(rows, rows.length+' row(s) returned from `'+table+'`');
-      return;
+    const P=sqlParser(raw); const explain=P.eatKw('EXPLAIN');
+    if(P.isKw('SELECT')){
+      const q=sqlParseSelect(P); if(!P.done()) throw new Error('Unexpected "'+P.cur().raw+'" in this query.');
+      if(explain){ renderSqlRows(sqlExplain(q),'Query plan for `'+q.from.table+'`'); return; }
+      const rows=sqlRunSelect(q); renderSqlRows(rows,rows.length+' row(s) returned from `'+q.from.table+'`'); return;
     }
-    if(insertM){
-      const [,table,colsRaw,valsRaw]=insertM;
-      if(!DB[table]) throw new Error("Table '"+table+"' doesn't exist.");
-      const cols=colsRaw.split(',').map(c=>c.trim());
-      const vals=valsRaw.split(',').map(v=>{
-        v=v.trim();
-        if(/^'.*'$/.test(v)) return v.slice(1,-1);
-        if(/^-?\d+\.?\d*$/.test(v)) return Number(v);
-        return v;
-      });
-      if(cols.length!==vals.length) throw new Error('Column count does not match value count.');
-      const newRow={}; cols.forEach((c,i)=>newRow[c]=vals[i]);
-      const idKey= table==='orders'?'id':'id';
-      if(newRow[idKey]==null) newRow[idKey]=Math.max(0,...DB[table].map(r=>r.id))+1;
-      DB[table].push(newRow);
-      saveState();
-      renderSqlRows([newRow], '1 row inserted into `'+table+'`');
-      return;
+    if(explain) throw new Error('EXPLAIN works with SELECT statements.');
+    if(P.isKw('INSERT')){
+      P.needKw('INSERT'); P.needKw('INTO'); const tt=P.next(); const table=tt&&tt.v;
+      if(!table||!DB[table]) throw new Error("Table '"+table+"' doesn't exist.");
+      let cols; if(P.eatOp('(')){ cols=[]; do{ cols.push(P.next().v); }while(P.eatOp(',')); P.needOp(')'); } else cols=dbTables[table].columns.map(c=>c.name);
+      P.needKw('VALUES'); const tuples=[];
+      do{ P.needOp('('); const vals=[]; do{ vals.push(sqlEval(P.expr(),{})); }while(P.eatOp(',')); P.needOp(')'); if(vals.length!==cols.length) throw new Error('Column count does not match value count.'); tuples.push(vals); }while(P.eatOp(','));
+      const added=tuples.map(vals=>{ const row={}; cols.forEach((c,i)=>row[c]=vals[i]); if(row.id==null) row.id=Math.max(0,...DB[table].map(r=>r.id))+1; DB[table].push(row); return row; });
+      saveState(); renderSqlRows(added,added.length+' row(s) inserted into `'+table+'`'); return;
     }
-    if(updateM){
-      const [,table,setRaw,where]=updateM;
-      if(!DB[table]) throw new Error("Table '"+table+"' doesn't exist.");
-      const sets=setRaw.split(',').map(s=>{
-        const m=s.match(/^\s*([a-zA-Z_]+)\s*=\s*(.+)\s*$/);
-        if(!m) throw new Error('Could not parse SET clause: "'+s+'"');
-        let val=m[2].trim();
-        if(/^'.*'$/.test(val)) val=val.slice(1,-1);
-        else if(/^-?\d+\.?\d*$/.test(val)) val=Number(val);
-        return [m[1],val];
-      });
-      const filterFn = where ? parseWhere(where.trim()) : ()=>true;
-      let count=0;
-      DB[table].forEach(row=>{ if(filterFn(row)){ sets.forEach(([k,v])=>row[k]=v); count++; } });
-      saveState();
-      renderSqlRows(DB[table].filter(filterFn), count+' row(s) updated in `'+table+'`');
-      return;
+    if(P.isKw('UPDATE')){
+      P.needKw('UPDATE'); const tt=P.next(); const table=tt&&tt.v; if(!table||!DB[table]) throw new Error("Table '"+table+"' doesn't exist.");
+      P.needKw('SET'); const sets=[]; do{ const c=P.next(); if(!c||c.t!=='id') throw new Error('Expected a column name in SET'); P.needOp('='); sets.push([c.v,P.expr()]); }while(P.eatOp(','));
+      const where=P.eatKw('WHERE')?P.expr():null; if(!P.done()) throw new Error('Unexpected "'+P.cur().raw+'" in this query.');
+      let count=0; const hit=[];
+      DB[table].forEach(row=>{ const ctx=sqlCtxPart(table,table,row,{}); if(!where||sqlTruthy(sqlEval(where,ctx))){ const vals=sets.map(([k,e])=>[k,sqlEval(e,ctx)]); vals.forEach(([k,v])=>row[k]=v); count++; hit.push(row); } });
+      saveState(); renderSqlRows(hit,count+' row(s) updated in `'+table+'`'); return;
     }
-    if(deleteM){
-      const [,table,where]=deleteM;
-      if(!DB[table]) throw new Error("Table '"+table+"' doesn't exist.");
-      const filterFn = where ? parseWhere(where.trim()) : ()=>true;
-      const before=DB[table].length;
-      DB[table]=DB[table].filter(r=>!filterFn(r));
-      const removed=before-DB[table].length;
-      saveState();
-      renderSqlRows([{result:removed+' row(s) deleted'}], removed+' row(s) deleted from `'+table+'`');
-      return;
+    if(P.isKw('DELETE')){
+      P.needKw('DELETE'); P.needKw('FROM'); const tt=P.next(); const table=tt&&tt.v; if(!table||!DB[table]) throw new Error("Table '"+table+"' doesn't exist.");
+      const where=P.eatKw('WHERE')?P.expr():null; if(!P.done()) throw new Error('Unexpected "'+P.cur().raw+'" in this query.');
+      const before=DB[table].length; DB[table]=DB[table].filter(row=>!(!where||sqlTruthy(sqlEval(where,sqlCtxPart(table,table,row,{})))));
+      const removed=before-DB[table].length; saveState(); renderSqlRows([{result:removed+' row(s) deleted'}],removed+' row(s) deleted from `'+table+'`'); return;
     }
-    throw new Error('Unrecognized statement. Try SELECT, INSERT INTO, UPDATE or DELETE FROM.');
-  }catch(err){
-    renderSqlError(err.message);
-  }
+    throw new Error('Unrecognized statement. Try SELECT, INSERT INTO, UPDATE, DELETE FROM or EXPLAIN SELECT.');
+  }catch(err){ renderSqlError(err.message); }
 }
 </script>
 <script>
@@ -3934,6 +4125,7 @@ function renderPerformance(root){
             <div class="jm-toolbar-export">
               <button class="btn btn-secondary btn-sm" onclick="exportPerfCsv()" style="background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.2);">⬇ Save as .csv</button>
               <button class="btn btn-secondary btn-sm" onclick="downloadPerfReport()" style="background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.2);">⬇ Save as .json</button>
+              <button class="btn btn-secondary btn-sm" onclick="pcPerfHtml()" style="background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.2);">⬇ Save as .html / PDF</button>
             </div>
           </div>
           <div id="perfAssertionBanner"></div>
@@ -3967,7 +4159,7 @@ function renderJmTree(){
   html+=`<div class="jm-add-row" data-add="group">+ Add Thread Group ▾</div>`;
   html+=`<div class="jm-tree-node lvl1 clickable ${perfSelected==='headerManager'?'active':''}" data-sel="headerManager">🗂 HTTP Header Manager</div>`;
   html+=`<div class="jm-tree-node lvl1">📊 Listeners</div>`;
-  [['resultsTree','🌳','View Results Tree'],['summaryReport','📊','Summary Report'],['aggregateReport','📈','Aggregate Report'],['graphResults','📉','Graph Results']].forEach(([key,icon,label])=>{
+  [['resultsTree','🌳','View Results Tree'],['summaryReport','📊','Summary Report'],['aggregateReport','📈','Aggregate Report'],['graphResults','📉','Graph Results'],['runCompare','🧾','Run History & Compare']].forEach(([key,icon,label])=>{
     html+=`<div class="jm-tree-node lvl2 ${perfSelected===key?'active':''}" data-sel="${key}">${icon} ${label}</div>`;
   });
   wrap.innerHTML=html;
@@ -4011,6 +4203,7 @@ function renderJmMainBody(){
   if(perfSelected==='resultsTree'){ body.innerHTML=jmResultsTreePanel(); return; }
   if(perfSelected==='summaryReport'){ body.innerHTML=jmSummaryReportPanel(); return; }
   if(perfSelected==='aggregateReport'){ body.innerHTML=jmAggregateReportPanel(); return; }
+  if(perfSelected==='runCompare'){ body.innerHTML=pcCompareHTML(); return; }
   if(perfSelected==='graphResults'){ body.innerHTML=jmGraphResultsPanel(); renderPerfChart(); renderPerfThroughputChart(); return; }
   if(perfSelected.startsWith('tg::')){
     const g=findGroup(perfSelected.slice(4));
@@ -4418,7 +4611,7 @@ function runThreadGroupAsync(group){
     if(!perfState.running || group.threads<=0){ resolve(); return; }
     let finished=0;
     for(let i=0;i<group.threads;i++){
-      const startDelay = group.startupDelay*1000 + (group.rampUp>0 ? (i/group.threads)*group.rampUp*1000 : 0);
+      const startDelay = group.startupDelay*1000 + pcRampDelay(group,i);
       perfState.liveThreads++;
       runVirtualUserForGroup(group, i, startDelay, ()=>{
         perfState.liveThreads=Math.max(0,perfState.liveThreads-1);
@@ -4706,6 +4899,7 @@ function pcTestIds(root){
 let _pcBusy=false;
 new MutationObserver(ms=>{ if(_pcBusy) return; _pcBusy=true; try{ ms.forEach(m=>{ m.addedNodes.forEach(n=>{ if(n.nodeType===1){ pcIconize(n); pcTestIds(n); } else if(n.nodeType===3) pcIconize(n); }); if(m.type==='characterData') pcIconize(m.target); }); } finally{ _pcBusy=false; } }).observe(document.body,{childList:true,subtree:true,characterData:true});
 document.addEventListener('DOMContentLoaded',()=>{ pcIconize(document.body); pcTestIds(document.body); });
+{ const gb=document.getElementById('pcGear'); if(gb) gb.innerHTML=pcI('gear'); }
 pcIconize(document.body); pcTestIds(document.body);
 
 /* ---- demo controls ---- */
@@ -4834,7 +5028,7 @@ function pcDashboardHTML(){
   adminModules.dashboard={label:'Dashboard',icon:'📊',custom:pcDashboardHTML,sub:'Sales, orders and stock at a glance.',table:'orders',idKey:'id',columns:[],searchKeys:[]};
   Object.assign(adminModules,old);
   adminModules.audit={label:'Audit Log',icon:'🧾',table:'audit',idKey:'id',readonly:true,searchKeys:['actor','action','table','detail'],columns:[{key:'at',label:'Time',render:v=>esc(new Date(v).toLocaleString())},{key:'actor',label:'By'},{key:'action',label:'Action'},{key:'table',label:'Table'},{key:'recordId',label:'Record'},{key:'detail',label:'Details'}],fields:[],defaults:{}};
-  const of=adminModules.orders&&adminModules.orders.fields.find(f=>f.key==='status'); if(of) { of.type='select'; of.options=()=>PC_FLOW.concat(['cancelled']).map(v=>({value:v,label:v})); }
+  const of=adminModules.orders&&adminModules.orders.fields.find(f=>f.key==='status'); if(of) { of.type='select'; of.options=()=>['pending','processing','packed','shipped','delivered','cancelled'].map(v=>({value:v,label:v})); }
   const rf=adminModules.customers&&adminModules.customers.fields.find(f=>f.key==='role'); if(rf){ rf.type='select'; rf.options=()=>['customer','admin','manager','support'].map(v=>({value:v,label:v})); }
 })();
 let _pcPrev=null,_pcDB=null;
@@ -4853,11 +5047,13 @@ function pcAuditDiff(){
   });
   if(DB.audit.length>400) DB.audit.length=400; _pcPrev=pcSnap();
 }
-const _pcSs=saveState; saveState=function(){ try{ pcAuditDiff(); }catch(e){ console.warn('audit',e); } _pcSs(); };
-const _pcLs=loadState; loadState=function(){ _pcLs();
-  DB.audit=DB.audit||[]; const mk=(role,email,name)=>{ if(!DB.customers.some(c=>c.email===email)) DB.customers.push({id:Math.max(0,...DB.customers.map(c=>c.id))+1,name,email,password:role+'123',role,phone:'',address:'',status:'active'}); };
-  mk('manager','manager@example.com','Maya Manager'); mk('support','support@example.com','Sam Support'); _pcDB=null; _pcPrev=null; pcAuditDiff(); };
-
+function pcEnsure(){
+  if(!DB) return; DB.audit=DB.audit||[];
+  const mk=(role,email,name)=>{ if(!DB.customers.some(c=>c.email===email)) DB.customers.push({id:Math.max(0,...DB.customers.map(c=>c.id))+1,name,email,password:role+'123',role,phone:'',address:'',status:'active'}); };
+  mk('manager','manager@example.com','Maya Manager'); mk('support','support@example.com','Sam Support');
+}
+const _pcSs=saveState; saveState=function(){ try{ const fresh=(DB!==_pcDB); pcEnsure(); if(fresh){ _pcDB=null; _pcPrev=null; } pcAuditDiff(); }catch(e){ console.warn('audit',e); } _pcSs(); };
+const _pcLs=loadState; loadState=function(){ _pcLs(); pcEnsure(); _pcDB=null; _pcPrev=null; pcAuditDiff(); };
 /* ---- API client: Postman import/export, cURL import, code snippets ---- */
 function pcDownloadJson(n,o){ pcDownload(n,JSON.stringify(o,null,2),'application/json'); }
 function pcNodeToItem(n){
@@ -4904,6 +5100,7 @@ function pcParseCurl(cmd){
     else if(t==='--url') url=toks[++i]||'';
     else if(/^https?:\/\//.test(t)||t.startsWith('/')) url=t; }
   if(!url) throw new Error('No URL found in the cURL command.');
+  url=url.replace(/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?/,'');
   const n={type:'req',id:uid('req'),name:url.replace(/^https?:\/\/[^/]+/,'')||url,method:method||((data!==null||form.length)?'POST':'GET'),url,params:[{k:'',v:''}],headers,body:'',bodyType:'none',testsScript:'',preRequestScript:'',localVars:[],auth:{type:'inherit'}};
   if(user){ const ix=user.indexOf(':'); n.auth={type:'basic',basicUser:ix<0?user:user.slice(0,ix),basicPass:ix<0?'':user.slice(ix+1)}; }
   if(form.length){ n.bodyType='form-data'; n.formData=form.map(f=>{ const ix=f.indexOf('='), k=f.slice(0,ix), v=f.slice(ix+1); return v.startsWith('@')?{k,t:'file',v:v.slice(1),d:'',on:true,files:[]}:{k,t:'text',v,d:'',on:true,files:[]}; }); }
@@ -4953,6 +5150,282 @@ function pcOpenCode(){
   pcRenderCode(); openModal('pcCodeModal');
 }
 function pcRenderCode(){ const out=document.getElementById('pcCodeOut'), sel=document.getElementById('pcCodeLang'); if(out&&sel) out.value=pcGenCode(sel.value,pcReqSpec()); }
+</script>
+<script>
+/* ============ EXTRAS 2: performance, database, admin bulk, address book, test guide, accessibility ============ */
+Object.assign(PCI,{
+ home:_ic('<path d="M3 11l9-8 9 8v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/>'),
+ pin:_ic('<path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>'),
+ book:_ic('<path d="M4 4h10a4 4 0 014 4v13H8a4 4 0 01-4-4z"/><path d="M8 4v13"/>'),
+ check2:_ic('<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>')
+});
+Object.assign(PC_EM,{'🏠':'home','📍':'pin','📘':'book'});
+
+/* ---------- Performance: ramp-up profiles ---------- */
+function pcRampDelay(g,i){
+  const T=Math.max(1,g.threads), R=(g.rampUp||0)*1000, p=g.profile||'linear'; if(R<=0) return 0;
+  if(p==='step'){ const per=Math.ceil(T/4); return Math.floor(i/per)*(R/4); }
+  if(p==='spike'){ const early=Math.max(1,Math.floor(T*0.2)); return i<early?(i/early)*R*0.2:R*0.6; }
+  if(p==='soak') return (i/T)*R*0.1;
+  return (i/T)*R;
+}
+const PC_PROFILES={linear:'Linear: users are added evenly over the ramp-up period.',step:'Step: users start in 4 equal batches across the ramp-up period.',spike:'Spike: 20% of users start early, the rest all arrive together at 60% of the ramp-up.',soak:'Soak: nearly all users start within 10% of the ramp-up, then hold for the full duration.'};
+const _pcJtg=jmThreadGroupPanel;
+jmThreadGroupPanel=function(g){
+  const html=_pcJtg(g), cur=g.profile||'linear';
+  const f=`<div class="field"><label>Ramp-up profile</label><select id="tgProfile" class="jm-inline-select" style="width:100%;margin-left:0;" ${perfState.running?'disabled':''}>${Object.keys(PC_PROFILES).map(k=>`<option value="${k}" ${cur===k?'selected':''}>${k[0].toUpperCase()+k.slice(1)}</option>`).join('')}</select><div class="field-hint" id="tgProfileHint" style="color:var(--purple-300);">${PC_PROFILES[cur]}</div></div>`;
+  return html.replace('<div class="field"><label>Startup delay (seconds)</label>',f+'<div class="field"><label>Startup delay (seconds)</label>');
+};
+const _pcWtg=wireThreadGroupPanel;
+wireThreadGroupPanel=function(g){ _pcWtg(g); const el=document.getElementById('tgProfile'); if(el) el.addEventListener('change',e=>{ g.profile=e.target.value; const h=document.getElementById('tgProfileHint'); if(h) h.textContent=PC_PROFILES[g.profile]; }); };
+
+/* ---------- Performance: CSV data set ---------- */
+let perfCsv={name:'',rows:[],next:0,cur:{}};
+function pcCsvBlock(){
+  const c=perfCsv;
+  return `<hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:22px 0;"><div class="jm-panel-title" style="font-size:0.92rem;">CSV Data Set (parameterised load)</div>
+   <div class="jm-panel-sub">Every virtual user takes the next row on each loop. Column names become variables, e.g. <code>{{productId}}</code> in a Path such as <code>/api/products/{{productId}}</code>. Rows are reused when the file runs out. Accepts CSV, Excel or JSON.</div>
+   <input type="file" id="perfCsvFile" accept=".csv,.xlsx,.xls,.json" ${perfState.running?'disabled':''}>
+   ${c.rows.length?`<div class="pc-csvinfo"><b>${esc(c.name)}</b>: ${c.rows.length} rows. Variables: ${Object.keys(c.rows[0]).map(k=>'<code>{{'+esc(k)+'}}</code>').join(' ')} <button class="btn btn-secondary btn-sm" id="perfCsvClear">Remove</button></div>`:'<div class="field-hint" style="margin-top:8px;">No data file loaded.</div>'}`;
+}
+const _pcTp=jmTestPlanPanel; jmTestPlanPanel=function(){ return _pcTp()+pcCsvBlock(); };
+function pcCsvPick(vu){ if(perfCsv.rows.length) perfCsv.cur[vu]=perfCsv.rows[perfCsv.next++%perfCsv.rows.length]; }
+const _pcRss=runSamplerSequence; runSamplerSequence=function(g,vu,ci,cb){ if(ci===0) pcCsvPick(vu); _pcRss(g,vu,ci,cb); };
+const _pcFs=fireSampler; fireSampler=function(g,smp,vu,done){ const row=perfCsv.cur[vu]; if(row) Object.entries(row).forEach(([k,v])=>{ perfRuntimeVars[k]=String(v); }); _pcFs(g,smp,vu,done); };
+const _pcSlt=startLoadTest; startLoadTest=function(){ perfCsv.next=0; perfCsv.cur={}; _pcSlt(); };
+
+/* ---------- Performance: run history, comparison, HTML report ---------- */
+function pcRuns(){ try{ return JSON.parse(localStorage.getItem('pc_perf_runs')||'[]'); }catch(e){ return []; } }
+function pcSaveRuns(a){ try{ localStorage.setItem('pc_perf_runs',JSON.stringify(a.slice(0,12))); }catch(e){} }
+function pcBuildRun(){
+  const m=computeMetricsForSet(perfState.results); if(!m) return null;
+  const by=resultsByLabel(), per={}; Object.keys(by).forEach(l=>{ per[l]=computeMetricsForSet(by[l]); });
+  return {m,per,at:new Date().toISOString(),thr:perfState.thresholdMs,err:perfState.errorRate,csv:perfCsv.name||'',
+    groups:testPlan.threadGroups.filter(g=>g.enabled!==false).map(g=>({name:g.name,threads:g.threads,rampUp:g.rampUp,duration:g.duration,profile:g.profile||'linear'}))};
+}
+function pcSaveRun(){
+  if(!perfState.results||!perfState.results.length) return; const r=pcBuildRun(); if(!r) return;
+  const runs=pcRuns(); r.id=uid('run'); r.n=(runs[0]?runs[0].n:0)+1; runs.unshift(r); pcSaveRuns(runs);
+}
+const _pcStop=stopLoadTest; stopLoadTest=function(c){ if(perfState.running){ try{ pcSaveRun(); }catch(e){ console.warn(e); } } _pcStop(c); };
+let pcCmp={a:null,b:null};
+const PC_MET=[['avg','Average (ms)',0],['p50','Median (ms)',0],['p90','90% line (ms)',0],['p95','95% line (ms)',0],['p99','99% line (ms)',0],['max','Max (ms)',0],['errorRate','Error %',0],['rps','Throughput (req/s)',1]];
+const pcFmt=(k,v)=>(k==='errorRate'||k==='rps')?Number(v).toFixed(2):String(v);
+function pcDelta(k,a,b,hi){ if(!a&&!b) return '<span>-</span>'; const d=a===0?(b===0?0:100):((b-a)/a*100); const good=hi?d>=0:d<=0; const cls=Math.abs(d)<2?'same':good?'good':'bad'; return `<span class="cmp-${cls}">${d>0?'+':''}${d.toFixed(1)}%</span>`; }
+function pcCompareHTML(){
+  const runs=pcRuns(); const A=runs.find(r=>r.id===pcCmp.a), B=runs.find(r=>r.id===pcCmp.b);
+  const list=runs.length?`<table class="jm-report-table"><thead><tr><th>Run</th><th>When</th><th>Samples</th><th>Avg</th><th>p95</th><th>Error %</th><th>SLA (p95 &le; limit)</th><th>Baseline</th><th>Candidate</th><th></th></tr></thead><tbody>${runs.map(r=>`<tr><td>#${r.n}</td><td>${esc(new Date(r.at).toLocaleString())}</td><td>${r.m.total}</td><td>${r.m.avg} ms</td><td>${r.m.p95} ms</td><td>${r.m.errorRate.toFixed(2)}%</td><td style="color:${r.m.p95<=r.thr?'#7fd9b9':'#ff9d92'};font-weight:700;">${r.m.p95<=r.thr?'PASS':'FAIL'} (${r.thr} ms)</td><td><input type="radio" name="cmpA" ${pcCmp.a===r.id?'checked':''} onclick="pcCmp.a='${r.id}';renderJmMainBody()"></td><td><input type="radio" name="cmpB" ${pcCmp.b===r.id?'checked':''} onclick="pcCmp.b='${r.id}';renderJmMainBody()"></td><td style="white-space:nowrap;"><button class="btn btn-secondary btn-sm" onclick="pcRunHtml('${r.id}')">HTML</button> <button class="btn btn-secondary btn-sm" onclick="pcRunDel('${r.id}')">Delete</button></td></tr>`).join('')}</tbody></table>`:'<p class="jm-panel-sub">No saved runs yet. Every finished or stopped run is saved here automatically (the last 12 are kept).</p>';
+  let cmp='';
+  if(A&&B){
+    const reg=(B.m.p95>A.m.p95*1.2)||(B.m.errorRate>A.m.errorRate+1);
+    cmp=`<div class="cmp-verdict ${reg?'bad':'good'}">${reg?'Regression detected: the candidate run is more than 20% slower at p95, or has over 1 point more errors.':'No regression: the candidate run is within tolerance of the baseline.'}</div>
+     <table class="jm-report-table"><thead><tr><th>Metric</th><th>Baseline #${A.n}</th><th>Candidate #${B.n}</th><th>Change</th></tr></thead><tbody>${PC_MET.map(([k,l,hi])=>`<tr><td>${l}</td><td>${pcFmt(k,A.m[k])}</td><td>${pcFmt(k,B.m[k])}</td><td>${pcDelta(k,A.m[k],B.m[k],hi)}</td></tr>`).join('')}</tbody></table>`;
+  } else if(runs.length>1) cmp='<p class="jm-panel-sub" style="margin-top:12px;">Pick a Baseline and a Candidate run above to compare them.</p>';
+  return `<div class="jm-panel-title">🧾 Run History &amp; Compare</div><div class="jm-panel-sub">Compare two runs side by side. Green means better, red means worse. Lower is better for latency and errors; higher is better for throughput.</div><div class="jm-report-table-wrap">${list}</div>${cmp}`;
+}
+function pcRunDel(id){ pcSaveRuns(pcRuns().filter(r=>r.id!==id)); if(pcCmp.a===id) pcCmp.a=null; if(pcCmp.b===id) pcCmp.b=null; renderJmMainBody(); }
+function pcRunReportHtml(r){
+  const rows=Object.entries(r.per).map(([l,m])=>`<tr><td>${esc(l)}</td><td>${m.total}</td><td>${m.avg}</td><td>${m.p50}</td><td>${m.p90}</td><td>${m.p95}</td><td>${m.p99}</td><td>${m.max}</td><td>${m.errorRate.toFixed(2)}%</td></tr>`).join('');
+  const mx=Math.max(1,...Object.values(r.per).map(m=>m.avg)); let y=10; const bars=Object.entries(r.per).map(([l,m])=>{ const w=Math.round(m.avg/mx*320), t=`<text x="0" y="${y+11}" font-size="11">${esc(l.slice(0,28))}</text><rect x="200" y="${y}" width="${w}" height="14" rx="3" fill="#7a3fe6"/><text x="${206+w}" y="${y+11}" font-size="11">${m.avg} ms</text>`; y+=24; return t; }).join('');
+  const pass=r.m.p95<=r.thr;
+  return '<!doctype html><html><head><meta charset="utf-8"><title>Performance report</title><style>body{font-family:Arial,sans-serif;max-width:960px;margin:30px auto;padding:0 20px;color:#222}h1{color:#6531c9}table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0 24px}td,th{border:1px solid #ddd;padding:6px 8px;text-align:left}th{background:#f3eefc}.v{display:inline-block;padding:6px 14px;border-radius:999px;font-weight:700;color:#fff;background:'+(pass?'#1fa971':'#e0473c')+'}.k{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.k div{border:1px solid #ddd;border-radius:8px;padding:10px 14px}.k b{display:block;font-size:20px}button{padding:8px 14px}@media print{button{display:none}}</style></head><body><h1>Performance test report</h1><p>Generated '+esc(new Date(r.at).toLocaleString())+'</p><p><span class="v">SLA '+(pass?'PASS':'FAIL')+'</span> &nbsp; p95 '+r.m.p95+' ms against a limit of '+r.thr+' ms. Injected error rate: '+r.err+'%.'+(r.csv?' Data file: '+esc(r.csv)+'.':'')+'</p><div class="k"><div><b>'+r.m.total+'</b>samples</div><div><b>'+r.m.avg+' ms</b>average</div><div><b>'+r.m.p95+' ms</b>95% line</div><div><b>'+r.m.errorRate.toFixed(2)+'%</b>errors</div><div><b>'+r.m.rps.toFixed(1)+'/s</b>throughput</div></div><h3>Thread groups</h3><table><tr><th>Name</th><th>Threads</th><th>Ramp-up (s)</th><th>Profile</th><th>Duration (s)</th></tr>'+r.groups.map(g=>'<tr><td>'+esc(g.name)+'</td><td>'+g.threads+'</td><td>'+g.rampUp+'</td><td>'+g.profile+'</td><td>'+g.duration+'</td></tr>').join('')+'</table><h3>Per request (ms)</h3><table><tr><th>Label</th><th>Samples</th><th>Avg</th><th>Median</th><th>90%</th><th>95%</th><th>99%</th><th>Max</th><th>Errors</th></tr>'+rows+'</table><h3>Average response time</h3><svg width="640" height="'+(y+10)+'" font-family="Arial">'+bars+'</svg><p><button onclick="window.print()">Print / Save as PDF</button></p></body></html>';
+}
+function pcRunHtml(id){ const r=pcRuns().find(x=>x.id===id); if(!r) return; pcDownload('performance-run-'+r.n+'.html',pcRunReportHtml(r),'text/html'); showToast('HTML report downloaded. Open it and use Print to save as PDF.','success'); }
+function pcPerfHtml(){ const r=pcBuildRun(); if(!r){ showToast('Run the test plan first, then export.'); return; } pcDownload('performance-report-'+Date.now()+'.html',pcRunReportHtml(r),'text/html'); showToast('HTML report downloaded. Open it and use Print to save as PDF.','success'); }
+document.addEventListener('change',e=>{
+  if(e.target.id==='perfCsvFile'&&e.target.files[0]){ const f=e.target.files[0]; pmReadDataFile(f,rows=>{ rows=(rows||[]).filter(r=>r&&typeof r==='object'); if(!rows.length){ showToast('No data rows found in that file.','error'); return; } perfCsv.name=f.name; perfCsv.rows=rows; renderJmMainBody(); showToast(rows.length+' rows loaded.','success'); }); }
+});
+document.addEventListener('click',e=>{ if(e.target.closest('#perfCsvClear')){ perfCsv={name:'',rows:[],next:0,cur:{}}; renderJmMainBody(); } });
+
+/* ---------- Database: saved queries + ER diagram ---------- */
+function pcSavedSql(){ try{ return JSON.parse(localStorage.getItem('pc_sql_saved')||'[]'); }catch(e){ return []; } }
+function pcSaveSavedSql(l){ try{ localStorage.setItem('pc_sql_saved',JSON.stringify(l)); }catch(e){} }
+function pcSavedOptions(){ const l=pcSavedSql(); return `<option value="">Saved queries (${l.length})</option>`+l.map((q,i)=>`<option value="${i}">${esc(q.name)}</option>`).join(''); }
+const _pcRdm=renderDbMainContent;
+renderDbMainContent=function(){
+  const ed0=null; _pcRdm();
+  if(dbViewMode!=='data') return; const ed=document.getElementById('sqlEditor'); if(!ed) return;
+  const box=document.querySelector('.sql-actions > div');
+  if(box&&!document.getElementById('sqlSavedSel')) box.insertAdjacentHTML('afterbegin',`<select id="sqlSavedSel" class="pm-in" style="width:180px;padding:6px 8px;">${pcSavedOptions()}</select><button class="btn btn-secondary btn-sm" id="sqlSaveBtn">Save query</button><button class="btn btn-secondary btn-sm" id="sqlDelSavedBtn" title="Delete the selected saved query" aria-label="Delete saved query">${pcI('trash')}</button>`);
+  if(window.pcPendingSql){ ed.value=window.pcPendingSql; window.pcPendingSql=null; runSqlQuery(); }
+};
+const _pcRdb=renderDatabase;
+renderDatabase=function(root){ _pcRdb(root); const row=document.querySelector('.sql-toolbar > div'); if(row&&!document.getElementById('pcErBtn')) row.insertAdjacentHTML('beforeend','<button class="chip" id="pcErBtn" style="padding:5px 12px;font-size:0.76rem;">🧩 ER diagram</button>'); };
+PCI.er=_ic('<rect x="3" y="4" width="7" height="6" rx="1"/><rect x="14" y="14" width="7" height="6" rx="1"/><path d="M10 7h4a3 3 0 013 3v4"/>'); PC_EM['🧩']='er';
+function pcErSvg(){
+  const layout=[['categories','products','reviews'],['customers','orders','cms']], W=250, RH=18, pos={}; let y=16;
+  layout.forEach((row,ri)=>{ let h=0; row.forEach((t,ci)=>{ const cols=dbTables[t].columns; pos[t]={x:20+ci*330,y,h:34+cols.length*RH,cols}; h=Math.max(h,pos[t].h); }); y+=h+50; });
+  const H=y, Wt=20+3*330; let lines='', boxes='';
+  Object.keys(pos).forEach(t=>{ pos[t].cols.forEach((c,ci)=>{ const m=/FK\s*\S+\s*(\w+)\.(\w+)/.exec(c.key||''); if(!m||!pos[m[1]]) return;
+    const tg=pos[m[1]], ti=tg.cols.findIndex(x=>x.name===m[2]), sy=pos[t].y+34+ci*RH+9, ty=tg.y+34+Math.max(0,ti)*RH+9; let x1,x2;
+    if(tg.x>pos[t].x){ x1=pos[t].x+W; x2=tg.x; } else if(tg.x<pos[t].x){ x1=pos[t].x; x2=tg.x+W; } else { x1=pos[t].x+W; x2=tg.x+W; }
+    const dx=x1===x2?60:Math.abs(x2-x1)/2, d1=x1<=x2?1:-1;
+    lines+=`<path d="M${x1} ${sy} C${x1+d1*dx} ${sy}, ${x2-d1*(x1===x2?-dx:dx)} ${ty}, ${x2} ${ty}" fill="none" stroke="#7a3fe6" stroke-width="1.5" opacity="0.7"/><circle cx="${x1}" cy="${sy}" r="3.5" fill="#7a3fe6"/><circle cx="${x2}" cy="${ty}" r="3.5" fill="#1fa971"/>`; }); });
+  Object.keys(pos).forEach(t=>{ const b=pos[t];
+    boxes+=`<rect x="${b.x}" y="${b.y}" width="${W}" height="${b.h}" rx="8" fill="#fff" stroke="#c9b6f5"/><rect x="${b.x}" y="${b.y}" width="${W}" height="26" rx="8" fill="#6531c9"/><text x="${b.x+12}" y="${b.y+18}" fill="#fff" font-weight="700">${esc(t)}</text>`+
+    b.cols.map((c,i)=>`<text x="${b.x+12}" y="${b.y+34+i*RH+13}" fill="${c.key?'#6531c9':'#2a1456'}" font-weight="${c.key?700:400}">${esc(c.name)}</text><text x="${b.x+W-10}" y="${b.y+34+i*RH+13}" text-anchor="end" fill="#8a7aa8" font-size="10">${esc(c.type.length>16?c.type.slice(0,15)+'…':c.type)}${c.key&&c.key.startsWith('PK')?' PK':c.key&&c.key.startsWith('FK')?' FK':''}</text>`).join(''); });
+  return `<svg viewBox="0 0 ${Wt} ${H}" style="width:100%;height:auto;font-family:monospace;font-size:12px;background:#faf7ff;border-radius:10px;">${lines}${boxes}</svg>`;
+}
+function pcOpenEr(){ pcModal('pcErModal','Entity relationship diagram',1040); document.getElementById('pcErModalBody').innerHTML=pcErSvg()+'<p class="pc-hint" style="margin-top:10px;">Purple dot = foreign key column, green dot = the primary key it points to. Orders also store product ids inside their JSON <code>items</code> column.</p>'; openModal('pcErModal'); }
+document.addEventListener('click',e=>{
+  if(e.target.closest('#pcErBtn')){ pcOpenEr(); return; }
+  if(e.target.closest('#sqlSaveBtn')){ const ed=document.getElementById('sqlEditor'); if(!ed||!ed.value.trim()){ showToast('Write a query first.'); return; } pmPromptModal('Name for this saved query','My query',name=>{ const l=pcSavedSql(); l.push({name,sql:ed.value}); pcSaveSavedSql(l); const sel=document.getElementById('sqlSavedSel'); if(sel) sel.innerHTML=pcSavedOptions(); showToast('Query saved.','success'); }); return; }
+  if(e.target.closest('#sqlDelSavedBtn')){ const sel=document.getElementById('sqlSavedSel'); if(!sel||sel.value==='') { showToast('Pick a saved query first.'); return; } const l=pcSavedSql(); l.splice(+sel.value,1); pcSaveSavedSql(l); sel.innerHTML=pcSavedOptions(); showToast('Saved query deleted.'); return; }
+});
+document.addEventListener('change',e=>{ if(e.target.id==='sqlSavedSel'&&e.target.value!==''){ const q=pcSavedSql()[+e.target.value], ed=document.getElementById('sqlEditor'); if(q&&ed) ed.value=q.sql; } });
+
+/* ---------- Admin: bulk actions ---------- */
+const PC_BULK={
+ products:[['stock','Set stock to','number'],['priceAdj','Adjust price by %','number'],['delete','Delete selected']],
+ orders:[['status','Set status to','select',['pending','processing','packed','shipped','delivered','cancelled']],['delete','Delete selected']],
+ reviews:[['status','Set status to','select',['pending','approved','rejected']],['delete','Delete selected']],
+ cms:[['status','Set status to','select',['draft','published']],['delete','Delete selected']],
+ customers:[['role','Set role to','select',['customer','admin','manager','support']],['delete','Delete selected']],
+ categories:[['delete','Delete selected']]
+};
+function pcBulkOn(mod){ return !!mod&&!mod.readonly&&!mod.custom&&!!PC_BULK[adminActiveTab]&&adminCan('edit'); }
+function pcBulkTh(mod){ return pcBulkOn(mod)?'<th style="width:36px;"><input type="checkbox" id="bulkAll" aria-label="Select all rows"></th>':''; }
+function pcBulkTd(mod,r){ return pcBulkOn(mod)?`<td><input type="checkbox" class="bulk-cb" data-id="${r[mod.idKey]}" aria-label="Select row ${r[mod.idKey]}"></td>`:''; }
+function pcBulkBar(mod){ if(!pcBulkOn(mod)) return ''; return `<div class="bulk-bar"><b id="bulkCount">0 selected</b><select id="bulkAct" class="pm-in">${PC_BULK[adminActiveTab].map((a,i)=>`<option value="${i}">${a[1]}</option>`).join('')}</select><span id="bulkValWrap"></span><button class="btn btn-primary btn-sm" id="bulkApply">Apply to selected</button></div>`; }
+function pcBulkVal(){
+  const w=document.getElementById('bulkValWrap'), a=document.getElementById('bulkAct'); if(!w||!a) return; const act=PC_BULK[adminActiveTab][+a.value];
+  w.innerHTML=act[2]==='number'?'<input type="number" id="bulkVal" class="pm-in" style="width:110px;" placeholder="value">':act[2]==='select'?`<select id="bulkVal" class="pm-in">${act[3].map(v=>`<option>${v}</option>`).join('')}</select>`:'';
+}
+const _pcRat=renderAdminTable; renderAdminTable=function(){ _pcRat(); pcBulkVal(); };
+function pcBulkCount(){ const n=document.querySelectorAll('.bulk-cb:checked').length, el=document.getElementById('bulkCount'); if(el) el.textContent=n+' selected'; }
+function pcBulkApply(){
+  const mod=adminModules[adminActiveTab], ids=[...document.querySelectorAll('.bulk-cb:checked')].map(c=>Number(c.dataset.id));
+  if(!ids.length){ showToast('Select at least one row first.'); return; }
+  const act=PC_BULK[adminActiveTab][+document.getElementById('bulkAct').value], val=(document.getElementById('bulkVal')||{}).value;
+  if(act[0]==='delete'){
+    if(!adminCan('delete')){ showToast('Your role cannot delete records.','error'); return; } const me=currentUser();
+    openConfirm('Delete '+ids.length+' record(s)?','The selected '+mod.label.toLowerCase()+' will be removed until you reset the demo data.',()=>{ DB[mod.table]=DB[mod.table].filter(r=>!(ids.includes(r[mod.idKey])&&!(mod.table==='customers'&&me&&r.id===me.id))); saveState(); showToast('Deleted the selected records.','success'); renderAdminTable(); }); return;
+  }
+  if(val===undefined||val===''){ showToast('Enter a value to apply first.'); return; }
+  const rows=DB[mod.table].filter(r=>ids.includes(r[mod.idKey]));
+  rows.forEach(r=>{ if(act[0]==='priceAdj') r.price=+(r.price*(1+Number(val)/100)).toFixed(2); else if(act[0]==='stock') r.stock=Math.max(0,Math.floor(Number(val))); else r[act[0]]=val; });
+  saveState(); showToast('Updated '+rows.length+' record(s).','success'); renderAdminTable();
+}
+document.addEventListener('change',e=>{
+  if(e.target.id==='bulkAll'){ document.querySelectorAll('.bulk-cb').forEach(c=>c.checked=e.target.checked); pcBulkCount(); }
+  else if(e.target.classList&&e.target.classList.contains('bulk-cb')) pcBulkCount();
+  else if(e.target.id==='bulkAct') pcBulkVal();
+});
+document.addEventListener('click',e=>{ if(e.target.closest('#bulkApply')) pcBulkApply(); });
+
+/* ---------- Storefront: address book ---------- */
+let pcAddrEditing=null;
+function pcAddrHTML(user){
+  user.addresses=user.addresses||[]; const l=user.addresses, ed=pcAddrEditing?(l.find(a=>a.id===pcAddrEditing)||{}):null;
+  const f=(id,label,val,req)=>`<div class="field" id="ad-${id}"><label>${label}${req?' <span class="req">*</span>':''}</label><input id="adIn-${id}" value="${esc(val||'')}"><div class="field-error">This field is required.</div></div>`;
+  return `<h3 style="margin-bottom:6px;">Address book <span class="count-badge">${l.length}</span></h3><p class="pc-hint">Saved addresses can be picked at checkout. The default address is pre-filled.</p>
+  <div class="addr-grid">${l.map(a=>`<div class="addr-card ${a.default?'def':''}" data-testid="address-card-${a.id}"><b>${esc(a.label||'Address')}</b>${a.default?'<span class="addr-def">Default</span>':''}<p>${esc(a.name)}<br>${esc(a.address)}, ${esc(a.city)} ${esc(a.zip)}<br>${esc(a.country)}${a.phone?' &middot; '+esc(a.phone):''}</p><div class="addr-actions"><button class="btn btn-secondary btn-sm" onclick="pcAddrEdit('${a.id}')">Edit</button>${a.default?'':`<button class="btn btn-secondary btn-sm" onclick="pcAddrDefault('${a.id}')">Make default</button>`}<button class="btn btn-ghost btn-sm" style="color:var(--error);" onclick="pcAddrDel('${a.id}')">Delete</button></div></div>`).join('')||'<p class="pc-hint">No saved addresses yet.</p>'}</div>
+  <div class="form-card" style="margin-top:18px;"><h4 style="margin-bottom:12px;">${ed&&ed.id?'Edit address':'Add a new address'}</h4><div id="adAlert"></div>
+   ${f('label','Label (Home, Office...)',ed&&ed.label,false)}<div class="field-row">${f('name','Full name',ed&&ed.name,true)}${f('phone','Phone',ed&&ed.phone,false)}</div>${f('address','Street address',ed&&ed.address,true)}
+   <div class="field-row">${f('city','City',ed&&ed.city,true)}${f('zip','ZIP / Postal code',ed&&ed.zip,true)}</div>${f('country','Country',ed&&ed.country,true)}
+   <div style="display:flex;gap:10px;margin-top:6px;"><button class="btn btn-primary" id="adSaveBtn" onclick="pcAddrSave()">${ed&&ed.id?'Save changes':'Add address'}</button>${pcAddrEditing?'<button class="btn btn-secondary" onclick="pcAddrEditing=null;renderAccountPanel(currentUser())">Cancel</button>':''}</div></div>`;
+}
+function pcAddrSave(){
+  const u=currentUser(); if(!u) return; u.addresses=u.addresses||[]; const g=k=>(document.getElementById('adIn-'+k).value||'').trim(); let ok=true;
+  ['name','address','city','zip','country'].forEach(k=>{ const bad=!g(k); document.getElementById('ad-'+k).classList.toggle('invalid',bad); if(bad) ok=false; });
+  if(!ok){ document.getElementById('adAlert').innerHTML='<div class="alert alert-error">Please fill in the highlighted fields.</div>'; return; }
+  const rec={label:g('label')||'Address',name:g('name'),phone:g('phone'),address:g('address'),city:g('city'),zip:g('zip'),country:g('country')};
+  if(pcAddrEditing){ const a=u.addresses.find(x=>x.id===pcAddrEditing); if(a) Object.assign(a,rec); } else { rec.id=uid('adr'); rec.default=!u.addresses.length; u.addresses.push(rec); }
+  pcAddrEditing=null; saveState(); showToast('Address saved.','success'); renderAccountPanel(u);
+}
+function pcAddrEdit(id){ pcAddrEditing=id; renderAccountPanel(currentUser()); }
+function pcAddrDel(id){ const u=currentUser(); const was=(u.addresses.find(a=>a.id===id)||{}).default; u.addresses=u.addresses.filter(a=>a.id!==id); if(was&&u.addresses[0]) u.addresses[0].default=true; saveState(); renderAccountPanel(u); showToast('Address deleted.'); }
+function pcAddrDefault(id){ const u=currentUser(); u.addresses.forEach(a=>a.default=a.id===id); saveState(); renderAccountPanel(u); }
+const _pcRap=renderAccountPanel; renderAccountPanel=function(user){ if(accountTab!=='addresses') return _pcRap(user); const p=document.getElementById('accountPanel'); if(p) p.innerHTML=pcAddrHTML(user); };
+const _pcRsh=renderShippingStep;
+renderShippingStep=function(main){
+  _pcRsh(main); const u=currentUser(), l=(u&&u.addresses)||[]; if(!l.length) return; const form=main.querySelector('.form-card')||main.firstElementChild; if(!form) return;
+  form.insertAdjacentHTML('afterbegin',`<div class="field"><label>Use a saved address</label><select id="pcAddrPick"><option value="">Enter a new address</option>${l.map(a=>`<option value="${a.id}" ${a.default?'selected':''}>${esc(a.label||a.address)}${a.default?' (default)':''}</option>`).join('')}</select></div>`);
+  const def=l.find(a=>a.default); if(def&&document.getElementById('shAddress')&&!document.getElementById('shAddress').value) pcAddrFill(def);
+};
+function pcAddrFill(a){ const m={shName:a.name,shAddress:a.address,shCity:a.city,shZip:a.zip,shCountry:a.country,shPhone:a.phone}; Object.keys(m).forEach(id=>{ const el=document.getElementById(id); if(el) el.value=m[id]||''; }); }
+document.addEventListener('change',e=>{ if(e.target.id==='pcAddrPick'){ const u=currentUser(), a=(u.addresses||[]).find(x=>x.id===e.target.value); if(a) pcAddrFill(a); } });
+
+/* ---------- Test guide page ---------- */
+let pcGuideTab='start';
+function pcOpenGuide(t){ pcGuideTab=t||'start'; if(currentPath()==='/guide') renderGuide(document.getElementById('app')); else location.hash='#/guide'; }
+const gCode=t=>`<div class="g-code"><pre>${esc(t)}</pre><button class="btn btn-secondary btn-sm" data-copy="${encodeURIComponent(t)}">Copy</button></div>`;
+const gSql=t=>`<div class="g-code"><pre>${esc(t)}</pre><span><button class="btn btn-secondary btn-sm" data-copy="${encodeURIComponent(t)}">Copy</button> <button class="btn btn-primary btn-sm" data-trysql="${encodeURIComponent(t)}">Run in console</button></span></div>`;
+const gApi=(m,u,body,note)=>`<tr><td><b>${m}</b></td><td><code>${esc(u)}</code></td><td>${note||''}</td><td><button class="btn btn-primary btn-sm" data-tryapi="${m}|${encodeURIComponent(u)}|${encodeURIComponent(body||'')}">Try it</button></td></tr>`;
+const gTable=(head,rows)=>`<div class="g-scroll"><table class="g-table"><thead><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+const gSec=(t,b)=>`<section class="g-sec"><h3>${t}</h3>${b}</section>`;
+const PC_GUIDE={
+ start:()=>gSec('Welcome','<p>Purple Cart is a practice sandbox. Everything you change is stored in your browser only, and <b>Demo controls</b> (gear icon in the header) can reset it any time. Use the tabs above for what to test in each area, with ready-made examples.</p>')+
+  gSec('Test accounts',gTable(['Role','Email','Password','What it can do'],[['Admin','admin@purplecart.test','admin123','Everything, including delete'],['Customer','priya@example.com','priya123','Shop, orders, wishlist, addresses'],['Customer','daniel@example.com','daniel123','Has a processing order'],['Manager','manager@example.com','manager123','Admin panel: view, add, edit. Cannot delete'],['Support','support@example.com','support123','Admin panel: view only']]))+
+  gSec('Demo controls (gear icon)','<ul><li><b>API failure simulation:</b> random failures, forced status codes, latency and a rate limit for the mock API.</li><li><b>Storefront bug mode:</b> switches on four known defects to find.</li><li><b>SQL practice</b> and a <b>Reset demo data</b> button.</li></ul>')+
+  gSec('Handy facts','<ul><li>Shipping is free over $50, otherwise $6.99. Tax is 8%.</li><li>Out of stock: <b>AeroWave Lite Earbuds</b> (id 7). Low stock: <b>Titan Racing Wheel</b> (id 12, 9 left).</li><li>Fresh data has 12 products, 6 categories, 3 customers (plus manager and support), 2 orders, 3 reviews.</li></ul>'),
+ store:()=>gSec('Coupon codes (cart page)',gTable(['Code','Effect','Try this','Expected'],[['SAVE10','10% off the subtotal','Add Orbit Mini Speaker ($39.99), apply','Discount of $4.00 shown, total drops'],['WELCOME5','$5 off when the subtotal is $30 or more','Add Orbit Mini Speaker, apply','Discount of $5.00'],['FREESHIP','Removes the $6.99 shipping fee','Add Orbit Mini Speaker (under $50), apply','Discount of $6.99. On a cart over $50 it gives $0'],['EXPIRED20','Always expired','Apply it','Message: "This coupon has expired."'],['ANYTHING-ELSE','Not a coupon','Apply "TEST123"','Message: "Invalid coupon code."']]))+
+  gSec('Search, stock and prices','<ul><li>Search "aero" and "AERO": both return the AeroWave products (unless bug mode makes search case-sensitive).</li><li>Open <b>AeroWave Lite Earbuds</b>: it is out of stock and cannot be added to the cart.</li><li>On-sale items show a compare-at price: AeroWave Pro, Slate 14, Orbit Mini Speaker, Nova Action Cam 2, Orbit Home Soundbar.</li><li>Sort by price low/high and rating on the Shop page, and filter by category.</li></ul>')+
+  gSec('Checkout test data','<p><b>Valid:</b> Name <code>Test User</code>, Address <code>1 Test Street</code>, City <code>Pune</code>, ZIP <code>411001</code>, Country <code>India</code>, Phone <code>5550100</code>.</p><p><b>Negative:</b> leave ZIP or Phone empty. Expected: the field is highlighted and you cannot continue (unless bug mode "Weak checkout validation" is on).</p>')+
+  gSec('Orders, tracking and invoices','<ol><li>Sign in as Priya and place an order.</li><li>My Account &rarr; My orders: the tracker shows <b>pending</b>.</li><li>Sign in as admin, open Admin &rarr; Orders, edit that order and set the status to <b>packed</b>, then <b>shipped</b>, then <b>delivered</b>.</li><li>Back as Priya the tracker follows, with a status history line. Use <b>Invoice</b> to download the invoice.</li></ol>')+
+  gSec('Address book','<p>My Account &rarr; Address book. Add an address (required: name, street, city, ZIP, country). The first one becomes the default and is pre-filled at checkout, where you can also pick another saved address.</p>')+
+  gSec('Bug mode: defects to find',gTable(['Switch','How to see it','Correct behaviour'],[['Wrong tax in cart','Add any item and compare the cart tax with the order total after checkout','Tax is 8% everywhere (bug shows 18% in the cart)'],['Weak checkout validation','Continue with empty ZIP and phone','Both are required'],['Out-of-stock can be bought','Add AeroWave Lite Earbuds to the cart','Cannot be added'],['Case-sensitive search','Search "AERO" in the shop','Matches regardless of case']]))+
+  gSec('Automation hooks','<p>Elements with an id keep it as <code>data-testid</code>. Buttons, links and inputs without an id get <code>btn-</code>, <code>link-</code> or <code>input-</code> plus their text, for example <code>[data-testid="btn-proceed-to-checkout"]</code>. Address cards use <code>address-card-&lt;id&gt;</code>.</p>'),
+ admin:()=>gSec('Who can do what',gTable(['Role','View','Add / edit','Delete','Bulk actions'],[['Admin','Yes','Yes','Yes','Yes'],['Manager','Yes','Yes','No','Edit only'],['Support','Yes','No','No','No']]))+
+  gSec('Add a record (Products)','<p>Admin &rarr; Products &rarr; <b>+ Add new</b>. Example values: Name <code>QA Test Mouse</code>, Category Gaming, Price <code>19.99</code>, Stock <code>25</code>. Save, then find it with the search box. <b>Negative test:</b> leave the name empty and save: the required fields are highlighted.</p>')+
+  gSec('Bulk actions','<p>Tick rows (or the header checkbox), choose an action in the bar above the table, then <b>Apply</b>. Examples: Products &rarr; <i>Adjust price by %</i> with <code>-10</code>; Orders &rarr; <i>Set status to</i> shipped; Reviews &rarr; <i>Set status to</i> approved (the seed has one pending review).</p>')+
+  gSec('CSV export and import','<p>Every table has <b>Export CSV</b>. On Products, <b>Import CSV</b> adds rows from a file like this:</p>'+gCode('name,categoryId,price,stock,description\nQA Mouse,6,19.99,25,Wired optical mouse\nQA Keyboard,4,49.50,12,Compact keyboard')+'<p>Expected: "2 products imported" and two new rows in Products.</p>')+
+  gSec('Dashboard and audit log','<ul><li><b>Dashboard</b>: revenue, orders by status, revenue by day, top sellers, low stock.</li><li><b>Audit Log</b>: records who created, updated or deleted something and every order status change, including changes made through the API.</li></ul><p>Test: edit a product price, then open Audit Log. Expected: an "updated products #id, changed: price" entry for your user.</p>'),
+ api:()=>gSec('Endpoints',gTable(['Method','URL','Notes','Open'],[gApi('GET','/api/products','','200, list as <code>{count,total,results}</code>'),gApi('GET','/api/products/1','','200. Id 999 gives 404'),gApi('POST','/api/products','{\n  "name": "QA Test Mouse",\n  "categoryId": 6,\n  "price": 19.99,\n  "stock": 25\n}','201. Needs auth: 401 without it'),gApi('PUT','/api/products/1','{\n  "name": "AeroWave Pro Headphones",\n  "categoryId": 1,\n  "price": 119.99,\n  "stock": 40\n}','200, replaces the record'),gApi('PATCH','/api/products/1','{\n  "price": 99.99\n}','200, partial update'),gApi('DELETE','/api/products/12','','204. Run it twice: second gives 404'),gApi('HEAD','/api/products','','200 with X-Total-Count header, no body'),gApi('OPTIONS','/api/products','','204 with an Allow header'),gApi('POST','/api/login','{\n  "email": "admin@purplecart.test",\n  "password": "admin123"\n}','200 with a token. Wrong password gives 401'),gApi('GET','/api/categories','','Same pattern for customers, orders, reviews, cms'),gApi('GET','/api/unknown','','404 Unknown resource')].map(r=>r.replace(/^<tr>|<\/tr>$/g,'').split('</td>').slice(0,-1).map(c=>c.replace(/^<td>/,'')).concat([r.match(/<td><button[\s\S]*<\/button>/)[0].replace('<td>','')]).slice(0,4)).map(r=>[r[0],r[1],r[2],r[3]])))+
+  gSec('Filtering, sorting and paging (GET /api/products)',gTable(['URL','Expected'],[['<code>?categoryId=1</code>','Only headphones (2 rows)'],['<code>?q=aero</code>','Text search across fields'],['<code>?minPrice=50&amp;maxPrice=200</code>','Price range'],['<code>?inStock=true</code>','Hides stock 0'],['<code>?_sort=price&amp;_order=desc</code>','Most expensive first'],['<code>?_limit=3&amp;_page=2</code>','3 rows, headers X-Total-Count 12, X-Total-Pages 4']]).replace(/<td><code>(\?[^<]*)<\/code><\/td>/g,(m,q)=>'<td><code>'+q+'</code> <button class="btn btn-secondary btn-sm" data-tryapi="GET|'+encodeURIComponent('/api/products'+q.replace(/&amp;/g,'&'))+'|">Try</button></td>'))+
+  gSec('Authorization that works for POST, PUT, PATCH, DELETE',gTable(['Method','How','Expected'],[['API Key','Type API Key, key <code>X-API-Key</code>, value <code>sandbox-api-key-123</code> (or <code>?apiKey=sandbox-api-key-123</code>)','Write succeeds'],['Bearer Token','Send Login first, copy the token (starts with <code>mock-jwt-</code>), or save it with a Tests script','Write succeeds'],['Basic Auth','Username <code>priya@example.com</code>, password <code>priya123</code>','Write succeeds'],['OAuth 2.0','Fill Client ID with any text and click <b>Get New Access Token</b>','Mock token, write succeeds'],['Digest, OAuth 1.0, Hawk, AWS, NTLM, EdgeGrid, ASAP, JWT','Headers are built like Postman but signatures are simulated','Write returns 401 (check the header in Console / Code)']]))+
+  gSec('Chaining (login token into the next request)','<p>On the Login request, Tests tab:</p>'+gCode('pm.environment.set("authToken", pm.response.json().token);\npm.test("Login works", function () {\n  pm.expect(pm.response.status).to.equal(200);\n});')+'<p>Then use Bearer Token <code>{{authToken}}</code> on the next request.</p>')+
+  gSec('Test script examples',gCode('pm.test("Status is 200", function () {\n  pm.expect(pm.response.status).to.equal(200);\n});\n\npm.test("Fast enough", function () {\n  pm.expect(pm.response.responseTime).to.be.below(500);\n});\n\npm.test("Has results", function () {\n  pm.expect(pm.response.json().results.length).to.not.equal(0);\n});'))+
+  gSec('File upload (form-data)',gTable(['URL','Key','Expected'],[['<code>POST /api/uploadFile</code>','<code>file</code> (Type: File), one file','201'],['<code>POST /api/uploadFile</code>','<code>files</code>','400 wrong key'],['<code>POST /api/uploadFiles</code>','<code>files</code>, one or more files','201'],['<code>POST /api/uploadFiles</code>','<code>file</code>','400 wrong key']]))+
+  gSec('Data-driven run (CSV or Excel)','<p>Create <code>POST /api/products</code> with API Key auth and this raw JSON body:</p>'+gCode('{"name":"{{name}}","categoryId":1,"price":{{price}},"stock":5}')+'<p>Save it in a collection, click <b>Run</b> on the collection, choose a data file like this, then Run:</p>'+gCode('name,price\nTest Mouse,19.99\nTest Cable,4.50\nTest Case,12.00')+'<p>Expected: 3 iterations, three 201 responses, and View Summary / View Documentation buttons in the results.</p>')+
+  gSec('Import, export and code snippets','<ul><li><b>Import</b> (sidebar): paste Postman v2.1 JSON, or a cURL command such as the one below. Export any collection from the same dialog.</li><li><b>Code</b> (next to Save): cURL, JavaScript fetch or Python requests for the current request.</li></ul>'+gCode("curl -X POST 'http://localhost:8080/api/products' -H 'Content-Type: application/json' -H 'X-API-Key: sandbox-api-key-123' -d '{\"name\":\"Imported Mouse\",\"categoryId\":6,\"price\":19.99,\"stock\":10}'")+'<p>Expected: a request is added to an "Imported" collection and opens, ready to Send (201).</p>')+
+  gSec('Failure simulation (gear icon &rarr; Demo controls)',gTable(['Setting','Try','Expected'],[['Force every response to','503','All requests return 503'],['Random failure rate','30','About a third of requests fail with 500, 502 or 503'],['Rate limit','3 per minute','The 4th request in a minute returns 429 with Retry-After'],['Extra latency','800','Response time shows about 800 ms more']])+'<p>Switch these back to normal afterwards.</p>'),
+ db:()=>gSec('Tables','<p>products, categories, customers, orders, reviews, cms. Click a table for its columns, then use <b>ER diagram</b> to see the relationships.</p>')+
+  gSec('SQL you can run now (fresh data)',[['Products over $100, most expensive first','SELECT name, price FROM products WHERE price > 100 ORDER BY price DESC LIMIT 5;','5 rows, first is Slate 14 Ultrabook at 1099'],['Count and average price per category','SELECT categoryId, COUNT(*) AS total, AVG(price) AS avg_price FROM products GROUP BY categoryId HAVING COUNT(*) > 1 ORDER BY total DESC;','6 rows, each total = 2'],['Join products to categories','SELECT p.name, c.name AS category, p.price FROM products p JOIN categories c ON p.categoryId = c.id WHERE p.stock > 0 ORDER BY p.price;','11 rows, cheapest first'],['Categories with their product count','SELECT c.name, COUNT(p.id) AS products FROM categories c LEFT JOIN products p ON p.categoryId = c.id GROUP BY c.name;','6 rows, each 2'],['Stock range and OR','SELECT name, stock FROM products WHERE stock BETWEEN 1 AND 20 OR name LIKE \'%Earbuds%\';','Low-stock items plus the earbuds'],['Distinct order statuses','SELECT DISTINCT status FROM orders;','delivered, processing'],['IN and IS NOT NULL','SELECT name, role FROM customers WHERE email IS NOT NULL AND role IN (\'customer\',\'manager\');','Priya, Daniel, Maya'],['Update with arithmetic','UPDATE products SET price = price * 0.9 WHERE categoryId = 6;','2 rows updated (prices 10% lower)'],['Insert','INSERT INTO categories (name, slug, icon, description) VALUES (\'Accessories\',\'accessories\',\'tag\',\'Cables and cases\');','1 row inserted'],['Delete','DELETE FROM reviews WHERE status = \'pending\';','1 row deleted'],['Query plan','EXPLAIN SELECT * FROM products WHERE price > 50 ORDER BY price;','Scan, Filter, Sort, Project steps']].map(([t,q,e])=>`<div class="g-ex"><b>${t}</b>${gSql(q)}<small>Expected: ${e}</small></div>`).join(''))+
+  gSec('Saved queries and history','<p>Type a query, click <b>Save query</b> and name it. Pick it again from the <b>Saved queries</b> list. The sidebar keeps this session\'s history. Changes made by UPDATE, INSERT and DELETE show up in Admin and the Audit Log; use Demo controls &rarr; Reset to undo.</p>')+
+  gSec('Practice challenges','<p>Open Demo controls (gear icon) &rarr; SQL practice for six exercises with solutions you can reveal.</p>'),
+ perf:()=>gSec('Quick recipes',gTable(['Goal','Thread group settings','Expect'],[['Smoke test','5 threads, ramp-up 2, duration 10, Linear','No errors, p95 well under 500 ms'],['Load test','30 threads, ramp-up 10, duration 30, Linear','Response times rise a little as users join'],['Step load','40 threads, ramp-up 12, duration 40, profile Step','Four visible batches of new users'],['Spike','50 threads, ramp-up 10, profile Spike','A few early users, then a burst at about 6 seconds'],['Soak','10 threads, ramp-up 10, duration 60, profile Soak','Steady throughput for the whole run']]))+
+  gSec('Parameterised load (CSV data set)','<p>Test Plan &rarr; <b>CSV Data Set</b> &rarr; choose a file. Set the HTTP Request path to <code>/api/products/{{productId}}</code> and use:</p>'+gCode('productId\n1\n2\n3\n4\n999')+'<p>Expected: samples for ids 1 to 4 pass and id 999 returns 404, so the error rate is about 20%.</p>')+
+  gSec('Run history and comparison','<ol><li>Run a smoke test and let it finish (or Stop it): the run is saved automatically.</li><li>Under Listeners choose <b>Run History &amp; Compare</b>.</li><li>Run again with more threads, then pick the first run as Baseline and the second as Candidate.</li></ol><p>Expected: a table of changes with green and red percentages and a "No regression" or "Regression detected" verdict.</p>')+
+  gSec('Reports','<ul><li><b>Save as .html / PDF</b>: a stand-alone report. Open it and press Print to save as PDF.</li><li><b>Save as .json</b> and <b>.csv</b>: raw data.</li><li>In Run History each run has its own <b>HTML</b> download.</li></ul>')+
+  gSec('Combine with failure simulation','<p>Set the Test Plan "Injected error rate" to 10% or use Demo controls &rarr; Force status / Rate limit, then run the same plan again and compare: errors and p95 should show as a regression.</p>')+
+  gSec('Reading the numbers','<ul><li><b>Average</b>: mean response time. <b>p95</b>: 95% of requests were faster than this.</li><li><b>Error %</b>: share of responses with status 400 or higher.</li><li><b>Throughput</b>: requests per second.</li><li>SLA passes when p95 is at or below the Duration Assertion threshold.</li></ul>')
+};
+function renderGuide(root){
+  const tabs=[['start','Start here'],['store','Storefront'],['admin','Admin'],['api','API Client'],['db','Database'],['perf','Performance']];
+  root.innerHTML=`<div class="tool-shell guide"><div class="tool-topbar" id="guideTabs">${tabs.map(([k,l])=>`<button class="tool-tab ${pcGuideTab===k?'active':''}" data-gtab="${k}">${l}</button>`).join('')}</div>
+   <div class="tool-body container"><div class="tool-panel-title">Test guide</div><div class="tool-panel-sub">What exists in each area, which values work, and what result to expect. Buttons open the example in the real tool.</div><div class="guide-body">${PC_GUIDE[pcGuideTab]()}</div></div></div>`;
+}
+document.addEventListener('click',e=>{
+  const gt=e.target.closest('[data-gtab]'); if(gt){ pcGuideTab=gt.dataset.gtab; renderGuide(document.getElementById('app')); window.scrollTo(0,0); return; }
+  const cp=e.target.closest('[data-copy]'); if(cp){ const t=decodeURIComponent(cp.dataset.copy); try{ navigator.clipboard.writeText(t); }catch(x){} showToast('Copied','success'); return; }
+  const ta=e.target.closest('[data-tryapi]'); if(ta){ const [m,u,b]=ta.dataset.tryapi.split('|'); pcTryApi(m,decodeURIComponent(u),decodeURIComponent(b||'')); return; }
+  const ts=e.target.closest('[data-trysql]'); if(ts){ window.pcPendingSql=decodeURIComponent(ts.dataset.trysql); dbViewMode='data'; location.hash='#/database'; if(currentPath()==='/database') renderDatabase(document.getElementById('app')); return; }
+  const gb=e.target.closest('[data-guide]'); if(gb){ pcOpenGuide(gb.dataset.guide); return; }
+});
+function pcTryApi(m,u,b){
+  pmState.method=m; pmState.url=u; pmState.name='Guide: '+m+' '+u; pmState.savedId=null; pmState.params=[{k:'',v:''}];
+  pmState.bodyType=b?'raw':'none'; pmState.rawType='JSON'; pmState.body=b||''; pmState.activeReqTab=b?'body':'params';
+  pmState.auth=(m==='GET'||m==='HEAD'||m==='OPTIONS'||u.endsWith('/login'))?{type:'none'}:{type:'apikey',apiKeyName:'X-API-Key',apiKeyValue:'sandbox-api-key-123',apiKeyIn:'header'};
+  if(currentPath()==='/api') renderPostman(document.getElementById('app')); else location.hash='#/api';
+}
+/* "Test guide" shortcuts on the tool pages */
+function pcGuideLink(tab,host){ if(!host||host.querySelector('[data-guide]')) return; host.insertAdjacentHTML('beforeend',`<button class="btn btn-secondary btn-sm pc-guide-btn" data-guide="${tab}">${pcI('book')} Test guide</button>`); }
+const _pcRpm=renderPostman; renderPostman=function(root){ _pcRpm(root); pcGuideLink('api',document.querySelector('.pm-title-row')); };
+const _pcRdbg=renderDatabase; renderDatabase=function(root){ _pcRdbg(root); pcGuideLink('db',document.querySelector('.sql-toolbar > div')); };
+const _pcRpf=renderPerformance; renderPerformance=function(root){ _pcRpf(root); pcGuideLink('perf',document.querySelector('.jm-toolbar-export')); };
+const _pcRad=renderAdmin; renderAdmin=function(root){ _pcRad(root); const t=document.getElementById('adminTabs'); if(t&&!t.querySelector('[data-guide]')) t.insertAdjacentHTML('beforeend','<button class="tool-tab" data-guide="admin">Test guide</button>'); };
+
+/* ---------- Accessibility ---------- */
+(function(){
+  document.documentElement.lang=document.documentElement.lang||'en';
+  const app=document.getElementById('app'); if(app){ app.setAttribute('role','main'); app.setAttribute('tabindex','-1'); }
+  if(!document.querySelector('.skip-link')) document.body.insertAdjacentHTML('afterbegin','<a class="skip-link" href="#/home" onclick="var a=document.getElementById(\'app\');if(a){a.focus();}return false;">Skip to content</a>');
+  new MutationObserver(ms=>{ ms.forEach(m=>m.addedNodes.forEach(n=>{ if(n.nodeType!==1) return; [n,...n.querySelectorAll('button,a,td')].forEach(e=>{
+    if(e.tagName==='TD'){ if(!e.title){ const t=(e.textContent||'').trim(); if(t.length>0&&t.length<200&&e.closest('.data-table')) e.title=t; } return; }
+    if(!e.hasAttribute('aria-label')&&!(e.textContent||'').trim()){ const l=e.getAttribute('title')||e.getAttribute('data-testid'); if(l) e.setAttribute('aria-label',l); } }); })); }).observe(document.body,{childList:true,subtree:true});
+})();
+
 </script>
 <script>
 /* ---------------------------- INIT ---------------------------- */
