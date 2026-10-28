@@ -705,6 +705,63 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .cmp-good{color:#7fd9b9;font-weight:700;}.cmp-bad{color:#ff9d92;font-weight:700;}.cmp-same{color:var(--purple-300);}
 .cmp-verdict{margin:14px 0;padding:10px 14px;border-radius:var(--radius-s);font-size:0.86rem;font-weight:600;}.cmp-verdict.good{background:rgba(31,169,113,0.15);color:#7fd9b9;}.cmp-verdict.bad{background:rgba(224,71,60,0.15);color:#ff9d92;}
 .pc-csvinfo{margin-top:10px;color:var(--purple-100);font-size:0.84rem;}.pc-csvinfo code{background:rgba(255,255,255,0.1);color:#fff;padding:1px 6px;border-radius:5px;}
+
+/* ===== extras 3 ===== */
+.tool-tab{background:none;border:0;border-bottom:2.5px solid transparent;font-family:inherit;}
+.tool-tab:hover{color:#fff;background:rgba(255,255,255,0.08);}
+.tool-tab.active{color:#fff;border-bottom-color:var(--purple-400);}
+.tr-row{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
+.tr-name{color:#fff;font-size:0.85rem;}.tr-ok{color:#7fd9b9;font-weight:700;}.tr-bad{color:#ff9d92;font-weight:700;}
+.tr-err{color:#ff9d92;font-size:0.78rem;margin-top:3px;}.tr-empty{color:var(--purple-300);}
+.pm-light .tr-row{border-color:#ececf3;}.pm-light .tr-name{color:#1f1f2b;}.pm-light .tr-ok{color:#0a8a5f;}.pm-light .tr-bad,.pm-light .tr-err{color:#c0392b;}.pm-light .tr-empty{color:#6a6a7c;}
+.pm-light .pm-panel [style*="color:#fff"],.pm-light .pm-response-wrap [style*="color:#fff"],.pm-light .rr-panel [style*="color:#fff"],.pm-light .var-card [style*="color:#fff"]{color:#1f1f2b !important;}
+.pm-light [style*="color:#7fd9b9"]{color:#0a8a5f !important;}.pm-light [style*="color:#ff9d92"]{color:#c0392b !important;}
+.pm-light .rr-t,.pm-light .rr-ms,.pm-light .rr-sub{color:#4d4d60;}.pm-light .rr-iter,.pm-light .rr-iter span{color:#4d4d60;}
+.pm-light .rr-tab{color:#6a6a7c;}.pm-light .rr-tab.active{color:#1f1f2b;}
+.pm-light .status-badge{font-weight:700;}
+.bf-row{display:grid;grid-template-columns:190px 1fr;gap:10px;align-items:center;margin-bottom:10px;}.bf-chk{display:flex;gap:8px;align-items:center;font-size:0.84rem;font-weight:600;}
+.bf-row .pm-in{width:100%;}.bf-row .pm-in:disabled{opacity:0.45;}
+.guide .tool-tab{color:var(--purple-300);}.guide .tool-tab:hover,.guide .tool-tab.active{color:#fff;}
+/* ===== mobile polish ===== */
+@media (max-width:900px){
+  .pm-layout{flex-direction:column;}.pm-sidebar{width:100% !important;position:static !important;max-height:none !important;}.pm-tree-wrap{max-height:40vh;}
+  .jm-shell{grid-template-columns:1fr;}.jm-tree{max-height:260px;overflow-y:auto;border-bottom:1px solid rgba(255,255,255,0.08);}
+  .db-layout{grid-template-columns:1fr;min-height:0;}.db-sidebar{border-right:0;border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 0;}
+  .pm-request-bar{flex-wrap:wrap;}.pm-request-bar .pm-url{flex:1 1 100%;order:3;min-width:0;}.pm-request-bar .pm-method{flex:0 0 120px;}
+  .pm-tabs{overflow-x:auto;white-space:nowrap;}.rr-head{flex-direction:column;align-items:flex-start;}.rr-item summary{flex-wrap:wrap;gap:6px 10px;}.rr-t{text-align:left;min-width:0;}
+  .var-head,.kv-row{grid-template-columns:1fr 1fr 34px;}.au-wrap{grid-template-columns:1fr;}
+  .hero-grid,.footer-grid{grid-template-columns:1fr;}.product-grid{grid-template-columns:repeat(2,1fr);gap:14px;}
+  .modal-box{max-width:94vw !important;}.field-row{grid-template-columns:1fr;}
+  .pm-dock{font-size:0.8rem;}.pm-dock-bar{overflow-x:auto;}.tool-topbar{padding:0 8px;}.tool-tab{padding:14px 12px;}
+  .guide-body{padding:4px 14px 18px;}.g-table th,.g-table td{padding:8px 8px;}.dash-kpis{grid-template-columns:repeat(2,1fr);}
+  .bulk-bar{align-items:stretch;}.bulk-bar select,.bulk-bar input,.bulk-bar .btn{flex:1 1 100%;}.bf-row{grid-template-columns:1fr;}
+  .trk-steps{gap:2px;}.trk-step{font-size:0.66rem;}
+}
+@media (max-width:560px){
+  .product-grid{grid-template-columns:1fr 1fr;gap:10px;}.tool-panel-title{font-size:1.1rem;}
+  input,select,textarea{font-size:16px;}.btn{min-height:40px;}.pm-tree-actions button,.kv-remove{min-width:34px;min-height:34px;}
+  .au-fields{grid-template-columns:1fr;}.pm-theme-seg span{display:none;}.fd-grid.fd,.fd-grid.ue{grid-template-columns:1fr;}.fd-grid>div:empty{display:none;}
+  .rr-cols{grid-template-columns:1fr;}.jm-toolbar-export{margin-left:0;}.pm-dock-tab{padding:8px 8px;}
+}
+/* ===== performance readability ===== */
+.jm-main-body label,.jm-main-body .field label{color:var(--purple-100) !important;}
+.jm-main-body .field input,.jm-main-body .field select,.jm-main-body .field textarea,.jm-main-body input[type=text],.jm-main-body input[type=number],.jm-main-body select,.jm-main-body textarea{background:#150b28;color:#fff;border:1.5px solid rgba(255,255,255,0.2);}
+.jm-main-body .field input:focus,.jm-main-body .field select:focus,.jm-main-body .field textarea:focus{border-color:var(--purple-400);background:#1c0f38;}
+.jm-main-body input::placeholder,.jm-main-body textarea::placeholder{color:var(--purple-300);opacity:1;}
+.jm-main-body .field-hint,.jm-main-body .field-hint *{color:var(--purple-300) !important;}
+.jm-main-body .jm-checkbox-row,.jm-main-body .jm-checkbox-row label{color:var(--purple-100) !important;}
+.jm-main-body select option{background:#150b28;color:#fff;}
+.jm-main-body p,.jm-main-body li,.jm-main-body .jm-panel-sub{color:var(--purple-200);}
+.jm-main-body code{background:rgba(255,255,255,0.12);color:#fff;padding:1px 6px;border-radius:5px;}
+.jm-main-body h5,.jm-main-body h4,.jm-main-body h3{color:#fff;}
+.jm-main-body .perf-chart-box h5,.perf-status-breakdown h5{color:var(--purple-100) !important;}
+.jm-main-body table th{color:var(--purple-100);}
+.perf-config .field label,.jm-toolbar label{color:var(--purple-100) !important;}
+.jm-toolbar-status,.jm-toolbar span{color:var(--purple-100);}
+.jm-toolbar input,.jm-toolbar select{background:#150b28;color:#fff;border:1px solid rgba(255,255,255,0.2);}
+.jm-tree-node{color:var(--purple-100);}.jm-tree-node.disabled{color:var(--purple-300);opacity:0.8;}
+.jm-main-body .jm-hint,.jm-main-body small{color:var(--purple-300);}
+@media (max-width:900px){.jm-main-body{padding:16px 14px;}.jm-main-body .field-row{grid-template-columns:1fr;}.jm-toolbar{padding:12px 14px;}.jm-report-table-wrap{overflow-x:auto;}.dash-card{max-width:none !important;}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -1112,7 +1169,7 @@ function renderHome(root){
 
   <section class="trust-strip">
     <div class="container trust-grid">
-      <div class="trust-item"><div class="ic">🚚</div><div><b>Free shipping</b><span>On orders over $50</span></div></div>
+      <div class="trust-item"><div class="ic">🚚</div><div><b>Free shipping</b><span>On orders over $${pcCfg().freeOver}</span></div></div>
       <div class="trust-item"><div class="ic">↩️</div><div><b>30-day returns</b><span>No questions asked</span></div></div>
       <div class="trust-item"><div class="ic">🔒</div><div><b>Secure checkout</b><span>Simulated encryption</span></div></div>
       <div class="trust-item"><div class="ic">🎧</div><div><b>24/7 support</b><span>Mock live chat</span></div></div>
@@ -1493,8 +1550,8 @@ function renderCart(root){
   }
   const items=SESSION.cart.map(i=>({...i,product:productById(i.productId)})).filter(i=>i.product);
   const subtotal=items.reduce((s,i)=>s+i.product.price*i.qty,0);
-  const shipping=subtotal>50?0:6.99;
-  const tax=subtotal*(pcBug('wrongTax')?0.18:0.08);
+  const shipping=pcShipFor(subtotal);
+  const tax=subtotal*(pcBug('wrongTax')?0.18:pcTaxRate());
   const total=subtotal+shipping+tax-pcCoupon(subtotal).discount;
   root.innerHTML=`
   <div class="page-hero"><div class="container"><div class="breadcrumb"><b>Home</b> / Cart</div><h1 class="page-title">Your cart</h1></div></div>
@@ -1565,8 +1622,8 @@ function stepTrackHTML(step){
 function orderSummaryHTML(){
   const items=SESSION.cart.map(i=>({...i,product:productById(i.productId)})).filter(i=>i.product);
   const subtotal=items.reduce((s,i)=>s+i.product.price*i.qty,0);
-  const shipping=subtotal>50?0:6.99;
-  const tax=subtotal*0.08;
+  const shipping=pcShipFor(subtotal);
+  const tax=subtotal*pcTaxRate();
   const total=subtotal+shipping+tax-pcCoupon(subtotal).discount;
   return `<div class="summary-card">
     <h3 style="margin-bottom:16px;">Order summary</h3>
@@ -1698,8 +1755,8 @@ function placeOrder(){
   if(!currentUser()){ showToast('Please sign in to place an order.'); location.hash='#/login'; return; }
   const items=SESSION.cart.map(i=>({productId:i.productId,qty:i.qty,price:productById(i.productId).price}));
   const subtotal=items.reduce((s,i)=>s+i.price*i.qty,0);
-  const shipping=subtotal>50?0:6.99;
-  const tax=subtotal*0.08;
+  const shipping=pcShipFor(subtotal);
+  const tax=subtotal*pcTaxRate();
   const order={
     id:DB.nextIds.order++, customerId:currentUser().id, items,
     shipping:checkoutState.shipping, payment:checkoutState.payment,
@@ -4014,11 +4071,11 @@ function runPmTests(script,result,ms,headers){
   return results;
 }
 function renderPmTestResultsHTML(results){
-  if(!results.length) return '<p style="color:var(--purple-300);">No tests were run. Add assertions in the "Tests" tab, then hit Send.</p>';
+  if(!results.length) return '<p class="tr-empty">No tests were run. Add assertions in the "Tests" tab, then hit Send.</p>';
   return results.map(t=>`
-    <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);">
-      <span style="color:${t.pass?'#7fd9b9':'#ff9d92'};font-weight:700;">${t.pass?I('check'):I('cross')}</span>
-      <div><div style="color:#fff;font-size:0.85rem;">${esc(t.name)}</div>${t.error?`<div style="color:#ff9d92;font-size:0.78rem;margin-top:3px;">${esc(t.error)}</div>`:''}</div>
+    <div class="tr-row">
+      <span class="${t.pass?'tr-ok':'tr-bad'}">${t.pass?I('check'):I('cross')}</span>
+      <div><div class="tr-name">${esc(t.name)}</div>${t.error?`<div class="tr-err">${esc(t.error)}</div>`:''}</div>
     </div>`).join('');
 }
 </script>
@@ -4959,7 +5016,7 @@ document.addEventListener('change',e=>{ if(e.target.id==='pcCodeLang') pcRenderC
 const PC_COUPONS={SAVE10:{type:'pct',v:10},WELCOME5:{type:'flat',v:5,min:30},FREESHIP:{type:'ship'},EXPIRED20:{type:'pct',v:20,expired:true}};
 function pcCoupon(subtotal){
   const code=(typeof SESSION!=='undefined'&&SESSION)?SESSION.coupon:''; const c=code&&PC_COUPONS[code]; if(!c||c.expired||(c.min&&subtotal<c.min)) return {code:code||'',discount:0};
-  const d=c.type==='pct'?subtotal*c.v/100:c.type==='flat'?c.v:(subtotal>50?0:6.99); return {code,discount:+d.toFixed(2)};
+  const d=c.type==='pct'?subtotal*c.v/100:c.type==='flat'?c.v:(pcShipFor(subtotal)); return {code,discount:+d.toFixed(2)};
 }
 function pcDiscountRow(subtotal){ const c=pcCoupon(subtotal); return c.discount>0?`<div class="summary-row" style="color:var(--success);"><span>Discount (${esc(c.code)})</span><span>-${fmtMoney(c.discount)}</span></div>`:''; }
 function pcCouponBox(){ const cur=SESSION.coupon||''; return `<div class="pc-coupon"><input id="couponInput" placeholder="Coupon code" value="${esc(cur)}"><button class="btn btn-secondary btn-sm" id="applyCouponBtn" onclick="pcApplyCoupon()">Apply</button>${cur?`<button class="btn btn-ghost btn-sm" onclick="pcClearCoupon()">Remove</button>`:''}</div>`; }
@@ -5351,14 +5408,14 @@ let pcGuideTab='start';
 function pcOpenGuide(t){ pcGuideTab=t||'start'; if(currentPath()==='/guide') renderGuide(document.getElementById('app')); else location.hash='#/guide'; }
 const gCode=t=>`<div class="g-code"><pre>${esc(t)}</pre><button class="btn btn-secondary btn-sm" data-copy="${encodeURIComponent(t)}">Copy</button></div>`;
 const gSql=t=>`<div class="g-code"><pre>${esc(t)}</pre><span><button class="btn btn-secondary btn-sm" data-copy="${encodeURIComponent(t)}">Copy</button> <button class="btn btn-primary btn-sm" data-trysql="${encodeURIComponent(t)}">Run in console</button></span></div>`;
-const gApi=(m,u,body,note)=>`<tr><td><b>${m}</b></td><td><code>${esc(u)}</code></td><td>${note||''}</td><td><button class="btn btn-primary btn-sm" data-tryapi="${m}|${encodeURIComponent(u)}|${encodeURIComponent(body||'')}">Try it</button></td></tr>`;
+const gApi=(m,u,body,note)=>['<b>'+m+'</b>','<code>'+esc(u)+'</code>',note||'','<button class="btn btn-primary btn-sm" data-tryapi="'+m+'|'+encodeURIComponent(u)+'|'+encodeURIComponent(body||'')+'">Try it</button>'];
 const gTable=(head,rows)=>`<div class="g-scroll"><table class="g-table"><thead><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 const gSec=(t,b)=>`<section class="g-sec"><h3>${t}</h3>${b}</section>`;
 const PC_GUIDE={
  start:()=>gSec('Welcome','<p>Purple Cart is a practice sandbox. Everything you change is stored in your browser only, and <b>Demo controls</b> (gear icon in the header) can reset it any time. Use the tabs above for what to test in each area, with ready-made examples.</p>')+
   gSec('Test accounts',gTable(['Role','Email','Password','What it can do'],[['Admin','admin@purplecart.test','admin123','Everything, including delete'],['Customer','priya@example.com','priya123','Shop, orders, wishlist, addresses'],['Customer','daniel@example.com','daniel123','Has a processing order'],['Manager','manager@example.com','manager123','Admin panel: view, add, edit. Cannot delete'],['Support','support@example.com','support123','Admin panel: view only']]))+
   gSec('Demo controls (gear icon)','<ul><li><b>API failure simulation:</b> random failures, forced status codes, latency and a rate limit for the mock API.</li><li><b>Storefront bug mode:</b> switches on four known defects to find.</li><li><b>SQL practice</b> and a <b>Reset demo data</b> button.</li></ul>')+
-  gSec('Handy facts','<ul><li>Shipping is free over $50, otherwise $6.99. Tax is 8%.</li><li>Out of stock: <b>AeroWave Lite Earbuds</b> (id 7). Low stock: <b>Titan Racing Wheel</b> (id 12, 9 left).</li><li>Fresh data has 12 products, 6 categories, 3 customers (plus manager and support), 2 orders, 3 reviews.</li></ul>'),
+  gSec('Handy facts','<ul><li>By default shipping is free over $50 (otherwise $6.99) and tax is 8%. Admin &rarr; Store Settings can change all three.</li><li>Out of stock: <b>AeroWave Lite Earbuds</b> (id 7). Low stock: <b>Titan Racing Wheel</b> (id 12, 9 left).</li><li>Fresh data has 12 products, 6 categories, 3 customers (plus manager and support), 2 orders, 3 reviews.</li></ul>'),
  store:()=>gSec('Coupon codes (cart page)',gTable(['Code','Effect','Try this','Expected'],[['SAVE10','10% off the subtotal','Add Orbit Mini Speaker ($39.99), apply','Discount of $4.00 shown, total drops'],['WELCOME5','$5 off when the subtotal is $30 or more','Add Orbit Mini Speaker, apply','Discount of $5.00'],['FREESHIP','Removes the $6.99 shipping fee','Add Orbit Mini Speaker (under $50), apply','Discount of $6.99. On a cart over $50 it gives $0'],['EXPIRED20','Always expired','Apply it','Message: "This coupon has expired."'],['ANYTHING-ELSE','Not a coupon','Apply "TEST123"','Message: "Invalid coupon code."']]))+
   gSec('Search, stock and prices','<ul><li>Search "aero" and "AERO": both return the AeroWave products (unless bug mode makes search case-sensitive).</li><li>Open <b>AeroWave Lite Earbuds</b>: it is out of stock and cannot be added to the cart.</li><li>On-sale items show a compare-at price: AeroWave Pro, Slate 14, Orbit Mini Speaker, Nova Action Cam 2, Orbit Home Soundbar.</li><li>Sort by price low/high and rating on the Shop page, and filter by category.</li></ul>')+
   gSec('Checkout test data','<p><b>Valid:</b> Name <code>Test User</code>, Address <code>1 Test Street</code>, City <code>Pune</code>, ZIP <code>411001</code>, Country <code>India</code>, Phone <code>5550100</code>.</p><p><b>Negative:</b> leave ZIP or Phone empty. Expected: the field is highlighted and you cannot continue (unless bug mode "Weak checkout validation" is on).</p>')+
@@ -5371,7 +5428,7 @@ const PC_GUIDE={
   gSec('Bulk actions','<p>Tick rows (or the header checkbox), choose an action in the bar above the table, then <b>Apply</b>. Examples: Products &rarr; <i>Adjust price by %</i> with <code>-10</code>; Orders &rarr; <i>Set status to</i> shipped; Reviews &rarr; <i>Set status to</i> approved (the seed has one pending review).</p>')+
   gSec('CSV export and import','<p>Every table has <b>Export CSV</b>. On Products, <b>Import CSV</b> adds rows from a file like this:</p>'+gCode('name,categoryId,price,stock,description\nQA Mouse,6,19.99,25,Wired optical mouse\nQA Keyboard,4,49.50,12,Compact keyboard')+'<p>Expected: "2 products imported" and two new rows in Products.</p>')+
   gSec('Dashboard and audit log','<ul><li><b>Dashboard</b>: revenue, orders by status, revenue by day, top sellers, low stock.</li><li><b>Audit Log</b>: records who created, updated or deleted something and every order status change, including changes made through the API.</li></ul><p>Test: edit a product price, then open Audit Log. Expected: an "updated products #id, changed: price" entry for your user.</p>'),
- api:()=>gSec('Endpoints',gTable(['Method','URL','Notes','Open'],[gApi('GET','/api/products','','200, list as <code>{count,total,results}</code>'),gApi('GET','/api/products/1','','200. Id 999 gives 404'),gApi('POST','/api/products','{\n  "name": "QA Test Mouse",\n  "categoryId": 6,\n  "price": 19.99,\n  "stock": 25\n}','201. Needs auth: 401 without it'),gApi('PUT','/api/products/1','{\n  "name": "AeroWave Pro Headphones",\n  "categoryId": 1,\n  "price": 119.99,\n  "stock": 40\n}','200, replaces the record'),gApi('PATCH','/api/products/1','{\n  "price": 99.99\n}','200, partial update'),gApi('DELETE','/api/products/12','','204. Run it twice: second gives 404'),gApi('HEAD','/api/products','','200 with X-Total-Count header, no body'),gApi('OPTIONS','/api/products','','204 with an Allow header'),gApi('POST','/api/login','{\n  "email": "admin@purplecart.test",\n  "password": "admin123"\n}','200 with a token. Wrong password gives 401'),gApi('GET','/api/categories','','Same pattern for customers, orders, reviews, cms'),gApi('GET','/api/unknown','','404 Unknown resource')].map(r=>r.replace(/^<tr>|<\/tr>$/g,'').split('</td>').slice(0,-1).map(c=>c.replace(/^<td>/,'')).concat([r.match(/<td><button[\s\S]*<\/button>/)[0].replace('<td>','')]).slice(0,4)).map(r=>[r[0],r[1],r[2],r[3]])))+
+ api:()=>gSec('Endpoints',gTable(['Method','URL','Notes','Open'],[gApi('GET','/api/products','','200, list as <code>{count,total,results}</code>'),gApi('GET','/api/products/1','','200. Id 999 gives 404'),gApi('POST','/api/products','{\n  "name": "QA Test Mouse",\n  "categoryId": 6,\n  "price": 19.99,\n  "stock": 25\n}','201. Needs auth: 401 without it'),gApi('PUT','/api/products/1','{\n  "name": "AeroWave Pro Headphones",\n  "categoryId": 1,\n  "price": 119.99,\n  "stock": 40\n}','200, replaces the record'),gApi('PATCH','/api/products/1','{\n  "price": 99.99\n}','200, partial update'),gApi('DELETE','/api/products/12','','204. Run it twice: second gives 404'),gApi('HEAD','/api/products','','200 with X-Total-Count header, no body'),gApi('OPTIONS','/api/products','','204 with an Allow header'),gApi('POST','/api/login','{\n  "email": "admin@purplecart.test",\n  "password": "admin123"\n}','200 with a token. Wrong password gives 401'),gApi('GET','/api/categories','','Same pattern for customers, orders, reviews, cms'),gApi('GET','/api/unknown','','404 Unknown resource')]))+
   gSec('Filtering, sorting and paging (GET /api/products)',gTable(['URL','Expected'],[['<code>?categoryId=1</code>','Only headphones (2 rows)'],['<code>?q=aero</code>','Text search across fields'],['<code>?minPrice=50&amp;maxPrice=200</code>','Price range'],['<code>?inStock=true</code>','Hides stock 0'],['<code>?_sort=price&amp;_order=desc</code>','Most expensive first'],['<code>?_limit=3&amp;_page=2</code>','3 rows, headers X-Total-Count 12, X-Total-Pages 4']]).replace(/<td><code>(\?[^<]*)<\/code><\/td>/g,(m,q)=>'<td><code>'+q+'</code> <button class="btn btn-secondary btn-sm" data-tryapi="GET|'+encodeURIComponent('/api/products'+q.replace(/&amp;/g,'&'))+'|">Try</button></td>'))+
   gSec('Authorization that works for POST, PUT, PATCH, DELETE',gTable(['Method','How','Expected'],[['API Key','Type API Key, key <code>X-API-Key</code>, value <code>sandbox-api-key-123</code> (or <code>?apiKey=sandbox-api-key-123</code>)','Write succeeds'],['Bearer Token','Send Login first, copy the token (starts with <code>mock-jwt-</code>), or save it with a Tests script','Write succeeds'],['Basic Auth','Username <code>priya@example.com</code>, password <code>priya123</code>','Write succeeds'],['OAuth 2.0','Fill Client ID with any text and click <b>Get New Access Token</b>','Mock token, write succeeds'],['Digest, OAuth 1.0, Hawk, AWS, NTLM, EdgeGrid, ASAP, JWT','Headers are built like Postman but signatures are simulated','Write returns 401 (check the header in Console / Code)']]))+
   gSec('Chaining (login token into the next request)','<p>On the Login request, Tests tab:</p>'+gCode('pm.environment.set("authToken", pm.response.json().token);\npm.test("Login works", function () {\n  pm.expect(pm.response.status).to.equal(200);\n});')+'<p>Then use Bearer Token <code>{{authToken}}</code> on the next request.</p>')+
@@ -5424,6 +5481,206 @@ const _pcRad=renderAdmin; renderAdmin=function(root){ _pcRad(root); const t=docu
   new MutationObserver(ms=>{ ms.forEach(m=>m.addedNodes.forEach(n=>{ if(n.nodeType!==1) return; [n,...n.querySelectorAll('button,a,td')].forEach(e=>{
     if(e.tagName==='TD'){ if(!e.title){ const t=(e.textContent||'').trim(); if(t.length>0&&t.length<200&&e.closest('.data-table')) e.title=t; } return; }
     if(!e.hasAttribute('aria-label')&&!(e.textContent||'').trim()){ const l=e.getAttribute('title')||e.getAttribute('data-testid'); if(l) e.setAttribute('aria-label',l); } }); })); }).observe(document.body,{childList:true,subtree:true});
+})();
+
+</script>
+<script>
+
+/* ============ EXTRAS 3: bulk field editor ============ */
+Object.keys(PC_BULK).forEach(k=>{ const m=adminModules[k]; if(m&&m.fields&&m.fields.length){ const a=PC_BULK[k]; a.splice(a.length-1,0,['fields','Edit several fields...']); } });
+let pcBulkIds=[];
+function pcBulkFieldsOpen(ids){
+  const mod=adminModules[adminActiveTab]; pcBulkIds=ids; pcModal('pcBulkModal','Edit fields',580);
+  const fields=(mod.fields||[]).filter(f=>f.type!=='password'&&f.key!=='password'&&f.key!=='id');
+  const ctl=(f,i)=>{
+    if(f.type==='select') return `<select class="pm-in" data-bfv="${i}" disabled>${(f.options?f.options():[]).map(o=>`<option value="${esc(o.value)}">${esc(o.label)}</option>`).join('')}</select>`;
+    if(f.type==='textarea') return `<textarea class="pm-in" rows="2" data-bfv="${i}" disabled></textarea>`;
+    return `<input class="pm-in" type="${f.type==='number'?'number':'text'}" ${f.step?'step="'+f.step+'"':''} data-bfv="${i}" disabled>`;
+  };
+  document.getElementById('pcBulkModalBody').innerHTML=`<p class="pc-hint">Tick each field you want to change and enter its new value. It is applied to all <b>${ids.length}</b> selected record(s). Fields you leave unticked are not touched.</p>
+   ${fields.map((f,i)=>`<div class="bf-row"><label class="bf-chk"><input type="checkbox" data-bf="${i}"> ${esc(f.label)}</label>${ctl(f,i)}</div>`).join('')}
+   <div id="bfErr" class="pm-err"></div><div class="modal-foot" style="padding:14px 0 0;border:0;"><button class="btn btn-secondary" onclick="closeModal('pcBulkModal')">Cancel</button><button class="btn btn-primary" id="pcBulkFieldsGo">Apply to ${ids.length} record(s)</button></div>`;
+  document.getElementById('pcBulkModal')._fields=fields; openModal('pcBulkModal');
+}
+function pcBulkFieldsApply(){
+  const mod=adminModules[adminActiveTab], fields=document.getElementById('pcBulkModal')._fields||[], err=document.getElementById('bfErr'); const set=[];
+  for(let i=0;i<fields.length;i++){
+    const chk=document.querySelector('[data-bf="'+i+'"]'); if(!chk||!chk.checked) continue;
+    const el=document.querySelector('[data-bfv="'+i+'"]'), f=fields[i]; let v=el.value;
+    if(f.type==='number'){ if(v===''||isNaN(Number(v))){ err.textContent='"'+f.label+'" needs a number.'; return; } v=Number(v); }
+    else if(f.required&&String(v).trim()===''){ err.textContent='"'+f.label+'" cannot be empty.'; return; }
+    set.push([f,v]);
+  }
+  if(!set.length){ err.textContent='Tick at least one field to change.'; return; }
+  const rows=DB[mod.table].filter(r=>pcBulkIds.includes(r[mod.idKey]));
+  rows.forEach(r=>set.forEach(([f,v])=>{ r[f.key]=(f.type==='select'&&typeof r[f.key]==='number'&&!isNaN(Number(v)))?Number(v):v; }));
+  saveState(); closeModal('pcBulkModal'); showToast('Updated '+set.length+' field(s) on '+rows.length+' record(s).','success'); renderAdminTable();
+}
+const _pcBa=pcBulkApply;
+pcBulkApply=function(){
+  const mod=adminModules[adminActiveTab], a=document.getElementById('bulkAct'); if(!a) return;
+  const act=PC_BULK[adminActiveTab][+a.value];
+  if(act&&act[0]==='fields'){ const ids=[...document.querySelectorAll('.bulk-cb:checked')].map(c=>Number(c.dataset.id)); if(!ids.length){ showToast('Select at least one row first.'); return; } pcBulkFieldsOpen(ids); return; }
+  _pcBa();
+};
+document.addEventListener('change',e=>{ const t=e.target; if(t.dataset&&t.dataset.bf!==undefined){ const el=document.querySelector('[data-bfv="'+t.dataset.bf+'"]'); if(el) el.disabled=!t.checked; } });
+document.addEventListener('click',e=>{ if(e.target.closest('#pcBulkFieldsGo')) pcBulkFieldsApply(); });
+
+</script>
+<script>
+/* ============ EXTRAS 4: store settings, utility endpoints, GraphQL, assertions, think time, cancel/reorder, forgot password, SQL multi-run, backup ============ */
+/* ---------- store settings ---------- */
+function pcCfg(){ const d={taxRate:8,shippingFee:6.99,freeOver:50}; return Object.assign(d,(DB&&DB.settings)||{}); }
+function pcTaxRate(){ return Number(pcCfg().taxRate)/100; }
+function pcShipFor(subtotal){ const c=pcCfg(); return subtotal>Number(c.freeOver)?0:Number(c.shippingFee); }
+const _pcEns=pcEnsure; pcEnsure=function(){ _pcEns(); if(DB&&!DB.settings) DB.settings={taxRate:8,shippingFee:6.99,freeOver:50}; };
+function pcSettingsHTML(){
+  const c=pcCfg(), can=adminCan('edit'), f=(id,l,v,step,h)=>`<div class="field"><label>${l}</label><input type="number" id="${id}" min="0" step="${step}" value="${v}" ${can?'':'disabled'}><div class="field-hint">${h}</div></div>`;
+  return `<div class="dash-card" style="max-width:560px;"><h4>Store settings</h4><p class="pc-hint">These values drive the cart, checkout and coupons. Change them and re-check a cart total to test calculations.</p>
+   ${f('setTax','Tax rate (%)',c.taxRate,'0.1','Applied to the order subtotal. Default 8.')}${f('setShip','Shipping fee ($)',c.shippingFee,'0.01','Charged when the subtotal is not above the free-shipping amount. Default 6.99.')}${f('setFree','Free shipping over ($)',c.freeOver,'1','Subtotals above this ship free. Default 50.')}
+   <div id="setMsg" class="pm-err"></div><div style="display:flex;gap:10px;"><button class="btn btn-primary" id="setSave" ${can?'':'disabled'}>Save settings</button><button class="btn btn-secondary" id="setDefaults" ${can?'':'disabled'}>Restore defaults</button></div>${can?'':'<p class="pc-hint" style="margin-top:10px;">Your role has read-only access.</p>'}</div>`;
+}
+function pcSaveSettings(vals){
+  const keys=[['taxRate','Tax rate'],['shippingFee','Shipping fee'],['freeOver','Free shipping threshold']];
+  for(const [k,l] of keys){ if(vals[k]===''||isNaN(Number(vals[k]))||Number(vals[k])<0){ document.getElementById('setMsg').textContent=l+' must be a number of 0 or more.'; return; } }
+  if(Number(vals.taxRate)>100){ document.getElementById('setMsg').textContent='Tax rate cannot be more than 100%.'; return; }
+  const u=currentUser(); DB.settings={taxRate:Number(vals.taxRate),shippingFee:Number(vals.shippingFee),freeOver:Number(vals.freeOver)};
+  DB.audit=DB.audit||[]; DB.audit.unshift({id:(DB.audit[0]?DB.audit[0].id:0)+1,at:new Date().toISOString(),actor:u?u.name+' ('+u.role+')':'unknown',action:'updated',table:'settings',recordId:1,detail:'tax '+DB.settings.taxRate+'%, shipping $'+DB.settings.shippingFee+', free over $'+DB.settings.freeOver});
+  saveState(); showToast('Store settings saved.','success'); renderAdminTable();
+}
+adminModules.settings={label:'Store Settings',icon:'⚙',custom:pcSettingsHTML,sub:'Tax, shipping and free-shipping rules used by the storefront.',table:'orders',idKey:'id',columns:[],searchKeys:[]};
+PCI.cog=_ic('<circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 00-2-1.2L14.2 3h-4l-.4 2.7a7 7 0 00-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 000 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 002 1.2l.4 2.7h4l.4-2.7a7 7 0 002-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/>'); PC_EM['⚙']='cog';
+document.addEventListener('click',e=>{
+  if(e.target.closest('#setSave')) pcSaveSettings({taxRate:document.getElementById('setTax').value,shippingFee:document.getElementById('setShip').value,freeOver:document.getElementById('setFree').value});
+  if(e.target.closest('#setDefaults')){ document.getElementById('setTax').value=8; document.getElementById('setShip').value=6.99; document.getElementById('setFree').value=50; }
+});
+
+/* ---------- utility + GraphQL endpoints ---------- */
+function pcGqlRun(bodyStr){
+  let req; try{ req=JSON.parse(bodyStr||'{}'); }catch(e){ return {status:400,body:{errors:[{message:'Request body must be JSON with a "query" field.'}]}}; }
+  const q=String(req.query||''), vars=req.variables||{}; if(!q.trim()) return {status:400,body:{errors:[{message:'Missing "query" in the request body.'}]}};
+  const toks=q.match(/"[^"]*"|-?\d+\.?\d*|\$?[A-Za-z_][A-Za-z0-9_]*|[{}():,]/g)||[]; let p=toks.indexOf('{'); if(p<0) return {status:400,body:{errors:[{message:'No selection set found. Example: { products { id name } }'}]}};
+  const errors=[];
+  const val=t=>t[0]==='"'?t.slice(1,-1):t[0]==='$'?vars[t.slice(1)]:t==='true'?true:t==='false'?false:isNaN(Number(t))?t:Number(t);
+  function sel(){ p++; const out=[]; while(p<toks.length&&toks[p]!=='}'){ if(toks[p]===','){ p++; continue; } let name=toks[p++], alias=name; if(toks[p]===':'){ p++; name=toks[p++]; }
+      const args={}; if(toks[p]==='('){ p++; while(toks[p]!==')'&&p<toks.length){ if(toks[p]===','){ p++; continue; } const k=toks[p++]; p++; args[k]=val(toks[p++]); } p++; }
+      let sub=null; if(toks[p]==='{') sub=sel(); out.push({name,alias,args,sub}); } p++; return out; }
+  const top=sel();
+  const catOf=pr=>DB.categories.find(c=>c.id===pr.categoryId)||null;
+  const proj=(o,s)=>{ if(o==null) return null; if(!s) return o; if(Array.isArray(o)) return o.map(x=>proj(x,s)); const r={};
+    s.forEach(f=>{ if(f.name==='__typename'){ r[f.alias]='Object'; return; } let v;
+      if(f.name==='category'&&'categoryId' in o) v=catOf(o); else if(f.name==='reviews'&&'rating' in o&&'stock' in o) v=DB.reviews.filter(x=>x.productId===o.id&&x.status==='approved');
+      else if(f.name in o) v=o[f.name]; else { errors.push({message:'Cannot query field "'+f.name+'" on this type.'}); return; }
+      r[f.alias]=f.sub?proj(v,f.sub):v; }); return r; };
+  const data={};
+  top.forEach(f=>{ const a=f.args; let v;
+    if(f.name==='products'){ v=DB.products.filter(x=>(a.categoryId==null||x.categoryId===a.categoryId)&&(!a.inStock||x.stock>0)&&(a.search==null||x.name.toLowerCase().includes(String(a.search).toLowerCase()))); if(a.limit) v=v.slice(0,a.limit); }
+    else if(f.name==='product') v=DB.products.find(x=>x.id===a.id)||null;
+    else if(f.name==='categories') v=DB.categories;
+    else if(f.name==='category') v=DB.categories.find(x=>x.id===a.id)||null;
+    else if(f.name==='reviews') v=DB.reviews.filter(x=>x.status==='approved'&&(a.productId==null||x.productId===a.productId));
+    else { errors.push({message:'Cannot query field "'+f.name+'" on type "Query". Available: products, product, categories, category, reviews.'}); return; }
+    data[f.alias]=proj(v,f.sub); });
+  return {status:200,body:errors.length?{data,errors}:{data}};
+}
+const _pcMar2=mockApiRequest;
+mockApiRequest=function(method,url,bodyStr,persist,reqHeaders){
+  const segs=String(url).split('?')[0].split('/').filter(Boolean);
+  if(segs[0]==='api'){
+    const r=segs[1], query=new URLSearchParams(String(url).split('?')[1]||'');
+    if(r==='health') return {status:200,body:{status:'ok',service:'purple-cart-mock',time:new Date().toISOString()}};
+    if(r==='status'){ const c=Number(segs[2]); if(!(c>=200&&c<=599)) return {status:400,body:{error:'Bad Request',message:'Use /api/status/<200-599>, for example /api/status/503.'}}; return {status:c,body:c===204?null:(c>=400?{error:'Status '+c,message:'Returned on request by /api/status/'+c}:{message:'Status '+c})}; }
+    if(r==='delay'){ const ms=Math.min(10000,Math.max(0,Number(segs[2])||0)); return {status:200,body:{message:'Delayed response',delayMs:ms},simDelay:ms}; }
+    if(r==='echo'){ let b=null; try{ b=bodyStr?JSON.parse(bodyStr):null; }catch(e){ b=bodyStr; } return {status:200,body:{method,path:'/'+segs.join('/'),query:Object.fromEntries(query.entries()),headers:reqHeaders||{},body:b}}; }
+    if(r==='graphql'){ if(method!=='POST') return {status:405,body:{error:'Method Not Allowed',message:'Send GraphQL queries with POST and a JSON body.'},headers:{Allow:'POST'}}; return pcGqlRun(bodyStr); }
+  }
+  return _pcMar2.apply(this,arguments);
+};
+
+/* ---------- performance: think time + assertions ---------- */
+function pcThink(g){ const a=Number(g.thinkMin), b=Number(g.thinkMax); const lo=isNaN(a)?150:a, hi=isNaN(b)?600:Math.max(lo,b); return lo+Math.random()*(hi-lo); }
+const _pcJtg2=jmThreadGroupPanel;
+jmThreadGroupPanel=function(g){
+  const html=_pcJtg2(g), dis=perfState.running?'disabled':'';
+  const f=`<div class="field-row"><div class="field"><label>Think time min (ms)</label><input type="number" id="tgThinkMin" min="0" max="10000" value="${g.thinkMin===undefined?150:g.thinkMin}" ${dis}></div><div class="field"><label>Think time max (ms)</label><input type="number" id="tgThinkMax" min="0" max="10000" value="${g.thinkMax===undefined?600:g.thinkMax}" ${dis}></div></div><div class="field-hint" style="margin:-8px 0 14px;">Pause between loops for each virtual user, picked at random between min and max. Set both to 0 for back-to-back requests.</div>`;
+  return html.replace('<div class="field"><label>Startup delay (seconds)</label>',f+'<div class="field"><label>Startup delay (seconds)</label>');
+};
+const _pcWtg2=wireThreadGroupPanel;
+wireThreadGroupPanel=function(g){ _pcWtg2(g); const a=document.getElementById('tgThinkMin'), b=document.getElementById('tgThinkMax'); if(a) a.addEventListener('change',e=>g.thinkMin=Math.max(0,Math.min(10000,Number(e.target.value)||0))); if(b) b.addEventListener('change',e=>g.thinkMax=Math.max(0,Math.min(10000,Number(e.target.value)||0))); };
+const _pcJhr=jmHttpRequestPanel;
+jmHttpRequestPanel=function(g,c){
+  const dis=perfState.running?'disabled':'';
+  return _pcJhr(g,c)+`<hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:22px 0;"><div class="jm-panel-title" style="font-size:0.92rem;">Response assertions</div><div class="jm-panel-sub">A sample is marked failed when any assertion you fill in does not hold. Leave a field empty to skip it.</div>
+   <div class="field-row"><div class="field"><label>Expected status code</label><input type="number" id="asStatus" placeholder="e.g. 200 (empty = any below 400)" value="${esc(c.assertStatus===undefined?'':c.assertStatus)}" ${dis}></div><div class="field"><label>Max response time (ms)</label><input type="number" id="asMaxMs" placeholder="e.g. 400" value="${esc(c.assertMaxMs===undefined?'':c.assertMaxMs)}" ${dis}></div></div>
+   <div class="field"><label>Response body must contain</label><input type="text" id="asContains" placeholder="e.g. results" value="${esc(c.assertContains||'')}" ${dis}></div>`;
+};
+const _pcWhr=wireHttpRequestPanel;
+wireHttpRequestPanel=function(g,c){ _pcWhr(g,c); const b=(id,fn)=>{ const el=document.getElementById(id); if(el) el.addEventListener('change',fn); }; b('asStatus',e=>c.assertStatus=e.target.value); b('asMaxMs',e=>c.assertMaxMs=e.target.value); b('asContains',e=>c.assertContains=e.target.value); };
+
+/* ---------- storefront: cancel + reorder ---------- */
+const _pcOt=orderTrackHTML;
+orderTrackHTML=function(o){
+  const can=['pending','processing'].includes(o.status);
+  const extra=`${can?`<button class="btn btn-ghost btn-sm" style="color:var(--error);" onclick="pcCancelOrder(${o.id})">Cancel order</button> `:''}<button class="btn btn-secondary btn-sm" onclick="pcReorder(${o.id})">Reorder</button> `;
+  return _pcOt(o).replace('<button class="btn btn-secondary btn-sm" onclick="pcInvoice',extra+'<button class="btn btn-secondary btn-sm" onclick="pcInvoice');
+};
+function pcCancelOrder(id){
+  const o=DB.orders.find(x=>x.id===id); if(!o) return;
+  openConfirm('Cancel order #'+id+'?','The order is marked cancelled and the items go back into stock.',()=>{ o.items.forEach(it=>{ const p=productById(it.productId); if(p) p.stock+=it.qty; }); o.status='cancelled'; saveState(); showToast('Order #'+id+' cancelled.','success'); renderAccount(document.getElementById('app')); });
+}
+function pcReorder(id){
+  const o=DB.orders.find(x=>x.id===id); if(!o) return; let n=0;
+  o.items.forEach(it=>{ const p=productById(it.productId); if(!p||(p.stock<=0&&!pcBug('stockIgnore'))) return; const ex=SESSION.cart.find(c=>c.productId===it.productId); if(ex) ex.qty+=it.qty; else SESSION.cart.push({productId:it.productId,qty:it.qty}); n++; });
+  saveState(); showToast(n?n+' item(s) added to your cart.':'None of these items are in stock right now.',n?'success':'error'); if(n) location.hash='#/cart';
+}
+
+/* ---------- storefront: forgot password ---------- */
+let pcReset={email:'',code:''};
+const _pcRl=renderLogin;
+renderLogin=function(root){ _pcRl(root); const foot=root.querySelector('.form-switch'); if(foot&&!document.getElementById('pcForgot')) foot.insertAdjacentHTML('beforebegin','<div style="text-align:center;margin-bottom:10px;"><a href="#" id="pcForgot" style="font-size:0.86rem;">Forgot your password?</a></div>'); };
+function pcForgotOpen(step){
+  pcModal('pcResetModal','Reset your password',460); const b=document.getElementById('pcResetModalBody');
+  if(step===1) b.innerHTML=`<p class="pc-hint">Enter the email of your account. In this sandbox the reset code is shown on screen instead of being emailed.</p><div class="field"><label>Email address</label><input id="rsEmail" type="email" placeholder="you@example.com"></div><div id="rsErr" class="pm-err"></div><button class="btn btn-primary btn-block" id="rsSend">Send reset code</button>`;
+  else b.innerHTML=`<div class="alert alert-success" style="margin-bottom:12px;">Sandbox email: your reset code is <b id="rsCode">${pcReset.code}</b></div><div class="field"><label>Reset code</label><input id="rsCodeIn" inputmode="numeric" maxlength="6"></div><div class="field"><label>New password (at least 6 characters)</label><input id="rsNew" type="password"></div><div class="field"><label>Confirm new password</label><input id="rsNew2" type="password"></div><div id="rsErr" class="pm-err"></div><button class="btn btn-primary btn-block" id="rsApply">Set new password</button>`;
+  openModal('pcResetModal');
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('#pcForgot')){ e.preventDefault(); pcForgotOpen(1); return; }
+  if(e.target.closest('#rsSend')){ const em=(document.getElementById('rsEmail').value||'').trim().toLowerCase(), err=document.getElementById('rsErr');
+    if(!em){ err.textContent='Enter your email address.'; return; } if(!/^\S+@\S+\.\S+$/.test(em)){ err.textContent='Enter a valid email address.'; return; }
+    const u=DB.customers.find(c=>c.email.toLowerCase()===em); if(!u){ err.textContent='No account found with that email.'; return; }
+    pcReset={email:em,code:String(Math.floor(100000+Math.random()*900000))}; pcForgotOpen(2); return; }
+  if(e.target.closest('#rsApply')){ const err=document.getElementById('rsErr'), code=document.getElementById('rsCodeIn').value.trim(), a=document.getElementById('rsNew').value, b=document.getElementById('rsNew2').value;
+    if(code!==pcReset.code){ err.textContent='That reset code is not correct.'; return; } if(a.length<6){ err.textContent='Password must be at least 6 characters.'; return; } if(a!==b){ err.textContent='The two passwords do not match.'; return; }
+    const u=DB.customers.find(c=>c.email.toLowerCase()===pcReset.email); if(u){ u.password=a; saveState(); } closeModal('pcResetModal'); showToast('Password updated. You can sign in now.','success'); return; }
+});
+
+/* ---------- database: several statements + JSON export ---------- */
+function pcSplitSql(t){ const parts=[]; let cur='', q=false; for(const ch of t){ if(ch==="'") q=!q; if(ch===';'&&!q){ if(cur.trim()) parts.push(cur.trim()); cur=''; } else cur+=ch; } if(cur.trim()) parts.push(cur.trim()); return parts; }
+const _pcRq=runSqlQuery;
+runSqlQuery=function(){ const ed=document.getElementById('sqlEditor'); if(!ed) return; const full=ed.value, parts=pcSplitSql(full); if(parts.length<2){ _pcRq(); return; } parts.forEach(p=>{ ed.value=p; _pcRq(); }); ed.value=full; showToast('Ran '+parts.length+' statements. The last result is shown.','success'); };
+function exportSqlResultsJson(){ if(!lastQueryRows||!lastQueryRows.length){ showToast('Run a query with results first.'); return; } pcDownload('query-results.json',JSON.stringify(lastQueryRows,null,2),'application/json'); }
+const _pcRdm2=renderDbMainContent;
+renderDbMainContent=function(){ _pcRdm2(); const box=document.querySelector('.sql-actions > div'); if(box&&!document.getElementById('sqlJsonBtn')){ const csv=[...box.querySelectorAll('button')].find(b=>/csv/i.test(b.textContent)); const html='<button class="btn btn-secondary btn-sm" id="sqlJsonBtn" onclick="exportSqlResultsJson()">Export .json</button>'; if(csv) csv.insertAdjacentHTML('afterend',html); else box.insertAdjacentHTML('beforeend',html); } };
+
+/* ---------- demo controls: backup ---------- */
+const _pcOd=pcOpenDemo;
+pcOpenDemo=function(){ _pcOd(); const b=document.getElementById('pcDemoModalBody'); if(b&&!document.getElementById('pcExportData')) b.insertAdjacentHTML('beforeend',`<div class="pc-sec"><h4>Backup</h4><p class="pc-hint">Save everything (products, orders, customers, settings, audit log) to a file, or restore from one.</p><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;"><button class="btn btn-secondary btn-sm" id="pcExportData">Export all data (JSON)</button><input type="file" id="pcImportData" accept=".json"></div></div>`); };
+document.addEventListener('click',e=>{ if(e.target.closest('#pcExportData')) pcDownload('purple-cart-backup-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify({app:'purple-cart',version:1,DB},null,2),'application/json'); });
+document.addEventListener('change',e=>{ if(e.target.id!=='pcImportData'||!e.target.files[0]) return; const fr=new FileReader();
+  fr.onload=()=>{ try{ const j=JSON.parse(fr.result); if(!j||!j.DB||!Array.isArray(j.DB.products)||!Array.isArray(j.DB.customers)) throw new Error('This is not a Purple Cart backup file.'); DB=j.DB; _pcDB=null; _pcPrev=null; pcEnsure(); saveState(); closeModal('pcDemoModal'); showToast('Backup restored.','success'); render(); }catch(x){ showToast('Restore failed: '+x.message,'error'); } };
+  fr.readAsText(e.target.files[0]); });
+
+/* guide updates */
+(function(){
+  const add=(k,fn)=>{ const o=PC_GUIDE[k]; PC_GUIDE[k]=()=>o()+fn(); };
+  add('store',()=>gSec('Cancel, reorder and forgot password','<ul><li><b>Cancel order</b> (My Account &rarr; My orders) appears for pending or processing orders. Expected: status becomes cancelled and stock goes back up. Delivered orders cannot be cancelled.</li><li><b>Reorder</b> puts the order\'s items in your cart (items that are sold out are skipped).</li><li><b>Forgot your password?</b> on the Login page: enter <code>priya@example.com</code>, copy the code shown on screen, choose a new password of 6+ characters. Negative tests: unknown email, wrong code, short password, passwords that do not match.</li></ul>'));
+  add('admin',()=>gSec('Store Settings tab','<p>Admin &rarr; Store Settings has the tax rate, shipping fee and free-shipping amount. Test: set tax to <code>10</code>, add Orbit Mini Speaker ($39.99) to the cart. Expected: tax $4.00, and the placed order uses the same. Set free shipping over <code>30</code>: the same cart now ships free. Managers can edit; support is read-only. Changes appear in the Audit Log. <b>Restore defaults</b> then <b>Save settings</b> puts back 8 / 6.99 / 50.</p>'));
+  add('api',()=>gSec('Utility endpoints (for practising)',gTable(['Method','URL','Notes','Open'],[gApi('GET','/api/health','','200 {status: ok}'),gApi('GET','/api/status/404','','Returns the status you ask for. Also try 200, 201, 204, 401, 429, 500, 503'),gApi('GET','/api/status/503','','503 for retry and error-handling tests'),gApi('GET','/api/delay/1500','','200 after a simulated 1500 ms (up to 10000). Good for response-time assertions'),gApi('POST','/api/echo?debug=1','{\n  "hello": "world"\n}','Echoes method, query, headers and body back. Great for checking what you really sent'),gApi('POST','/api/graphql','{\n  "query": "{ products(categoryId: 1) { id name price category { name } } }"\n}','GraphQL: use Body &rarr; GraphQL or raw JSON')])+
+    '<p>GraphQL queries available: <code>products(categoryId, inStock, search, limit)</code>, <code>product(id)</code>, <code>categories</code>, <code>category(id)</code>, <code>reviews(productId)</code>. Products can include <code>category { name }</code> and <code>reviews { rating comment }</code>. Variables work too: <code>query($id: Int) { product(id: $id) { name } }</code> with <code>{"id": 1}</code>. Unknown fields return an <code>errors</code> array with status 200, like real GraphQL. These utility endpoints are not affected by the failure-simulation settings.</p>'));
+  add('db',()=>gSec('Several statements and JSON export','<p>Put more than one statement in the editor, separated by semicolons, and Execute runs them in order (the last result is shown):</p>'+gSql("UPDATE products SET stock = stock + 5 WHERE id = 7;\nSELECT id, name, stock FROM products WHERE id = 7;")+'<p>Expected: stock for AeroWave Lite Earbuds goes from 0 to 5. <b>Export .json</b> next to Export .csv saves the current result.</p>'));
+  add('perf',()=>gSec('Think time and assertions','<ul><li><b>Think time</b> (thread group): the pause between loops. Set min and max to 0 for maximum pressure; set 1000 and 2000 to mimic a slow human.</li><li><b>Response assertions</b> (bottom of each HTTP Request): expected status, max response time, and text the body must contain. Try path <code>/api/products</code> with body contains <code>results</code> (passes), then <code>nomatch</code> (every sample fails). Path <code>/api/status/404</code> with expected status <code>404</code> passes.</li><li>Useful paths for load tests: <code>/api/delay/300</code>, <code>/api/status/500</code>, <code>/api/echo</code>.</li></ul>'));
+  add('start',()=>gSec('Backup and restore','<p>Demo controls (gear icon) &rarr; Backup: <b>Export all data (JSON)</b> saves products, orders, customers, settings and the audit log. Choose that file again under the same section to restore it.</p>'));
 })();
 
 </script>
